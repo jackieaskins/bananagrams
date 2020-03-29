@@ -12,6 +12,9 @@
     "rootDir": "src",
     "sourceMap": true,
     "strict": true,
-    "target": "esnext"
-  }
+    "target": "es2019"
+  },
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }
