@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingIndicator renders properly with loading text 1`] = `
+<React.Fragment>
+  <Spinner
+    animation="border"
+  />
+</React.Fragment>
+`;
+
+exports[`LoadingIndicator renders properly with size 1`] = `
+<React.Fragment>
+  <Spinner
+    animation="border"
+    size="sm"
+  />
+</React.Fragment>
+`;
+
+exports[`LoadingIndicator renders properly without loading text 1`] = `
+<React.Fragment>
+  <Spinner
+    animation="border"
+  />
+  <React.Fragment>
+     
+    Loading
+  </React.Fragment>
+</React.Fragment>
+`;

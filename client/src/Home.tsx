@@ -1,7 +1,14 @@
 import React from 'react';
 
-type HomeProps = {};
+import CreateGameForm from './games/CreateGameForm';
+import CenteredLayout from './layouts/CenteredLayout';
 
-const Home: React.FC<HomeProps> = () => <h1>Home</h1>;
+const Home: React.FC<{}> = () => (
+  <CenteredLayout>
+    <h1>Start a new game</h1>
+
+    <CreateGameForm />
+  </CenteredLayout>
+);
 
 export default Home;
