@@ -44,10 +44,6 @@ export default class Player {
     Player.players[userId] = this;
   }
 
-  static resetPlayers(): void {
-    this.players = {};
-  }
-
   static getPlayer({ userId }: { userId: string }): Player | undefined {
     return this.players[userId];
   }

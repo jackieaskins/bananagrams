@@ -37,10 +37,6 @@ export default class Game {
     return { ...this.games };
   }
 
-  static resetGames(): void {
-    this.games = {};
-  }
-
   getId(): string {
     return this.id;
   }
