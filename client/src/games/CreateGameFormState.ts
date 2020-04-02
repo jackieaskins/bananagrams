@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSocket, GameName, Username } from '../SocketContext';
+import { useSocket } from '../SocketContext';
+import { SetState } from '../state/types';
+import { GameInfo, GameLocationState } from './GameState';
 
 export type CreateGameFormState = {
   error: string;
-  gameName: GameName;
+  gameName: string;
   isCreatingGame: boolean;
   onSubmit: () => void;
-  setGameName: (gameName: GameName) => void;
-  setUsername: (username: Username) => void;
-  username: Username;
+  setGameName: SetState<string>;
+  setUsername: SetState<string>;
+  username: string;
 };
 
 export const useCreateGameForm = (): CreateGameFormState => {
@@ -20,19 +22,28 @@ export const useCreateGameForm = (): CreateGameFormState => {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const { push } = useHistory();
 
-  const { createGame } = useSocket();
+  const { socket } = useSocket();
 
   const onSubmit = (): void => {
     setIsCreatingGame(true);
 
-    createGame({ gameName, username }, (error, gameId) => {
-      if (error) {
-        setError(error.message);
-        setIsCreatingGame(false);
-      } else {
-        push(`/game?id=${gameId}`);
+    socket.emit(
+      'createGame',
+      { gameName, username },
+      (error: Error, gameInfo: GameInfo) => {
+        if (error) {
+          setError(error.message);
+          setIsCreatingGame(false);
+        } else {
+          const locationState: GameLocationState = {
+            isInGame: true,
+            gameInfo,
+          };
+
+          push(`/game/${gameInfo.gameId}`, locationState);
+        }
       }
-    });
+    );
   };
 
   return {

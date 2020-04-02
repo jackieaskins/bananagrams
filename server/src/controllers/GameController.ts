@@ -83,7 +83,7 @@ export default class GameController {
       const gameId = player.getGameId();
 
       player.delete();
-      socket.to(gameId).emit('playerLeft', player.getUserId());
+      socket.to(gameId).emit('playerLeft', { userId: player.getUserId() });
       socket.leave(gameId);
     }
   }

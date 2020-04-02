@@ -4,23 +4,20 @@ import Form from 'react-bootstrap/Form';
 
 import Button from '../buttons/Button';
 import InputField from '../forms/InputField';
-import { GameId } from '../SocketContext';
 import { useJoinGameForm } from './JoinGameFormState';
 
 type JoinGameFormProps = {
-  gameId: GameId;
+  gameId: string;
 };
 
-const JoinGameForm: React.FC<JoinGameFormProps> = ({ gameId }) => {
+const JoinGameForm: React.FC<JoinGameFormProps> = () => {
   const {
     error,
     isJoiningGame,
     onSubmit,
     setUsername,
     username,
-  } = useJoinGameForm({
-    gameId,
-  });
+  } = useJoinGameForm();
 
   return (
     <Form>
