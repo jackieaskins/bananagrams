@@ -1,43 +1,55 @@
-import GameClass from './Game';
-
-jest.mock('./Player', () => ({
-  getPlayersInGame: jest.fn(({ gameId }) =>
-    gameId === 'gameId1' ? { userId1: {} } : {}
-  ),
-}));
-
-jest.mock('uuid', () => ({
-  v4: jest
-    .fn()
-    .mockReturnValueOnce('gameId1')
-    .mockReturnValueOnce('gameId2')
-    .mockReturnValueOnce('gameId3'),
-}));
+import Game from './Game';
+import Player from './Player';
+import Tile from './Tile';
 
 describe('Game', () => {
-  let Game: typeof GameClass;
+  const createGame = (params = { name: 'Name' }): Game => new Game(params);
 
   beforeEach(() => {
-    Game = require('./Game').default;
+    Game.resetGames();
   });
 
-  const createGame = (params = { name: 'Name' }): GameClass => new Game(params);
+  describe('constructor and simple getters/setters', () => {
+    describe('constructor', () => {
+      test('generates id for game', () => {
+        expect(createGame().getId()).toBeDefined();
+      });
 
-  describe('constructor and simple getters', () => {
-    test('generates id for game', () => {
-      expect(createGame().getId()).toBeDefined();
+      test('sets game name', () => {
+        const name = 'Name';
+
+        expect(createGame({ name }).getName()).toEqual(name);
+      });
+
+      test('sets inProgress to false', () => {
+        expect(createGame().isInProgress()).toEqual(false);
+      });
+
+      test('sets bunch to an empty array', () => {
+        expect(createGame().getBunch()).toEqual([]);
+      });
+
+      test('mutations to result of getBunch does not modify bunch in object', () => {
+        const game = createGame();
+        const bunch = game.getBunch();
+        bunch.push(new Tile({ id: 'T1', letter: 'T' }));
+
+        expect(bunch.length).toEqual(1);
+        expect(game.getBunch().length).toEqual(0);
+      });
+
+      test('adds game to list of games', () => {
+        const game = createGame();
+
+        expect(Game.getGame({ id: game.getId() })).toEqual(game);
+      });
     });
 
-    test('sets game name', () => {
-      const name = 'Name';
-
-      expect(createGame({ name }).getName()).toEqual(name);
-    });
-
-    test('adds game to list of games', () => {
+    test('setInProgress sets the game to in progress', () => {
       const game = createGame();
+      game.setInProgress({ inProgress: true });
 
-      expect(Game.getGame({ id: game.getId() })).toEqual(game);
+      expect(game.isInProgress()).toEqual(true);
     });
   });
 
@@ -55,14 +67,16 @@ describe('Game', () => {
   describe('static getGames', () => {
     test('returns current list of games', () => {
       const game = createGame();
+      const game2 = createGame();
       const games = Game.getGames();
 
       expect(games).toEqual({
         [game.getId()]: game,
+        [game2.getId()]: game2,
       });
     });
 
-    test('modifications to returned list do not impact list in class', () => {
+    test('mutations to returned list do not modify list in class', () => {
       const game1 = createGame();
       const game2 = createGame();
 
@@ -79,33 +93,77 @@ describe('Game', () => {
     });
   });
 
-  describe('delete', () => {
-    // Note: Having a hard time mocking out the Player class and static methods, currently hardcoding to return players only when the gameId is gameId1
-    let gameWithPlayers: GameClass;
-    let gameWithoutPlayers: GameClass;
+  describe('initializeBunch', () => {
+    test('has the correct number of tiles', () => {
+      const game = createGame();
+      game.initializeBunch();
 
-    beforeEach(() => {
-      gameWithPlayers = createGame();
-      gameWithoutPlayers = createGame();
+      expect(game.getBunch().length).toEqual(144);
+    });
+  });
+
+  describe('removeTiles', () => {
+    test('throws an error when one tile is requested and bunch is empty', () => {
+      expect(() =>
+        createGame().removeTiles({ count: 1 })
+      ).toThrowErrorMatchingInlineSnapshot(`"The bunch has less than 1 tile"`);
     });
 
+    test('throws an error when the bunch has less than the number of requested tiles', () => {
+      expect(() =>
+        createGame().removeTiles({ count: 2 })
+      ).toThrowErrorMatchingInlineSnapshot(`"The bunch has less than 2 tiles"`);
+    });
+
+    test('returns requested number of tiles', () => {
+      const count = 5;
+      const game = createGame();
+      game.initializeBunch();
+
+      expect(game.removeTiles({ count }).length).toEqual(count);
+    });
+  });
+
+  describe('addTiles', () => {
+    test('adds tiles to the game bunch', () => {
+      const tiles = [
+        new Tile({ id: 'A1', letter: 'A' }),
+        new Tile({ id: 'B1', letter: 'B' }),
+      ];
+      const game = createGame();
+      game.addTiles({ tiles });
+
+      expect(game.getBunch()).toEqual(tiles);
+    });
+  });
+
+  describe('delete', () => {
     test('throws an error when there are still players in the game', () => {
-      expect(() => gameWithPlayers.delete()).toThrowErrorMatchingInlineSnapshot(
+      const game = createGame();
+      new Player({
+        userId: 'userId',
+        gameId: game.getId(),
+        username: 'username',
+        owner: true,
+      });
+
+      expect(() => game.delete()).toThrowErrorMatchingInlineSnapshot(
         `"There are still players in this game"`
       );
     });
 
     describe('when there are no players in the game', () => {
       test('removes the game from the list of games', () => {
-        gameWithoutPlayers.delete();
+        const game = createGame();
+        game.delete();
 
-        expect(
-          Game.getGame({ id: gameWithoutPlayers.getId() })
-        ).toBeUndefined();
+        expect(Game.getGame({ id: game.getId() })).toBeUndefined();
       });
 
       test('returns the deleted game', () => {
-        expect(gameWithoutPlayers.delete()).toEqual(gameWithoutPlayers);
+        const game = createGame();
+
+        expect(game.delete()).toEqual(game);
       });
     });
   });

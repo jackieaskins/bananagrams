@@ -3,8 +3,7 @@ import http from 'http';
 import socketio from 'socket.io';
 
 import router from './router';
-import Game from './models/Game';
-import Player from './models/Player';
+import GameController from './controllers/GameController';
 
 const PORT = process.env.PORT || 5000;
 
@@ -21,87 +20,46 @@ server.listen(PORT, () => {
 io.on('connection', (socket) => {
   const { id: userId } = socket;
 
-  const logGamesAndUsers = (method: string): void => {
-    console.log(
-      method,
-      userId,
-      JSON.stringify(
-        { games: Game.getGames(), players: Player.getPlayers() },
-        null,
-        2
-      )
-    );
-  };
-
   console.log(`New connection: ${userId}`);
-  logGamesAndUsers('connection');
+
+  const gameController = new GameController({ socket });
 
   socket.on('createGame', ({ gameName, username }, callback) => {
     try {
-      const player = Player.getPlayer({ userId });
-      if (player) {
-        player.delete();
-        socket.leave(player.getGameId());
-      }
-
-      const gameId = new Game({ name: gameName }).getId();
-      new Player({ userId, gameId, username, owner: true });
-      socket.join(gameId);
-
-      logGamesAndUsers('createGame');
-
-      callback(null, gameId);
+      const gameState = gameController.createGame({ gameName, username });
+      callback(null, gameState);
     } catch ({ message }) {
+      console.log(message);
       callback({ message }, null);
     }
   });
 
   socket.on('joinGame', ({ gameId, username }, callback) => {
     try {
-      const player = Player.getPlayer({ userId });
-      if (player) {
-        player.setUsername(username);
-
-        logGamesAndUsers('joinGame');
-        return callback(null, null);
-      }
-
-      new Player({ userId, gameId, username, owner: false });
-      socket.join(gameId);
-
-      logGamesAndUsers('joinGame');
-
-      callback(null, null);
+      const gameState = gameController.joinGame({
+        gameId,
+        username,
+        owner: false,
+      });
+      callback(null, gameState);
     } catch ({ message }) {
+      console.log(message);
       callback({ message }, null);
     }
   });
 
   socket.on('leaveGame', ({}, callback) => {
     try {
-      const player = Player.getPlayer({ userId });
-      if (player) {
-        player.delete();
-        socket.leave(player.getGameId());
-      }
-
-      logGamesAndUsers('leaveGame');
-
+      gameController.leaveGame();
       callback(null, null);
     } catch ({ message }) {
+      console.log(message);
       callback({ message }, null);
     }
   });
 
   socket.on('disconnect', () => {
-    try {
-      const player = Player.getPlayer({ userId });
-      if (player) {
-        player.delete();
-        socket.leave(player.getGameId());
-      }
-
-      logGamesAndUsers('disconnect');
-    } catch (err) {}
+    gameController.leaveGame();
+    console.log(`${userId} disconnected`);
   });
 });

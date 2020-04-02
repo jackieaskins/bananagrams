@@ -1,26 +1,26 @@
-import PlayerClass from './Player';
-
-const mockDelete = jest.fn();
-jest.mock('./Game', () => ({
-  getGame: jest.fn(({ id }) =>
-    id === 'nonexistentId' ? undefined : { delete: mockDelete }
-  ),
-}));
+import Game from './Game';
+import Player from './Player';
+import Tile from './Tile';
 
 describe('Player', () => {
-  let Player: typeof PlayerClass;
+  let defaultGame: Game;
+  let defaultGameId: string;
 
-  beforeEach(() => {
-    Player = require('./Player').default;
-  });
-
-  const createPlayer = (paramOverrides = {}): PlayerClass =>
+  const createPlayer = (paramOverrides = {}): Player =>
     new Player({
       userId: 'userId',
-      gameId: 'gameId',
+      gameId: defaultGameId,
       username: 'username',
+      owner: false,
       ...paramOverrides,
     });
+
+  beforeEach(() => {
+    defaultGame = new Game({ name: 'gameName' });
+    defaultGameId = defaultGame.getId();
+
+    Player.resetPlayers();
+  });
 
   describe('constructor and simple getters/setters', () => {
     describe('constructor', () => {
@@ -43,8 +43,7 @@ describe('Player', () => {
       });
 
       test('sets player game id', () => {
-        const gameId = 'gameId';
-        expect(createPlayer({ gameId }).getGameId()).toEqual(gameId);
+        expect(createPlayer().getGameId()).toEqual(defaultGameId);
       });
 
       test('sets player username', () => {
@@ -56,14 +55,52 @@ describe('Player', () => {
         const owner = true;
         expect(createPlayer({ owner }).isOwner()).toEqual(owner);
       });
+
+      test('sets player playing to false', () => {
+        expect(createPlayer().isPlaying()).toEqual(false);
+      });
+
+      test('sets player ready to false', () => {
+        expect(createPlayer().isReady()).toEqual(false);
+      });
+
+      test('sets player hand to {}', () => {
+        expect(createPlayer().getHand()).toEqual({});
+      });
+
+      test('mutations to returned hand does not modify hand in class', () => {
+        const player = createPlayer();
+        const hand = player.getHand();
+        const tile = new Tile({ id: 'A1', letter: 'A' });
+        hand.A1 = tile;
+
+        expect(hand.A1).toEqual(tile);
+        expect(player.getHand().A1).toBeUndefined();
+      });
     });
 
-    test('setUsername sets player username', () => {
-      const username = 'newUsername';
+    test('setHand sets player hand', () => {
+      const hand = { A1: new Tile({ id: 'A1', letter: 'A' }) };
       const player = createPlayer();
-      player.setUsername({ username });
+      player.setHand({ hand });
 
-      expect(player.getUsername()).toEqual(username);
+      expect(player.getHand()).toEqual(hand);
+    });
+
+    test('setPlaying sets player playing', () => {
+      const playing = true;
+      const player = createPlayer();
+      player.setPlaying({ playing });
+
+      expect(player.isPlaying()).toEqual(playing);
+    });
+
+    test('setReady sets player ready', () => {
+      const ready = true;
+      const player = createPlayer();
+      player.setReady({ ready });
+
+      expect(player.isReady()).toEqual(ready);
     });
   });
 
@@ -105,6 +142,43 @@ describe('Player', () => {
     });
   });
 
+  describe('addTiles', () => {
+    test('adds passed in tiles to hand', () => {
+      const tiles = [
+        new Tile({ id: 'A1', letter: 'A1' }),
+        new Tile({ id: 'B1', letter: 'B1' }),
+      ];
+      const player = createPlayer();
+      player.addTiles({ tiles });
+
+      expect(Object.values(player.getHand())).toEqual(tiles);
+    });
+  });
+
+  describe('removeTiles', () => {
+    test('throws an error when one requested tile is not in hand', () => {
+      expect(() =>
+        createPlayer().removeTiles({ ids: ['A1'] })
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Tile with id A1 is not in player's hand"`
+      );
+    });
+
+    test('throws an error when multiple requested tiles are not in hand', () => {
+      const tileId = 'A1';
+      const player = createPlayer();
+      player.addTiles({
+        tiles: [new Tile({ id: tileId, letter: 'A' })],
+      });
+
+      expect(() =>
+        player.removeTiles({ ids: ['A1', 'B1', 'B2'] })
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Tiles with ids B1, B2 are not in player's hand"`
+      );
+    });
+  });
+
   describe('delete', () => {
     describe('when user is owner', () => {
       test('assigns a new owner if there is another user in the game', () => {
@@ -123,7 +197,7 @@ describe('Player', () => {
         const owner = createPlayer({ owner: true });
         owner.delete();
 
-        expect(mockDelete).toHaveBeenCalledWith();
+        expect(Game.getGame({ id: defaultGameId })).toBeUndefined();
       });
     });
 

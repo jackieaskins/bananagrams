@@ -1,27 +1,29 @@
-import Game, { GameId } from './Game';
+import Game from './Game';
+import Tile from './Tile';
 
-export type Players = Record<UserId, Player>;
-export type UserId = string;
-export type Username = string;
+export type Players = Record<string, Player>;
 
 export default class Player {
   private static players: Players = {};
 
-  private userId: UserId;
-  private gameId: GameId;
-  private username: Username;
+  private userId: string;
+  private gameId: string;
+  private username: string;
   private owner: boolean;
+  private hand: Record<string, Tile>;
+  private playing: boolean;
+  private ready: boolean;
 
   constructor({
     userId,
     gameId,
     username,
-    owner = false,
+    owner,
   }: {
-    userId: UserId;
-    gameId: GameId;
-    username: Username;
-    owner?: boolean;
+    userId: string;
+    gameId: string;
+    username: string;
+    owner: boolean;
   }) {
     if (Player.players[userId]) {
       throw new Error('Player already exists');
@@ -35,11 +37,18 @@ export default class Player {
     this.gameId = gameId;
     this.username = username;
     this.owner = owner;
+    this.hand = {};
+    this.playing = false;
+    this.ready = false;
 
     Player.players[userId] = this;
   }
 
-  static getPlayer({ userId }: { userId: UserId }): Player | undefined {
+  static resetPlayers(): void {
+    this.players = {};
+  }
+
+  static getPlayer({ userId }: { userId: string }): Player | undefined {
     return this.players[userId];
   }
 
@@ -47,32 +56,85 @@ export default class Player {
     return { ...this.players };
   }
 
-  static getPlayersInGame({ gameId }: { gameId: GameId }): Players {
-    return Object.fromEntries(
-      Object.entries(this.players).filter(
-        ([, player]) => player.gameId === gameId
-      )
+  static getPlayersInGame({ gameId }: { gameId: string }): Player[] {
+    return Object.values(this.players).filter(
+      (player) => player.gameId === gameId
     );
   }
 
-  getUserId(): UserId {
+  getUserId(): string {
     return this.userId;
   }
 
-  getGameId(): GameId {
+  getGameId(): string {
     return this.gameId;
   }
 
-  getUsername(): Username {
+  getUsername(): string {
     return this.username;
   }
 
-  setUsername({ username }: { username: Username }): void {
-    this.username = username;
+  getHand(): Record<string, Tile> {
+    return { ...this.hand };
+  }
+
+  setHand({ hand }: { hand: Record<string, Tile> }): void {
+    this.hand = { ...hand };
   }
 
   isOwner(): boolean {
     return this.owner;
+  }
+
+  isPlaying(): boolean {
+    return this.playing;
+  }
+
+  setPlaying({ playing }: { playing: boolean }): void {
+    this.playing = playing;
+  }
+
+  isReady(): boolean {
+    return this.ready;
+  }
+
+  setReady({ ready }: { ready: boolean }): void {
+    this.ready = ready;
+  }
+
+  addTiles({ tiles }: { tiles: Tile[] }): void {
+    const newTiles = tiles.reduce(
+      (accum: Record<string, Tile>, tile: Tile) => ({
+        ...accum,
+        [tile.getId()]: tile,
+      }),
+      {}
+    );
+
+    this.hand = {
+      ...this.hand,
+      ...newTiles,
+    };
+  }
+
+  removeTiles({ ids }: { ids: string[] }): Tile[] {
+    const missingTiles = ids.filter((id) => !this.hand[id]);
+
+    if (missingTiles.length > 0) {
+      throw new Error(
+        `${
+          missingTiles.length === 1
+            ? `Tile with id ${missingTiles[0]} is`
+            : `Tiles with ids ${missingTiles.join(', ')} are`
+        } not in player's hand`
+      );
+    }
+
+    return ids.map((id) => {
+      const tile = this.hand[id];
+      delete this.hand[id];
+      return tile;
+    });
   }
 
   delete(): Player {
