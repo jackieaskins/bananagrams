@@ -22,15 +22,14 @@ io.on('connection', (socket) => {
 
   console.log(`New connection: ${userId}`);
 
-  const gameController = new GameController({ socket });
+  const gameController = new GameController({ io, socket });
 
   socket.on('createGame', ({ gameName, username }, callback) => {
     try {
       const gameState = gameController.createGame({ gameName, username });
-      callback(null, gameState);
+      callback?.(null, gameState);
     } catch ({ message }) {
-      console.log(message);
-      callback({ message }, null);
+      callback?.({ message }, null);
     }
   });
 
@@ -41,20 +40,27 @@ io.on('connection', (socket) => {
         username,
         owner: false,
       });
-      callback(null, gameState);
+      callback?.(null, gameState);
     } catch ({ message }) {
-      console.log(message);
-      callback({ message }, null);
+      callback?.({ message }, null);
     }
   });
 
   socket.on('leaveGame', ({}, callback) => {
     try {
       gameController.leaveGame();
-      callback(null, null);
+      callback?.(null, null);
     } catch ({ message }) {
-      console.log(message);
-      callback({ message }, null);
+      callback?.({ message }, null);
+    }
+  });
+
+  socket.on('split', ({}, callback) => {
+    try {
+      gameController.split();
+      callback?.(null, null);
+    } catch ({ message }) {
+      callback?.({ message }, null);
     }
   });
 

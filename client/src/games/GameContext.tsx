@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useSocket } from '../SocketContext';
@@ -17,7 +17,7 @@ export type Player = {
   userId: string;
   username: string;
   isOwner: boolean;
-  isPlaying: boolean;
+  isReady: boolean;
 };
 
 export type GameInfo = {
@@ -34,10 +34,22 @@ type GameState = {
   isInProgress: boolean;
   setIsInProgress: SetState<boolean>;
   setPlayers: SetState<Player[]>;
+  setPlayerReady: (userId: string, isReady: boolean) => void;
   players: Player[];
 };
 
-export const useGame = (): GameState => {
+const GameContext = createContext<GameState>({
+  gameId: '',
+  gameName: '',
+  isInGame: false,
+  isInProgress: false,
+  setIsInProgress: () => undefined,
+  setPlayerReady: () => undefined,
+  setPlayers: () => undefined,
+  players: [],
+});
+
+export const GameProvider: React.FC<{}> = ({ children }) => {
   const { socket } = useSocket();
   const { replace } = useHistory();
   const { pathname, state } = useLocation<GameLocationState>();
@@ -49,6 +61,17 @@ export const useGame = (): GameState => {
   );
   const [isInGame] = useState(state?.isInGame ?? false);
   const [players, setPlayers] = useState(state?.gameInfo?.players ?? []);
+
+  const setPlayerReady = (userId: string, isReady: boolean): void => {
+    setPlayers((prevPlayers) => {
+      const index = prevPlayers.findIndex((player) => player.userId === userId);
+      return [
+        ...prevPlayers.slice(0, index),
+        { ...prevPlayers[index], isReady },
+        ...prevPlayers.slice(index + 1),
+      ];
+    });
+  };
 
   useEffect(() => {
     if (isInGame) {
@@ -67,27 +90,40 @@ export const useGame = (): GameState => {
       setPlayers((prevPlayers) => [...prevPlayers, player]);
     });
 
-    socket.on('playerLeft', ({ userId }: Player) => {
-      console.log('player left');
-
+    socket.on('playerLeft', ({ userId }: Player) =>
       setPlayers((prevPlayers) =>
         prevPlayers.filter((player) => player.userId !== userId)
-      );
+      )
+    );
+
+    socket.on('playerReady', ({ userId }: Player) => {
+      console.log(`${userId} is ready`);
+      setPlayerReady(userId, true);
     });
 
     return (): void => {
       socket.off('playerJoined');
       socket.off('playerLeft');
+      socket.off('playerReady');
     };
   }, []);
 
-  return {
-    gameId,
-    gameName,
-    isInGame,
-    isInProgress,
-    players,
-    setIsInProgress,
-    setPlayers,
-  };
+  return (
+    <GameContext.Provider
+      value={{
+        gameId,
+        gameName,
+        isInGame,
+        isInProgress,
+        players,
+        setIsInProgress,
+        setPlayerReady,
+        setPlayers,
+      }}
+    >
+      {children}
+    </GameContext.Provider>
+  );
 };
+
+export const useGame = (): GameState => useContext(GameContext);

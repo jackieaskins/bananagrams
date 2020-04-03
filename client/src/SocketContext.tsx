@@ -10,7 +10,7 @@ type SocketState = {
 const SOCKET_URL = 'http://localhost:5000';
 const socket = io(SOCKET_URL);
 
-export const SocketContext = createContext<SocketState>({
+const SocketContext = createContext<SocketState>({
   socket,
 });
 

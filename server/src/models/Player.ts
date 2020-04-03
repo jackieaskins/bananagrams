@@ -11,7 +11,6 @@ export default class Player {
   private username: string;
   private owner: boolean;
   private hand: Record<string, Tile>;
-  private playing: boolean;
   private ready: boolean;
 
   constructor({
@@ -38,7 +37,6 @@ export default class Player {
     this.username = username;
     this.owner = owner;
     this.hand = {};
-    this.playing = false;
     this.ready = false;
 
     Player.players[userId] = this;
@@ -80,14 +78,6 @@ export default class Player {
 
   isOwner(): boolean {
     return this.owner;
-  }
-
-  isPlaying(): boolean {
-    return this.playing;
-  }
-
-  setPlaying({ playing }: { playing: boolean }): void {
-    this.playing = playing;
   }
 
   isReady(): boolean {

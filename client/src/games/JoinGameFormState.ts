@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useSocket } from '../SocketContext';
-import { GameInfo, GameLocationState } from './GameState';
+import { GameInfo, GameLocationState } from './GameContext';
 import { SetState } from '../state/types';
 
 type JoinGameParams = {
