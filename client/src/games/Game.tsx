@@ -6,7 +6,14 @@ import { useGame } from './GameContext';
 import PlayerList from './PlayerList';
 
 const Game: React.FC<{}> = () => {
-  const { gameId, isInGame, isInProgress } = useGame();
+  const {
+    bunchSize,
+    gameId,
+    gameName,
+    hand,
+    isInGame,
+    isInProgress,
+  } = useGame();
 
   if (!isInGame) {
     return <Redirect to={`/game/${gameId}/join`} />;
@@ -15,10 +22,16 @@ const Game: React.FC<{}> = () => {
   return (
     <CenteredLayout>
       {isInProgress ? (
-        <h1>Game</h1>
+        <>
+          <h1>Game</h1>
+          <p>Bunch size: {bunchSize}</p>
+          <p>
+            Hand: <pre>{JSON.stringify(hand, null, 2)}</pre>
+          </p>
+        </>
       ) : (
         <>
-          <h1>Current players</h1>
+          <h1>{gameName}</h1>
           <PlayerList />
         </>
       )}

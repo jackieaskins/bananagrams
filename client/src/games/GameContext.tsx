@@ -27,9 +27,16 @@ export type GameInfo = {
   players: Player[];
 };
 
+type Tile = {
+  id: string;
+  letter: string;
+};
+
 type GameState = {
+  bunchSize: number;
   gameId: string;
   gameName: string;
+  hand: Record<string, any>;
   isInGame: boolean;
   isInProgress: boolean;
   setIsInProgress: SetState<boolean>;
@@ -39,8 +46,10 @@ type GameState = {
 };
 
 const GameContext = createContext<GameState>({
+  bunchSize: 0,
   gameId: '',
   gameName: '',
+  hand: {},
   isInGame: false,
   isInProgress: false,
   setIsInProgress: () => undefined,
@@ -61,6 +70,8 @@ export const GameProvider: React.FC<{}> = ({ children }) => {
   );
   const [isInGame] = useState(state?.isInGame ?? false);
   const [players, setPlayers] = useState(state?.gameInfo?.players ?? []);
+  const [bunchSize, setBunchSize] = useState<number>(0);
+  const [hand, setHand] = useState<Record<string, any>>({});
 
   const setPlayerReady = (userId: string, isReady: boolean): void => {
     setPlayers((prevPlayers) => {
@@ -97,22 +108,41 @@ export const GameProvider: React.FC<{}> = ({ children }) => {
     );
 
     socket.on('playerReady', ({ userId }: Player) => {
-      console.log(`${userId} is ready`);
       setPlayerReady(userId, true);
     });
+
+    socket.on(
+      'gameReady',
+      ({
+        isInProgress,
+        bunchSize,
+        hand,
+      }: {
+        isInProgress: boolean;
+        bunchSize: number;
+        hand: Record<string, any>;
+      }) => {
+        setIsInProgress(isInProgress);
+        setBunchSize(bunchSize);
+        setHand(hand);
+      }
+    );
 
     return (): void => {
       socket.off('playerJoined');
       socket.off('playerLeft');
       socket.off('playerReady');
+      socket.off('gameReady');
     };
   }, []);
 
   return (
     <GameContext.Provider
       value={{
+        bunchSize,
         gameId,
         gameName,
+        hand,
         isInGame,
         isInProgress,
         players,
