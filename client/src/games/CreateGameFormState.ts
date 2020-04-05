@@ -40,6 +40,8 @@ export const useCreateGameForm = (): CreateGameFormState => {
             gameInfo,
           };
 
+          console.log(gameInfo);
+
           push(`/game/${gameInfo.gameId}`, locationState);
         }
       }

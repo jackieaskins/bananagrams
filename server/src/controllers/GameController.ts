@@ -4,21 +4,19 @@ import Game from '../models/Game';
 import Player, { Board } from '../models/Player';
 import Tile from '../models/Tile';
 
-type GamePlayer = {
-  userId: string;
-  username: string;
-  isOwner: boolean;
-  isReady: boolean;
-  hand: Record<string, Tile>;
-  board: Board;
-};
-
-type GameState = {
+type GameInfo = {
   gameId: string;
   gameName: string;
   isInProgress: boolean;
-  bunchSize?: number;
-  players: GamePlayer[];
+  bunchSize: number;
+  players: {
+    userId: string;
+    username: string;
+    isOwner: boolean;
+    isReady: boolean;
+    hand: Record<string, Tile>;
+    board: Board;
+  }[];
 };
 
 const MAX_PLAYERS = 8;
@@ -35,15 +33,6 @@ const getInitialTileCount = (numPlayers: number): number => {
   return 11;
 };
 
-const playerToGamePlayer = (player: Player): GamePlayer => ({
-  userId: player.getUserId(),
-  username: player.getUsername(),
-  isOwner: player.isOwner(),
-  isReady: player.isReady(),
-  hand: player.getHand(),
-  board: player.getBoard(),
-});
-
 export default class GameController {
   private io: Server;
   private socket: Socket;
@@ -55,12 +44,33 @@ export default class GameController {
     this.userId = socket.id;
   }
 
-  createGame(gameName: string, username: string): GameState {
+  private emitGameInfo(game: Game, from: Server | Socket): GameInfo {
+    const gameInfo = {
+      gameId: game.getId(),
+      gameName: game.getName(),
+      isInProgress: game.isInProgress(),
+      bunchSize: game.getBunch().length,
+      players: game.getPlayers().map((player) => ({
+        userId: player.getUserId(),
+        username: player.getUsername(),
+        isOwner: player.isOwner(),
+        isReady: player.isReady(),
+        hand: player.getHand(),
+        board: player.getBoard(),
+      })),
+    };
+
+    from.to(game.getId()).emit('gameInfo', gameInfo);
+
+    return gameInfo;
+  }
+
+  createGame(gameName: string, username: string): GameInfo {
     const game = new Game(gameName);
     return this.joinGame(game.getId(), username, true);
   }
 
-  joinGame(gameId: string, username: string, owner: boolean): GameState {
+  joinGame(gameId: string, username: string, owner: boolean): GameInfo {
     const { socket, userId } = this;
 
     const game = Game.get(gameId);
@@ -74,22 +84,18 @@ export default class GameController {
     }
 
     const player = new Player(userId, gameId, username, owner);
-    const players: Player[] = game.getPlayers();
 
     socket.join(gameId);
-    socket.to(gameId).emit('playerJoined', playerToGamePlayer(player));
+    socket.to(gameId).emit('playerJoined', {
+      userId: player.getUserId(),
+      username: player.getUsername(),
+    });
 
-    return {
-      gameId,
-      gameName: game.getName(),
-      isInProgress: game.isInProgress(),
-      players: players.map(playerToGamePlayer),
-    };
+    return this.emitGameInfo(game, socket);
   }
 
   leaveGame(): void {
-    // TODO: Notify new owner
-    const { socket, userId } = this;
+    const { io, socket, userId } = this;
     const player = Player.get(userId);
 
     if (player) {
@@ -101,8 +107,12 @@ export default class GameController {
       }
 
       player.delete();
-      socket.to(gameId).emit('playerLeft', { userId: player.getUserId() });
+      socket.to(gameId).emit('playerLeft', {
+        userId: player.getUserId(),
+        username: player.getUsername(),
+      });
       socket.leave(gameId);
+      this.emitGameInfo(game, io);
     }
   }
 
@@ -116,7 +126,9 @@ export default class GameController {
 
     currentPlayer.setReady(true);
 
-    socket.to(gameId).emit('playerReady', { userId });
+    socket
+      .to(gameId)
+      .emit('playerReady', { userId, username: currentPlayer.getUsername() });
 
     const playersInGame = game.getPlayers();
     const everyoneIsReady = playersInGame.every((player) => player.isReady());
@@ -129,14 +141,8 @@ export default class GameController {
         )
       );
       game.setInProgress(true);
-
-      playersInGame.forEach((player) =>
-        io.to(player.getUserId()).emit('gameReady', {
-          isInProgress: game.isInProgress(),
-          bunchSize: game.getBunch().length,
-          hand: player.getHand(),
-        })
-      );
     }
+
+    this.emitGameInfo(game, io);
   }
 }

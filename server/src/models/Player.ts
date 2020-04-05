@@ -2,7 +2,7 @@ import Game from './Game';
 import Tile from './Tile';
 
 export type Players = Record<string, Player>;
-export type Board = (Tile | undefined)[][];
+export type Board = (Tile | null)[][];
 export type BoardPosition = {
   x: number;
   y: number;
@@ -129,10 +129,7 @@ export default class Player {
     }
   }
 
-  private updateTileOnBoard(
-    { x, y }: BoardPosition,
-    tile: Tile | undefined
-  ): void {
+  private updateTileOnBoard({ x, y }: BoardPosition, tile: Tile | null): void {
     this.board = [
       ...this.board.slice(0, x),
       [...this.board[x].slice(0, y), tile, ...this.board[x].slice(y + 1)],
@@ -147,7 +144,7 @@ export default class Player {
       throw new Error(`Board does not have a tile at position ${x}, ${y}`);
     }
 
-    this.updateTileOnBoard({ x, y }, undefined);
+    this.updateTileOnBoard({ x, y }, null);
     return tile;
   }
 

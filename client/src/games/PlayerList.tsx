@@ -9,11 +9,11 @@ import Button from '../buttons/Button';
 
 const PlayerList: React.FC<{}> = () => {
   const { socket } = useSocket();
-  const { players, setPlayerReady } = useGame();
+  const { gameInfo } = useGame();
 
   return (
     <ListGroup>
-      {players.map(({ isOwner, isReady, userId, username }) => {
+      {gameInfo?.players.map(({ isOwner, isReady, userId, username }) => {
         const isCurrentUser = userId === socket.id;
 
         return (
@@ -33,7 +33,6 @@ const PlayerList: React.FC<{}> = () => {
                   variant="outline-light"
                   onClick={(): void => {
                     socket.emit('split', {});
-                    setPlayerReady(userId, true);
                   }}
                   disabled={isReady}
                 >

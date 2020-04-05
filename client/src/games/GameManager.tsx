@@ -5,14 +5,10 @@ import CenteredLayout from '../layouts/CenteredLayout';
 import { useGame } from './GameContext';
 import PlayerList from './PlayerList';
 
-const Game: React.FC<{}> = () => {
+const GameManager: React.FC<{}> = () => {
   const {
-    bunchSize,
-    gameId,
-    gameName,
-    hand,
+    gameInfo: { bunchSize, gameId, gameName, isInProgress },
     isInGame,
-    isInProgress,
   } = useGame();
 
   if (!isInGame) {
@@ -25,9 +21,6 @@ const Game: React.FC<{}> = () => {
         <>
           <h1>Game</h1>
           <p>Bunch size: {bunchSize}</p>
-          <p>
-            Hand: <pre>{JSON.stringify(hand, null, 2)}</pre>
-          </p>
         </>
       ) : (
         <>
@@ -39,4 +32,4 @@ const Game: React.FC<{}> = () => {
   );
 };
 
-export default Game;
+export default GameManager;
