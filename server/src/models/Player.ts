@@ -2,6 +2,15 @@ import Game from './Game';
 import Tile from './Tile';
 
 export type Players = Record<string, Player>;
+export type Board = (Tile | undefined)[][];
+export type BoardPosition = {
+  x: number;
+  y: number;
+};
+
+const BOARD_SIZE = 21;
+const initializeBoard = (): Tile[][] =>
+  [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE));
 
 export default class Player {
   private static players: Players = {};
@@ -10,25 +19,21 @@ export default class Player {
   private gameId: string;
   private username: string;
   private owner: boolean;
-  private hand: Record<string, Tile>;
   private ready: boolean;
+  private hand: Record<string, Tile>;
+  private board: Board;
 
-  constructor({
-    userId,
-    gameId,
-    username,
-    owner,
-  }: {
-    userId: string;
-    gameId: string;
-    username: string;
-    owner: boolean;
-  }) {
+  constructor(
+    userId: string,
+    gameId: string,
+    username: string,
+    owner: boolean
+  ) {
     if (Player.players[userId]) {
       throw new Error('Player already exists');
     }
 
-    if (!Game.getGame({ id: gameId })) {
+    if (!Game.get(gameId)) {
       throw new Error('Game does not exist');
     }
 
@@ -36,24 +41,19 @@ export default class Player {
     this.gameId = gameId;
     this.username = username;
     this.owner = owner;
-    this.hand = {};
     this.ready = false;
+    this.hand = {};
+    this.board = initializeBoard();
 
-    Player.players[userId] = this;
+    Player.players = { ...Player.players, [userId]: this };
   }
 
-  static getPlayer({ userId }: { userId: string }): Player | undefined {
+  static get(userId: string): Player | undefined {
     return this.players[userId];
   }
 
-  static getPlayers(): Players {
+  static all(): Players {
     return { ...this.players };
-  }
-
-  static getPlayersInGame({ gameId }: { gameId: string }): Player[] {
-    return Object.values(this.players).filter(
-      (player) => player.gameId === gameId
-    );
   }
 
   getUserId(): string {
@@ -72,8 +72,8 @@ export default class Player {
     return { ...this.hand };
   }
 
-  setHand({ hand }: { hand: Record<string, Tile> }): void {
-    this.hand = { ...hand };
+  getBoard(): Board {
+    return [...this.board];
   }
 
   isOwner(): boolean {
@@ -84,11 +84,11 @@ export default class Player {
     return this.ready;
   }
 
-  setReady({ ready }: { ready: boolean }): void {
+  setReady(ready: boolean): void {
     this.ready = ready;
   }
 
-  addTiles({ tiles }: { tiles: Tile[] }): void {
+  addTilesToHand(tiles: Tile[]): void {
     const newTiles = tiles.reduce(
       (accum: Record<string, Tile>, tile: Tile) => ({
         ...accum,
@@ -103,7 +103,7 @@ export default class Player {
     };
   }
 
-  removeTiles({ ids }: { ids: string[] }): Tile[] {
+  removeTilesFromHand(ids: string[]): Tile[] {
     const missingTiles = ids.filter((id) => !this.hand[id]);
 
     if (missingTiles.length > 0) {
@@ -117,10 +117,63 @@ export default class Player {
     }
 
     return ids.map((id) => {
-      const tile = this.hand[id];
-      delete this.hand[id];
+      const { [id]: tile, ...rest } = this.hand;
+      this.hand = rest;
       return tile;
     });
+  }
+
+  private confirmBoardPositionIsEmpty({ x, y }: BoardPosition): void {
+    if (this.board[x][y]) {
+      throw new Error(`Board already has tile at position ${x}, ${y}`);
+    }
+  }
+
+  private updateTileOnBoard(
+    { x, y }: BoardPosition,
+    tile: Tile | undefined
+  ): void {
+    this.board = [
+      ...this.board.slice(0, x),
+      [...this.board[x].slice(0, y), tile, ...this.board[x].slice(y + 1)],
+      ...this.board.slice(x + 1),
+    ];
+  }
+
+  private removeTileFromBoard({ x, y }: BoardPosition): Tile {
+    const tile = this.board[x][y];
+
+    if (!tile) {
+      throw new Error(`Board does not have a tile at position ${x}, ${y}`);
+    }
+
+    this.updateTileOnBoard({ x, y }, undefined);
+    return tile;
+  }
+
+  moveTileFromHandToBoard(tileId: string, { x, y }: BoardPosition): void {
+    this.confirmBoardPositionIsEmpty({ x, y });
+    const tile = this.removeTilesFromHand([tileId])[0];
+    this.updateTileOnBoard({ x, y }, tile);
+  }
+
+  moveTileFromBoardToHand(boardPosition: BoardPosition): void {
+    const tile = this.removeTileFromBoard(boardPosition);
+    this.addTilesToHand([tile]);
+  }
+
+  moveTileOnBoard(fromPosition: BoardPosition, { x, y }: BoardPosition): void {
+    this.confirmBoardPositionIsEmpty({ x, y });
+    const tile = this.removeTileFromBoard(fromPosition);
+    this.updateTileOnBoard({ x, y }, tile);
+  }
+
+  resetHand(): void {
+    this.hand = {};
+  }
+
+  resetBoard(): void {
+    this.board = initializeBoard();
   }
 
   delete(): Player {
@@ -133,14 +186,17 @@ export default class Player {
 
       if (newOwner) {
         newOwner.owner = true;
-        delete Player.players[userId];
-      } else {
-        delete Player.players[userId];
-        Game.getGame({ id: gameId })?.delete();
       }
     }
 
-    delete Player.players[userId];
-    return this;
+    const { [userId]: toOmit, ...rest } = Player.players;
+    Player.players = rest;
+
+    const game = Game.get(gameId);
+
+    if (game && game.getPlayers().length === 0) {
+      game.delete();
+    }
+    return toOmit;
   }
 }

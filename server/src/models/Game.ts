@@ -14,7 +14,7 @@ export default class Game {
   private inProgress: boolean;
   private bunch: Tile[];
 
-  constructor({ name }: { name: string }) {
+  constructor(name: string) {
     let id: string;
 
     do {
@@ -26,14 +26,14 @@ export default class Game {
     this.inProgress = false;
     this.bunch = [];
 
-    Game.games[id] = this;
+    Game.games = { ...Game.games, [id]: this };
   }
 
-  static getGame({ id }: { id: string }): Game | undefined {
+  static get(id: string): Game | undefined {
     return this.games[id];
   }
 
-  static getGames(): Games {
+  static all(): Games {
     return { ...this.games };
   }
 
@@ -45,6 +45,12 @@ export default class Game {
     return this.name;
   }
 
+  getPlayers(): Player[] {
+    return Object.values(Player.all()).filter(
+      (player) => player.getGameId() === this.id
+    );
+  }
+
   getBunch(): Tile[] {
     return [...this.bunch];
   }
@@ -53,7 +59,7 @@ export default class Game {
     return this.inProgress;
   }
 
-  setInProgress({ inProgress }: { inProgress: boolean }): void {
+  setInProgress(inProgress: boolean): void {
     this.inProgress = inProgress;
   }
 
@@ -62,38 +68,43 @@ export default class Game {
       .map(({ letter, count }) =>
         Array(count)
           .fill(null)
-          .map((_, i) => new Tile({ id: `${letter}${i}`, letter }))
+          .map((_, i) => new Tile(`${letter}${i}`, letter))
       )
       .flat();
   }
 
-  removeTiles({ count }: { count: number }): Tile[] {
+  removeTilesFromBunch(count: number): Tile[] {
     if (this.bunch.length < count) {
       throw new Error(
         `The bunch has less than ${count} ${count === 1 ? 'tile' : 'tiles'}`
       );
     }
 
-    return Array.from(Array(count))
-      .map(() =>
-        this.bunch.splice(Math.floor(Math.random() * this.bunch.length), 1)
-      )
-      .flat();
+    return Array.from(Array(count)).map(() => {
+      const index = Math.floor(Math.random() * this.bunch.length);
+
+      const tile = this.bunch[index];
+      this.bunch = [
+        ...this.bunch.slice(0, index),
+        ...this.bunch.slice(index + 1),
+      ];
+
+      return tile;
+    });
   }
 
-  addTiles({ tiles }: { tiles: Tile[] }): void {
+  addTilesToBunch(tiles: Tile[]): void {
     this.bunch = this.bunch.concat(tiles);
   }
 
   delete(): Game {
-    const { id } = this;
-
-    if (Player.getPlayersInGame({ gameId: id }).length > 0) {
+    if (this.getPlayers().length > 0) {
       throw new Error('There are still players in this game');
     }
 
-    delete Game.games[id];
+    const { [this.id]: toOmit, ...rest } = Game.games;
+    Game.games = rest;
 
-    return this;
+    return toOmit;
   }
 }
