@@ -60,6 +60,36 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on(
+    'moveTileFromHandToBoard',
+    ({ tileId, boardPosition }, callback) => {
+      try {
+        gameController.moveTileFromHandToBoard(tileId, boardPosition);
+        callback?.(null, null);
+      } catch ({ message }) {
+        callback?.({ message }, null);
+      }
+    }
+  );
+
+  socket.on('moveTileFromBoardToHand', ({ boardPosition }, callback) => {
+    try {
+      gameController.moveTileFromBoardToHand(boardPosition);
+      callback?.(null, null);
+    } catch ({ message }) {
+      callback?.({ message }, null);
+    }
+  });
+
+  socket.on('moveTileOnBoard', ({ fromPosition, toPosition }, callback) => {
+    try {
+      gameController.moveTileOnBoard(fromPosition, toPosition);
+      callback?.(null, null);
+    } catch ({ message }) {
+      callback?.({ message }, null);
+    }
+  });
+
   socket.on('disconnect', () => {
     gameController.leaveGame();
     console.log(`${userId} disconnected`);

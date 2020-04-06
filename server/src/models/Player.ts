@@ -10,7 +10,7 @@ export type BoardPosition = {
 
 const BOARD_SIZE = 21;
 const initializeBoard = (): Tile[][] =>
-  [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE));
+  [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
 
 export default class Player {
   private static players: Players = {};

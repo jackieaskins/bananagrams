@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useSocket } from '../SocketContext';
 import { SetState } from '../state/types';
-import { GameInfo, GameLocationState } from './GameContext';
+import { GameInfo, GameLocationState } from './types';
 
 export type CreateGameFormState = {
   error: string;
@@ -39,8 +39,6 @@ export const useCreateGameForm = (): CreateGameFormState => {
             isInGame: true,
             gameInfo,
           };
-
-          console.log(gameInfo);
 
           push(`/game/${gameInfo.gameId}`, locationState);
         }

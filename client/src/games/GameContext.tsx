@@ -1,42 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
+import { GameInfo, GameLocationState, GameState } from './types';
 import { useSocket } from '../SocketContext';
 
 type GameParams = {
   gameId: string;
-};
-
-export type Player = {
-  userId: string;
-  username: string;
-  isOwner: boolean;
-  isReady: boolean;
-  hand: Record<string, Tile>;
-  board: (Tile | null)[][];
-};
-
-export type GameInfo = {
-  gameId: string;
-  gameName: string;
-  isInProgress: boolean;
-  bunchSize: number;
-  players: Player[];
-};
-
-export type GameLocationState = {
-  isInGame?: boolean;
-  gameInfo?: GameInfo;
-};
-
-export type Tile = {
-  id: string;
-  letter: string;
-};
-
-type GameState = {
-  gameInfo: GameInfo;
-  isInGame: boolean;
 };
 
 const getEmptyGameInfo = (gameId: string): GameInfo => ({
@@ -78,7 +47,6 @@ export const GameProvider: React.FC<{}> = ({ children }) => {
   useEffect(() => {
     socket.on('gameInfo', (gameInfo: GameInfo) => {
       setGameInfo(gameInfo);
-      console.log(gameInfo);
     });
 
     return (): void => {

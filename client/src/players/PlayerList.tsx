@@ -4,7 +4,7 @@ import { BsCircleFill } from 'react-icons/bs';
 import { FaCrown } from 'react-icons/fa';
 
 import { useSocket } from '../SocketContext';
-import { useGame } from './GameContext';
+import { useGame } from '../games/GameContext';
 import Button from '../buttons/Button';
 
 const PlayerList: React.FC<{}> = () => {

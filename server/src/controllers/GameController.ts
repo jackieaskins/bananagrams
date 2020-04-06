@@ -1,7 +1,7 @@
 import { Server, Socket } from 'socket.io';
 
 import Game from '../models/Game';
-import Player, { Board } from '../models/Player';
+import Player, { Board, BoardPosition } from '../models/Player';
 import Tile from '../models/Tile';
 
 type GameInfo = {
@@ -142,6 +142,39 @@ export default class GameController {
       );
       game.setInProgress(true);
     }
+
+    this.emitGameInfo(game, io);
+  }
+
+  moveTileFromHandToBoard(tileId: string, boardPosition: BoardPosition): void {
+    const { io, userId } = this;
+
+    const player = Player.get(userId) as Player;
+    player.moveTileFromHandToBoard(tileId, boardPosition);
+    const game = Game.get(player.getGameId()) as Game;
+
+    this.emitGameInfo(game, io);
+  }
+
+  moveTileFromBoardToHand(boardPosition: BoardPosition): void {
+    const { io, userId } = this;
+
+    const player = Player.get(userId) as Player;
+    player.moveTileFromBoardToHand(boardPosition);
+    const game = Game.get(player.getGameId()) as Game;
+
+    this.emitGameInfo(game, io);
+  }
+
+  moveTileOnBoard(
+    fromPosition: BoardPosition,
+    toPosition: BoardPosition
+  ): void {
+    const { io, userId } = this;
+
+    const player = Player.get(userId) as Player;
+    player.moveTileOnBoard(fromPosition, toPosition);
+    const game = Game.get(player.getGameId()) as Game;
 
     this.emitGameInfo(game, io);
   }
