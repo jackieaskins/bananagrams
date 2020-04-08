@@ -137,7 +137,7 @@ export default class Player {
     ];
   }
 
-  private removeTileFromBoard({ x, y }: BoardPosition): Tile {
+  removeTileFromBoard({ x, y }: BoardPosition): Tile {
     const tile = this.board[x][y];
 
     if (!tile) {

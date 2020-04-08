@@ -60,6 +60,24 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('peel', ({}, callback) => {
+    try {
+      gameController.peel();
+      callback?.(null, null);
+    } catch ({ message }) {
+      callback?.({ message }, null);
+    }
+  });
+
+  socket.on('dump', ({ tileId, boardPosition }, callback) => {
+    try {
+      gameController.dump(tileId, boardPosition);
+      callback?.(null, null);
+    } catch ({ message }) {
+      callback?.({ message }, null);
+    }
+  });
+
   socket.on(
     'moveTileFromHandToBoard',
     ({ tileId, boardPosition }, callback) => {

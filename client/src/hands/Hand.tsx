@@ -28,11 +28,12 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
 
   return (
     <div
-      className="d-flex flex-wrap border border-dark p-1"
+      className="d-flex flex-wrap border border-dark p-1 mt-2"
       ref={dropRef}
       style={{
         backgroundColor: isOver && canDrop ? 'green' : 'transparent',
         opacity: isOver && canDrop ? 0.5 : 1,
+        width: '527px',
       }}
     >
       {Object.values(hand).map((tile) => (

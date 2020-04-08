@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
 
 import CenteredLayout from '../layouts/CenteredLayout';
 import { useGame } from './GameContext';
@@ -18,9 +17,7 @@ const GameManager: React.FC<{}> = () => {
   }
 
   return isInProgress ? (
-    <Container>
-      <Game />
-    </Container>
+    <Game />
   ) : (
     <CenteredLayout>
       <h1>{gameName}</h1>

@@ -8,7 +8,7 @@ type BoardProps = {
 };
 
 const Board: React.FC<BoardProps> = ({ board }) => (
-  <div className="d-inline-flex flex-column" style={{ border: '1px solid' }}>
+  <div className="d-inline-flex flex-column border border-dark">
     {board.map((row, x) => (
       <div key={x} className="d-flex">
         {row.map((tile, y) => (

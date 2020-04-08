@@ -146,6 +146,34 @@ export default class GameController {
     this.emitGameInfo(game, io);
   }
 
+  peel(): void {
+    const { io, userId } = this;
+
+    const currentPlayer = Player.get(userId) as Player;
+    const game = Game.get(currentPlayer.getGameId()) as Game;
+
+    game.getPlayers().forEach((player) => {
+      player.addTilesToHand(game.removeTilesFromBunch(1));
+    });
+
+    this.emitGameInfo(game, io);
+  }
+
+  dump(tileId: string, boardPosition: BoardPosition | null): void {
+    const { io, userId } = this;
+
+    const currentPlayer = Player.get(userId) as Player;
+    const game = Game.get(currentPlayer.getGameId()) as Game;
+
+    const dumpedTile = !!boardPosition
+      ? currentPlayer.removeTileFromBoard(boardPosition)
+      : currentPlayer.removeTilesFromHand([tileId])[0];
+    currentPlayer.addTilesToHand(game.removeTilesFromBunch(3));
+    game.addTilesToBunch([dumpedTile]);
+
+    this.emitGameInfo(game, io);
+  }
+
   moveTileFromHandToBoard(tileId: string, boardPosition: BoardPosition): void {
     const { io, userId } = this;
 
