@@ -28,19 +28,20 @@ const Dump: React.FC<DumpProps> = () => {
   });
 
   return (
-    <Box
-      ref={dropRef}
-      border={1}
-      style={{
-        width: '50px',
-        height: '50px',
-        backgroundColor: isOver ? (canDrop ? 'green' : 'red') : 'transparent',
-        opacity: isOver ? 0.5 : 1,
-      }}
-    >
-      Dump!
-      {<BsTrash />}
-    </Box>
+    <div ref={dropRef}>
+      <Box
+        border={1}
+        style={{
+          width: '50px',
+          height: '50px',
+          backgroundColor: isOver ? (canDrop ? 'green' : 'red') : 'transparent',
+          opacity: isOver ? 0.5 : 1,
+        }}
+      >
+        Dump!
+        {<BsTrash />}
+      </Box>
+    </div>
   );
 };
 

@@ -28,23 +28,24 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
   });
 
   return (
-    <Box
-      display="flex"
-      flexWrap="wrap"
-      border={1}
-      ref={dropRef}
-      style={{
-        backgroundColor: isOver && canDrop ? 'green' : 'transparent',
-        marginTop: '10px',
-        minHeight: '35px',
-        opacity: isOver && canDrop ? 0.5 : 1,
-        width: '525px',
-      }}
-    >
-      {Object.values(hand).map((tile) => (
-        <Tile key={tile.id} tile={tile} boardPosition={null} />
-      ))}
-    </Box>
+    <div ref={dropRef}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        border={1}
+        style={{
+          backgroundColor: isOver && canDrop ? 'green' : 'transparent',
+          marginTop: '10px',
+          minHeight: '35px',
+          opacity: isOver && canDrop ? 0.5 : 1,
+          width: '525px',
+        }}
+      >
+        {Object.values(hand).map((tile) => (
+          <Tile key={tile.id} tile={tile} boardPosition={null} />
+        ))}
+      </Box>
+    </div>
   );
 };
 
