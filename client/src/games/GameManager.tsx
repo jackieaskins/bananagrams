@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 
 import CenteredLayout from '../layouts/CenteredLayout';
 import { useGame } from './GameContext';
@@ -20,7 +21,7 @@ const GameManager: React.FC<{}> = () => {
     <Game />
   ) : (
     <CenteredLayout>
-      <h1>{gameName}</h1>
+      <Typography variant="h3">{gameName}</Typography>
       <PlayerList />
     </CenteredLayout>
   );

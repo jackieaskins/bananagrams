@@ -1,9 +1,10 @@
 import React from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Form from 'react-bootstrap/Form';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import Button from '../buttons/Button';
-import InputField from '../forms/InputField';
+import ErrorAlert from '../alerts/ErrorAlert';
+import TextField from '../forms/TextField';
 import { useCreateGameForm } from './CreateGameFormState';
 
 const CreateGameForm: React.FC<{}> = () => {
@@ -18,34 +19,54 @@ const CreateGameForm: React.FC<{}> = () => {
   } = useCreateGameForm();
 
   return (
-    <Form>
-      <Alert variant="danger" show={!!error}>
+    <>
+      <Typography variant="h3" style={{ marginBottom: '5px' }}>
+        Start a new game
+      </Typography>
+      <ErrorAlert visible={!!error} style={{ marginBottom: '5px' }}>
         {error}
-      </Alert>
-
-      <InputField
-        label="Game name"
-        name="gameName"
-        value={gameName}
-        setValue={setGameName}
-      />
-
-      <InputField
-        label="Username"
-        name="username"
-        value={username}
-        setValue={setUsername}
-      />
-
-      <Button
-        loading={isCreatingGame}
-        loadingText="Creating game"
-        disabled={!gameName || !username}
-        onClick={onSubmit}
+      </ErrorAlert>
+      <Grid
+        container
+        direction="column"
+        spacing={3}
+        component="form"
+        autoComplete="off"
       >
-        Create game
-      </Button>
-    </Form>
+        <Grid item>
+          <TextField
+            label="Game name"
+            name="gameName"
+            required
+            margin="dense"
+            value={gameName}
+            setValue={setGameName}
+          />
+
+          <TextField
+            label="Username"
+            name="username"
+            margin="dense"
+            required
+            value={username}
+            setValue={setUsername}
+          />
+        </Grid>
+
+        <Grid item>
+          <Button
+            loading={isCreatingGame}
+            loadingText="Creating game"
+            disabled={!gameName || !username}
+            onClick={onSubmit}
+            size="large"
+            fullWidth
+          >
+            Create game
+          </Button>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

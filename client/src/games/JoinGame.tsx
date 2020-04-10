@@ -14,7 +14,6 @@ const JoinGame: React.FC<JoinGameProps> = ({
   },
 }) => (
   <CenteredLayout>
-    <h1>Join game</h1>
     <JoinGameForm gameId={gameId} />
   </CenteredLayout>
 );

@@ -1,7 +1,8 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Backend from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import Container from 'react-bootstrap/Container';
 
 import Board from '../boards/Board';
 import Button from '../buttons/Button';
@@ -26,32 +27,32 @@ const Game: React.FC<GameProps> = () => {
 
   return (
     <DndProvider backend={Backend}>
-      <Container>
-        <div className="d-inline-flex">
-          <div>
-            <Board board={board} />
-            <Hand hand={hand} />
-          </div>
-          <div>
-            <span>
-              <strong>Number of tiles in bunch:</strong> {bunchSize}
-            </span>
-            <Button
-              onClick={(): void => {
-                socket.emit('peel', {});
-              }}
-              disabled={
-                bunchSize < players.length ||
-                Object.values(hand).length > 0 ||
-                !isConnectedBoard(board)
-              }
-            >
-              Peel!
-            </Button>
-            <Dump />
-          </div>
+      <Box display="inline-flex">
+        <div>
+          <Board board={board} />
+          <Hand hand={hand} />
         </div>
-      </Container>
+        <div>
+          <span>
+            <Typography variant="body1">
+              Number of tiles in bunch: {bunchSize}
+            </Typography>
+          </span>
+          <Button
+            onClick={(): void => {
+              socket.emit('peel', {});
+            }}
+            disabled={
+              bunchSize < players.length ||
+              Object.values(hand).length > 0 ||
+              !isConnectedBoard(board)
+            }
+          >
+            Peel!
+          </Button>
+          <Dump />
+        </div>
+      </Box>
     </DndProvider>
   );
 };

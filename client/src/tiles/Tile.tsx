@@ -1,4 +1,6 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import { useDrag } from 'react-dnd';
 
 import { Tile as TileType } from './types';
@@ -16,22 +18,27 @@ const Tile: React.FC<TileProps> = ({ boardPosition, tile: { id, letter } }) => {
     }),
   });
 
-  const margin = !!boardPosition ? 'm-0' : 'm-1';
+  const margin = !!boardPosition ? '0' : '5px';
 
   return (
-    <div
-      className={`d-flex justify-content-center align-items-center border border-dark rounded ${margin}`}
+    <Box
+      display="inline-flex"
+      justifyContent="center"
+      alignItems="center"
+      border={1}
+      borderRadius="borderRadius"
       ref={dragRef}
       style={{
         backgroundColor: '#ffffc7',
         cursor: 'move',
-        height: '25px',
+        height: '23px',
+        margin,
         opacity: isDragging ? 0.5 : 1,
-        width: '25px',
+        width: '23px',
       }}
     >
-      {letter}
-    </div>
+      <Typography variant="body2">{letter}</Typography>
+    </Box>
   );
 };
 

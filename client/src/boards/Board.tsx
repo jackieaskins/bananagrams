@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 
 import BoardSquare from './BoardSquare';
 import { Board as BoardType } from '../boards/types';
@@ -8,15 +9,15 @@ type BoardProps = {
 };
 
 const Board: React.FC<BoardProps> = ({ board }) => (
-  <div className="d-inline-flex flex-column border border-dark">
+  <Box display="inline-flex" flexDirection="column" border={1}>
     {board.map((row, x) => (
-      <div key={x} className="d-flex">
+      <Box key={x} display="flex">
         {row.map((tile, y) => (
           <BoardSquare key={y} x={x} y={y} tile={tile} />
         ))}
-      </div>
+      </Box>
     ))}
-  </div>
+  </Box>
 );
 
 export default Board;

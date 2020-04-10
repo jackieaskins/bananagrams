@@ -1,9 +1,10 @@
 import React from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Form from 'react-bootstrap/Form';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import Button from '../buttons/Button';
-import InputField from '../forms/InputField';
+import ErrorAlert from '../alerts/ErrorAlert';
+import TextField from '../forms/TextField';
 import { useJoinGameForm } from './JoinGameFormState';
 
 type JoinGameFormProps = {
@@ -20,27 +21,44 @@ const JoinGameForm: React.FC<JoinGameFormProps> = () => {
   } = useJoinGameForm();
 
   return (
-    <Form>
-      <Alert variant="danger" show={!!error}>
-        {error}
-      </Alert>
-
-      <InputField
-        label="Username"
-        name="username"
-        value={username}
-        setValue={setUsername}
-      />
-
-      <Button
-        disabled={!username}
-        loading={isJoiningGame}
-        loadingText="Joining game"
-        onClick={onSubmit}
-      >
+    <>
+      <Typography variant="h3" style={{ marginBottom: '5px' }}>
         Join game
-      </Button>
-    </Form>
+      </Typography>
+      <ErrorAlert visible={!!error} style={{ marginBottom: '5px' }}>
+        {error}
+      </ErrorAlert>
+      <Grid
+        container
+        direction="column"
+        spacing={3}
+        component="form"
+        autoComplete="off"
+      >
+        <Grid item>
+          <TextField
+            label="Username"
+            name="username"
+            required
+            value={username}
+            setValue={setUsername}
+          />
+        </Grid>
+
+        <Grid item>
+          <Button
+            disabled={!username}
+            loading={isJoiningGame}
+            loadingText="Joining game"
+            onClick={onSubmit}
+            size="large"
+            fullWidth
+          >
+            Join game
+          </Button>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

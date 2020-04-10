@@ -4,9 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes';
 import { SocketProvider } from './SocketContext';
 
-type AppProps = {};
-
-const App: React.FC<AppProps> = () => (
+const App: React.FC<{}> = () => (
   <SocketProvider>
     <Router>
       <Routes />

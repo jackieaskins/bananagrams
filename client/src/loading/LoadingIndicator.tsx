@@ -1,17 +1,19 @@
 import React from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import CircularProgress, {
+  CircularProgressProps,
+} from '@material-ui/core/CircularProgress';
 
-type LoadingIndicatorProps = {
-  size?: 'sm';
+interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;
-};
+}
 
 const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+  color = 'inherit',
   loadingText,
-  size,
+  ...rest
 }) => (
   <>
-    <Spinner size={size} animation="border" />
+    <CircularProgress color={color} {...rest} />
     {loadingText ? <> {loadingText}</> : null}
   </>
 );

@@ -1,7 +1,10 @@
 import React from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 import { BsCircleFill } from 'react-icons/bs';
-import { FaCrown } from 'react-icons/fa';
 
 import { useSocket } from '../SocketContext';
 import { useGame } from '../games/GameContext';
@@ -12,25 +15,21 @@ const PlayerList: React.FC<{}> = () => {
   const { gameInfo } = useGame();
 
   return (
-    <ListGroup>
+    <List>
       {gameInfo?.players.map(({ isOwner, isReady, userId, username }) => {
         const isCurrentUser = userId === socket.id;
 
         return (
-          <ListGroup.Item
-            key={userId}
-            active={isCurrentUser}
-            className="d-flex justify-content-between align-items-center"
-          >
-            <span className="d-flex align-items-center">
+          <ListItem key={userId} selected={isCurrentUser}>
+            <ListItemIcon>
               <BsCircleFill color={isReady ? 'green' : 'red'} />
-              <span className="mx-1">{username}</span>
-              {isOwner && <FaCrown />}
-            </span>
-            <span>
-              {isCurrentUser && (
+            </ListItemIcon>
+            <ListItemText primary={username} secondary={isOwner && 'Owner'} />
+            {isCurrentUser && (
+              <ListItemSecondaryAction>
                 <Button
-                  variant="outline-light"
+                  color="inherit"
+                  variant="outlined"
                   onClick={(): void => {
                     socket.emit('split', {});
                   }}
@@ -38,12 +37,12 @@ const PlayerList: React.FC<{}> = () => {
                 >
                   Ready!
                 </Button>
-              )}
-            </span>
-          </ListGroup.Item>
+              </ListItemSecondaryAction>
+            )}
+          </ListItem>
         );
       })}
-    </ListGroup>
+    </List>
   );
 };
 

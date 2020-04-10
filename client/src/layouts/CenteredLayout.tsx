@@ -1,20 +1,20 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import Grid, { GridSize } from '@material-ui/core/Grid';
 
 type CenteredLayoutProps = {
   children: React.ReactNode;
+  width?: GridSize;
 };
 
-const CenteredLayout: React.FC<CenteredLayoutProps> = ({ children }) => (
-  <Container fluid>
-    <Row>
-      <Col sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }}>
-        {children}
-      </Col>
-    </Row>
-  </Container>
+const CenteredLayout: React.FC<CenteredLayoutProps> = ({
+  children,
+  width = 6,
+}) => (
+  <Grid container justify="center" alignContent="center">
+    <Grid item xs={width}>
+      {children}
+    </Grid>
+  </Grid>
 );
 
 export default CenteredLayout;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
@@ -27,19 +28,23 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
   });
 
   return (
-    <div
-      className="d-flex flex-wrap border border-dark p-1 mt-2"
+    <Box
+      display="flex"
+      flexWrap="wrap"
+      border={1}
       ref={dropRef}
       style={{
         backgroundColor: isOver && canDrop ? 'green' : 'transparent',
+        marginTop: '10px',
+        minHeight: '35px',
         opacity: isOver && canDrop ? 0.5 : 1,
-        width: '527px',
+        width: '525px',
       }}
     >
       {Object.values(hand).map((tile) => (
         <Tile key={tile.id} tile={tile} boardPosition={null} />
       ))}
-    </div>
+    </Box>
   );
 };
 
