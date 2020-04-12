@@ -3,13 +3,20 @@ import { Box } from '@material-ui/core';
 
 import BoardSquare from './BoardSquare';
 import { Board as BoardType } from '../boards/types';
+import TransparentPaper from '../paper/TransparentPaper';
 
 type BoardProps = {
   board: BoardType;
 };
 
 const Board: React.FC<BoardProps> = ({ board }) => (
-  <Box display="inline-flex" flexDirection="column" border={1}>
+  <TransparentPaper
+    component={Box}
+    // @ts-ignore
+    display="inline-flex"
+    flexDirection="column"
+    variant="outlined"
+  >
     {board.map((row, x) => (
       <Box key={x} display="flex">
         {row.map((tile, y) => (
@@ -17,7 +24,7 @@ const Board: React.FC<BoardProps> = ({ board }) => (
         ))}
       </Box>
     ))}
-  </Box>
+  </TransparentPaper>
 );
 
 export default Board;

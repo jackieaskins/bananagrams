@@ -1,15 +1,16 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
 import { useSocket } from '../SocketContext';
 import { useDrop } from 'react-dnd';
 import { TileItem } from '../tiles/types';
-import { BsTrash } from 'react-icons/bs';
 import { useGame } from '../games/GameContext';
+import { useStyles } from '../styles';
 
-type DumpProps = {};
+const EXCHANGE_COUNT = 3;
 
-const Dump: React.FC<DumpProps> = () => {
+const Dump: React.FC<{}> = () => {
+  const classes = useStyles();
   const { socket } = useSocket();
   const {
     gameInfo: { bunchSize },
@@ -17,31 +18,38 @@ const Dump: React.FC<DumpProps> = () => {
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
-    canDrop: (_, monitor) => monitor.isOver() && bunchSize >= 3,
+    canDrop: () => bunchSize >= EXCHANGE_COUNT,
     drop: ({ boardPosition, id }: TileItem) => {
       socket.emit('dump', { boardPosition, tileId: id });
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
   });
 
   return (
-    <div ref={dropRef}>
-      <Box
-        border={1}
-        style={{
-          width: '50px',
-          height: '50px',
-          backgroundColor: isOver ? (canDrop ? 'green' : 'red') : 'transparent',
-          opacity: isOver ? 0.5 : 1,
-        }}
-      >
+    <Box
+      // @ts-ignore
+      ref={dropRef}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      p={2}
+      justifyContent="center"
+      className={
+        isOver ? (canDrop ? classes.validDrop : classes.invalidDrop) : ''
+      }
+    >
+      <Typography variant="button" color="textSecondary">
         Dump!
-        {<BsTrash />}
-      </Box>
-    </div>
+      </Typography>
+      {bunchSize > EXCHANGE_COUNT && (
+        <Typography variant="caption" color="textSecondary">
+          Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
+        </Typography>
+      )}
+    </Box>
   );
 };
 

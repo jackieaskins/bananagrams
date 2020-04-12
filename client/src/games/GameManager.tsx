@@ -21,7 +21,9 @@ const GameManager: React.FC<{}> = () => {
     <Game />
   ) : (
     <CenteredLayout>
-      <Typography variant="h3">{gameName}</Typography>
+      <Typography variant="h3" align="center">
+        {gameName}
+      </Typography>
       <PlayerList />
     </CenteredLayout>
   );

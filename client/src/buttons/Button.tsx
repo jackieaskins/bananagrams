@@ -7,6 +7,7 @@ import {
 import LoadingIndicator from '../loading/LoadingIndicator';
 
 interface ButtonProps extends MaterialUIButtonProps {
+  component?: React.ElementType;
   loading?: boolean;
   loadingText?: string;
   onClick: () => void;

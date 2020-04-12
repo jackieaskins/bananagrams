@@ -1,17 +1,21 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Divider, Typography } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
 import { useSocket } from '../SocketContext';
 import Tile from '../tiles/Tile';
+import Dump from './Dump';
 import { TileItem } from '../tiles/types';
+import { useStyles } from '../styles';
+import TransparentPaper from '../paper/TransparentPaper';
 
 type HandProps = {
   hand: HandType;
 };
 
 const Hand: React.FC<HandProps> = ({ hand }) => {
+  const classes = useStyles();
   const { socket } = useSocket();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -22,30 +26,42 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
       socket.emit('moveTileFromBoardToHand', { boardPosition });
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
   });
 
+  const tiles = Object.values(hand);
+
   return (
-    <div ref={dropRef}>
+    <TransparentPaper
+      variant="outlined"
+      style={{ backgroundColor: 'transparent' }}
+    >
       <Box
+        // @ts-ignore
+        ref={dropRef}
         display="flex"
         flexWrap="wrap"
-        border={1}
-        style={{
-          backgroundColor: isOver && canDrop ? 'green' : 'transparent',
-          marginTop: '10px',
-          minHeight: '35px',
-          opacity: isOver && canDrop ? 0.5 : 1,
-          width: '525px',
-        }}
+        minHeight="35px"
+        p={1}
+        className={isOver && canDrop ? classes.validDrop : ''}
+        alignItems={tiles.length == 0 && 'center'}
+        justifyContent={tiles.length == 0 && 'center'}
       >
-        {Object.values(hand).map((tile) => (
-          <Tile key={tile.id} tile={tile} boardPosition={null} />
-        ))}
+        {tiles.length > 0 ? (
+          tiles.map((tile) => (
+            <Tile key={tile.id} tile={tile} boardPosition={null} />
+          ))
+        ) : (
+          <Typography variant="body2" color="textSecondary">
+            No tiles in hand
+          </Typography>
+        )}
       </Box>
-    </div>
+      <Divider />
+      <Dump />
+    </TransparentPaper>
   );
 };
 

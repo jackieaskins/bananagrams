@@ -5,7 +5,6 @@ import { DndProvider } from 'react-dnd';
 
 import Board from '../boards/Board';
 import Button from '../buttons/Button';
-import Dump from '../hands/Dump';
 import Hand from '../hands/Hand';
 import GameSidebar from './GameSidebar';
 import { Player } from '../players/types';
@@ -26,37 +25,45 @@ const Game: React.FC<GameProps> = () => {
   ) as Player;
 
   return (
-    <Box display="flex" alignItems="flex-start">
-      <GameSidebar />
-      <DndProvider backend={Backend}>
-        <Box display="inline-flex">
-          <div>
+    <DndProvider backend={Backend}>
+      <Box display="flex" alignItems="flex-start">
+        <GameSidebar />
+        <Box
+          display="inline-flex"
+          flexDirection="column"
+          py={1}
+          px={2}
+          width="100%"
+        >
+          <Typography variant="body1" align="center">
+            There are {bunchSize} tiles remaining
+          </Typography>
+
+          <Box mt={2} display="flex">
             <Board board={board} />
-            <Hand hand={hand} />
-          </div>
-          <div>
-            <span>
-              <Typography variant="body1">
-                Number of tiles in bunch: {bunchSize}
-              </Typography>
-            </span>
-            <Button
-              onClick={(): void => {
-                socket.emit('peel', {});
-              }}
-              disabled={
-                bunchSize < players.length ||
-                Object.values(hand).length > 0 ||
-                !isConnectedBoard(board)
-              }
-            >
-              Peel!
-            </Button>
-            <Dump />
-          </div>
+            <Box ml={2} width="100%">
+              <Button
+                size="large"
+                fullWidth
+                onClick={(): void => {
+                  socket.emit('peel', {});
+                }}
+                disabled={
+                  bunchSize < players.length ||
+                  Object.values(hand).length > 0 ||
+                  !isConnectedBoard(board)
+                }
+              >
+                Peel!
+              </Button>
+              <Box mt={2}>
+                <Hand hand={hand} />
+              </Box>
+            </Box>
+          </Box>
         </Box>
-      </DndProvider>
-    </Box>
+      </Box>
+    </DndProvider>
   );
 };
 

@@ -1,6 +1,8 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
+import { useStyles } from '../styles';
 import { useSocket } from '../SocketContext';
 import { Tile as TileType, TileItem } from '../tiles/types';
 import Tile from '../tiles/Tile';
@@ -12,6 +14,7 @@ type BoardSquareProps = {
 };
 
 const BoardSquare: React.FC<BoardSquareProps> = ({ tile, x, y }) => {
+  const classes = useStyles();
   const { socket } = useSocket();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -31,23 +34,23 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ tile, x, y }) => {
       }
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
   });
 
   return (
-    <div
-      style={{
-        backgroundColor: isOver ? (canDrop ? 'green' : 'red') : 'transparent',
-        opacity: isOver ? 0.5 : 1,
-        height: '25px',
-        width: '25px',
-      }}
+    <Box
+      className={
+        isOver ? (canDrop ? classes.validDrop : classes.invalidDrop) : ''
+      }
+      height="25px"
+      width="25px"
+      // @ts-ignore
       ref={dropRef}
     >
       {tile ? <Tile tile={tile} boardPosition={{ x, y }} /> : ''}
-    </div>
+    </Box>
   );
 };
 
