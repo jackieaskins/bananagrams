@@ -1,6 +1,6 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 
 import CenteredLayout from '../layouts/CenteredLayout';
 import { useGame } from './GameContext';

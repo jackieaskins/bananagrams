@@ -1,7 +1,8 @@
 import React from 'react';
-import MaterialUITextField, {
+import {
+  TextField as MaterialUITextField,
   StandardTextFieldProps as MaterialUITextFieldProps,
-} from '@material-ui/core/TextField';
+} from '@material-ui/core';
 
 interface TextFieldProps extends MaterialUITextFieldProps {
   setValue: (newValue: string) => void;

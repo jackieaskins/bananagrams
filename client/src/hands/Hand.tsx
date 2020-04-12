@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { Box } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';

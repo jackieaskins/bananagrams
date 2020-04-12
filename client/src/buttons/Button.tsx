@@ -1,7 +1,8 @@
 import React from 'react';
-import MaterialUIButton, {
+import {
+  Button as MaterialUIButton,
   ButtonProps as MaterialUIButtonProps,
-} from '@material-ui/core/Button';
+} from '@material-ui/core';
 
 import LoadingIndicator from '../loading/LoadingIndicator';
 
