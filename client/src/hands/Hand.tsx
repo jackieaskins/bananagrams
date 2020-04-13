@@ -46,8 +46,8 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
         minHeight="35px"
         p={1}
         className={isOver && canDrop ? classes.validDrop : ''}
-        alignItems={tiles.length == 0 && 'center'}
-        justifyContent={tiles.length == 0 && 'center'}
+        alignItems="center"
+        justifyContent="center"
       >
         {tiles.length > 0 ? (
           tiles.map((tile) => (
