@@ -49,12 +49,10 @@ const Game: React.FC<GameProps> = () => {
                   socket.emit('peel', {});
                 }}
                 disabled={
-                  bunchSize < players.length ||
-                  Object.values(hand).length > 0 ||
-                  !isConnectedBoard(board)
+                  Object.values(hand).length > 0 || !isConnectedBoard(board)
                 }
               >
-                Peel!
+                {bunchSize < players.length ? 'Bananas!' : 'Peel!'}
               </Button>
               <Box mt={2}>
                 <Hand hand={hand} />

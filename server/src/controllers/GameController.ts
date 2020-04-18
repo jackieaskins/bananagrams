@@ -7,6 +7,7 @@ import Tile from '../models/Tile';
 type GameInfo = {
   gameId: string;
   gameName: string;
+  winningBoard?: Board;
   isInProgress: boolean;
   bunchSize: number;
   players: {
@@ -50,11 +51,13 @@ export default class GameController {
       gameName: game.getName(),
       isInProgress: game.isInProgress(),
       bunchSize: game.getBunch().length,
+      winningBoard: game.getWinningBoard(),
       players: game.getPlayers().map((player) => ({
         userId: player.getUserId(),
         username: player.getUsername(),
         isOwner: player.isOwner(),
         isReady: player.isReady(),
+        isTopBanana: player.isTopBanana(),
         hand: player.getHand(),
         board: player.getBoard(),
       })),
@@ -83,6 +86,10 @@ export default class GameController {
       throw new Error('Game is full');
     }
 
+    if (game.isInProgress()) {
+      throw new Error('Game is already in progress');
+    }
+
     const player = new Player(userId, gameId, username, owner);
 
     socket.join(gameId);
@@ -95,7 +102,7 @@ export default class GameController {
   }
 
   leaveGame(): void {
-    const { io, socket, userId } = this;
+    const { socket, userId } = this;
     const player = Player.get(userId);
 
     if (player) {
@@ -112,7 +119,7 @@ export default class GameController {
         username: player.getUsername(),
       });
       socket.leave(gameId);
-      this.emitGameInfo(game, io);
+      this.emitGameInfo(game, socket);
     }
   }
 
@@ -135,11 +142,13 @@ export default class GameController {
 
     if (everyoneIsReady) {
       game.initializeBunch();
-      playersInGame.forEach((player) =>
+      playersInGame.forEach((player) => {
+        player.resetHand();
+        player.resetBoard();
         player.addTilesToHand(
           game.removeTilesFromBunch(getInitialTileCount(playersInGame.length))
-        )
-      );
+        );
+      });
       game.setInProgress(true);
     }
 
@@ -151,10 +160,20 @@ export default class GameController {
 
     const currentPlayer = Player.get(userId) as Player;
     const game = Game.get(currentPlayer.getGameId()) as Game;
+    const players = game.getPlayers();
 
-    game.getPlayers().forEach((player) => {
-      player.addTilesToHand(game.removeTilesFromBunch(1));
-    });
+    if (game.getBunch().length < players.length) {
+      game.setInProgress(false);
+      game.setWinningBoard(currentPlayer.getBoard());
+      players.forEach((player) => {
+        player.setReady(false);
+        player.setTopBanana(player.getUserId() === userId);
+      });
+    } else {
+      players.forEach((player) => {
+        player.addTilesToHand(game.removeTilesFromBunch(1));
+      });
+    }
 
     this.emitGameInfo(game, io);
   }

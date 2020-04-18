@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import tileBreakdown from '../tileBreakdown';
-import Player from './Player';
+import Player, { Board } from './Player';
 import Tile from './Tile';
 
 export type Games = Record<string, Game>;
@@ -11,6 +11,7 @@ export default class Game {
 
   private id: string;
   private name: string;
+  private winningBoard?: Board;
   private inProgress: boolean;
   private bunch: Tile[];
 
@@ -55,6 +56,14 @@ export default class Game {
     return [...this.bunch];
   }
 
+  getWinningBoard(): Board | undefined {
+    return this.winningBoard;
+  }
+
+  setWinningBoard(winningBoard: Board): void {
+    this.winningBoard = winningBoard;
+  }
+
   isInProgress(): boolean {
     return this.inProgress;
   }
@@ -94,7 +103,7 @@ export default class Game {
   }
 
   addTilesToBunch(tiles: Tile[]): void {
-    this.bunch = this.bunch.concat(tiles);
+    this.bunch = [...this.bunch, ...tiles];
   }
 
   delete(): Game {

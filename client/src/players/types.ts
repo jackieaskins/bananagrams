@@ -6,6 +6,7 @@ export type Player = {
   username: string;
   isOwner: boolean;
   isReady: boolean;
+  isTopBanana: boolean;
   hand: Hand;
   board: Board;
 };

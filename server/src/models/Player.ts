@@ -20,6 +20,7 @@ export default class Player {
   private username: string;
   private owner: boolean;
   private ready: boolean;
+  private topBanana: boolean;
   private hand: Record<string, Tile>;
   private board: Board;
 
@@ -42,6 +43,7 @@ export default class Player {
     this.username = username;
     this.owner = owner;
     this.ready = false;
+    this.topBanana = false;
     this.hand = {};
     this.board = initializeBoard();
 
@@ -72,6 +74,13 @@ export default class Player {
     return { ...this.hand };
   }
 
+  setHand(hand: Tile[]): void {
+    this.hand = hand.reduce(
+      (accum, tile) => ({ ...accum, [tile.getId()]: tile }),
+      {}
+    );
+  }
+
   getBoard(): Board {
     return [...this.board];
   }
@@ -86,6 +95,14 @@ export default class Player {
 
   setReady(ready: boolean): void {
     this.ready = ready;
+  }
+
+  isTopBanana(): boolean {
+    return this.topBanana;
+  }
+
+  setTopBanana(topBanana: boolean): void {
+    this.topBanana = topBanana;
   }
 
   addTilesToHand(tiles: Tile[]): void {

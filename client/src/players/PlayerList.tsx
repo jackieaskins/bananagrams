@@ -7,6 +7,8 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { BsCircleFill } from 'react-icons/bs';
+import { FaCrown } from 'react-icons/fa';
+import { GiBanana } from 'react-icons/gi';
 
 import { useSocket } from '../SocketContext';
 import { useGame } from '../games/GameContext';
@@ -16,9 +18,12 @@ const PlayerList: React.FC<{}> = () => {
   const { socket } = useSocket();
   const { gameInfo } = useGame();
 
+  const players = gameInfo?.players ?? [];
+  const readyCount = players.filter(({ isReady }) => isReady).length ?? 0;
+
   return (
     <List>
-      {gameInfo?.players.map(({ isOwner, isReady, userId, username }) => {
+      {players.map(({ isOwner, isReady, isTopBanana, userId, username }) => {
         const isCurrentUser = userId === socket.id;
 
         return (
@@ -26,8 +31,16 @@ const PlayerList: React.FC<{}> = () => {
             <ListItemIcon>
               <BsCircleFill color={isReady ? 'green' : 'red'} />
             </ListItemIcon>
-            <ListItemText primary={username} secondary={isOwner && 'Owner'} />
-            {isCurrentUser && (
+            <ListItemText
+              primary={username}
+              secondary={
+                <span>
+                  {isOwner ? <FaCrown /> : null}
+                  {isTopBanana ? <GiBanana /> : null}
+                </span>
+              }
+            />
+            {isCurrentUser && !isReady && (
               <ListItemSecondaryAction>
                 <Button
                   color="inherit"
@@ -35,9 +48,8 @@ const PlayerList: React.FC<{}> = () => {
                   onClick={(): void => {
                     socket.emit('split', {});
                   }}
-                  disabled={isReady}
                 >
-                  Ready!
+                  {readyCount === players.length - 1 ? 'Split!' : 'Ready!'}
                 </Button>
               </ListItemSecondaryAction>
             )}
