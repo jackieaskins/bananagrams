@@ -41,9 +41,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ tile, x, y }) => {
 
   return (
     <Box
-      className={
-        isOver ? (canDrop ? classes.validDrop : classes.invalidDrop) : ''
-      }
+      className={isOver && canDrop ? classes.validDrop : ''}
       height="25px"
       width="25px"
       // @ts-ignore
