@@ -9,7 +9,7 @@ type SocketState = {
 };
 
 const SOCKET_URL = 'http://localhost:5000';
-const socket = io(SOCKET_URL);
+const socket = process.env.NODE_ENV === 'development' ? io(SOCKET_URL) : io();
 
 const SocketContext = createContext<SocketState>({
   socket,

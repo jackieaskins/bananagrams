@@ -1,0 +1,21 @@
+{
+  "name": "bananagrams",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start --prefix server",
+    "heroku-postbuild": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && rm -rf server/src/public && cp -r client/dist server/src/public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit --prefix server && npm run precommit --prefix client"
+    }
+  }
+}

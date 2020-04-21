@@ -1,8 +1,8 @@
 import express from 'express';
 import http from 'http';
+import path from 'path';
 import socketio from 'socket.io';
 
-import router from './router';
 import GameController from './controllers/GameController';
 
 const PORT = process.env.PORT || 5000;
@@ -11,7 +11,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.use(router);
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('*', (_, res) => {
+  res.sendFile(path.join(__dirname, 'public'));
+});
 
 server.listen(PORT, () => {
   console.log(`Server has started on port ${PORT}`);
