@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm start --prefix server",
-    "heroku-postbuild": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && rm -rf server/src/public && cp -r client/dist server/src/public"
+    "heroku-postbuild": "npm install --prefix server && npm install --dev --prefix client && npm run build --prefix client && rm -rf server/src/public && cp -r client/dist server/src/public"
   },
   "keywords": [],
   "author": "",
