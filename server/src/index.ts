@@ -13,7 +13,7 @@ const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (_, res) => {
-  res.sendFile(path.join(__dirname, 'public'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 server.listen(PORT, () => {
