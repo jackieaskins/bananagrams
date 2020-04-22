@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import Backend from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import { useSnackbar } from 'notistack';
 
 import Board from '../boards/Board';
 import Button from '../buttons/Button';
@@ -16,7 +15,6 @@ import { isConnectedBoard } from '../boards/validate';
 type GameProps = {};
 
 const Game: React.FC<GameProps> = () => {
-  const { enqueueSnackbar } = useSnackbar();
   const { socket } = useSocket();
   const {
     gameInfo: { bunchSize, players },
@@ -25,15 +23,6 @@ const Game: React.FC<GameProps> = () => {
   const { board, hand } = players.find(
     (player) => player.userId === socket.id
   ) as Player;
-
-  let disabled;
-  try {
-    disabled = Object.values(hand).length > 0 || !isConnectedBoard(board);
-  } catch (err) {
-    enqueueSnackbar('There was an error validating the board');
-    console.log(err);
-    disabled = false;
-  }
 
   return (
     <DndProvider backend={Backend}>
@@ -59,7 +48,9 @@ const Game: React.FC<GameProps> = () => {
                 onClick={(): void => {
                   socket.emit('peel', {});
                 }}
-                disabled={disabled}
+                disabled={
+                  Object.values(hand).length > 0 || !isConnectedBoard(board)
+                }
               >
                 {bunchSize < players.length ? 'Bananas!' : 'Peel!'}
               </Button>

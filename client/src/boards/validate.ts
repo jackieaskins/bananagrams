@@ -16,7 +16,7 @@ export const isConnectedBoard = (board: Board): boolean => {
   const visited = [...Array(width)].map(() => Array(height).fill(false));
 
   const shouldCheckTile = (x: number, y: number): boolean =>
-    board[x][y] != null && !visited[x][y];
+    board[x]?.[y] != null && !visited[x]?.[y];
 
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
