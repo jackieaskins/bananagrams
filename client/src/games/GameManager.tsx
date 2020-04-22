@@ -7,6 +7,7 @@ import { useGame } from './GameContext';
 import PlayerList from '../players/PlayerList';
 import Game from './Game';
 import PreviewBoard from '../boards/PreviewBoard';
+import CopyToClipboard from '../buttons/CopyToClipboard';
 
 const GameManager: React.FC<{}> = () => {
   const {
@@ -18,12 +19,25 @@ const GameManager: React.FC<{}> = () => {
     return <Redirect to={`/game/${gameId}/join`} />;
   }
 
+  const joinUrl = `${window.location.href}/join`;
+
   return isInProgress ? (
     <Game />
   ) : (
     <CenteredLayout>
       <Typography variant="h3" align="center">
         {gameName}
+      </Typography>
+      <Typography variant="body1" align="center" color="textSecondary">
+        Invite others to game:
+      </Typography>
+      <Typography
+        variant="body2"
+        align="center"
+        color="textSecondary"
+        gutterBottom
+      >
+        {joinUrl} <CopyToClipboard copyText={joinUrl} />
       </Typography>
       <PlayerList />
       {winningBoard && (
