@@ -1,17 +1,8 @@
 {
+  "extends": "../tsconfig-base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2019"
+    "outDir": "../dist",
+    "rootDir": "./src"
   }
 }

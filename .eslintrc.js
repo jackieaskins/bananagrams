@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
     'prettier',
     'prettier/@typescript-eslint',
   ],
@@ -13,8 +14,16 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     'arrow-body-style': ['error', 'as-needed'],
+    'react/prop-types': 'off',
+    'react/self-closing-comp': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };

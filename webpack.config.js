@@ -5,14 +5,17 @@ module.exports = (env, argv) => ({
   devServer: {
     historyApiFallback: true,
   },
-  entry: './src/index',
+  entry: './client/src/index',
   module: {
     rules: [
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
         },
       },
       {
@@ -26,10 +29,10 @@ module.exports = (env, argv) => ({
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist', 'public'),
     publicPath: '/',
   },
-  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+  plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
   },
