@@ -7,6 +7,7 @@
     "build": "rimraf dist && tsc --project server/tsconfig.json && webpack --mode production",
     "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig.json",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
+    "deploy-infrastructure": "aws cloudformation deploy --template-file infrastructure-template.yml --stack-name BananagramsInfrastructure --capabilities CAPABILITY_IAM",
     "dev": "nodemon",
     "start": "NODE_ENV=production node dist/index.js",
     "pre-commit": "npm outdated && npm run check-types && lint-staged"
