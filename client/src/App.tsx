@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 
@@ -17,4 +18,4 @@ const App: React.FC<{}> = () => (
   </SnackbarProvider>
 );
 
-export default App;
+export default hot(App);

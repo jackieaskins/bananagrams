@@ -1,11 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = (env, argv) => ({
-  devServer: {
-    historyApiFallback: true,
-  },
+module.exports = {
   entry: './client/src/index',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -34,6 +32,9 @@ module.exports = (env, argv) => ({
   },
   plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })],
   resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
     extensions: ['.ts', '.tsx', '.js'],
   },
-});
+};

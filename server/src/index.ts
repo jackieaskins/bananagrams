@@ -11,6 +11,23 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+if (process.env.NODE_ENV === 'development') {
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackConfig: any = require('../../webpack.dev.config');
+  /* eslint-enable @typescript-eslint/no-var-requires */
+
+  const compiler = webpack(webpackConfig);
+  app.use(
+    webpackDevMiddleware(compiler, {
+      publicPath: webpackConfig.output.publicPath,
+    })
+  );
+  app.use(webpackHotMiddleware(compiler));
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
