@@ -1,7 +1,23 @@
+Parameters:
+  ServiceName:
+    Type: String
+    Default: BananagramsService
+
 Resources:
+  Cluster:
+    Type: AWS::ECS::Cluster
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Ref: ServiceName
+
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
+      Family:
+        Ref: ServiceName
       RequiresCompatibilities:
         - FARGATE
       NetworkMode: awsvpc
@@ -10,12 +26,21 @@ Resources:
       ExecutionRoleArn:
         Fn::GetAtt: TaskDefinitionExecutionRole.Arn
       ContainerDefinitions:
-        - Name: bananagrams
+        - Name:
+            Ref: ServiceName
           Image:
             Fn::Sub: ${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/${ECRRepository}
           PortMappings:
             - ContainerPort: 3000
               Protocol: tcp
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: ServiceName
+              awslogs-region:
+                Ref: AWS::Region
+              awslogs-stream-prefix: Container
 
   TaskDefinitionExecutionRole:
     Type: AWS::IAM::Role
@@ -30,5 +55,28 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
 
-  Cluster:
-    Type: AWS::ECS::Cluster
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: Cluster
+      ServiceName:
+        Ref: ServiceName
+      LaunchType: FARGATE
+      DesiredCount: 1
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - Ref: FargateContainerSecurityGroup
+          Subnets:
+            - Ref: PublicSubnetA
+            - Ref: PublicSubnetB
+      TaskDefinition:
+        Ref: TaskDefinition
+      LoadBalancers:
+        - ContainerName:
+            Ref: ServiceName
+          ContainerPort: 3000
+          TargetGroupArn:
+            Ref: TargetGroup

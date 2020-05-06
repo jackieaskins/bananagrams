@@ -57,36 +57,6 @@ Resources:
           Value:
             Fn::Sub: ${AWS::StackName}-Public-B
 
-  PrivateSubnetA:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId:
-        Ref: VPC
-      CidrBlock: 10.1.50.0/24
-      AvailabilityZone:
-        Fn::Select:
-          - 0
-          - Fn::GetAZs: ''
-      Tags:
-        - Key: Name
-          Value:
-            Fn::Sub: ${AWS::StackName}-Private-A
-
-  PrivateSubnetB:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId:
-        Ref: VPC
-      CidrBlock: 10.1.60.0/24
-      AvailabilityZone:
-        Fn::Select:
-          - 1
-          - Fn::GetAZs: ''
-      Tags:
-        - Key: Name
-          Value:
-            Fn::Sub: ${AWS::StackName}-Private-B
-
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -106,41 +76,6 @@ Resources:
       GatewayId:
         Ref: InternetGateway
 
-  ElasticIPAddress:
-    Type: AWS::EC2::EIP
-    Properties:
-      Domain: VPC
-
-  NatGateway:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId:
-        Fn::GetAtt: ElasticIPAddress.AllocationId
-      SubnetId:
-        Ref: PublicSubnetA
-      Tags:
-        - Key: Name
-          Value:
-            Fn::Sub: ${AWS::StackName}-NatGateway
-
-  PrivateRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId:
-        Ref: VPC
-      Tags:
-        - Key: Name
-          Value: ${AWS::Stackname}-Private
-
-  PrivateRoute:
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId:
-        Ref: PrivateRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId:
-        Ref: NatGateway
-
   PublicSubnetARouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -157,18 +92,29 @@ Resources:
       RouteTableId:
         Ref: PublicRouteTable
 
-  PrivateSubnetARouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
+  PublicLoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
     Properties:
-      SubnetId:
-        Ref: PrivateSubnetA
-      RouteTableId:
-        Ref: PrivateRouteTable
+      GroupDescription: Access to the public-facing load balancer
+      VpcId:
+        Ref: VPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: '-1'
 
-  PrivateSubnetBRouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
+  FargateContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
     Properties:
-      SubnetId:
-        Ref: PrivateSubnetB
-      RouteTableId:
-        Ref: PrivateRouteTable
+      GroupDescription: Access to the Fargate containers
+      VpcId:
+        Ref: VPC
+
+  EcsSecurityGroupIngressFromPublicALB:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: Ingress from the public ALB
+      GroupId:
+        Ref: FargateContainerSecurityGroup
+      IpProtocol: '-1'
+      SourceSecurityGroupId:
+        Ref: PublicLoadBalancerSecurityGroup
