@@ -6,13 +6,13 @@
   "scripts": {
     "build": "rimraf dist && tsc --project server/tsconfig.json && webpack --mode production",
     "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig.json",
-    "deploy-infra": "npm run merge-infra-templates && npm run validate-infra-template && aws cloudformation deploy --template-file infrastructure-template.yml --stack-name BananagramsInfrastructure --capabilities CAPABILITY_IAM",
+    "deploy-infra": "npm run validate-infra-template && aws cloudformation deploy --template-file infrastructure-template.yml --stack-name BananagramsInfrastructure --capabilities CAPABILITY_IAM",
     "dev": "nodemon",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
     "merge-infra-templates": "rimraf infrastructure-template.yml && cloudformation-yml-merger-cli -i cloudformation/infrastructure -o infrastructure-template.yml",
     "pre-commit": "npm outdated && npm run check-types && lint-staged",
     "start": "NODE_ENV=production node dist/index.js",
-    "validate-infra-template": "aws cloudformation validate-template --template-body file://infrastructure-template.yml"
+    "validate-infra-template": "npm run merge-infra-templates && aws cloudformation validate-template --template-body file://infrastructure-template.yml"
   },
   "keywords": [],
   "author": "",
