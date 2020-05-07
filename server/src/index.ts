@@ -3,6 +3,7 @@ import http from 'http';
 import path from 'path';
 import socketio from 'socket.io';
 
+import { configureDevServer } from './devServer';
 import GameController from './controllers/GameController';
 
 const PORT = process.env.PORT || 5000;
@@ -12,26 +13,13 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 if (process.env.NODE_ENV === 'development') {
-  /* eslint-disable @typescript-eslint/no-var-requires */
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-  const webpackConfig: any = require('../../webpack.dev.config');
-  /* eslint-enable @typescript-eslint/no-var-requires */
-
-  const compiler = webpack(webpackConfig);
-  app.use(
-    webpackDevMiddleware(compiler, {
-      publicPath: webpackConfig.output.publicPath,
-    })
-  );
-  app.use(webpackHotMiddleware(compiler));
+  configureDevServer(app);
+} else {
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 }
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.get('*', (_, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 server.listen(PORT, () => {
   console.log(`Server has started on port ${PORT}`);
