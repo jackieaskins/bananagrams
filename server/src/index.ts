@@ -12,6 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+app.use('/assets', express.static('assets'));
 if (process.env.NODE_ENV === 'development') {
   configureDevServer(app);
 } else {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
 import { useDrag } from 'react-dnd';
 
 import { Tile as TileType } from './types';
@@ -20,25 +19,14 @@ const Tile: React.FC<TileProps> = ({ boardPosition, tile: { id, letter } }) => {
   const margin = !!boardPosition ? '0' : '5px';
 
   return (
-    <Box
-      // @ts-ignore
+    <img
       ref={dragRef}
-      display="inline-flex"
-      justifyContent="center"
-      alignItems="center"
-      border={1}
-      borderRadius="borderRadius"
-      style={{
-        backgroundColor: '#ffffc7',
-        cursor: 'move',
-        height: '23px',
-        margin,
-        opacity: isDragging ? 0.5 : 1,
-        width: '23px',
-      }}
-    >
-      <Typography variant="body2">{letter}</Typography>
-    </Box>
+      style={{ cursor: 'move', margin, opacity: isDragging ? 0.5 : 1 }}
+      src={`/assets/images/${letter}.png`}
+      alt={`Tile with the letter ${letter}`}
+      width="25px"
+      height="25px"
+    />
   );
 };
 
