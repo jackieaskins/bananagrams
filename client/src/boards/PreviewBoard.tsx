@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { Board } from './types';
 import TransparentPaper from '../paper/TransparentPaper';
@@ -24,19 +24,13 @@ const PreviewBoard: React.FC<BoardProps> = ({ board }) => (
           }
 
           return (
-            <Box
-              display="inline-flex"
-              justifyContent="center"
-              alignItems="center"
+            <img
               key={y}
-              style={{ backgroundColor: '#ffffc7' }}
-              border={1}
-              borderRadius="borderRadius"
-              height="18px"
-              width="18px"
-            >
-              <Typography variant="body2">{tile?.letter ?? ''}</Typography>
-            </Box>
+              src={`/assets/images/${tile.letter}.png`}
+              alt={`Tile for the letter ${tile.letter}`}
+              width="20px"
+              height="20px"
+            />
           );
         })}
       </Box>
