@@ -1,7 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 import StartGame from './StartGame';
+import GameSidebar from './GameSidebar';
 import { useGame } from './GameContext';
 import Game from './Game';
 
@@ -15,7 +17,12 @@ const GameManager: React.FC<{}> = () => {
     return <Redirect to={`/game/${gameId}/join`} />;
   }
 
-  return isInProgress ? <Game /> : <StartGame />;
+  return (
+    <Box display="flex">
+      <GameSidebar />
+      <Box width="100%">{isInProgress ? <Game /> : <StartGame />}</Box>
+    </Box>
+  );
 };
 
 export default GameManager;

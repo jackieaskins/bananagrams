@@ -30,7 +30,7 @@ const Dump: React.FC<{}> = () => {
   });
 
   return (
-    <TransparentPaper>
+    <TransparentPaper style={{ width: '100%' }}>
       <Box
         // @ts-ignore
         ref={dropRef}

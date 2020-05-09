@@ -5,9 +5,8 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  Typography,
 } from '@material-ui/core';
-import { BsCircleFill } from 'react-icons/bs';
+import { FiberManualRecord } from '@material-ui/icons';
 
 import { useSocket } from '../SocketContext';
 import { useGame } from '../games/GameContext';
@@ -31,27 +30,28 @@ const PlayerList: React.FC<{}> = () => {
             primaryTypographyProps={{
               variant: 'body1',
             }}
-            primary="Players"
+            primary={`Players (${players.length}/${MAX_PLAYERS} max)`}
             secondary="The game will start once all players are ready"
           />
-          <ListItemSecondaryAction>
-            <Typography variant="body2">
-              {players.length}/{MAX_PLAYERS} max
-            </Typography>
-          </ListItemSecondaryAction>
         </ListItem>
+
         {players.map(({ isReady, isTopBanana, userId, username }) => {
           const isCurrentUser = userId === socket.id;
 
           return (
             <ListItem key={userId} selected={isCurrentUser}>
               <ListItemIcon>
-                <BsCircleFill color={isReady ? 'green' : 'red'} />
+                <FiberManualRecord
+                  fontSize="small"
+                  style={{ color: isReady ? 'green' : 'red' }}
+                />
               </ListItemIcon>
+
               <ListItemText>
                 {username}
                 {isTopBanana ? ' - Winner' : ''}
               </ListItemText>
+
               {isCurrentUser && !isReady && (
                 <ListItemSecondaryAction>
                   <Button

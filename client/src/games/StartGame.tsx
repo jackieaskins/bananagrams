@@ -14,7 +14,7 @@ const StartGame: React.FC<{}> = () => {
   const winningPlayer = players.find((player) => player.isTopBanana);
 
   return (
-    <>
+    <Box>
       <Typography variant="h3" align="center">
         {gameName}
       </Typography>
@@ -47,7 +47,7 @@ const StartGame: React.FC<{}> = () => {
           </Grid>
         )}
       </Grid>
-    </>
+    </Box>
   );
 };
 

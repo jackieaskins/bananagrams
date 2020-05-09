@@ -49,7 +49,6 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
         display="flex"
         flexWrap="wrap"
         flexDirection="column"
-        justifyContent="center"
         width={`${Math.max(Math.ceil(tiles.length / 14), 1) * 35}px`}
         height={`${25 * boardLength + 2 - 16}px`}
         p={1}

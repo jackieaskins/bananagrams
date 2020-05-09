@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { MdContentCopy } from 'react-icons/md';
+import { FileCopyOutlined } from '@material-ui/icons';
 
 import { useCopyToClipboard } from './CopyToClipboardState';
 
@@ -17,7 +17,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ copyText }) => {
       color="inherit"
       onClick={(): Promise<void> => copyToClipboard(copyText)}
     >
-      <MdContentCopy />
+      <FileCopyOutlined fontSize="small" />
     </IconButton>
   ) : (
     <span />

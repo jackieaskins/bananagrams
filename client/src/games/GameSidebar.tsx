@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Box,
   Button,
-  Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   Drawer,
   List,
   ListItem,
-  ListItemText,
-  Typography,
+  ListItemIcon,
 } from '@material-ui/core';
-import { MdExitToApp } from 'react-icons/md';
+import { ExitToApp, HelpOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { useStyles } from '../styles';
-import { useSocket } from '../SocketContext';
-import { useGame } from './GameContext';
-import { Player } from '../players/types';
+import PDFViewer from '../PDFViewer';
 
-type GameSidebarProps = {};
-
-const GameSidebar: React.FC<GameSidebarProps> = () => {
+const GameSidebar: React.FC<{}> = () => {
   const classes = useStyles();
+  const [leaveGameDialogOpen, setLeaveGameDialogOpen] = useState(false);
+  const [instructionsViewerOpen, setInstructionsViewerOpen] = useState(false);
 
-  const { socket } = useSocket();
-  const {
-    gameInfo: { gameName, players },
-  } = useGame();
-  const { username } = players.find(
-    (player) => player.userId === socket.id
-  ) as Player;
+  const showLeaveGameDialog = (): void => {
+    setLeaveGameDialogOpen(true);
+  };
+  const handleLeaveGameCancel = (): void => {
+    setLeaveGameDialogOpen(false);
+  };
+
+  const showInstructionsViewer = (): void => {
+    setInstructionsViewerOpen(true);
+  };
+  const hideInstructionsViewer = (): void => {
+    setInstructionsViewerOpen(false);
+  };
 
   return (
     <Drawer
@@ -38,42 +43,39 @@ const GameSidebar: React.FC<GameSidebarProps> = () => {
       anchor="left"
       open
     >
-      <Box p={1}>
-        <Typography variant="h5" align="center">
-          {gameName}
-        </Typography>
-        <Typography variant="body2" align="center">
-          {username}
-        </Typography>
-      </Box>
+      <List disablePadding>
+        <ListItem button onClick={showInstructionsViewer}>
+          <ListItemIcon>
+            <HelpOutline />
+          </ListItemIcon>
+        </ListItem>
 
-      <Divider />
-
-      <List>
-        {players.length <= 1 ? (
-          <ListItem>
-            <ListItemText
-              primary="No other players"
-              primaryTypographyProps={{ align: 'center' }}
-            />
-          </ListItem>
-        ) : (
-          players
-            .filter(({ userId }) => userId !== socket.id)
-            .map((player) => (
-              <ListItem key={player.userId}>
-                <ListItemText
-                  primary={player.username}
-                  primaryTypographyProps={{ align: 'center' }}
-                />
-              </ListItem>
-            ))
-        )}
+        <ListItem button onClick={showLeaveGameDialog}>
+          <ListItemIcon>
+            <ExitToApp />
+          </ListItemIcon>
+        </ListItem>
       </List>
-      <Divider />
-      <Button component={Link} to="/" variant="text" endIcon={<MdExitToApp />}>
-        Leave game
-      </Button>
+
+      <Dialog open={leaveGameDialogOpen} onClose={handleLeaveGameCancel}>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to leave the game?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleLeaveGameCancel}>No</Button>
+          <Button component={Link} to="/" color="primary">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <PDFViewer
+        file="/assets/pdfs/BananagramsInstructions.pdf"
+        open={instructionsViewerOpen}
+        onHide={hideInstructionsViewer}
+      />
     </Drawer>
   );
 };
