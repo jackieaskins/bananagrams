@@ -24,7 +24,7 @@ const PlayerList: React.FC<{}> = () => {
   const readyCount = players.filter(({ isReady }) => isReady).length ?? 0;
 
   return (
-    <TransparentPaper variant="outlined">
+    <TransparentPaper>
       <List disablePadding>
         <ListItem dense divider>
           <ListItemText

@@ -6,7 +6,7 @@ import { useStyles } from '../styles';
 const TransparentPaper: React.FC<PaperProps> = (props) => {
   const { transparentPaper } = useStyles();
 
-  return <Paper className={transparentPaper} {...props} />;
+  return <Paper className={transparentPaper} variant="outlined" {...props} />;
 };
 
 export default TransparentPaper;

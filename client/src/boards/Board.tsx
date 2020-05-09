@@ -15,7 +15,6 @@ const Board: React.FC<BoardProps> = ({ board }) => (
     // @ts-ignore
     display="inline-flex"
     flexDirection="column"
-    variant="outlined"
   >
     {board.map((row, x) => (
       <Box key={x} display="flex">

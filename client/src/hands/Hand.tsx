@@ -1,22 +1,30 @@
 import React from 'react';
-import { Box, Divider, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
 import { useSocket } from '../SocketContext';
 import Tile from '../tiles/Tile';
-import Dump from './Dump';
 import { TileItem } from '../tiles/types';
 import { useStyles } from '../styles';
 import TransparentPaper from '../paper/TransparentPaper';
+import { useGame } from '../games/GameContext';
 
 type HandProps = {
   hand: HandType;
 };
 
+const DEFAULT_BOARD_LENGTH = 21;
+
 const Hand: React.FC<HandProps> = ({ hand }) => {
   const classes = useStyles();
   const { socket } = useSocket();
+  const {
+    gameInfo: { players },
+  } = useGame();
+  const boardLength =
+    players.find((player) => player.userId === socket.id)?.board?.length ??
+    DEFAULT_BOARD_LENGTH;
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
@@ -34,33 +42,23 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
   const tiles = Object.values(hand);
 
   return (
-    <TransparentPaper
-      variant="outlined"
-      style={{ backgroundColor: 'transparent' }}
-    >
+    <TransparentPaper>
       <Box
         // @ts-ignore
         ref={dropRef}
         display="flex"
         flexWrap="wrap"
-        minHeight="35px"
+        flexDirection="column"
+        justifyContent="center"
+        width={`${Math.max(Math.ceil(tiles.length / 14), 1) * 35}px`}
+        height={`${25 * boardLength + 2 - 16}px`}
         p={1}
         className={isOver && canDrop ? classes.validDrop : ''}
-        alignItems="center"
-        justifyContent="center"
       >
-        {tiles.length > 0 ? (
-          tiles.map((tile) => (
-            <Tile key={tile.id} tile={tile} boardPosition={null} />
-          ))
-        ) : (
-          <Typography variant="body2" color="textSecondary">
-            No tiles in hand
-          </Typography>
-        )}
+        {tiles.map((tile) => (
+          <Tile key={tile.id} tile={tile} boardPosition={null} />
+        ))}
       </Box>
-      <Divider />
-      <Dump />
     </TransparentPaper>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 
+import TransparentPaper from '../paper/TransparentPaper';
 import { useSocket } from '../SocketContext';
 import { useDrop } from 'react-dnd';
 import { TileItem } from '../tiles/types';
@@ -29,27 +30,29 @@ const Dump: React.FC<{}> = () => {
   });
 
   return (
-    <Box
-      // @ts-ignore
-      ref={dropRef}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      p={2}
-      justifyContent="center"
-      className={
-        isOver ? (canDrop ? classes.validDrop : classes.invalidDrop) : ''
-      }
-    >
-      <Typography variant="button" color="textSecondary">
-        Dump!
-      </Typography>
-      {bunchSize > EXCHANGE_COUNT && (
-        <Typography variant="caption" color="textSecondary">
-          Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
+    <TransparentPaper>
+      <Box
+        // @ts-ignore
+        ref={dropRef}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        p={2}
+        justifyContent="center"
+        className={
+          isOver ? (canDrop ? classes.validDrop : classes.invalidDrop) : ''
+        }
+      >
+        <Typography variant="button" color="textSecondary">
+          Dump!
         </Typography>
-      )}
-    </Box>
+        {bunchSize > EXCHANGE_COUNT && (
+          <Typography variant="caption" color="textSecondary">
+            Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
+          </Typography>
+        )}
+      </Box>
+    </TransparentPaper>
   );
 };
 

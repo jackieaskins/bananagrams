@@ -42,7 +42,7 @@ const StartGame: React.FC<{}> = () => {
                 {!!winningPlayer ? `${winningPlayer.username}'s` : 'the'}{' '}
                 winning board:
               </Typography>
-              <PreviewBoard board={winningBoard} />
+              <PreviewBoard board={winningBoard} tileSize={20} />
             </Box>
           </Grid>
         )}
