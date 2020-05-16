@@ -1,13 +1,13 @@
-import { Board } from '../boards/types';
 import { Player } from '../players/types';
+import { Tile } from '../tiles/types';
 
 export type GameInfo = {
   gameId: string;
   gameName: string;
-  winningBoard?: Board;
   isInProgress: boolean;
-  bunchSize: number;
+  bunch: Tile[];
   players: Player[];
+  previousSnapshot: Player[] | null;
 };
 
 export type GameState = {

@@ -21,7 +21,9 @@ const PreviewBoard: React.FC<BoardProps> = ({ board, tileSize }) => {
     >
       {board.map((row, x) => (
         <Box key={x} display="flex">
-          {row.map((tile, y) => {
+          {row.map((boardSquare, y) => {
+            const tile = boardSquare?.tile ?? null;
+
             if (tile === null) {
               return <Box height={tilePixels} width={tilePixels} />;
             }

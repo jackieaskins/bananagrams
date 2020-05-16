@@ -1,4 +1,11 @@
-export default class Tile {
+import BaseModel from './BaseModel';
+
+export type TileJSON = {
+  id: string;
+  letter: string;
+};
+
+export default class Tile implements BaseModel<TileJSON> {
   private id: string;
   private letter: string;
 
@@ -14,4 +21,12 @@ export default class Tile {
   getLetter(): string {
     return this.letter;
   }
+
+  toJSON(): TileJSON {
+    const { id, letter } = this;
+    return { id, letter };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  reset(): void {}
 }

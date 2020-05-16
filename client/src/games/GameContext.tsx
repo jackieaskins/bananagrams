@@ -12,8 +12,9 @@ const getEmptyGameInfo = (gameId: string): GameInfo => ({
   gameId,
   gameName: '',
   isInProgress: false,
-  bunchSize: 0,
+  bunch: [],
   players: [],
+  previousSnapshot: null,
 });
 
 const GameContext = createContext<GameState>({

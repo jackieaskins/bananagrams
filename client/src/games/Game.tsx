@@ -20,7 +20,7 @@ type GameProps = {};
 const Game: React.FC<GameProps> = () => {
   const { socket } = useSocket();
   const {
-    gameInfo: { bunchSize, players },
+    gameInfo: { bunch, players },
   } = useGame();
 
   const { board, hand } = players.find(
@@ -49,7 +49,7 @@ const Game: React.FC<GameProps> = () => {
           <Grid container direction="column" spacing={1} alignItems="center">
             <Grid item>
               <Typography variant="body2">
-                Tiles remaining in bunch: {bunchSize}
+                Tiles remaining in bunch: {bunch.length}
               </Typography>
             </Grid>
 
@@ -64,7 +64,7 @@ const Game: React.FC<GameProps> = () => {
                   Object.values(hand).length > 0 || !isConnectedBoard(board)
                 }
               >
-                {bunchSize < players.length ? 'Bananas!' : 'Peel!'}
+                {bunch.length < players.length ? 'Bananas!' : 'Peel!'}
               </Button>
             </Grid>
 

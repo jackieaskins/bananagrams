@@ -8,10 +8,11 @@ import CopyToClipboard from '../buttons/CopyToClipboard';
 
 const StartGame: React.FC<{}> = () => {
   const {
-    gameInfo: { gameName, players, winningBoard },
+    gameInfo: { gameName, previousSnapshot },
   } = useGame();
   const joinUrl = `${window.location.href}/join`;
-  const winningPlayer = players.find((player) => player.isTopBanana);
+  const winningPlayer = previousSnapshot?.find((player) => player.isTopBanana);
+  const winningBoard = winningPlayer?.board;
 
   return (
     <Box>

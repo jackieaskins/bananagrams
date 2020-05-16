@@ -1,92 +1,35 @@
-import Game from './Game';
-import Tile from './Tile';
+import Hand, { HandJSON } from './Hand';
+import Board, { BoardLocation, BoardJSON } from './Board';
+import BaseModel from './BaseModel';
 
-export type Players = Record<string, Player>;
-export type Board = (Tile | null)[][];
-export type BoardPosition = {
-  x: number;
-  y: number;
+export type PlayerJSON = {
+  userId: string;
+  username: string;
+  isReady: boolean;
+  isTopBanana: boolean;
+  hand: HandJSON;
+  board: BoardJSON;
 };
 
-const BOARD_SIZE = 21;
-const initializeBoard = (): Tile[][] =>
-  [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
-
-export default class Player {
-  private static players: Players = {};
-
+export default class Player implements BaseModel<PlayerJSON> {
   private userId: string;
-  private gameId: string;
   private username: string;
-  private owner: boolean;
-  private ready: boolean;
-  private topBanana: boolean;
-  private hand: Record<string, Tile>;
-  private board: Board;
+  private ready = false;
+  private topBanana = false;
+  private hand = new Hand();
+  private board = new Board();
 
-  constructor(
-    userId: string,
-    gameId: string,
-    username: string,
-    owner: boolean
-  ) {
-    if (Player.players[userId]) {
-      throw new Error('Player already exists');
-    }
-
-    if (!Game.get(gameId)) {
-      throw new Error('Game does not exist');
-    }
-
+  constructor(userId: string, username: string) {
     this.userId = userId;
-    this.gameId = gameId;
     this.username = username;
-    this.owner = owner;
-    this.ready = false;
-    this.topBanana = false;
-    this.hand = {};
-    this.board = initializeBoard();
-
-    Player.players = { ...Player.players, [userId]: this };
-  }
-
-  static get(userId: string): Player | undefined {
-    return this.players[userId];
-  }
-
-  static all(): Players {
-    return { ...this.players };
   }
 
   getUserId(): string {
     return this.userId;
   }
 
-  getGameId(): string {
-    return this.gameId;
-  }
-
   getUsername(): string {
     return this.username;
-  }
-
-  getHand(): Record<string, Tile> {
-    return { ...this.hand };
-  }
-
-  setHand(hand: Tile[]): void {
-    this.hand = hand.reduce(
-      (accum, tile) => ({ ...accum, [tile.getId()]: tile }),
-      {}
-    );
-  }
-
-  getBoard(): Board {
-    return [...this.board];
-  }
-
-  isOwner(): boolean {
-    return this.owner;
   }
 
   isReady(): boolean {
@@ -105,112 +48,53 @@ export default class Player {
     this.topBanana = topBanana;
   }
 
-  addTilesToHand(tiles: Tile[]): void {
-    const newTiles = tiles.reduce(
-      (accum: Record<string, Tile>, tile: Tile) => ({
-        ...accum,
-        [tile.getId()]: tile,
-      }),
-      {}
-    );
+  getHand(): Hand {
+    return this.hand;
+  }
 
-    this.hand = {
-      ...this.hand,
-      ...newTiles,
+  getBoard(): Board {
+    return this.board;
+  }
+
+  toJSON(): PlayerJSON {
+    const {
+      userId,
+      username,
+      ready: isReady,
+      topBanana: isTopBanana,
+      board,
+      hand,
+    } = this;
+
+    return {
+      userId,
+      username,
+      isReady,
+      isTopBanana,
+      board: board.toJSON(),
+      hand: hand.toJSON(),
     };
   }
 
-  removeTilesFromHand(ids: string[]): Tile[] {
-    const missingTiles = ids.filter((id) => !this.hand[id]);
-
-    if (missingTiles.length > 0) {
-      throw new Error(
-        `${
-          missingTiles.length === 1
-            ? `Tile with id ${missingTiles[0]} is`
-            : `Tiles with ids ${missingTiles.join(', ')} are`
-        } not in player's hand`
-      );
-    }
-
-    return ids.map((id) => {
-      const { [id]: tile, ...rest } = this.hand;
-      this.hand = rest;
-      return tile;
-    });
+  reset(): void {
+    this.hand.reset();
+    this.board.reset();
   }
 
-  private confirmBoardPositionIsEmpty({ x, y }: BoardPosition): void {
-    if (this.board[x][y]) {
-      throw new Error(`Board already has tile at position ${x}, ${y}`);
-    }
+  moveTileFromHandToBoard(tileId: string, location: BoardLocation): void {
+    this.board.validateEmptySquare(location);
+    const tile = this.hand.removeTile(tileId);
+    this.board.addTile(location, tile);
   }
 
-  private updateTileOnBoard({ x, y }: BoardPosition, tile: Tile | null): void {
-    this.board = [
-      ...this.board.slice(0, x),
-      [...this.board[x].slice(0, y), tile, ...this.board[x].slice(y + 1)],
-      ...this.board.slice(x + 1),
-    ];
+  moveTileFromBoardToHand(location: BoardLocation): void {
+    const tile = this.board.removeTile(location);
+    this.hand.addTiles([tile]);
   }
 
-  removeTileFromBoard({ x, y }: BoardPosition): Tile {
-    const tile = this.board[x][y];
-
-    if (!tile) {
-      throw new Error(`Board does not have a tile at position ${x}, ${y}`);
-    }
-
-    this.updateTileOnBoard({ x, y }, null);
-    return tile;
-  }
-
-  moveTileFromHandToBoard(tileId: string, { x, y }: BoardPosition): void {
-    this.confirmBoardPositionIsEmpty({ x, y });
-    const tile = this.removeTilesFromHand([tileId])[0];
-    this.updateTileOnBoard({ x, y }, tile);
-  }
-
-  moveTileFromBoardToHand(boardPosition: BoardPosition): void {
-    const tile = this.removeTileFromBoard(boardPosition);
-    this.addTilesToHand([tile]);
-  }
-
-  moveTileOnBoard(fromPosition: BoardPosition, { x, y }: BoardPosition): void {
-    this.confirmBoardPositionIsEmpty({ x, y });
-    const tile = this.removeTileFromBoard(fromPosition);
-    this.updateTileOnBoard({ x, y }, tile);
-  }
-
-  resetHand(): void {
-    this.hand = {};
-  }
-
-  resetBoard(): void {
-    this.board = initializeBoard();
-  }
-
-  delete(): Player {
-    const { gameId, userId } = this;
-
-    if (this.owner) {
-      const newOwner = Object.values(Player.players).find(
-        (player) => player.gameId === gameId && player.userId !== userId
-      );
-
-      if (newOwner) {
-        newOwner.owner = true;
-      }
-    }
-
-    const { [userId]: toOmit, ...rest } = Player.players;
-    Player.players = rest;
-
-    const game = Game.get(gameId);
-
-    if (game && game.getPlayers().length === 0) {
-      game.delete();
-    }
-    return toOmit;
+  moveTileOnBoard(from: BoardLocation, to: BoardLocation): void {
+    this.board.validateEmptySquare(to);
+    const tile = this.board.removeTile(from);
+    this.board.addTile(to, tile);
   }
 }

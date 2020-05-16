@@ -14,12 +14,12 @@ const Dump: React.FC<{}> = () => {
   const classes = useStyles();
   const { socket } = useSocket();
   const {
-    gameInfo: { bunchSize },
+    gameInfo: { bunch },
   } = useGame();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
-    canDrop: () => bunchSize >= EXCHANGE_COUNT,
+    canDrop: () => bunch.length >= EXCHANGE_COUNT,
     drop: ({ boardPosition, id }: TileItem) => {
       socket.emit('dump', { boardPosition, tileId: id });
     },
@@ -46,7 +46,7 @@ const Dump: React.FC<{}> = () => {
         <Typography variant="button" color="textSecondary">
           Dump!
         </Typography>
-        {bunchSize > EXCHANGE_COUNT && (
+        {bunch.length > EXCHANGE_COUNT && (
           <Typography variant="caption" color="textSecondary">
             Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
           </Typography>

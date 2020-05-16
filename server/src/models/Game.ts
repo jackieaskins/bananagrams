@@ -1,41 +1,28 @@
-import { v4 as uuidv4 } from 'uuid';
+import Bunch, { BunchJSON } from './Bunch';
+import Player, { PlayerJSON } from './Player';
+import BaseModel from './BaseModel';
 
-import tileBreakdown from '../tileBreakdown';
-import Player, { Board } from './Player';
-import Tile from './Tile';
+export type Snapshot = PlayerJSON[] | null;
+export type GameJSON = {
+  gameId: string;
+  gameName: string;
+  isInProgress: boolean;
+  bunch: BunchJSON;
+  players: PlayerJSON[];
+  previousSnapshot: Snapshot;
+};
 
-export type Games = Record<string, Game>;
-
-export default class Game {
-  private static games: Games = {};
-
+export default class Game implements BaseModel<GameJSON> {
   private id: string;
   private name: string;
-  private winningBoard?: Board;
-  private inProgress: boolean;
-  private bunch: Tile[];
+  private inProgress = false;
+  private bunch: Bunch = new Bunch();
+  private players: Player[] = [];
+  private previousSnapshot: Snapshot = null;
 
-  constructor(name: string) {
-    let id: string;
-
-    do {
-      id = uuidv4();
-    } while (Game.games[id]);
-
+  constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
-    this.inProgress = false;
-    this.bunch = [];
-
-    Game.games = { ...Game.games, [id]: this };
-  }
-
-  static get(id: string): Game | undefined {
-    return this.games[id];
-  }
-
-  static all(): Games {
-    return { ...this.games };
   }
 
   getId(): string {
@@ -46,24 +33,6 @@ export default class Game {
     return this.name;
   }
 
-  getPlayers(): Player[] {
-    return Object.values(Player.all()).filter(
-      (player) => player.getGameId() === this.id
-    );
-  }
-
-  getBunch(): Tile[] {
-    return [...this.bunch];
-  }
-
-  getWinningBoard(): Board | undefined {
-    return this.winningBoard;
-  }
-
-  setWinningBoard(winningBoard: Board): void {
-    this.winningBoard = winningBoard;
-  }
-
   isInProgress(): boolean {
     return this.inProgress;
   }
@@ -72,48 +41,54 @@ export default class Game {
     this.inProgress = inProgress;
   }
 
-  initializeBunch(): void {
-    this.bunch = tileBreakdown
-      .map(({ letter, count }) =>
-        Array(count)
-          .fill(null)
-          .map((_, i) => new Tile(`${letter}${i}`, letter))
-      )
-      .flat();
+  getBunch(): Bunch {
+    return this.bunch;
   }
 
-  removeTilesFromBunch(count: number): Tile[] {
-    if (this.bunch.length < count) {
-      throw new Error(
-        `The bunch has less than ${count} ${count === 1 ? 'tile' : 'tiles'}`
-      );
-    }
-
-    return Array.from(Array(count)).map(() => {
-      const index = Math.floor(Math.random() * this.bunch.length);
-
-      const tile = this.bunch[index];
-      this.bunch = [
-        ...this.bunch.slice(0, index),
-        ...this.bunch.slice(index + 1),
-      ];
-
-      return tile;
-    });
+  getPlayers(): Player[] {
+    return [...this.players];
   }
 
-  addTilesToBunch(tiles: Tile[]): void {
-    this.bunch = [...this.bunch, ...tiles];
+  getSnapshot(): Snapshot {
+    return this.previousSnapshot ? [...this.previousSnapshot] : null;
   }
 
-  delete(): Game {
-    if (this.getPlayers().length > 0) {
-      throw new Error('There are still players in this game');
-    }
+  setSnapshot(previousSnapshot: PlayerJSON[]): void {
+    this.previousSnapshot = [...previousSnapshot];
+  }
 
-    const { [this.id]: toOmit, ...rest } = Game.games;
-    Game.games = rest;
+  reset(): void {
+    this.bunch.reset();
+    this.players.forEach((player) => player.reset());
+  }
 
-    return toOmit;
+  toJSON(): GameJSON {
+    const {
+      id: gameId,
+      name: gameName,
+      inProgress: isInProgress,
+      bunch,
+      players,
+      previousSnapshot,
+    } = this;
+
+    return {
+      gameId,
+      gameName,
+      isInProgress,
+      bunch: bunch.toJSON(),
+      players: players.map((player) => player.toJSON()),
+      previousSnapshot,
+    };
+  }
+
+  addPlayer(player: Player): void {
+    this.players = [...this.players, player];
+  }
+
+  removePlayer(userId: string): void {
+    this.players = this.players.filter(
+      (player) => player.getUserId() !== userId
+    );
   }
 }

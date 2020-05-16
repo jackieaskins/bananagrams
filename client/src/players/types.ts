@@ -4,7 +4,6 @@ import { Board } from '../boards/types';
 export type Player = {
   userId: string;
   username: string;
-  isOwner: boolean;
   isReady: boolean;
   isTopBanana: boolean;
   hand: Hand;

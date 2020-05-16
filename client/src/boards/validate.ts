@@ -1,6 +1,6 @@
-import { Board, BoardPosition } from './types';
+import { Board, BoardLocation } from './types';
 
-const surroundingTiles = (x: number, y: number): BoardPosition[] => [
+const surroundingTiles = (x: number, y: number): BoardLocation[] => [
   { x: x - 1, y },
   { x: x + 1, y },
   { x, y: y - 1 },
@@ -11,7 +11,7 @@ export const isConnectedBoard = (board: Board): boolean => {
   const width = board.length;
   const height = board[0].length;
 
-  const stack: BoardPosition[] = [];
+  const stack: BoardLocation[] = [];
   let connectedComponents = 0;
   const visited = [...Array(width)].map(() => Array(height).fill(false));
 
@@ -26,7 +26,7 @@ export const isConnectedBoard = (board: Board): boolean => {
 
         stack.push({ x, y });
         while (stack.length > 0) {
-          const { x, y } = stack.pop() as BoardPosition;
+          const { x, y } = stack.pop() as BoardLocation;
           visited[x][y] = true;
 
           surroundingTiles(x, y).forEach(({ x, y }) => {

@@ -31,12 +31,17 @@ io.on('connection', (socket) => {
 
   console.log(`New connection: ${userId}`);
 
-  const gameController = new GameController(io, socket);
+  let gameController: GameController | undefined;
 
   socket.on('createGame', ({ gameName, username }, callback) => {
     try {
-      const gameState = gameController.createGame(gameName, username);
-      callback?.(null, gameState);
+      gameController = GameController.createGame(
+        gameName,
+        username,
+        io,
+        socket
+      );
+      callback?.(null, gameController.getCurrentGame().toJSON());
     } catch ({ message }) {
       callback?.({ message }, null);
     }
@@ -44,16 +49,21 @@ io.on('connection', (socket) => {
 
   socket.on('joinGame', ({ gameId, username }, callback) => {
     try {
-      const gameState = gameController.joinGame(gameId, username, false);
-      callback?.(null, gameState);
+      gameController = GameController.joinGame(gameId, username, io, socket);
+      callback?.(null, gameController.getCurrentGame().toJSON());
     } catch ({ message }) {
       callback?.({ message }, null);
     }
   });
 
   socket.on('leaveGame', ({}, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.leaveGame();
+      gameController = undefined;
       callback?.(null, null);
     } catch ({ message }) {
       callback?.({ message }, null);
@@ -61,6 +71,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('split', ({}, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.split();
       callback?.(null, null);
@@ -70,6 +84,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('peel', ({}, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.peel();
       callback?.(null, null);
@@ -79,6 +97,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('dump', ({ tileId, boardPosition }, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.dump(tileId, boardPosition);
       callback?.(null, null);
@@ -90,6 +112,10 @@ io.on('connection', (socket) => {
   socket.on(
     'moveTileFromHandToBoard',
     ({ tileId, boardPosition }, callback) => {
+      if (!gameController) {
+        return callback?.({ message: 'Not in a game' }, null);
+      }
+
       try {
         gameController.moveTileFromHandToBoard(tileId, boardPosition);
         callback?.(null, null);
@@ -100,6 +126,10 @@ io.on('connection', (socket) => {
   );
 
   socket.on('moveTileFromBoardToHand', ({ boardPosition }, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.moveTileFromBoardToHand(boardPosition);
       callback?.(null, null);
@@ -109,6 +139,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('moveTileOnBoard', ({ fromPosition, toPosition }, callback) => {
+    if (!gameController) {
+      return callback?.({ message: 'Not in a game' }, null);
+    }
+
     try {
       gameController.moveTileOnBoard(fromPosition, toPosition);
       callback?.(null, null);
@@ -118,7 +152,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    gameController.leaveGame();
+    gameController?.leaveGame();
+    gameController = undefined;
     console.log(`${userId} disconnected`);
   });
 });
