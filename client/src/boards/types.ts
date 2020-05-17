@@ -8,15 +8,17 @@ export type BoardLocation = {
   x: number;
   y: number;
 };
+export enum ValidationStatus {
+  NOT_VALIDATED = 'NOT_VALIDATED',
+  VALID = 'VALID',
+  INVALID = 'INVALID',
+}
 export type WordInfo = {
   start: BoardLocation;
-  valid: boolean;
+  validation: ValidationStatus;
 };
 export type BoardSquare = {
   tile: Tile;
-  wordInfo: {
-    [Direction.ACROSS]?: WordInfo;
-    [Direction.DOWN]?: WordInfo;
-  };
+  wordInfo: Record<Direction, WordInfo>;
 };
 export type Board = (BoardSquare | null)[][];

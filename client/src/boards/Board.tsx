@@ -18,10 +18,9 @@ const Board: React.FC<BoardProps> = ({ board }) => (
   >
     {board.map((row, x) => (
       <Box key={x} display="flex">
-        {row.map((boardSquare, y) => {
-          const tile = boardSquare?.tile ?? null;
-          return <BoardSquare key={y} x={x} y={y} tile={tile} />;
-        })}
+        {row.map((boardSquare, y) => (
+          <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
+        ))}
       </Box>
     ))}
   </TransparentPaper>

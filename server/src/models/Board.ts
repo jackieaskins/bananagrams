@@ -1,5 +1,6 @@
 import Tile, { TileJSON } from './Tile';
 import BaseModel from './BaseModel';
+import { validateAddTile, validateRemoveTile } from '../boardValidation';
 
 export type BoardLocation = {
   x: number;
@@ -9,16 +10,18 @@ export enum Direction {
   ACROSS = 'ACROSS',
   DOWN = 'DOWN',
 }
+export enum ValidationStatus {
+  NOT_VALIDATED = 'NOT_VALIDATED',
+  VALID = 'VALID',
+  INVALID = 'INVALID',
+}
 export type WordInfo = {
   start: BoardLocation;
-  valid: boolean;
+  validation: ValidationStatus;
 };
 export type BoardSquare = {
   tile: Tile;
-  wordInfo: {
-    [Direction.ACROSS]?: WordInfo;
-    [Direction.DOWN]?: WordInfo;
-  };
+  wordInfo: Record<Direction, WordInfo>;
 };
 export type BoardSquares = (BoardSquare | null)[][];
 export type BoardJSON = ({
@@ -37,7 +40,9 @@ export default class Board implements BaseModel<BoardJSON> {
   private squares = initializeBoard();
 
   getSquares(): BoardSquares {
-    return [...this.squares];
+    return this.squares.map((row) =>
+      row.map((square) => (!!square ? { ...square } : null))
+    );
   }
 
   reset(): void {
@@ -78,34 +83,20 @@ export default class Board implements BaseModel<BoardJSON> {
     );
   }
 
-  private updateSquare(
-    { x, y }: BoardLocation,
-    square: BoardSquare | null
-  ): void {
-    this.squares = [
-      ...this.squares.slice(0, x),
-      [...this.squares[x].slice(0, y), square, ...this.squares[x].slice(y + 1)],
-      ...this.squares.slice(x + 1),
-    ];
-  }
-
   removeTile({ x, y }: BoardLocation): Tile {
     const square = this.squares[x][y];
-
     if (!square) {
       throw new Error(`Board does not have a tile at location ${x}, ${y}`);
     }
 
-    this.updateSquare({ x, y }, null);
-    return square.tile;
+    const tile = square.tile;
+    this.squares = validateRemoveTile(this.getSquares(), { x, y });
+    return tile;
   }
 
   addTile(location: BoardLocation, tile: Tile): void {
     this.validateEmptySquare(location);
 
-    this.updateSquare(location, {
-      tile,
-      wordInfo: {},
-    });
+    this.squares = validateAddTile(this.getSquares(), location, tile);
   }
 }
