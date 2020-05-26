@@ -15,7 +15,7 @@ import TransparentPaper from '../paper/TransparentPaper';
 
 const MAX_PLAYERS = 8;
 
-const PlayerList: React.FC<{}> = () => {
+const PlayerList: React.FC = () => {
   const { socket } = useSocket();
   const { gameInfo } = useGame();
 

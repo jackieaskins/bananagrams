@@ -7,7 +7,7 @@ import Routes from './Routes';
 import { SocketProvider } from './SocketContext';
 import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
 
-const App: React.FC<{}> = () => (
+const App: React.FC = () => (
   <SnackbarProvider>
     <SocketProvider>
       <Router>

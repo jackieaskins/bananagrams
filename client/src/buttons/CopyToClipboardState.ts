@@ -13,9 +13,8 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
   useEffect(() => {
     (async (): Promise<void> => {
       const { state } = await navigator.permissions.query({
-        // @ts-ignore
         name: 'clipboard-write',
-      });
+      } as any);
 
       if (state === 'granted' || state === 'prompt') {
         setShouldShow(true);

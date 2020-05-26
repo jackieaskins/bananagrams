@@ -6,7 +6,7 @@ import ErrorAlert from '../alerts/ErrorAlert';
 import TextField from '../forms/TextField';
 import { useCreateGameForm } from './CreateGameFormState';
 
-const CreateGameForm: React.FC<{}> = () => {
+const CreateGameForm: React.FC = () => {
   const {
     error,
     gameName,

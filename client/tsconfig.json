@@ -4,7 +4,6 @@
     "baseUrl": "./src",
     "jsx": "react",
     "module": "es6",
-    "noEmit": true,
     "outDir": "../dist/public",
     "rootDir": "./src"
   }

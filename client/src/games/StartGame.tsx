@@ -6,7 +6,7 @@ import PlayerList from '../players/PlayerList';
 import PreviewBoard from '../boards/PreviewBoard';
 import CopyToClipboard from '../buttons/CopyToClipboard';
 
-const StartGame: React.FC<{}> = () => {
+const StartGame: React.FC = () => {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();

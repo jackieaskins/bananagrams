@@ -9,7 +9,7 @@ import {
 
 import { useServerDisconnectionDialog } from './ServerDisconnectionDialogState';
 
-const ServerDisconnectionDialog: React.FC<{}> = () => {
+const ServerDisconnectionDialog: React.FC = () => {
   const { shouldShowDialog, hideDialog } = useServerDisconnectionDialog();
 
   return (

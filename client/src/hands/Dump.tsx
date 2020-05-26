@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 
@@ -10,7 +11,7 @@ import { useStyles } from '../styles';
 
 const EXCHANGE_COUNT = 3;
 
-const Dump: React.FC<{}> = () => {
+const Dump: React.FC = () => {
   const classes = useStyles();
   const { socket } = useSocket();
   const {

@@ -8,7 +8,7 @@ import { Box, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 
 const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
 
-const OpponentBoardPreview: React.FC<{}> = () => {
+const OpponentBoardPreview: React.FC = () => {
   const {
     socket: { id: userId },
   } = useSocket();

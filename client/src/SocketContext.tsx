@@ -15,7 +15,7 @@ const SocketContext = createContext<SocketState>({
   socket,
 });
 
-export const SocketProvider: React.FC<{}> = ({ children }) => {
+export const SocketProvider: React.FC = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {

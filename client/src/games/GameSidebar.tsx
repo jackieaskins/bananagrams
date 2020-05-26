@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
 import PDFViewer from '../PDFViewer';
 
-const GameSidebar: React.FC<{}> = () => {
+const GameSidebar: React.FC = () => {
   const classes = useStyles();
   const [leaveGameDialogOpen, setLeaveGameDialogOpen] = useState(false);
   const [instructionsViewerOpen, setInstructionsViewerOpen] = useState(false);

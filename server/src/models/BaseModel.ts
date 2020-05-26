@@ -1,4 +1,4 @@
-export default interface BaseModel<T extends object> {
+export default interface BaseModel<T extends Record<string, any>> {
   toJSON(): T;
   reset(): void;
 }

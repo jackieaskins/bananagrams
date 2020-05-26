@@ -22,7 +22,7 @@ const GameContext = createContext<GameState>({
   isInGame: false,
 });
 
-export const GameProvider: React.FC<{}> = ({ children }) => {
+export const GameProvider: React.FC = ({ children }) => {
   const { socket } = useSocket();
   const { replace } = useHistory();
   const { pathname, state } = useLocation<GameLocationState>();

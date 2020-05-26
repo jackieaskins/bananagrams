@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import Backend from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
 import OpponentBoardPreview from '../boards/OpponentBoardPreview';
@@ -15,9 +15,7 @@ import { isConnectedBoard } from '../boards/validate';
 
 import './Game.css';
 
-type GameProps = {};
-
-const Game: React.FC<GameProps> = () => {
+const Game: React.FC = () => {
   const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },
@@ -28,7 +26,7 @@ const Game: React.FC<GameProps> = () => {
   ) as Player;
 
   return (
-    <DndProvider backend={Backend}>
+    <DndProvider backend={HTML5Backend}>
       <Grid container spacing={2} justify="center" style={{ marginTop: '1px' }}>
         <Grid item>
           <Typography align="center" variant="body2" gutterBottom>

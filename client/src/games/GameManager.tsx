@@ -7,7 +7,7 @@ import GameSidebar from './GameSidebar';
 import { useGame } from './GameContext';
 import Game from './Game';
 
-const GameManager: React.FC<{}> = () => {
+const GameManager: React.FC = () => {
   const {
     gameInfo: { gameId, isInProgress },
     isInGame,
