@@ -23,6 +23,7 @@ export type BoardSquare = {
   tile: Tile;
   wordInfo: Record<Direction, WordInfo>;
 };
+export type BoardRow = (BoardSquare | null)[];
 export type BoardSquares = (BoardSquare | null)[][];
 export type BoardJSON = ({
   tile: TileJSON;
@@ -42,6 +43,16 @@ export default class Board implements BaseModel<BoardJSON> {
   getSquares(): BoardSquares {
     return this.squares.map((row) =>
       row.map((square) => (!!square ? { ...square } : null))
+    );
+  }
+
+  getAllTiles(): Tile[] {
+    return this.squares.flatMap((row: BoardRow): Tile[] =>
+      row.reduce(
+        (tiles: Tile[], square: BoardSquare | null): Tile[] =>
+          !!square ? [...tiles, square.tile] : tiles,
+        []
+      )
     );
   }
 

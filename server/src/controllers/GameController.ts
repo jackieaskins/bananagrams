@@ -115,8 +115,12 @@ export default class GameController {
     const { io, socket, currentPlayer, currentGame } = this;
 
     if (currentGame.isInProgress()) {
-      currentGame.getBunch().addTiles(currentPlayer.getHand().getTiles());
-      // TODO: Add board back to bunch too
+      currentGame
+        .getBunch()
+        .addTiles([
+          ...currentPlayer.getHand().getTiles(),
+          ...currentPlayer.getBoard().getAllTiles(),
+        ]);
     }
 
     const gameId = currentGame.getId();
