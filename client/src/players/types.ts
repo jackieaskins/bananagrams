@@ -6,6 +6,7 @@ export type Player = {
   username: string;
   isReady: boolean;
   isTopBanana: boolean;
+  gamesWon: number;
   hand: Hand;
   board: Board;
 };

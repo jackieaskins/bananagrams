@@ -70,13 +70,13 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('split', ({}, callback) => {
+  socket.on('ready', ({ isReady }, callback) => {
     if (!gameController) {
       return callback?.({ message: 'Not in a game' }, null);
     }
 
     try {
-      gameController.split();
+      gameController.setReady(isReady);
       callback?.(null, null);
     } catch ({ message }) {
       callback?.({ message }, null);

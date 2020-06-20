@@ -143,30 +143,22 @@ export default class GameController {
       const { [gameId]: toOmit, ...rest } = GameController.games;
       GameController.games = rest;
     } else if (everyoneElseIsReady) {
-      this.startGame();
+      this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
     }
   }
 
-  split(): void {
-    const { io, socket, currentGame, currentPlayer } = this;
-    const gameId = currentGame.getId();
-
-    currentPlayer.setReady(true);
-
-    GameController.emitNotification(
-      socket,
-      gameId,
-      `${currentPlayer.getUsername()} is ready!`
-    );
+  setReady(isReady: boolean): void {
+    const { io, currentGame, currentPlayer } = this;
+    currentPlayer.setReady(isReady);
 
     const everyoneIsReady = currentGame
       .getPlayers()
       .every((player) => player.isReady());
 
     if (everyoneIsReady) {
-      this.startGame();
+      this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
     }
@@ -254,7 +246,7 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
-  private startGame(): void {
+  private split(): void {
     const { io, currentGame } = this;
     const gameId = currentGame.getId();
 

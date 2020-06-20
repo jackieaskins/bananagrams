@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from '@material-ui/core';
-import { FiberManualRecord } from '@material-ui/icons';
+import { Check, Close } from '@material-ui/icons';
 
 import { useSocket } from '../SocketContext';
 import { useGame } from '../games/GameContext';
-import Button from '../buttons/Button';
-import TransparentPaper from '../paper/TransparentPaper';
 
 const MAX_PLAYERS = 8;
 
@@ -20,56 +20,69 @@ const PlayerList: React.FC = () => {
   const { gameInfo } = useGame();
 
   const players = gameInfo?.players ?? [];
-  const readyCount = players.filter(({ isReady }) => isReady).length ?? 0;
 
   return (
-    <TransparentPaper>
-      <List disablePadding>
-        <ListItem dense divider>
-          <ListItemText
-            primaryTypographyProps={{
-              variant: 'body1',
-            }}
-            primary={`Players (${players.length}/${MAX_PLAYERS} max)`}
-            secondary="The game will start once all players are ready"
-          />
-        </ListItem>
+    <TableContainer>
+      <Table>
+        <caption style={{ textAlign: 'center' }}>
+          <div>The game will start once all players are ready</div>
+          <div>
+            Current player count: {players.length}/{MAX_PLAYERS} max
+          </div>
+        </caption>
 
-        {players.map(({ isReady, isTopBanana, userId, username }) => {
-          const isCurrentUser = userId === socket.id;
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Ready?</TableCell>
+            <TableCell>Player</TableCell>
+            <TableCell align="right">Games Won</TableCell>
+          </TableRow>
+        </TableHead>
 
-          return (
-            <ListItem key={userId} selected={isCurrentUser}>
-              <ListItemIcon>
-                <FiberManualRecord
-                  fontSize="small"
-                  style={{ color: isReady ? 'green' : 'red' }}
-                />
-              </ListItemIcon>
+        <TableBody>
+          {players.map(
+            ({ gamesWon, isReady, isTopBanana, userId, username }) => {
+              const isCurrentUser = userId === socket.id;
+              const ReadyIcon = isReady ? Check : Close;
+              const readyColor = isReady ? 'green' : 'red';
 
-              <ListItemText>
-                {username}
-                {isTopBanana ? ' - Winner' : ''}
-              </ListItemText>
-
-              {isCurrentUser && !isReady && (
-                <ListItemSecondaryAction>
-                  <Button
-                    color="inherit"
-                    variant="outlined"
-                    onClick={(): void => {
-                      socket.emit('split', {});
-                    }}
+              return (
+                <TableRow
+                  key={userId}
+                  style={{
+                    backgroundColor: isCurrentUser
+                      ? 'rgba(0, 0, 0, 0.08)'
+                      : 'inherit',
+                  }}
+                >
+                  <TableCell
+                    padding={isCurrentUser ? 'checkbox' : 'default'}
+                    align="center"
                   >
-                    {readyCount === players.length - 1 ? 'Split!' : 'Ready!'}
-                  </Button>
-                </ListItemSecondaryAction>
-              )}
-            </ListItem>
-          );
-        })}
-      </List>
-    </TransparentPaper>
+                    {isCurrentUser ? (
+                      <Checkbox
+                        style={{ color: readyColor }}
+                        checked={isReady}
+                        onChange={({ target: { checked } }): void => {
+                          socket.emit('ready', { isReady: checked });
+                        }}
+                      />
+                    ) : (
+                      <ReadyIcon style={{ color: readyColor }} />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {username}
+                    {isTopBanana ? ' - Winner' : ''}
+                  </TableCell>
+                  <TableCell align="right">{gamesWon}</TableCell>
+                </TableRow>
+              );
+            }
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

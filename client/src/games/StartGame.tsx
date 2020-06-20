@@ -16,7 +16,7 @@ const StartGame: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h3" align="center">
+      <Typography variant="h3" align="center" gutterBottom>
         {gameName}
       </Typography>
       <Typography variant="body1" align="center" color="textSecondary">
