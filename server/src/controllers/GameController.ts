@@ -112,7 +112,7 @@ export default class GameController {
   }
 
   leaveGame(): void {
-    const { socket, currentPlayer, currentGame } = this;
+    const { io, socket, currentPlayer, currentGame } = this;
 
     if (currentGame.isInProgress()) {
       currentGame.getBunch().addTiles(currentPlayer.getHand().getTiles());
@@ -129,12 +129,19 @@ export default class GameController {
       gameId,
       `${currentPlayer.getUsername()} has left the game.`
     );
-    GameController.emitGameInfo(socket, currentGame);
+
+    const everyoneElseIsReady = currentGame
+      .getPlayers()
+      .every((player) => player.isReady());
 
     if (currentGame.getPlayers().length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [gameId]: toOmit, ...rest } = GameController.games;
       GameController.games = rest;
+    } else if (everyoneElseIsReady) {
+      this.startGame();
+    } else {
+      GameController.emitGameInfo(io, currentGame);
     }
   }
 
@@ -155,28 +162,10 @@ export default class GameController {
       .every((player) => player.isReady());
 
     if (everyoneIsReady) {
-      GameController.emitNotification(
-        io,
-        gameId,
-        'Everyone is ready, the game will start soon!'
-      );
-
-      const currentPlayers = currentGame.getPlayers();
-      currentGame.reset();
-
-      currentPlayers.forEach((player) => {
-        player
-          .getHand()
-          .addTiles(
-            currentGame
-              .getBunch()
-              .removeTiles(getInitialTileCount(currentPlayers.length))
-          );
-      });
-      currentGame.setInProgress(true);
+      this.startGame();
+    } else {
+      GameController.emitGameInfo(io, currentGame);
     }
-
-    GameController.emitGameInfo(io, currentGame);
   }
 
   peel(): void {
@@ -258,6 +247,33 @@ export default class GameController {
   ): void {
     const { io, currentGame, currentPlayer } = this;
     currentPlayer.moveTileOnBoard(fromLocation, toLocation);
+    GameController.emitGameInfo(io, currentGame);
+  }
+
+  private startGame(): void {
+    const { io, currentGame } = this;
+    const gameId = currentGame.getId();
+
+    GameController.emitNotification(
+      io,
+      gameId,
+      'Everyone is ready, the game will start soon!'
+    );
+
+    const currentPlayers = currentGame.getPlayers();
+    currentGame.reset();
+
+    currentPlayers.forEach((player) => {
+      player
+        .getHand()
+        .addTiles(
+          currentGame
+            .getBunch()
+            .removeTiles(getInitialTileCount(currentPlayers.length))
+        );
+    });
+    currentGame.setInProgress(true);
+
     GameController.emitGameInfo(io, currentGame);
   }
 }
