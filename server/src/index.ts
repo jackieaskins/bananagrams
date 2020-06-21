@@ -96,13 +96,13 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('dump', ({ tileId, boardPosition }, callback) => {
+  socket.on('dump', ({ tileId, boardLocation }, callback) => {
     if (!gameController) {
       return callback?.({ message: 'Not in a game' }, null);
     }
 
     try {
-      gameController.dump(tileId, boardPosition);
+      gameController.dump(tileId, boardLocation);
       callback?.(null, null);
     } catch ({ message }) {
       callback?.({ message }, null);
@@ -111,13 +111,13 @@ io.on('connection', (socket) => {
 
   socket.on(
     'moveTileFromHandToBoard',
-    ({ tileId, boardPosition }, callback) => {
+    ({ tileId, boardLocation }, callback) => {
       if (!gameController) {
         return callback?.({ message: 'Not in a game' }, null);
       }
 
       try {
-        gameController.moveTileFromHandToBoard(tileId, boardPosition);
+        gameController.moveTileFromHandToBoard(tileId, boardLocation);
         callback?.(null, null);
       } catch ({ message }) {
         callback?.({ message }, null);
@@ -125,26 +125,26 @@ io.on('connection', (socket) => {
     }
   );
 
-  socket.on('moveTileFromBoardToHand', ({ boardPosition }, callback) => {
+  socket.on('moveTileFromBoardToHand', ({ boardLocation }, callback) => {
     if (!gameController) {
       return callback?.({ message: 'Not in a game' }, null);
     }
 
     try {
-      gameController.moveTileFromBoardToHand(boardPosition);
+      gameController.moveTileFromBoardToHand(boardLocation);
       callback?.(null, null);
     } catch ({ message }) {
       callback?.({ message }, null);
     }
   });
 
-  socket.on('moveTileOnBoard', ({ fromPosition, toPosition }, callback) => {
+  socket.on('moveTileOnBoard', ({ fromLocation, toLocation }, callback) => {
     if (!gameController) {
       return callback?.({ message: 'Not in a game' }, null);
     }
 
     try {
-      gameController.moveTileOnBoard(fromPosition, toPosition);
+      gameController.moveTileOnBoard(fromLocation, toLocation);
       callback?.(null, null);
     } catch ({ message }) {
       callback?.({ message }, null);

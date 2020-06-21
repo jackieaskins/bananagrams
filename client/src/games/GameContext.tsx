@@ -1,14 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import React, { createContext, useContext } from 'react';
+import { GameState, GameInfo } from './types';
 
-import { GameInfo, GameLocationState, GameState } from './types';
-import { useSocket } from '../SocketContext';
-
-type GameParams = {
-  gameId: string;
+type GameProviderProps = {
+  gameState: GameState;
 };
 
-const getEmptyGameInfo = (gameId: string): GameInfo => ({
+export const getEmptyGameInfo = (gameId: string): GameInfo => ({
   gameId,
   gameName: '',
   isInProgress: false,
@@ -17,49 +14,22 @@ const getEmptyGameInfo = (gameId: string): GameInfo => ({
   previousSnapshot: null,
 });
 
-const GameContext = createContext<GameState>({
-  gameInfo: getEmptyGameInfo(''),
+export const getEmptyGameState = (gameId: string): GameState => ({
+  gameInfo: getEmptyGameInfo(gameId),
+  handleDump: (): void => undefined,
+  handleMoveTileFromBoardToHand: (): void => undefined,
+  handleMoveTileFromHandToBoard: (): void => undefined,
+  handleMoveTileOnBoard: (): void => undefined,
+  handlePeel: (): void => undefined,
   isInGame: false,
+  walkthroughEnabled: false,
 });
 
-export const GameProvider: React.FC = ({ children }) => {
-  const { socket } = useSocket();
-  const { replace } = useHistory();
-  const { pathname, state } = useLocation<GameLocationState>();
-  const { gameId } = useParams<GameParams>();
+const GameContext = createContext<GameState>(getEmptyGameState(''));
 
-  const [gameInfo, setGameInfo] = useState<GameInfo>(
-    state?.gameInfo ?? getEmptyGameInfo(gameId)
-  );
-  const [isInGame] = useState<boolean>(state?.isInGame ?? false);
-
-  useEffect(() => {
-    if (isInGame) {
-      replace(pathname);
-
-      return (): void => {
-        socket.emit('leaveGame', { gameId });
-      };
-    }
-
-    return;
-  }, []);
-
-  useEffect(() => {
-    socket.on('gameInfo', (gameInfo: GameInfo) => {
-      setGameInfo(gameInfo);
-    });
-
-    return (): void => {
-      socket.off('gameInfo');
-    };
-  }, []);
-
-  return (
-    <GameContext.Provider value={{ gameInfo, isInGame }}>
-      {children}
-    </GameContext.Provider>
-  );
-};
+export const GameProvider: React.FC<GameProviderProps> = ({
+  children,
+  gameState,
+}) => <GameContext.Provider value={gameState}>{children}</GameContext.Provider>;
 
 export const useGame = (): GameState => useContext(GameContext);

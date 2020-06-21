@@ -7,5 +7,5 @@ export type Tile = {
 
 export interface TileItem extends DragObjectWithType {
   id: string;
-  boardPosition: { x: number; y: number } | null;
+  boardLocation: { x: number; y: number } | null;
 }

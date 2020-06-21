@@ -3,8 +3,8 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
+import { useGame } from '../games/GameContext';
 import { useStyles } from '../styles';
-import { useSocket } from '../SocketContext';
 import { TileItem } from '../tiles/types';
 import Tile from '../tiles/Tile';
 import { BoardSquare, Direction, WordInfo, ValidationStatus } from './types';
@@ -32,34 +32,26 @@ const getColor = (
   const validations = Object.values(wordInfo).filter(isValidated);
 
   if (validations.length === 0) return 'black';
-
   if (validations.every(isValid)) return 'green';
   if (validations.every(isInvalid)) return 'red';
   if (validations.some(isValid) && validations.some(isInvalid))
     return 'darkorange';
-
   return 'green';
 };
 
 const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
   const classes = useStyles();
-  const { socket } = useSocket();
+  const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
     canDrop: (_, monitor) => monitor.isOver() && !tile,
-    drop: ({ id, boardPosition }: TileItem) => {
-      if (!!boardPosition) {
-        socket.emit('moveTileOnBoard', {
-          fromPosition: boardPosition,
-          toPosition: { x, y },
-        });
+    drop: ({ id, boardLocation }: TileItem) => {
+      if (!!boardLocation) {
+        handleMoveTileOnBoard(boardLocation, { x, y });
       } else {
-        socket.emit('moveTileFromHandToBoard', {
-          tileId: id,
-          boardPosition: { x, y },
-        });
+        handleMoveTileFromHandToBoard(id, { x, y });
       }
     },
     collect: (monitor) => ({
@@ -77,7 +69,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
       ref={dropRef}
     >
       {tile ? (
-        <Tile tile={tile} color={getColor(wordInfo)} boardPosition={{ x, y }} />
+        <Tile tile={tile} color={getColor(wordInfo)} boardLocation={{ x, y }} />
       ) : (
         ''
       )}

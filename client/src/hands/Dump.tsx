@@ -3,7 +3,6 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 
 import TransparentPaper from '../paper/TransparentPaper';
-import { useSocket } from '../SocketContext';
 import { useDrop } from 'react-dnd';
 import { TileItem } from '../tiles/types';
 import { useGame } from '../games/GameContext';
@@ -13,16 +12,16 @@ const EXCHANGE_COUNT = 3;
 
 const Dump: React.FC = () => {
   const classes = useStyles();
-  const { socket } = useSocket();
   const {
     gameInfo: { bunch },
+    handleDump,
   } = useGame();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
     canDrop: () => bunch.length >= EXCHANGE_COUNT,
-    drop: ({ boardPosition, id }: TileItem) => {
-      socket.emit('dump', { boardPosition, tileId: id });
+    drop: (tileItem: TileItem) => {
+      handleDump(tileItem);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),

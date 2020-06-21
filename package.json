@@ -63,6 +63,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "check-word": "^1.1.0",
     "express": "^4.17.1",
+    "local-storage": "^2.0.0",
     "notistack": "^0.9.17",
     "react": "^16.13.1",
     "react-dnd": "^11.1.3",

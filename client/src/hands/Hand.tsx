@@ -22,6 +22,7 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
   const { socket } = useSocket();
   const {
     gameInfo: { players },
+    handleMoveTileFromBoardToHand,
   } = useGame();
   const boardLength =
     players.find((player) => player.userId === socket.id)?.board?.length ??
@@ -29,10 +30,10 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
-    canDrop: ({ boardPosition }: TileItem, monitor) =>
-      monitor.isOver() && !!boardPosition,
-    drop: ({ boardPosition }: TileItem) => {
-      socket.emit('moveTileFromBoardToHand', { boardPosition });
+    canDrop: ({ boardLocation }: TileItem, monitor) =>
+      monitor.isOver() && !!boardLocation,
+    drop: ({ boardLocation }: TileItem) => {
+      handleMoveTileFromBoardToHand(boardLocation);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -56,7 +57,7 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
         className={isOver && canDrop ? classes.validDrop : ''}
       >
         {tiles.map((tile) => (
-          <Tile key={tile.id} tile={tile} boardPosition={null} />
+          <Tile key={tile.id} tile={tile} boardLocation={null} />
         ))}
       </Box>
     </TransparentPaper>

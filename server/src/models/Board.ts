@@ -78,7 +78,7 @@ export default class Board implements BaseModel<BoardJSON> {
 
   validateEmptySquare({ x, y }: BoardLocation): void {
     if (this.squares[x][y]) {
-      throw new Error(`Board already has tile at position ${x}, ${y}`);
+      throw new Error(`Board already has tile at location ${x}, ${y}`);
     }
   }
 

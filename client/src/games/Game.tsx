@@ -19,6 +19,7 @@ const Game: React.FC = () => {
   const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },
+    handlePeel,
   } = useGame();
 
   const { board, hand } = players.find(
@@ -55,9 +56,7 @@ const Game: React.FC = () => {
               <Button
                 size="large"
                 fullWidth
-                onClick={(): void => {
-                  socket.emit('peel', {});
-                }}
+                onClick={handlePeel}
                 disabled={
                   Object.values(hand).length > 0 || !isConnectedBoard(board)
                 }
@@ -66,7 +65,7 @@ const Game: React.FC = () => {
               </Button>
             </Grid>
 
-            <Grid item>
+            <Grid item style={{ width: '100%' }}>
               <Dump />
             </Grid>
             <Grid item>
