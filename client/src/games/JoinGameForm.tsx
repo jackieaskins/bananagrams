@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Link as MUILink, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import Button from '../buttons/Button';
 import ErrorAlert from '../alerts/ErrorAlert';
@@ -55,6 +56,12 @@ const JoinGameForm: React.FC<JoinGameFormProps> = () => {
           >
             Join game
           </Button>
+        </Grid>
+
+        <Grid item style={{ margin: '0 auto', padding: '0' }}>
+          <MUILink component={Link} to="/" variant="body1" align="center">
+            Go home
+          </MUILink>
         </Grid>
       </Grid>
     </>

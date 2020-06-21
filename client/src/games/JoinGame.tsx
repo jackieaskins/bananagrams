@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Button } from '@material-ui/core';
-import { Link, match } from 'react-router-dom';
+import { match } from 'react-router-dom';
 
 import CenteredLayout from '../layouts/CenteredLayout';
 import JoinGameForm from './JoinGameForm';
@@ -16,18 +15,6 @@ const JoinGame: React.FC<JoinGameProps> = ({
 }) => (
   <CenteredLayout>
     <JoinGameForm gameId={gameId} />
-    <Box mt={1}>
-      <Button
-        component={Link}
-        fullWidth
-        size="large"
-        color="secondary"
-        to="/"
-        variant="contained"
-      >
-        Go home
-      </Button>
-    </Box>
   </CenteredLayout>
 );
 
