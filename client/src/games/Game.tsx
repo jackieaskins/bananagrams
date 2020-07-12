@@ -69,7 +69,7 @@ const Game: React.FC = () => {
               <Dump />
             </Grid>
             <Grid item>
-              <OpponentBoardPreview />
+              <OpponentBoardPreview players={players} />
             </Grid>
           </Grid>
         </Grid>

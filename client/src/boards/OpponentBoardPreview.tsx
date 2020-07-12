@@ -2,23 +2,31 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '../buttons/Button';
 import PreviewBoard from './PreviewBoard';
-import { useGame } from '../games/GameContext';
 import { useSocket } from '../SocketContext';
 import { Box, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
+import PreviewHand from '../hands/PreviewHand';
+import { Player } from '../players/types';
+
+type OpponentBoardPreviewProps = {
+  initialPlayerIndex?: number;
+  players: Player[] | null;
+  tileSize?: number;
+};
 
 const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
 
-const OpponentBoardPreview: React.FC = () => {
+const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
+  initialPlayerIndex = 0,
+  players,
+  tileSize = 15,
+}) => {
   const {
     socket: { id: userId },
   } = useSocket();
-  const {
-    gameInfo: { players },
-  } = useGame();
 
-  const opponents = players.filter((player) => player.userId !== userId);
+  const opponents = players?.filter((player) => player.userId !== userId) ?? [];
   const [selectedUserId, setSelectedUserId] = useState<string | undefined>(
-    opponents[0]?.userId
+    opponents[initialPlayerIndex]?.userId
   );
 
   useEffect(() => {
@@ -34,6 +42,7 @@ const OpponentBoardPreview: React.FC = () => {
   const selectedPlayerIndex =
     opponents.findIndex(({ userId }) => userId === selectedUserId) ?? 0;
   const selectedBoard = opponents[selectedPlayerIndex]?.board;
+  const selectedHand = opponents[selectedPlayerIndex]?.hand;
 
   return (
     <Grid container direction="column" alignItems="center" spacing={1}>
@@ -43,7 +52,13 @@ const OpponentBoardPreview: React.FC = () => {
         </Typography>
       </Grid>
       <Grid item>
-        <PreviewBoard board={selectedBoard ?? EMPTY_BOARD} tileSize={15} />
+        <Box flexDirection="column" width="317px">
+          <PreviewBoard
+            board={selectedBoard ?? EMPTY_BOARD}
+            tileSize={tileSize}
+          />
+          <PreviewHand hand={selectedHand ?? []} tileSize={tileSize} />
+        </Box>
       </Grid>
       <Grid item style={{ width: '100%' }}>
         <Box display="flex" justifyContent="space-between">

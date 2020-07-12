@@ -41,8 +41,6 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
     }),
   });
 
-  const tiles = Object.values(hand);
-
   return (
     <TransparentPaper>
       <Box
@@ -51,12 +49,12 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
         display="flex"
         flexWrap="wrap"
         flexDirection="column"
-        width={`${Math.max(Math.ceil(tiles.length / 14), 1) * 35}px`}
+        width={`${Math.max(Math.ceil(hand.length / 14), 1) * 35}px`}
         height={`${25 * boardLength + 2 - 16}px`}
         p={1}
         className={isOver && canDrop ? classes.validDrop : ''}
       >
-        {tiles.map((tile) => (
+        {hand.map((tile) => (
           <Tile key={tile.id} tile={tile} boardLocation={null} />
         ))}
       </Box>

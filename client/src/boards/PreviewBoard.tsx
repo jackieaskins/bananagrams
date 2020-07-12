@@ -5,12 +5,12 @@ import { Box } from '@material-ui/core';
 import { Board } from './types';
 import TransparentPaper from '../paper/TransparentPaper';
 
-type BoardProps = {
+type PreviewBoardProps = {
   board: Board;
   tileSize: number;
 };
 
-const PreviewBoard: React.FC<BoardProps> = ({ board, tileSize }) => {
+const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
   const tilePixels = `${tileSize}px`;
 
   return (
