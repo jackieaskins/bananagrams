@@ -48,11 +48,14 @@ export default class Player implements BaseModel<PlayerJSON> {
 
   setTopBanana(topBanana: boolean): void {
     this.topBanana = topBanana;
-    this.gamesWon++;
   }
 
   getGamesWon(): number {
     return this.gamesWon;
+  }
+
+  incrementGamesWon(): void {
+    this.gamesWon++;
   }
 
   getHand(): Hand {

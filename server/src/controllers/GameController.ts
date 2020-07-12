@@ -185,7 +185,11 @@ export default class GameController {
 
       currentPlayers.forEach((player) => {
         player.setReady(false);
+
         player.setTopBanana(player.getUserId() === currentPlayer.getUserId());
+        if (player.getUserId() === currentPlayer.getUserId()) {
+          player.incrementGamesWon();
+        }
       });
 
       currentGame.setSnapshot(
