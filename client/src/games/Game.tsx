@@ -11,7 +11,7 @@ import Hand from '../hands/Hand';
 import { Player } from '../players/types';
 import { useGame } from './GameContext';
 import { useSocket } from '../SocketContext';
-import { isConnectedBoard } from '../boards/validate';
+import { isValidConnectedBoard } from '../boards/validate';
 
 import './Game.css';
 
@@ -58,7 +58,8 @@ const Game: React.FC = () => {
                 fullWidth
                 onClick={handlePeel}
                 disabled={
-                  Object.values(hand).length > 0 || !isConnectedBoard(board)
+                  Object.values(hand).length > 0 ||
+                  !isValidConnectedBoard(board)
                 }
               >
                 {bunch.length < players.length ? 'Bananas!' : 'Peel!'}

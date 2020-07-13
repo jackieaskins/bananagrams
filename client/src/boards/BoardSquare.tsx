@@ -24,8 +24,6 @@ const getColor = (
 
   const isValid: CheckValidation = ({ validation }) =>
     validation === ValidationStatus.VALID;
-  const isInvalid: CheckValidation = ({ validation }) =>
-    validation === ValidationStatus.INVALID;
   const isValidated: CheckValidation = ({ validation }) =>
     validation !== ValidationStatus.NOT_VALIDATED;
 
@@ -33,10 +31,7 @@ const getColor = (
 
   if (validations.length === 0) return 'black';
   if (validations.every(isValid)) return 'green';
-  if (validations.every(isInvalid)) return 'red';
-  if (validations.some(isValid) && validations.some(isInvalid))
-    return 'darkorange';
-  return 'green';
+  return 'red';
 };
 
 const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {

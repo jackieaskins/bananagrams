@@ -1,4 +1,4 @@
-import { Board, BoardLocation } from './types';
+import { Board, BoardLocation, ValidationStatus } from './types';
 
 const surroundingTiles = (x: number, y: number): BoardLocation[] => [
   { x: x - 1, y },
@@ -7,7 +7,7 @@ const surroundingTiles = (x: number, y: number): BoardLocation[] => [
   { x, y: y + 1 },
 ];
 
-export const isConnectedBoard = (board: Board): boolean => {
+export const isValidConnectedBoard = (board: Board): boolean => {
   const width = board.length;
   const height = board[0].length;
 
@@ -28,6 +28,14 @@ export const isConnectedBoard = (board: Board): boolean => {
         while (stack.length > 0) {
           const { x, y } = stack.pop() as BoardLocation;
           visited[x][y] = true;
+
+          if (
+            Object.values(board[x]?.[y]?.wordInfo || {}).some(
+              ({ validation }) => validation === ValidationStatus.INVALID
+            )
+          ) {
+            return false;
+          }
 
           surroundingTiles(x, y).forEach(({ x, y }) => {
             if (shouldCheckTile(x, y)) stack.push({ x, y });
