@@ -1,5 +1,3 @@
-import checkWord from 'check-word';
-
 import {
   BoardSquares,
   BoardLocation,
@@ -8,13 +6,12 @@ import {
   ValidationStatus,
 } from './models/Board';
 import Tile from './models/Tile';
+import Dictionary from './dictionary/Dictionary';
 
 type ValidateLocation = {
   start: BoardLocation;
   direction: Direction;
 };
-
-const englishWords = checkWord('en');
 
 const getDelta = (direction: Direction): BoardLocation => {
   switch (direction) {
@@ -63,7 +60,7 @@ const validateWordsAtLocations = (
     if (word.length === 1) {
       validationStatus = ValidationStatus.NOT_VALIDATED;
     } else {
-      validationStatus = englishWords.check(word.toLowerCase())
+      validationStatus = Dictionary.isWord(word.toLowerCase())
         ? ValidationStatus.VALID
         : ValidationStatus.INVALID;
     }

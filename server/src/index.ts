@@ -5,8 +5,10 @@ import socketio from 'socket.io';
 
 import { configureDevServer } from './devServer';
 import GameController from './controllers/GameController';
+import Dictionary from './dictionary/Dictionary';
 
 const PORT = process.env.PORT || 5000;
+Dictionary.initialize();
 
 const app = express();
 const server = http.createServer(app);
