@@ -16,7 +16,7 @@ export default class Game implements BaseModel<GameJSON> {
   private id: string;
   private name: string;
   private inProgress = false;
-  private bunch: Bunch = new Bunch();
+  private bunch: Bunch = new Bunch(this);
   private players: Player[] = [];
   private previousSnapshot: Snapshot = null;
 

@@ -1,20 +1,19 @@
 import Tile, { TileJSON } from './Tile';
-import tileBreakdown from '../tileBreakdown';
+import { getTiles } from '../tileBreakdown';
 import BaseModel from './BaseModel';
+import Game from './Game';
 
 export type BunchJSON = TileJSON[];
 
-const initializeBunch = (): Tile[] =>
-  tileBreakdown
-    .map(({ letter, count }) =>
-      Array(count)
-        .fill(null)
-        .map((_, i) => new Tile(`${letter}${i}`, letter))
-    )
-    .flat();
+const MULTIPLIER_DIVISOR = 4;
 
 export default class Bunch implements BaseModel<BunchJSON> {
+  private game: Game;
   private tiles: Tile[] = [];
+
+  constructor(game: Game) {
+    this.game = game;
+  }
 
   getTiles(): Tile[] {
     return [...this.tiles];
@@ -25,7 +24,10 @@ export default class Bunch implements BaseModel<BunchJSON> {
   }
 
   reset(): void {
-    this.tiles = initializeBunch();
+    const multiplier = Math.ceil(
+      this.game.getPlayers().length / MULTIPLIER_DIVISOR
+    );
+    this.tiles = getTiles(multiplier);
   }
 
   addTiles(tiles: Tile[]): void {

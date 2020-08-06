@@ -1,3 +1,5 @@
+import Tile from './models/Tile';
+
 const tileBreakdown = [
   { letter: 'A', count: 13 },
   { letter: 'B', count: 3 },
@@ -26,5 +28,14 @@ const tileBreakdown = [
   { letter: 'Y', count: 3 },
   { letter: 'Z', count: 2 },
 ];
+
+export const getTiles = (multiplier: number): Tile[] =>
+  tileBreakdown
+    .map(({ letter, count }) =>
+      Array(count * multiplier)
+        .fill(null)
+        .map((_, i) => new Tile(`${letter}${i}`, letter))
+    )
+    .flat();
 
 export default tileBreakdown;

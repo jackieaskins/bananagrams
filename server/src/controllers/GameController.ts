@@ -6,17 +6,7 @@ import Player from '../models/Player';
 import { BoardLocation } from '../models/Board';
 
 const MAX_PLAYERS = 8;
-const getInitialTileCount = (numPlayers: number): number => {
-  if (numPlayers <= 4) {
-    return 21;
-  }
-
-  if (numPlayers <= 6) {
-    return 15;
-  }
-
-  return 11;
-};
+const INITIAL_TILE_COUNT = 21;
 
 export default class GameController {
   private static games: Record<string, Game> = {};
@@ -266,11 +256,7 @@ export default class GameController {
     currentPlayers.forEach((player) => {
       player
         .getHand()
-        .addTiles(
-          currentGame
-            .getBunch()
-            .removeTiles(getInitialTileCount(currentPlayers.length))
-        );
+        .addTiles(currentGame.getBunch().removeTiles(INITIAL_TILE_COUNT));
     });
     currentGame.setInProgress(true);
 
