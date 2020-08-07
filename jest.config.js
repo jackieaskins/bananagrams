@@ -1,0 +1,9 @@
+const baseConfig = require('./jest.config.base');
+
+module.exports = {
+  ...baseConfig,
+  projects: [
+    '<rootDir>/client',
+    '<rootDir>/server'
+  ],
+};
