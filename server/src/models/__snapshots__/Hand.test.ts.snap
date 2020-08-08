@@ -4,8 +4,17 @@ exports[`Hand Model removeTile throws an error when tile is not in hand 1`] = `"
 
 exports[`Hand Model toJSON returns array of JSON tiles 1`] = `
 Array [
-  "TileJSON - A1 A",
-  "TileJSON - B1 B",
-  "TileJSON - C1 C",
+  Object {
+    "id": "A1",
+    "letter": "A",
+  },
+  Object {
+    "id": "B1",
+    "letter": "B",
+  },
+  Object {
+    "id": "C1",
+    "letter": "C",
+  },
 ]
 `;

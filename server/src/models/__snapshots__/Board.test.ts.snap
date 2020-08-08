@@ -8,7 +8,10 @@ exports[`Board Model toJSON turns fields into JSON 1`] = `
 Array [
   Array [
     Object {
-      "tile": "TileJSON - A1 A",
+      "tile": Object {
+        "id": "A1",
+        "letter": "A",
+      },
       "wordInfo": undefined,
     },
     null,

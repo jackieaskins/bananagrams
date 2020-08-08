@@ -6,6 +6,7 @@ module.exports = {
   displayName: 'CLIENT',
   globals: {
     'ts-jest': {
+      diagnostics: false,
       tsConfig: 'client/tsconfig.json',
     },
   },

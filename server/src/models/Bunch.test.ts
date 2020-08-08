@@ -1,14 +1,11 @@
 import Bunch from './Bunch';
 import Game from './Game';
-import Player from './Player';
 import Tile from './Tile';
 
 jest.mock('../tileBreakdown', () => [
   { letter: 'A', count: 2 },
   { letter: 'B', count: 5 },
 ]);
-jest.mock('./Game');
-jest.mock('./Player');
 
 describe('Bunch Model', () => {
   let game: Game;
@@ -17,7 +14,6 @@ describe('Bunch Model', () => {
   beforeEach(() => {
     game = new Game('gameId', 'gameName');
     bunch = new Bunch(game);
-    debugger;
   });
 
   describe('getTiles', () => {
@@ -35,10 +31,7 @@ describe('Bunch Model', () => {
 
   describe('reset', () => {
     test('generates tiles with multiplier of 1 when <= 4 players', () => {
-      game.addPlayer(new Player('p1', 'p1'));
-      game.addPlayer(new Player('p2', 'p2'));
-      game.addPlayer(new Player('p3', 'p3'));
-      game.addPlayer(new Player('p4', 'p4'));
+      jest.spyOn(game, 'getPlayers').mockReturnValue(Array(4).fill(null));
 
       bunch.reset();
 
@@ -48,11 +41,7 @@ describe('Bunch Model', () => {
     });
 
     test('generates tiles with multiplier of 2 when > 4 players', () => {
-      game.addPlayer(new Player('p1', 'p1'));
-      game.addPlayer(new Player('p2', 'p2'));
-      game.addPlayer(new Player('p3', 'p3'));
-      game.addPlayer(new Player('p4', 'p4'));
-      game.addPlayer(new Player('p5', 'p5'));
+      jest.spyOn(game, 'getPlayers').mockReturnValue(Array(7).fill(null));
 
       bunch.reset();
 

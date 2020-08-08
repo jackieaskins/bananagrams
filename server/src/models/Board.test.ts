@@ -2,7 +2,6 @@ import Board, { BoardSquares } from './Board';
 import { validateAddTile, validateRemoveTile } from '../boardValidation';
 import Tile from './Tile';
 
-jest.mock('./Tile');
 jest.mock('../boardValidation');
 
 describe('Board Model', () => {

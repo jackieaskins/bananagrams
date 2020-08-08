@@ -1,8 +1,7 @@
 import Game from './Game';
 import Player from './Player';
 
-jest.mock('./Bunch');
-jest.mock('./Player');
+jest.mock('../boardValidation');
 
 describe('Game Model', () => {
   const id = 'id';
@@ -36,18 +35,6 @@ describe('Game Model', () => {
     });
   });
 
-  describe('getBunch', () => {
-    test('returns game bunch', () => {
-      expect(game.getBunch()).toMatchSnapshot();
-    });
-  });
-
-  describe('getPlayers', () => {
-    test('returns empty array by default', () => {
-      expect(game.getPlayers()).toEqual([]);
-    });
-  });
-
   describe('set/getSnapshot', () => {
     test('returns null by default', () => {
       expect(game.getSnapshot()).toBeNull();
@@ -62,12 +49,16 @@ describe('Game Model', () => {
 
   describe('reset', () => {
     test('resets bunch', () => {
+      jest.spyOn(game.getBunch(), 'reset');
+
       game.reset();
+
       expect(game.getBunch().reset).toHaveBeenCalledWith();
     });
 
     test('resets each player', () => {
       const player = new Player('p', 'p');
+      jest.spyOn(player, 'reset');
       game.addPlayer(player);
 
       game.reset();
@@ -79,7 +70,6 @@ describe('Game Model', () => {
   describe('toJSON', () => {
     test('converts fields into JSON', () => {
       game.addPlayer(new Player('p', 'p'));
-
       expect(game.toJSON()).toMatchSnapshot();
     });
   });
@@ -87,9 +77,7 @@ describe('Game Model', () => {
   describe('addPlayer', () => {
     test('adds a player to the game', () => {
       const player = new Player('p', 'p');
-
       game.addPlayer(player);
-
       expect(game.getPlayers()).toEqual([player]);
     });
   });
@@ -97,9 +85,7 @@ describe('Game Model', () => {
   describe('removePlayer', () => {
     test('removes player from game', () => {
       game.addPlayer(new Player('p', 'p'));
-
       game.removePlayer('p');
-
       expect(game.getPlayers()).toEqual([]);
     });
   });

@@ -1,8 +1,6 @@
 import Hand from './Hand';
 import Tile from './Tile';
 
-jest.mock('./Tile');
-
 describe('Hand Model', () => {
   const tileA1 = new Tile('A1', 'A');
   const tileB1 = new Tile('B1', 'B');

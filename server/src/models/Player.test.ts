@@ -1,9 +1,7 @@
 import Player from './Player';
 import Tile from './Tile';
 
-jest.mock('./Tile');
-jest.mock('./Board');
-jest.mock('./Hand');
+jest.mock('../boardValidation');
 
 describe('Player Model', () => {
   const userId = 'userId';
@@ -63,18 +61,6 @@ describe('Player Model', () => {
     });
   });
 
-  describe('getHand', () => {
-    test('returns an initialized hand', () => {
-      expect(player.getHand()).toMatchSnapshot();
-    });
-  });
-
-  describe('getBoard', () => {
-    test('returns an initialized board', () => {
-      expect(player.getBoard()).toMatchSnapshot();
-    });
-  });
-
   describe('toJSON', () => {
     test('converts fields into JSON', () => {
       expect(player.toJSON()).toMatchSnapshot();
@@ -83,6 +69,9 @@ describe('Player Model', () => {
 
   describe('reset', () => {
     beforeEach(() => {
+      jest.spyOn(player.getHand(), 'reset');
+      jest.spyOn(player.getBoard(), 'reset');
+
       player.reset();
     });
 
@@ -100,6 +89,10 @@ describe('Player Model', () => {
     const location = { x: 0, y: 0 };
 
     beforeEach(() => {
+      jest.spyOn(player.getBoard(), 'validateEmptySquare');
+      jest.spyOn(player.getHand(), 'removeTile');
+      jest.spyOn(player.getBoard(), 'addTile');
+
       player.getHand().addTiles([tile]);
       player.moveTileFromHandToBoard(tile.getId(), location);
     });
@@ -124,6 +117,9 @@ describe('Player Model', () => {
     const tile = new Tile('A1', 'A');
 
     beforeEach(() => {
+      jest.spyOn(player.getBoard(), 'removeTile');
+      jest.spyOn(player.getHand(), 'addTiles');
+
       player.getBoard().addTile(location, tile);
       player.moveTileFromBoardToHand(location);
     });
@@ -143,6 +139,10 @@ describe('Player Model', () => {
     const tile = new Tile('A1', 'A');
 
     beforeEach(() => {
+      jest.spyOn(player.getBoard(), 'validateEmptySquare');
+      jest.spyOn(player.getBoard(), 'removeTile');
+      jest.spyOn(player.getBoard(), 'addTile');
+
       player.getBoard().addTile(from, tile);
       player.moveTileOnBoard(from, to);
     });
