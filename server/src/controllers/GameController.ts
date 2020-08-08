@@ -42,6 +42,10 @@ export default class GameController {
     return gameInfo;
   }
 
+  static getGames(): Record<string, Game> {
+    return { ...this.games };
+  }
+
   static createGame(
     gameName: string,
     username: string,
@@ -240,7 +244,7 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
-  private split(): void {
+  split(): void {
     const { io, currentGame } = this;
     const gameId = currentGame.getId();
 

@@ -109,7 +109,7 @@ export const validateAddTile = (
 
   const wordInfo = locationsToValidate.map(({ direction, start }) => [
     direction,
-    { start, valid: ValidationStatus.NOT_VALIDATED },
+    { start, validation: ValidationStatus.NOT_VALIDATED },
   ]);
 
   board[x][y] = { tile, wordInfo: Object.fromEntries(wordInfo) };
