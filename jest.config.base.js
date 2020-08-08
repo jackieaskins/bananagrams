@@ -3,7 +3,9 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
-    '!src/dictionary/words.ts'
+    '!src/dictionary/words.ts',
+    '!src/index.ts',
+    '!src/devServer.ts'
   ],
   preset: 'ts-jest'
 }
