@@ -100,7 +100,7 @@ export default class Board implements BaseModel<BoardJSON> {
       throw new Error(`Board does not have a tile at location ${x}, ${y}`);
     }
 
-    const tile = square.tile;
+    const { tile } = square;
     this.squares = validateRemoveTile(this.getSquares(), { x, y });
     return tile;
   }

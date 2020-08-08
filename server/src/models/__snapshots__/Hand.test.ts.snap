@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hand Model removeTile throws an error when tile is not in hand 1`] = `"Tile with id A1 is not present in hand"`;
+
+exports[`Hand Model toJSON returns array of JSON tiles 1`] = `
+Array [
+  "TileJSON - A1 A",
+  "TileJSON - B1 B",
+  "TileJSON - C1 C",
+]
+`;

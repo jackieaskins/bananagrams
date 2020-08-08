@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game Model getBunch returns game bunch 1`] = `"BunchJSON"`;
+
+exports[`Game Model toJSON converts fields into JSON 1`] = `
+Object {
+  "bunch": "BunchJSON",
+  "gameId": "id",
+  "gameName": "name",
+  "isInProgress": false,
+  "players": Array [
+    "PlayerJSON",
+  ],
+  "previousSnapshot": null,
+}
+`;

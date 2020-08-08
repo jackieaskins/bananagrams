@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Player Model getBoard returns an initialized board 1`] = `"BoardJSON"`;
+
+exports[`Player Model getHand returns an initialized hand 1`] = `"HandJSON"`;
+
+exports[`Player Model toJSON converts fields into JSON 1`] = `
+Object {
+  "board": "BoardJSON",
+  "gamesWon": 0,
+  "hand": "HandJSON",
+  "isReady": false,
+  "isTopBanana": false,
+  "userId": "userId",
+  "username": "username",
+}
+`;
