@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 import { SetState } from '../state/types';
 import { GameInfo, GameLocationState } from './types';
 

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect } from 'react';
-import io from 'socket.io-client';
 import { useSnackbar } from 'notistack';
+
+import socket from './index';
 
 export type Callback<T> = (error: Error | null, data: T) => void;
 
@@ -8,10 +9,7 @@ type SocketState = {
   socket: SocketIOClient.Socket;
 };
 
-const SOCKET_URL = 'http://localhost:5000';
-const socket = process.env.NODE_ENV === 'development' ? io(SOCKET_URL) : io();
-
-const SocketContext = createContext<SocketState>({
+export const SocketContext = createContext<SocketState>({
   socket,
 });
 
@@ -34,5 +32,6 @@ export const SocketProvider: React.FC = ({ children }) => {
     </SocketContext.Provider>
   );
 };
+SocketProvider.displayName = 'SocketProvider';
 
 export const useSocket = (): SocketState => useContext(SocketContext);

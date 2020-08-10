@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
 import { useStyles } from '../styles';

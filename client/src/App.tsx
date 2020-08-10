@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 
 import Routes from './Routes';
-import { SocketProvider } from './SocketContext';
+import { SocketProvider } from './socket/SocketContext';
 import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
 
 const App: React.FC = () => (

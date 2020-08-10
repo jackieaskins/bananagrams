@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 
 export type ServerDisconnectionDialogState = {
   shouldShowDialog: boolean;

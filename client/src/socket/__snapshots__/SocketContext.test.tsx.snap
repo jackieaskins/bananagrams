@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SocketContext <SocketProvider /> renders provider properly 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "socket": Object {
+        "emit": [MockFunction],
+        "on": [MockFunction] {
+          "calls": Array [
+            Array [
+              "notification",
+              [Function],
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        },
+      },
+    }
+  }
+>
+  children
+</ContextProvider>
+`;

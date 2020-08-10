@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Check, Close } from '@material-ui/icons';
 
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
 
 const MAX_PLAYERS = 8;

@@ -9,14 +9,20 @@ import SocketGameProvider from './games/SocketGameProvider';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/" exact component={Home} />
+    <Route path="/" exact>
+      <Home />
+    </Route>
     <Route path="/game/:gameId" exact>
       <SocketGameProvider>
         <GameManager />
       </SocketGameProvider>
     </Route>
-    <Route path="/game/:gameId/join" exact component={JoinGame} />
-    <Route component={NotFound} />
+    <Route path="/game/:gameId/join" exact>
+      <JoinGame />
+    </Route>
+    <Route>
+      <NotFound />
+    </Route>
   </Switch>
 );
 

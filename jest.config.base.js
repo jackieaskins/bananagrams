@@ -2,10 +2,17 @@ module.exports = {
   clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: [
+    // Both
     'src/**/*.{ts,tsx}',
+    '!src/index.{ts,tsx}',
+
+    // Server
     '!src/dictionary/words.ts',
-    '!src/index.ts',
-    '!src/devServer.ts'
+    '!src/devServer.ts',
+
+    // Client
+    '!src/socket/index.ts',
+    '!src/**/*.stories.tsx',
   ],
-  preset: 'ts-jest'
+  preset: 'ts-jest',
 }

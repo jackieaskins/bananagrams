@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '../buttons/Button';
 import PreviewBoard from './PreviewBoard';
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 import { Box, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 import PreviewHand from '../hands/PreviewHand';
 import { Player } from '../players/types';

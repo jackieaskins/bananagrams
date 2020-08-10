@@ -10,7 +10,7 @@ import Dump from '../hands/Dump';
 import Hand from '../hands/Hand';
 import { Player } from '../players/types';
 import { useGame } from './GameContext';
-import { useSocket } from '../SocketContext';
+import { useSocket } from '../socket/SocketContext';
 import { isValidConnectedBoard } from '../boards/validate';
 
 import './Game.css';
