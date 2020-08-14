@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Checkbox,
@@ -9,30 +9,26 @@ import {
   DialogTitle,
   FormControlLabel,
 } from '@material-ui/core';
-import { get, set } from 'local-storage';
+import { useWalkthroughDialog } from './WalkthroughDialogState';
+
+export const SHOW_WALKTHROUGH_KEY = 'showWalkthrough';
 
 type WalkthroughDialogProps = {
   showWalkthrough: () => void;
 };
-
-const SHOW_WALKTHROUGH_KEY = 'showWalkthrough';
-
 const WalkthroughDialog: React.FC<WalkthroughDialogProps> = ({
   showWalkthrough,
 }) => {
-  const [dontAskAgain, setDontAskAgain] = useState(true);
-  const [showWalkthroughDialog, setShowWalkthroughDialog] = useState(
-    get<boolean | undefined>(SHOW_WALKTHROUGH_KEY) ?? true
-  );
-
-  const handleClose = (): void => {
-    set<boolean>(SHOW_WALKTHROUGH_KEY, !dontAskAgain);
-    setShowWalkthroughDialog(false);
-  };
+  const {
+    askAgain,
+    handleClose,
+    setAskAgain,
+    shouldShowWalkthroughDialog,
+  } = useWalkthroughDialog();
 
   return (
     <Dialog
-      open={showWalkthroughDialog}
+      open={shouldShowWalkthroughDialog}
       disableBackdropClick
       onClose={handleClose}
     >
@@ -45,9 +41,9 @@ const WalkthroughDialog: React.FC<WalkthroughDialogProps> = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={dontAskAgain}
+                checked={!askAgain}
                 onChange={({ target: { checked } }): void => {
-                  setDontAskAgain(checked);
+                  setAskAgain(!checked);
                 }}
               />
             }

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tile /> renders properly 1`] = `
+<Styled(MuiBox)
+  alignItems="center"
+  border={1}
+  borderRadius="borderRadius"
+  display="inline-flex"
+  justifyContent="center"
+  style={
+    Object {
+      "backgroundColor": "#ffffc7",
+      "color": "black",
+      "cursor": "move",
+      "height": "23px",
+      "margin": "0",
+      "opacity": 1,
+      "width": "23px",
+    }
+  }
+>
+  <WithStyles(ForwardRef(Typography))
+    variant="body2"
+  >
+    A
+  </WithStyles(ForwardRef(Typography))>
+</Styled(MuiBox)>
+`;

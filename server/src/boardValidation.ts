@@ -32,7 +32,7 @@ const iterateWordFromStart = (
   let { x: nextX, y: nextY } = start;
 
   while (nextX < board.length && nextY < board[nextX].length) {
-    const square = board[nextX]?.[nextY];
+    const square = board[nextX][nextY];
     if (!square || loopFn(square)) break;
 
     nextX += delta.x;
