@@ -59,6 +59,7 @@ exports[`<CreateGameForm /> renders properly 1`] = `
         loadingText="Creating game"
         onClick={[MockFunction onSubmit]}
         size="large"
+        type="submit"
       >
         Create game
       </Button>

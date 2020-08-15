@@ -49,6 +49,7 @@ const JoinGameForm: React.FC = () => {
             onClick={onSubmit}
             size="large"
             fullWidth
+            type="submit"
           >
             Join game
           </Button>

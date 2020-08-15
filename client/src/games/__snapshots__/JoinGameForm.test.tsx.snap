@@ -50,6 +50,7 @@ exports[`<JoinGameForm /> renders properly 1`] = `
         loadingText="Joining game"
         onClick={[MockFunction onSubmit]}
         size="large"
+        type="submit"
       >
         Join game
       </Button>

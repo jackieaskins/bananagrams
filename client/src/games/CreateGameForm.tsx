@@ -60,6 +60,7 @@ const CreateGameForm: React.FC = () => {
             onClick={onSubmit}
             size="large"
             fullWidth
+            type="submit"
           >
             Create game
           </Button>
