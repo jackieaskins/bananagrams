@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dump /> drag text renders when can drop 1`] = `null`;
+
+exports[`<Dump /> renders properly 1`] = `
+<TransparentPaper
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <Styled(MuiBox)
+    alignItems="center"
+    className=""
+    display="flex"
+    flexDirection="column"
+    justifyContent="center"
+    p={2}
+  >
+    <WithStyles(ForwardRef(Typography))
+      color="textSecondary"
+      variant="button"
+    >
+      Dump!
+    </WithStyles(ForwardRef(Typography))>
+  </Styled(MuiBox)>
+</TransparentPaper>
+`;

@@ -16,23 +16,17 @@ jest.mock('./WalkthroughDialogState', () => ({
 }));
 
 describe('<WalkthroughDialog />', () => {
-  let dialog: ShallowWrapper<DialogProps>;
-
   const mockShowWalkthrough = jest.fn().mockName('showWalkthrough');
-  const renderDialog = (): ShallowWrapper<DialogProps> => {
-    dialog = shallow(
-      <WalkthroughDialog showWalkthrough={mockShowWalkthrough} />
-    );
-    return dialog;
-  };
+  const renderComponent = (): ShallowWrapper<DialogProps> =>
+    shallow(<WalkthroughDialog showWalkthrough={mockShowWalkthrough} />);
 
   test('renders properly', () => {
-    expect(renderDialog()).toMatchSnapshot();
+    expect(renderComponent()).toMatchSnapshot();
   });
 
   describe("don't ask again checkbox", () => {
     test('calls setAskAgain with negated checked on change', () => {
-      shallow(renderDialog().find(FormControlLabel).props().control)
+      shallow(renderComponent().find(FormControlLabel).props().control)
         .props()
         .onChange?.({ target: { checked: false } });
 
@@ -42,7 +36,11 @@ describe('<WalkthroughDialog />', () => {
 
   describe('Yes button', () => {
     beforeEach(() => {
-      renderDialog().find(Button).find({ children: 'Yes' }).props().onClick();
+      renderComponent()
+        .find(Button)
+        .find({ children: 'Yes' })
+        .props()
+        .onClick();
     });
 
     test('shows the walkthrough', () => {
