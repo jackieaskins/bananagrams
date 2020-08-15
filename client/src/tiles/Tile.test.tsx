@@ -11,7 +11,7 @@ const DEFAULT_BOARD_LOCATION = { x: 0, y: 0 };
 const DEFAULT_ID = 'A1';
 
 describe('<Tile />', () => {
-  const renderComponent = (propOverrides = {}): ShallowWrapper =>
+  const renderTile = (propOverrides = {}): ShallowWrapper =>
     shallow(
       <Tile
         boardLocation={DEFAULT_BOARD_LOCATION}
@@ -21,12 +21,12 @@ describe('<Tile />', () => {
     );
 
   test('renders properly', () => {
-    expect(renderComponent()).toMatchSnapshot();
+    expect(renderTile()).toMatchSnapshot();
   });
 
   describe('useDrag', () => {
     beforeEach(() => {
-      renderComponent();
+      renderTile();
     });
 
     test('is called with correct params', () => {
@@ -53,35 +53,35 @@ describe('<Tile />', () => {
 
   describe('margin', () => {
     test('is set to 0 when on board', () => {
-      expect(renderComponent().props().style.margin).toEqual('0');
+      expect(renderTile().props().style.margin).toEqual('0');
     });
 
     test('is set when not on board', () => {
-      expect(
-        renderComponent({ boardLocation: null }).props().style.margin
-      ).toEqual('5px');
+      expect(renderTile({ boardLocation: null }).props().style.margin).toEqual(
+        '5px'
+      );
     });
   });
 
   describe('opacity', () => {
     test('is set to 1 when not dragging', () => {
-      expect(renderComponent().props().style.opacity).toEqual(1);
+      expect(renderTile().props().style.opacity).toEqual(1);
     });
 
     test('is dimmed while dragging', () => {
       useDrag.mockReturnValue([{ isDragging: true }, jest.fn()]);
-      expect(renderComponent().props().style.opacity).toEqual(0.5);
+      expect(renderTile().props().style.opacity).toEqual(0.5);
     });
   });
 
   describe('color', () => {
     test('is set to black by default', () => {
-      expect(renderComponent().props().style.color).toEqual('black');
+      expect(renderTile().props().style.color).toEqual('black');
     });
 
     test('is set to passed in color', () => {
       const color = 'red';
-      expect(renderComponent({ color }).props().style.color).toEqual(color);
+      expect(renderTile({ color }).props().style.color).toEqual(color);
     });
   });
 });
