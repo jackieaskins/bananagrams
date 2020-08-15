@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameContext GameProvider renders properly 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "gameInfo": Object {
+        "bunch": Array [],
+        "gameId": "gameId",
+        "gameName": "",
+        "isInProgress": false,
+        "players": Array [],
+        "previousSnapshot": null,
+      },
+      "handleDump": [MockFunction handleDump],
+      "handleMoveTileFromBoardToHand": [MockFunction handleMoveTileFromBoardToHand],
+      "handleMoveTileFromHandToBoard": [MockFunction handleMoveTileFromHandToBoard],
+      "handleMoveTileOnBoard": [MockFunction handleMoveTileOnBoard],
+      "handlePeel": [MockFunction handlePeel],
+      "isInGame": true,
+      "walkthroughEnabled": true,
+    }
+  }
+>
+  Children
+</ContextProvider>
+`;
+
+exports[`GameContext getEmptyGameState generates default empty state 1`] = `
+Object {
+  "gameInfo": Object {
+    "bunch": Array [],
+    "gameId": "gameId",
+    "gameName": "",
+    "isInProgress": false,
+    "players": Array [],
+    "previousSnapshot": null,
+  },
+  "handleDump": [Function],
+  "handleMoveTileFromBoardToHand": [Function],
+  "handleMoveTileFromHandToBoard": [Function],
+  "handleMoveTileOnBoard": [Function],
+  "handlePeel": [Function],
+  "isInGame": false,
+  "walkthroughEnabled": false,
+}
+`;

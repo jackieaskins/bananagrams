@@ -24,6 +24,14 @@ exports[`<Dump /> renders properly 1`] = `
     >
       Dump!
     </WithStyles(ForwardRef(Typography))>
+    <WithStyles(ForwardRef(Typography))
+      color="textSecondary"
+      variant="caption"
+    >
+      Drag a tile here to exchange it for 
+      3
+       from the bunch
+    </WithStyles(ForwardRef(Typography))>
   </Styled(MuiBox)>
 </TransparentPaper>
 `;

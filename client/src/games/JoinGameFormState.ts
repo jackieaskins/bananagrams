@@ -22,9 +22,9 @@ export const useJoinGameForm = (): JoinGameFormState => {
   const { push } = useHistory();
   const { gameId } = useParams<JoinGameParams>();
 
-  const [isJoiningGame, setIsJoiningGame] = useState(false);
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+  const [isJoiningGame, setIsJoiningGame] = useState(false);
 
   const onSubmit = (): void => {
     setIsJoiningGame(true);

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ServerDisconnectionDialog /> renders properly 1`] = `
+<WithStyles(ForwardRef(Dialog))
+  onClose={[MockFunction hideDialog]}
+  open={true}
+>
+  <WithStyles(ForwardRef(DialogContent))>
+    <WithStyles(ForwardRef(DialogContentText))>
+      You have been disconnected from the server.
+    </WithStyles(ForwardRef(DialogContentText))>
+  </WithStyles(ForwardRef(DialogContent))>
+  <WithStyles(ForwardRef(DialogActions))>
+    <WithStyles(ForwardRef(Button))
+      color="primary"
+      onClick={[MockFunction hideDialog]}
+    >
+      Return home
+    </WithStyles(ForwardRef(Button))>
+  </WithStyles(ForwardRef(DialogActions))>
+</WithStyles(ForwardRef(Dialog))>
+`;

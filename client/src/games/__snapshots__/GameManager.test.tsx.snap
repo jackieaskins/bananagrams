@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GameManager /> renders Game when in game 1`] = `
+<Styled(MuiBox)
+  display="flex"
+>
+  <GameSidebar />
+  <Styled(MuiBox)
+    width="100%"
+  >
+    <Game />
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;
+
+exports[`<GameManager /> renders StartGame when not in game 1`] = `
+<Styled(MuiBox)
+  display="flex"
+>
+  <GameSidebar />
+  <Styled(MuiBox)
+    width="100%"
+  >
+    <StartGame />
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;
+
+exports[`<GameManager /> renders redirect when not in game 1`] = `
+<Redirect
+  to="/game/gameId/join"
+/>
+`;

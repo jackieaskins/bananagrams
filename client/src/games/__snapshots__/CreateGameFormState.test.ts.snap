@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCreateGameForm has correct default state 1`] = `
+Object {
+  "error": "",
+  "gameName": "",
+  "isCreatingGame": false,
+  "onSubmit": [Function],
+  "setGameName": [MockFunction setGameName],
+  "setUsername": [MockFunction setUsername],
+  "username": "",
+}
+`;

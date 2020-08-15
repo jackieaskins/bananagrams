@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StartGame /> does not render board when no snapshot 1`] = `
+<Styled(MuiBox)>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    gutterBottom={true}
+    variant="h3"
+  >
+    gameName
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    color="textSecondary"
+    variant="body1"
+  >
+    Invite others to game:
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    color="textSecondary"
+    gutterBottom={true}
+    variant="body2"
+  >
+    http://localhost//join
+     
+    <CopyToClipboard
+      copyText="http://localhost//join"
+    />
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    justify="center"
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      md={5}
+    >
+      <PlayerList />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</Styled(MuiBox)>
+`;
+
+exports[`<StartGame /> renders winning board when snapshot is present 1`] = `
+<Styled(MuiBox)>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    gutterBottom={true}
+    variant="h3"
+  >
+    gameName
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    color="textSecondary"
+    variant="body1"
+  >
+    Invite others to game:
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    align="center"
+    color="textSecondary"
+    gutterBottom={true}
+    variant="body2"
+  >
+    http://localhost//join
+     
+    <CopyToClipboard
+      copyText="http://localhost//join"
+    />
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    justify="center"
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      md={5}
+    >
+      <PlayerList />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Styled(MuiBox)
+        display="flex"
+        flexDirection="column"
+      >
+        <WithStyles(ForwardRef(Typography))
+          align="center"
+          gutterBottom={true}
+          variant="body1"
+        >
+          Here is 
+          username's
+           winning board:
+        </WithStyles(ForwardRef(Typography))>
+        <PreviewBoard
+          board={
+            Array [
+              Array [
+                null,
+              ],
+            ]
+          }
+          tileSize={20}
+        />
+      </Styled(MuiBox)>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</Styled(MuiBox)>
+`;

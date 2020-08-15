@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<JoinGameForm /> renders properly 1`] = `
+<Fragment>
+  <WithStyles(ForwardRef(Typography))
+    style={
+      Object {
+        "marginBottom": "5px",
+      }
+    }
+    variant="h3"
+  >
+    Join game
+  </WithStyles(ForwardRef(Typography))>
+  <ErrorAlert
+    style={
+      Object {
+        "marginBottom": "5px",
+      }
+    }
+    visible={true}
+  >
+    error
+  </ErrorAlert>
+  <WithStyles(ForwardRef(Grid))
+    autoComplete="off"
+    component="form"
+    container={true}
+    direction="column"
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <TextField
+        label="Username"
+        name="username"
+        required={true}
+        setValue={[MockFunction setUsername]}
+        value="username"
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Button
+        disabled={false}
+        fullWidth={true}
+        loading={true}
+        loadingText="Joining game"
+        onClick={[MockFunction onSubmit]}
+        size="large"
+      >
+        Join game
+      </Button>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      style={
+        Object {
+          "margin": "0 auto",
+          "padding": "0",
+        }
+      }
+    >
+      <WithStyles(ForwardRef(Link))
+        align="center"
+        component={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "displayName": "Link",
+            "propTypes": Object {
+              "innerRef": [Function],
+              "onClick": [Function],
+              "replace": [Function],
+              "target": [Function],
+              "to": [Function],
+            },
+            "render": [Function],
+          }
+        }
+        to="/"
+        variant="body1"
+      >
+        Go home
+      </WithStyles(ForwardRef(Link))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</Fragment>
+`;

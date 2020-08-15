@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -14,17 +14,15 @@ import { ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { useStyles } from '../styles';
+import { useGameSidebar } from './GameSidebarState';
 
 const GameSidebar: React.FC = () => {
   const classes = useStyles();
-  const [leaveGameDialogOpen, setLeaveGameDialogOpen] = useState(false);
-
-  const showLeaveGameDialog = (): void => {
-    setLeaveGameDialogOpen(true);
-  };
-  const handleLeaveGameCancel = (): void => {
-    setLeaveGameDialogOpen(false);
-  };
+  const {
+    leaveGameDialogOpen,
+    showLeaveGameDialog,
+    handleLeaveGameCancel,
+  } = useGameSidebar();
 
   return (
     <Drawer

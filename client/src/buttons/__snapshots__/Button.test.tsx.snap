@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> renders properly while loading 1`] = `
+<WithStyles(ForwardRef(Button))
+  color="primary"
+  disabled={true}
+  onClick={[MockFunction onClick]}
+  startIcon={
+    <LoadingIndicator
+      size={15}
+    />
+  }
+  variant="contained"
+>
+  Loading
+</WithStyles(ForwardRef(Button))>
+`;
+
+exports[`<Button /> test renders properly when disabled 1`] = `
+<WithStyles(ForwardRef(Button))
+  color="primary"
+  disabled={true}
+  onClick={[MockFunction onClick]}
+  variant="contained"
+>
+  Button
+</WithStyles(ForwardRef(Button))>
+`;

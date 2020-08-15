@@ -46,7 +46,7 @@ const Dump: React.FC = () => {
         <Typography variant="button" color="textSecondary">
           Dump!
         </Typography>
-        {bunch.length > EXCHANGE_COUNT && (
+        {bunch.length >= EXCHANGE_COUNT && (
           <Typography variant="caption" color="textSecondary">
             Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
           </Typography>

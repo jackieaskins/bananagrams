@@ -25,7 +25,7 @@ export const getEmptyGameState = (gameId: string): GameState => ({
   walkthroughEnabled: false,
 });
 
-const GameContext = createContext<GameState>(getEmptyGameState(''));
+export const GameContext = createContext<GameState>(getEmptyGameState(''));
 
 export const GameProvider: React.FC<GameProviderProps> = ({
   children,

@@ -7,11 +7,7 @@ import ErrorAlert from '../alerts/ErrorAlert';
 import TextField from '../forms/TextField';
 import { useJoinGameForm } from './JoinGameFormState';
 
-type JoinGameFormProps = {
-  gameId: string;
-};
-
-const JoinGameForm: React.FC<JoinGameFormProps> = () => {
+const JoinGameForm: React.FC = () => {
   const {
     error,
     isJoiningGame,

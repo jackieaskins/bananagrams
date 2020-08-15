@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextField /> renders properly 1`] = `
+<WithStyles(ForwardRef(TextField))
+  fullWidth={true}
+  onChange={[Function]}
+  value="value"
+/>
+`;

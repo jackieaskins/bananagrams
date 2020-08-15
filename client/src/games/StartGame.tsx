@@ -12,7 +12,6 @@ const StartGame: React.FC = () => {
   } = useGame();
   const joinUrl = `${window.location.href}/join`;
   const winningPlayer = previousSnapshot?.find((player) => player.isTopBanana);
-  const winningBoard = winningPlayer?.board;
 
   return (
     <Box>
@@ -35,16 +34,14 @@ const StartGame: React.FC = () => {
         <Grid item md={5}>
           <PlayerList />
         </Grid>
-        {winningBoard && (
+        {winningPlayer && (
           <Grid item>
             <Box display="flex" flexDirection="column">
               <Typography variant="body1" align="center" gutterBottom>
-                Here is{' '}
-                {!!winningPlayer ? `${winningPlayer.username}'s` : 'the'}{' '}
-                winning board:
+                Here is {`${winningPlayer.username}'s`} winning board:
               </Typography>
 
-              <PreviewBoard board={winningBoard} tileSize={20} />
+              <PreviewBoard board={winningPlayer.board} tileSize={20} />
             </Box>
           </Grid>
         )}

@@ -11,15 +11,19 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    (async (): Promise<void> => {
+    const checkIfClipboardWriteSupported = async (): Promise<void> => {
       const { state } = await navigator.permissions.query({
         name: 'clipboard-write',
       } as any);
 
       if (state === 'granted' || state === 'prompt') {
         setShouldShow(true);
+      } else {
+        setShouldShow(false);
       }
-    })();
+    };
+
+    checkIfClipboardWriteSupported();
   }, []);
 
   const copyToClipboard = async (copyText: string): Promise<void> => {

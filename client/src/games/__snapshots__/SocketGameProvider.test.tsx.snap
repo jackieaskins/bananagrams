@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SocketGameProvider /> renders properly 1`] = `
+<Component
+  gameState={
+    Object {
+      "gameInfo": Object {
+        "bunch": Array [],
+        "gameId": "gameId",
+        "gameName": "",
+        "isInProgress": false,
+        "players": Array [],
+        "previousSnapshot": null,
+      },
+      "handleDump": [Function],
+      "handleMoveTileFromBoardToHand": [Function],
+      "handleMoveTileFromHandToBoard": [Function],
+      "handleMoveTileOnBoard": [Function],
+      "handlePeel": [Function],
+      "isInGame": false,
+      "walkthroughEnabled": false,
+    }
+  }
+>
+  Children
+</Component>
+`;
