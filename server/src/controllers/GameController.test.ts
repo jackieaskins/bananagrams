@@ -26,6 +26,9 @@ describe('GameController', () => {
   let game: Game;
   let player: Player;
 
+  const createShortenedGame = () =>
+    GameController.createGame(gameName, username, true, io, socket);
+
   const assertEmitsGameNotification = (
     emitFrom: any,
     message: string
@@ -49,12 +52,24 @@ describe('GameController', () => {
     };
 
     jest.spyOn(GameController, 'joinGame');
-    gameController = GameController.createGame(gameName, username, io, socket);
+    gameController = GameController.createGame(
+      gameName,
+      username,
+      false,
+      io,
+      socket
+    );
     game = gameController.getCurrentGame();
     player = gameController.getCurrentPlayer();
   });
 
   describe('createGame', () => {
+    test('can create a shortened game', () => {
+      const controller = createShortenedGame();
+
+      expect(controller.getCurrentGame().isShortenedGame()).toEqual(true);
+    });
+
     test('adds game to list of games', () => {
       expect(GameController.getGames()[game.getId()]).toEqual(game);
     });
@@ -77,6 +92,14 @@ describe('GameController', () => {
     test('throws an error if game does not exist', () => {
       expect(() =>
         GameController.joinGame('1', 'username', io, socket)
+      ).toThrowErrorMatchingSnapshot();
+    });
+
+    test('throws an error if game is shortened', () => {
+      const shortenedGame = createShortenedGame().getCurrentGame();
+
+      expect(() =>
+        GameController.joinGame(shortenedGame.getId(), 'username', io, socket)
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -458,6 +481,15 @@ describe('GameController', () => {
 
     test('adds tiles to player hand', () => {
       expect(player.getHand().getTiles()).toHaveLength(21);
+    });
+
+    test('adds fewer tiles to player hand in shortened game', () => {
+      const controller = createShortenedGame();
+      controller.split();
+
+      expect(controller.getCurrentPlayer().getHand().getTiles()).toHaveLength(
+        2
+      );
     });
 
     test('sets game in progress', () => {

@@ -24,6 +24,16 @@ export default class Bunch implements BaseModel<BunchJSON> {
   }
 
   reset(): void {
+    if (this.game.isShortenedGame()) {
+      this.tiles = [
+        new Tile('A1', 'A'),
+        new Tile('E1', 'E'),
+        new Tile('T1', 'T'),
+      ];
+
+      return;
+    }
+
     const multiplier = Math.ceil(
       this.game.getPlayers().length / MULTIPLIER_DIVISOR
     );

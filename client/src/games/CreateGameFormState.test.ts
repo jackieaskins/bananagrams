@@ -1,8 +1,10 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useCreateGameForm } from './CreateGameFormState';
 
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
+  useLocation: jest.fn(),
   useHistory: () => ({
     push: mockPush,
   }),
@@ -24,6 +26,9 @@ describe('useCreateGameForm', () => {
   const mockSetIsCreatingGame = jest.fn().mockName('setIsCreatingGame');
 
   beforeEach(() => {
+    useLocation.mockReturnValue({
+      search: '',
+    });
     jest
       .spyOn(React, 'useState')
       .mockImplementationOnce((initialValue) => [initialValue, mockSetGameName])
@@ -40,23 +45,38 @@ describe('useCreateGameForm', () => {
   });
 
   describe('onSubmit', () => {
-    beforeEach(() => {
-      useCreateGameForm().onSubmit();
-    });
-
     test('sets is creating game', () => {
+      useCreateGameForm().onSubmit();
+
       expect(mockSetIsCreatingGame).toHaveBeenCalledWith(true);
     });
 
     test('emits create game event to socket', () => {
+      useCreateGameForm().onSubmit();
+
       expect(mockEmit).toHaveBeenCalledWith(
         'createGame',
-        { gameName: '', username: '' },
+        { gameName: '', username: '', isShortenedGame: false },
         expect.any(Function)
       );
     });
 
+    test('creates shortened game if query param is present', () => {
+      useLocation.mockReturnValue({ search: '?isShortenedGame=true' });
+      useCreateGameForm().onSubmit();
+
+      expect(mockEmit.mock.calls[0][1]).toEqual({
+        gameName: '',
+        username: '',
+        isShortenedGame: true,
+      });
+    });
+
     describe('socket createGame callback', () => {
+      beforeEach(() => {
+        useCreateGameForm().onSubmit();
+      });
+
       describe('on error', () => {
         beforeEach(() => {
           mockEmit.mock.calls[0][2](new Error('error'), {});

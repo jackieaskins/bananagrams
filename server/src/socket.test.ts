@@ -63,7 +63,10 @@ describe('socket', () => {
     });
 
     const createGame = (callback?: () => void): void => {
-      socketCalls['createGame']({ gameName, username }, callback);
+      socketCalls.createGame(
+        { gameName, username, isShortenedGame: false },
+        callback
+      );
     };
 
     test('configures connection', () => {
@@ -79,6 +82,22 @@ describe('socket', () => {
         expect(GameController.createGame).toHaveBeenCalledWith(
           gameName,
           username,
+          false,
+          io,
+          socket
+        );
+      });
+
+      test('passes isShortenedGame to controller', () => {
+        socketCalls.createGame(
+          { gameName, username, isShortenedGame: true },
+          callback
+        );
+
+        expect(GameController.createGame).toHaveBeenCalledWith(
+          gameName,
+          username,
+          true,
           io,
           socket
         );
@@ -103,7 +122,7 @@ describe('socket', () => {
 
     describe('joinGame', () => {
       const joinGame = (callback?: () => void): void => {
-        socketCalls['joinGame']({ gameId, username }, callback);
+        socketCalls.joinGame({ gameId, username }, callback);
       };
 
       beforeEach(() => {
@@ -138,7 +157,7 @@ describe('socket', () => {
 
     describe('leaveGame', () => {
       const leaveGame = (callback?: () => void): void => {
-        socketCalls['leaveGame']({}, callback);
+        socketCalls.leaveGame({}, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -175,7 +194,7 @@ describe('socket', () => {
 
     describe('ready', () => {
       const ready = (isReady: boolean, callback?: () => void): void => {
-        socketCalls['ready']({ isReady }, callback);
+        socketCalls.ready({ isReady }, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -212,7 +231,7 @@ describe('socket', () => {
 
     describe('peel', () => {
       const peel = (callback?: () => void): void => {
-        socketCalls['peel']({}, callback);
+        socketCalls.peel({}, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -252,7 +271,7 @@ describe('socket', () => {
       const boardLocation = { x: 0, y: 0 };
 
       const dump = (callback?: () => void): void => {
-        socketCalls['dump']({ tileId, boardLocation }, callback);
+        socketCalls.dump({ tileId, boardLocation }, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -292,7 +311,7 @@ describe('socket', () => {
       const boardLocation = { x: 0, y: 0 };
 
       const moveTileFromHandToBoard = (callback?: () => void): void => {
-        socketCalls['moveTileFromHandToBoard'](
+        socketCalls.moveTileFromHandToBoard(
           { tileId, boardLocation },
           callback
         );
@@ -337,7 +356,7 @@ describe('socket', () => {
       const boardLocation = { x: 0, y: 0 };
 
       const moveTileFromBoardToHand = (callback?: () => void): void => {
-        socketCalls['moveTileFromBoardToHand']({ boardLocation }, callback);
+        socketCalls.moveTileFromBoardToHand({ boardLocation }, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -379,7 +398,7 @@ describe('socket', () => {
       const toLocation = { x: 1, y: 0 };
 
       const moveTileOnBoard = (callback?: () => void): void => {
-        socketCalls['moveTileOnBoard']({ fromLocation, toLocation }, callback);
+        socketCalls.moveTileOnBoard({ fromLocation, toLocation }, callback);
       };
 
       test('throws an error when not in a game', () => {
@@ -419,7 +438,7 @@ describe('socket', () => {
 
     describe('disconnect', () => {
       test('handles game not existing', () => {
-        expect(() => socketCalls['disconnect']()).not.toThrow();
+        expect(() => socketCalls.disconnect()).not.toThrow();
       });
 
       test('calls leave game', () => {

@@ -7,6 +7,7 @@ import { BoardLocation } from '../models/Board';
 
 const MAX_PLAYERS = 8;
 const INITIAL_TILE_COUNT = 21;
+const INITIAL_SHORTENED_GAME_TILE_COUNT = 2;
 
 export default class GameController {
   private static games: Record<string, Game> = {};
@@ -49,6 +50,7 @@ export default class GameController {
   static createGame(
     gameName: string,
     username: string,
+    isShortenedGame: boolean,
     io: Server,
     socket: Socket
   ): GameController {
@@ -58,7 +60,7 @@ export default class GameController {
       gameId = uuidv4();
     } while (this.games[gameId]);
 
-    const game = new Game(gameId, gameName);
+    const game = new Game(gameId, gameName, isShortenedGame);
     this.games = {
       ...this.games,
       [gameId]: game,
@@ -77,6 +79,12 @@ export default class GameController {
 
     if (!game) {
       throw new Error('Game does not exist');
+    }
+
+    if (game.isShortenedGame() && game.getPlayers().length > 0) {
+      throw new Error(
+        'This game was created for test purposes and cannot be joined.'
+      );
     }
 
     if (game.getPlayers().length >= MAX_PLAYERS) {
@@ -260,10 +268,18 @@ export default class GameController {
     currentPlayers.forEach((player) => {
       player
         .getHand()
-        .addTiles(currentGame.getBunch().removeTiles(INITIAL_TILE_COUNT));
+        .addTiles(
+          currentGame.getBunch().removeTiles(this.getInitialTileCount())
+        );
     });
     currentGame.setInProgress(true);
 
     GameController.emitGameInfo(io, currentGame);
+  }
+
+  private getInitialTileCount(): number {
+    return this.currentGame.isShortenedGame()
+      ? INITIAL_SHORTENED_GAME_TILE_COUNT
+      : INITIAL_TILE_COUNT;
   }
 }

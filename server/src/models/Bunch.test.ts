@@ -30,6 +30,15 @@ describe('Bunch Model', () => {
   });
 
   describe('reset', () => {
+    test('creates bunch with 3 tiles if shortened game', () => {
+      const shortenedGame = new Game('gameId', 'gameName', true);
+      const shortenedBunch = new Bunch(shortenedGame);
+
+      shortenedBunch.reset();
+
+      expect(shortenedBunch.getTiles()).toMatchSnapshot();
+    });
+
     test('generates tiles with multiplier of 1 when <= 4 players', () => {
       jest.spyOn(game, 'getPlayers').mockReturnValue(Array(4).fill(null));
 

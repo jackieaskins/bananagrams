@@ -30,17 +30,21 @@ export const configureSocket = (io: Server): void => {
       }
     };
 
-    socket.on('createGame', ({ gameName, username }, callback) => {
-      handler(() => {
-        gameController = GameController.createGame(
-          gameName,
-          username,
-          io,
-          socket
-        );
-        return gameController.getCurrentGame().toJSON();
-      }, callback);
-    });
+    socket.on(
+      'createGame',
+      ({ gameName, username, isShortenedGame }, callback) => {
+        handler(() => {
+          gameController = GameController.createGame(
+            gameName,
+            username,
+            isShortenedGame,
+            io,
+            socket
+          );
+          return gameController.getCurrentGame().toJSON();
+        }, callback);
+      }
+    );
 
     socket.on('joinGame', ({ gameId, username }, callback) => {
       handler(() => {

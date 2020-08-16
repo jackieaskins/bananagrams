@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
 import { SetState } from '../state/types';
@@ -21,6 +21,8 @@ export const useCreateGameForm = (): CreateGameFormState => {
   const [error, setError] = useState('');
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const { push } = useHistory();
+  const { search } = useLocation();
+  const isShortenedGame = new URLSearchParams(search).has('isShortenedGame');
 
   const { socket } = useSocket();
 
@@ -29,7 +31,7 @@ export const useCreateGameForm = (): CreateGameFormState => {
 
     socket.emit(
       'createGame',
-      { gameName, username },
+      { gameName, username, isShortenedGame },
       (error: Error, gameInfo: GameInfo) => {
         if (error) {
           setError(error.message);

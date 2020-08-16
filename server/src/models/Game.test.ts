@@ -35,6 +35,13 @@ describe('Game Model', () => {
     });
   });
 
+  describe('isShortenedGame', () => {
+    test('returns whether or not game is shortened', () => {
+      game = new Game(id, name, true);
+      expect(game.isShortenedGame()).toEqual(true);
+    });
+  });
+
   describe('set/getSnapshot', () => {
     test('returns null by default', () => {
       expect(game.getSnapshot()).toBeNull();

@@ -16,13 +16,15 @@ export default class Game implements BaseModel<GameJSON> {
   private id: string;
   private name: string;
   private inProgress = false;
+  private shortenedGame: boolean;
   private bunch: Bunch = new Bunch(this);
   private players: Player[] = [];
   private previousSnapshot: Snapshot = null;
 
-  constructor(id: string, name: string) {
+  constructor(id: string, name: string, shortenedGame = false) {
     this.id = id;
     this.name = name;
+    this.shortenedGame = shortenedGame;
   }
 
   getId(): string {
@@ -39,6 +41,10 @@ export default class Game implements BaseModel<GameJSON> {
 
   setInProgress(inProgress: boolean): void {
     this.inProgress = inProgress;
+  }
+
+  isShortenedGame(): boolean {
+    return this.shortenedGame;
   }
 
   getBunch(): Bunch {

@@ -6,6 +6,8 @@ exports[`GameController joinGame throws an error if game is full 1`] = `"Game is
 
 exports[`GameController joinGame throws an error if game is in progress 1`] = `"Game is already in progress"`;
 
+exports[`GameController joinGame throws an error if game is shortened 1`] = `"This game was created for test purposes and cannot be joined."`;
+
 exports[`GameController peel bunch has less tiles than number of players updates game snapshot 1`] = `
 Array [
   Object {
