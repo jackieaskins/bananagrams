@@ -99,11 +99,135 @@ exports[`<Game /> renders properly 1`] = `
         <WithStyles(ForwardRef(Grid))
           item={true}
         >
+          <OpponentBoardPreview
+            players={
+              Array [
+                Object {
+                  "board": Array [
+                    Array [
+                      null,
+                    ],
+                  ],
+                  "gamesWon": 0,
+                  "hand": Array [],
+                  "isReady": false,
+                  "isTopBanana": false,
+                  "userId": "id",
+                  "username": "username",
+                },
+              ]
+            }
+          />
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</DndProvider>
+`;
+
+exports[`<Game /> renders properly with more than one player 1`] = `
+<DndProvider
+  backend={[Function]}
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    justify="center"
+    spacing={2}
+    style={
+      Object {
+        "marginTop": "1px",
+      }
+    }
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Typography))
+        align="center"
+        gutterBottom={true}
+        variant="body2"
+      >
+        Your board and hand:
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Grid))
+        container={true}
+        spacing={1}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
+          <Board
+            board={
+              Array [
+                Array [
+                  null,
+                ],
+              ]
+            }
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
+          <Hand
+            hand={Array []}
+          />
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Grid))
+        alignItems="center"
+        container={true}
+        direction="column"
+        spacing={1}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
+          <WithStyles(ForwardRef(Typography))
+            variant="body2"
+          >
+            Tiles remaining in bunch: 
+            0
+          </WithStyles(ForwardRef(Typography))>
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <Button
+            disabled={true}
+            fullWidth={true}
+            size="large"
+          >
+            Bananas!
+          </Button>
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <Dump />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
           <WithStyles(ForwardRef(Typography))
             align="center"
             variant="body2"
           >
-            Opponent boards:
+            Opponent board(s):
           </WithStyles(ForwardRef(Typography))>
           <OpponentBoardPreview
             players={
@@ -119,6 +243,19 @@ exports[`<Game /> renders properly 1`] = `
                   "isReady": false,
                   "isTopBanana": false,
                   "userId": "id",
+                  "username": "username",
+                },
+                Object {
+                  "board": Array [
+                    Array [
+                      null,
+                    ],
+                  ],
+                  "gamesWon": 0,
+                  "hand": Array [],
+                  "isReady": false,
+                  "isTopBanana": false,
+                  "userId": "other",
                   "username": "username",
                 },
               ]

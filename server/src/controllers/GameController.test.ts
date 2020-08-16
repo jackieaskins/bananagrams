@@ -190,7 +190,7 @@ describe('GameController', () => {
       expect(GameController.getGames()[game.getId()]).toBeUndefined();
     });
 
-    test('calls split when all other players are ready', () => {
+    test('calls split when all other players are ready and game is not in progress', () => {
       jest.spyOn(gameController, 'split');
 
       const otherPlayer = new Player('p1', 'p');

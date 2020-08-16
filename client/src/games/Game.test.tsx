@@ -6,13 +6,7 @@ import Game from './Game';
 import Button from '../buttons/Button';
 
 jest.mock('./GameContext', () => ({
-  useGame: jest.fn().mockReturnValue({
-    gameInfo: {
-      bunch: [],
-      players: [playerFixture({ userId: 'id' })],
-    },
-    handlePeel: jest.fn().mockName('handlePeel'),
-  }),
+  useGame: jest.fn(),
 }));
 
 jest.mock('../socket/SocketContext', () => ({
@@ -28,7 +22,31 @@ jest.mock('../boards/validate', () => ({
 describe('<Game />', () => {
   const renderComponent = () => shallow(<Game />);
 
+  beforeEach(() => {
+    useGame.mockReturnValue({
+      gameInfo: {
+        bunch: [],
+        players: [playerFixture({ userId: 'id' })],
+      },
+      handlePeel: jest.fn().mockName('handlePeel'),
+    });
+  });
+
   test('renders properly', () => {
+    expect(renderComponent()).toMatchSnapshot();
+  });
+
+  test('renders properly with more than one player', () => {
+    useGame.mockReturnValue({
+      gameInfo: {
+        bunch: [],
+        players: [
+          playerFixture({ userId: 'id' }),
+          playerFixture({ userId: 'other' }),
+        ],
+      },
+    });
+
     expect(renderComponent()).toMatchSnapshot();
   });
 

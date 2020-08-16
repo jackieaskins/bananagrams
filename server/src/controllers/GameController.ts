@@ -144,7 +144,7 @@ export default class GameController {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [gameId]: toOmit, ...rest } = GameController.games;
       GameController.games = rest;
-    } else if (everyoneElseIsReady) {
+    } else if (!currentGame.isInProgress() && everyoneElseIsReady) {
       this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
