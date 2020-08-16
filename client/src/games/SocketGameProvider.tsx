@@ -56,7 +56,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     }
 
     return;
-  }, []);
+  }, [gameId, isInGame, pathname, replace, socket]);
 
   useEffect(() => {
     socket.on('gameInfo', (gameInfo: GameInfo) => {
@@ -66,7 +66,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     return (): void => {
       socket.off('gameInfo');
     };
-  }, []);
+  }, [socket]);
 
   return (
     <GameProvider

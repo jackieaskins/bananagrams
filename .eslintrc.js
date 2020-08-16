@@ -4,8 +4,17 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'prettier',
     'prettier/@typescript-eslint',
+  ],
+  overrides: [
+    {
+      files: ['*.test.ts', '*.test.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off'
+      }
+    }
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -15,6 +24,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
+  reportUnusedDisableDirectives: true,
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'error',

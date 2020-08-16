@@ -1,4 +1,3 @@
-import React from 'react';
 import { useCopyToClipboard } from './CopyToClipboardState';
 
 const mockSetShouldShow = jest.fn();
@@ -20,6 +19,9 @@ describe('useCopyToClipboard', () => {
   const mockWriteText = jest.fn();
   const mockQuery = jest.fn();
 
+  const currentEventLoopEnd = () =>
+    new Promise((resolve) => setImmediate(resolve));
+
   beforeEach(() => {
     global.navigator.permissions = {
       query: mockQuery,
@@ -40,37 +42,34 @@ describe('useCopyToClipboard', () => {
       });
     });
 
-    test('is true when navigator permissions query state is granted', (done) => {
+    test('is true when navigator permissions query state is granted', async () => {
       mockQuery.mockResolvedValue({ state: 'granted' });
 
       useCopyToClipboard();
 
-      process.nextTick(() => {
-        expect(mockSetShouldShow).toHaveBeenCalledWith(true);
-        done();
-      });
+      await currentEventLoopEnd();
+
+      expect(mockSetShouldShow).toHaveBeenCalledWith(true);
     });
 
-    test('is true when navigator permissions query state is prompt', (done) => {
+    test('is true when navigator permissions query state is prompt', async () => {
       mockQuery.mockResolvedValue({ state: 'prompt' });
 
       useCopyToClipboard();
 
-      process.nextTick(() => {
-        expect(mockSetShouldShow).toHaveBeenCalledWith(true);
-        done();
-      });
+      await currentEventLoopEnd();
+
+      expect(mockSetShouldShow).toHaveBeenCalledWith(true);
     });
 
-    test('is false when navigator permissions query state is not granted or prompt', (done) => {
+    test('is false when navigator permissions query state is not granted or prompt', async () => {
       mockQuery.mockResolvedValue({ state: 'some-other-state' });
 
       useCopyToClipboard();
 
-      process.nextTick(() => {
-        expect(mockSetShouldShow).toHaveBeenCalledWith(false);
-        done();
-      });
+      await currentEventLoopEnd();
+
+      expect(mockSetShouldShow).toHaveBeenCalledWith(false);
     });
   });
 

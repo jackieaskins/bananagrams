@@ -17,7 +17,7 @@ export const useServerDisconnectionDialog = (): ServerDisconnectionDialogState =
     socket.on('disconnect', () => {
       setShouldShowDialog(true);
     });
-  }, []);
+  }, [socket]);
 
   const hideDialog = (): void => {
     push('/');

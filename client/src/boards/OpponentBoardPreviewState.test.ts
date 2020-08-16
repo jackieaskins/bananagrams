@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { playerFixture } from '../fixtures/player';
 import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
 
