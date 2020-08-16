@@ -46,6 +46,15 @@ describe('<OpponentBoardPreview />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
+  test('renders current player if includeCurrentPlayer', () => {
+    expect(
+      renderComponent({
+        includeCurrentPlayer: true,
+        players: [playerFixture({ userId: 'playerId' })],
+      })
+    ).toMatchSnapshot();
+  });
+
   test('renders properly with one opponent', () => {
     expect(
       renderComponent({ players: [playerFixture({ userId: 'opponent' })] })

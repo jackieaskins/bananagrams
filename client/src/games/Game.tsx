@@ -70,6 +70,10 @@ const Game: React.FC = () => {
               <Dump />
             </Grid>
             <Grid item>
+              <Typography align="center" variant="body2">
+                Opponent boards:
+              </Typography>
+
               <OpponentBoardPreview players={players} />
             </Grid>
           </Grid>

@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from '@material-ui/core';
 
 import { useGame } from './GameContext';
 import PlayerList from '../players/PlayerList';
-import PreviewBoard from '../boards/PreviewBoard';
+import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import CopyToClipboard from '../buttons/CopyToClipboard';
 
 const StartGame: React.FC = () => {
@@ -11,7 +11,6 @@ const StartGame: React.FC = () => {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();
   const joinUrl = `${window.location.href}/join`;
-  const winningPlayer = previousSnapshot?.find((player) => player.isTopBanana);
 
   return (
     <Box>
@@ -34,14 +33,20 @@ const StartGame: React.FC = () => {
         <Grid item md={5}>
           <PlayerList />
         </Grid>
-        {winningPlayer && (
+        {previousSnapshot && (
           <Grid item>
             <Box display="flex" flexDirection="column">
               <Typography variant="body1" align="center" gutterBottom>
-                Here is {`${winningPlayer.username}'s`} winning board:
+                Here are the boards from that round:
               </Typography>
 
-              <PreviewBoard board={winningPlayer.board} tileSize={20} />
+              <OpponentBoardPreview
+                initialPlayerIndex={previousSnapshot.findIndex(
+                  (player) => player.isTopBanana
+                )}
+                players={previousSnapshot}
+                includeCurrentPlayer
+              />
             </Box>
           </Grid>
         )}

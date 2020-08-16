@@ -2,7 +2,7 @@
 
 exports[`<OpponentBoardPreview /> does not render if no opponents 1`] = `""`;
 
-exports[`<OpponentBoardPreview /> renders empty board and hand when selectedIndex is out of bounds 1`] = `
+exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer 1`] = `
 <WithStyles(ForwardRef(Grid))
   alignItems="center"
   container={true}
@@ -12,12 +12,82 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
   <WithStyles(ForwardRef(Grid))
     item={true}
   >
-    <WithStyles(ForwardRef(Typography))
-      variant="body2"
+    <Styled(MuiBox)
+      flexDirection="column"
+      width="317px"
     >
-      Opponent's board:
-    </WithStyles(ForwardRef(Typography))>
+      <PreviewBoard
+        board={
+          Array [
+            Array [
+              null,
+            ],
+          ]
+        }
+        tileSize={15}
+      />
+      <PreviewHand
+        hand={Array []}
+        tileSize={15}
+      />
+    </Styled(MuiBox)>
   </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <Styled(MuiBox)
+      display="flex"
+      justifyContent="space-between"
+    >
+      <WithStyles(ForwardRef(IconButton))
+        disabled={true}
+        onClick={[MockFunction handleLeftClick]}
+        size="small"
+      >
+        <NavigateBeforeIcon
+          fontSize="small"
+        />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(TextField))
+        disabled={true}
+        onChange={[MockFunction handleSelectedPlayerChange]}
+        select={true}
+        size="small"
+        value="opponent"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          key="playerId"
+          value="playerId"
+        >
+          username
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(TextField))>
+      <WithStyles(ForwardRef(IconButton))
+        disabled={true}
+        onClick={[MockFunction handleRightClick]}
+        size="small"
+      >
+        <NavigateNextIcon
+          fontSize="small"
+        />
+      </WithStyles(ForwardRef(IconButton))>
+    </Styled(MuiBox)>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
+`;
+
+exports[`<OpponentBoardPreview /> renders empty board and hand when selectedIndex is out of bounds 1`] = `
+<WithStyles(ForwardRef(Grid))
+  alignItems="center"
+  container={true}
+  direction="column"
+  spacing={1}
+>
   <WithStyles(ForwardRef(Grid))
     item={true}
   >
@@ -580,15 +650,6 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
   <WithStyles(ForwardRef(Grid))
     item={true}
   >
-    <WithStyles(ForwardRef(Typography))
-      variant="body2"
-    >
-      Opponents' boards:
-    </WithStyles(ForwardRef(Typography))>
-  </WithStyles(ForwardRef(Grid))>
-  <WithStyles(ForwardRef(Grid))
-    item={true}
-  >
     <Styled(MuiBox)
       flexDirection="column"
       width="317px"
@@ -671,15 +732,6 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
   direction="column"
   spacing={1}
 >
-  <WithStyles(ForwardRef(Grid))
-    item={true}
-  >
-    <WithStyles(ForwardRef(Typography))
-      variant="body2"
-    >
-      Opponent's board:
-    </WithStyles(ForwardRef(Typography))>
-  </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
   >

@@ -43,7 +43,7 @@ exports[`<StartGame /> does not render board when no snapshot 1`] = `
 </Styled(MuiBox)>
 `;
 
-exports[`<StartGame /> renders winning board when snapshot is present 1`] = `
+exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
 <Styled(MuiBox)>
   <WithStyles(ForwardRef(Typography))
     align="center"
@@ -94,19 +94,28 @@ exports[`<StartGame /> renders winning board when snapshot is present 1`] = `
           gutterBottom={true}
           variant="body1"
         >
-          Here is 
-          username's
-           winning board:
+          Here are the boards from that round:
         </WithStyles(ForwardRef(Typography))>
-        <PreviewBoard
-          board={
+        <OpponentBoardPreview
+          includeCurrentPlayer={true}
+          initialPlayerIndex={0}
+          players={
             Array [
-              Array [
-                null,
-              ],
+              Object {
+                "board": Array [
+                  Array [
+                    null,
+                  ],
+                ],
+                "gamesWon": 0,
+                "hand": Array [],
+                "isReady": false,
+                "isTopBanana": true,
+                "userId": "123",
+                "username": "username",
+              },
             ]
           }
-          tileSize={20}
         />
       </Styled(MuiBox)>
     </WithStyles(ForwardRef(Grid))>

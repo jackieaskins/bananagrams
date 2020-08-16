@@ -99,6 +99,12 @@ exports[`<Game /> renders properly 1`] = `
         <WithStyles(ForwardRef(Grid))
           item={true}
         >
+          <WithStyles(ForwardRef(Typography))
+            align="center"
+            variant="body2"
+          >
+            Opponent boards:
+          </WithStyles(ForwardRef(Typography))>
           <OpponentBoardPreview
             players={
               Array [

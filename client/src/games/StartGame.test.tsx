@@ -26,7 +26,7 @@ describe('<StartGame />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders winning board when snapshot is present', () => {
+  test('renders game boards when snapshot is present', () => {
     mockUseGame([playerFixture({ userId: '123', isTopBanana: true })]);
 
     expect(renderComponent()).toMatchSnapshot();

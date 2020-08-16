@@ -2,14 +2,7 @@ import React from 'react';
 
 import PreviewBoard from './PreviewBoard';
 import { useSocket } from '../socket/SocketContext';
-import {
-  Box,
-  Grid,
-  IconButton,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Box, Grid, IconButton, MenuItem, TextField } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 import PreviewHand from '../hands/PreviewHand';
 import { Player } from '../players/types';
@@ -19,6 +12,7 @@ type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;
   players: Player[];
   tileSize?: number;
+  includeCurrentPlayer?: boolean;
 };
 
 const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
@@ -27,12 +21,15 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
   initialPlayerIndex = 0,
   players,
   tileSize = 15,
+  includeCurrentPlayer = false,
 }) => {
   const {
     socket: { id: userId },
   } = useSocket();
 
-  const opponents = players.filter((player) => player.userId !== userId);
+  const opponents = includeCurrentPlayer
+    ? players
+    : players.filter((player) => player.userId !== userId);
   const {
     handleLeftClick,
     handleRightClick,
@@ -52,12 +49,6 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
 
   return (
     <Grid container direction="column" alignItems="center" spacing={1}>
-      <Grid item>
-        <Typography variant="body2">
-          {hasOneOpponent ? "Opponent's board:" : "Opponents' boards:"}
-        </Typography>
-      </Grid>
-
       <Grid item>
         <Box flexDirection="column" width="317px">
           <PreviewBoard board={selectedBoard} tileSize={tileSize} />
