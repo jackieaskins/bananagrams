@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Server } from 'socket.io';
 import GameController from './controllers/GameController';
 
@@ -53,7 +52,7 @@ export const configureSocket = (io: Server): void => {
     socket.on('leaveGame', ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.leaveGame();
+        (gameController as GameController).leaveGame();
         gameController = undefined;
       }, callback);
     });
@@ -61,21 +60,21 @@ export const configureSocket = (io: Server): void => {
     socket.on('ready', ({ isReady }, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.setReady(isReady);
+        (gameController as GameController).setReady(isReady);
       }, callback);
     });
 
     socket.on('peel', ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.peel();
+        (gameController as GameController).peel();
       }, callback);
     });
 
     socket.on('dump', ({ tileId, boardLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.dump(tileId, boardLocation);
+        (gameController as GameController).dump(tileId, boardLocation);
       }, callback);
     });
 
@@ -84,7 +83,10 @@ export const configureSocket = (io: Server): void => {
       ({ tileId, boardLocation }, callback) => {
         handler(() => {
           validateGameControllerExists();
-          gameController!.moveTileFromHandToBoard(tileId, boardLocation);
+          (gameController as GameController).moveTileFromHandToBoard(
+            tileId,
+            boardLocation
+          );
         }, callback);
       }
     );
@@ -92,14 +94,19 @@ export const configureSocket = (io: Server): void => {
     socket.on('moveTileFromBoardToHand', ({ boardLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.moveTileFromBoardToHand(boardLocation);
+        (gameController as GameController).moveTileFromBoardToHand(
+          boardLocation
+        );
       }, callback);
     });
 
     socket.on('moveTileOnBoard', ({ fromLocation, toLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
-        gameController!.moveTileOnBoard(fromLocation, toLocation);
+        (gameController as GameController).moveTileOnBoard(
+          fromLocation,
+          toLocation
+        );
       }, callback);
     });
 

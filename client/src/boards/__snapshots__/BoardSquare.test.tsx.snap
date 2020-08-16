@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoardSquare /> renders black tile when not validated in any direction 1`] = `
+<Styled(MuiBox)
+  className=""
+  height="25px"
+  width="25px"
+>
+  <Tile
+    boardLocation={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    color="black"
+    tile={
+      Object {
+        "id": "A1",
+        "letter": "A",
+      }
+    }
+  />
+</Styled(MuiBox)>
+`;
+
+exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = `
+<Styled(MuiBox)
+  className=""
+  height="25px"
+  width="25px"
+>
+  <Tile
+    boardLocation={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    color="green"
+    tile={
+      Object {
+        "id": "A1",
+        "letter": "A",
+      }
+    }
+  />
+</Styled(MuiBox)>
+`;
+
+exports[`<BoardSquare /> renders properly when is over and can drop 1`] = `
+<Styled(MuiBox)
+  className="validDrop"
+  height="25px"
+  width="25px"
+/>
+`;
+
+exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
+<Styled(MuiBox)
+  className=""
+  height="25px"
+  width="25px"
+/>
+`;
+
+exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
+<Styled(MuiBox)
+  className=""
+  height="25px"
+  width="25px"
+>
+  <Tile
+    boardLocation={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    color="red"
+    tile={
+      Object {
+        "id": "A1",
+        "letter": "A",
+      }
+    }
+  />
+</Styled(MuiBox)>
+`;

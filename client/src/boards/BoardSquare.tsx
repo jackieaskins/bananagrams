@@ -18,10 +18,8 @@ type BoardSquareProps = {
 type CheckValidation = (wordInfo: WordInfo) => boolean;
 
 const getColor = (
-  wordInfo: Record<Direction, WordInfo> | undefined
+  wordInfo: Record<Direction, WordInfo>
 ): string | undefined => {
-  if (!wordInfo) return 'black';
-
   const isValid: CheckValidation = ({ validation }) =>
     validation === ValidationStatus.VALID;
   const isValidated: CheckValidation = ({ validation }) =>
@@ -63,7 +61,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
       // @ts-ignore
       ref={dropRef}
     >
-      {tile ? (
+      {tile && wordInfo ? (
         <Tile tile={tile} color={getColor(wordInfo)} boardLocation={{ x, y }} />
       ) : (
         ''

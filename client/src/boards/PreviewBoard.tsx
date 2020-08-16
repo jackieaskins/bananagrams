@@ -26,7 +26,7 @@ const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
             const tile = boardSquare?.tile ?? null;
 
             if (tile === null) {
-              return <Box height={tilePixels} width={tilePixels} />;
+              return <Box key={y} height={tilePixels} width={tilePixels} />;
             }
 
             return (

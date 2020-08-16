@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import Button from '../buttons/Button';
 import PreviewBoard from './PreviewBoard';
 import { useSocket } from '../socket/SocketContext';
-import { Box, Grid, MenuItem, TextField, Typography } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  IconButton,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 import PreviewHand from '../hands/PreviewHand';
 import { Player } from '../players/types';
+import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
 
 type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;
-  players: Player[] | null;
+  players: Player[];
   tileSize?: number;
 };
 
@@ -24,61 +32,55 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
     socket: { id: userId },
   } = useSocket();
 
-  const opponents = players?.filter((player) => player.userId !== userId) ?? [];
-  const [selectedUserId, setSelectedUserId] = useState<string | undefined>(
-    opponents[initialPlayerIndex]?.userId
-  );
-
-  useEffect(() => {
-    if (!opponents.some(({ userId }) => userId === selectedUserId)) {
-      setSelectedUserId(opponents[0]?.userId);
-    }
-  }, [opponents, selectedUserId]);
+  const opponents = players.filter((player) => player.userId !== userId);
+  const {
+    handleLeftClick,
+    handleRightClick,
+    handleSelectedPlayerChange,
+    selectedPlayerIndex,
+    selectedUserId,
+  } = useOpponentBoardPreview(opponents, initialPlayerIndex);
 
   if (opponents.length === 0) {
     return null;
   }
 
-  const selectedPlayerIndex =
-    opponents.findIndex(({ userId }) => userId === selectedUserId) ?? 0;
-  const selectedBoard = opponents[selectedPlayerIndex]?.board;
-  const selectedHand = opponents[selectedPlayerIndex]?.hand;
+  const selectedOpponent = opponents[selectedPlayerIndex];
+  const selectedBoard = selectedOpponent?.board ?? EMPTY_BOARD;
+  const selectedHand = selectedOpponent?.hand ?? [];
+  const hasOneOpponent = opponents.length === 1;
 
   return (
     <Grid container direction="column" alignItems="center" spacing={1}>
       <Grid item>
         <Typography variant="body2">
-          {opponents.length === 1 ? "Opponent's board:" : "Opponents' boards:"}
+          {hasOneOpponent ? "Opponent's board:" : "Opponents' boards:"}
         </Typography>
       </Grid>
+
       <Grid item>
         <Box flexDirection="column" width="317px">
-          <PreviewBoard
-            board={selectedBoard ?? EMPTY_BOARD}
-            tileSize={tileSize}
-          />
-          <PreviewHand hand={selectedHand ?? []} tileSize={tileSize} />
+          <PreviewBoard board={selectedBoard} tileSize={tileSize} />
+          <PreviewHand hand={selectedHand} tileSize={tileSize} />
         </Box>
       </Grid>
+
       <Grid item style={{ width: '100%' }}>
         <Box display="flex" justifyContent="space-between">
-          <Button
-            variant="outlined"
+          <IconButton
             size="small"
-            disabled={opponents.length <= 1 || selectedPlayerIndex <= 0}
-            onClick={(): void => {
-              setSelectedUserId(opponents[selectedPlayerIndex - 1]?.userId);
-            }}
+            disabled={hasOneOpponent}
+            onClick={handleLeftClick}
           >
-            {'<'}
-          </Button>
+            <NavigateBefore fontSize="small" />
+          </IconButton>
+
           <TextField
             select
             size="small"
             value={selectedUserId}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-              setSelectedUserId(e.target.value);
-            }}
+            onChange={handleSelectedPlayerChange}
+            disabled={hasOneOpponent}
           >
             {opponents.map(({ userId, username }) => (
               <MenuItem value={userId} key={userId}>
@@ -86,19 +88,14 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
               </MenuItem>
             ))}
           </TextField>
-          <Button
-            variant="outlined"
+
+          <IconButton
             size="small"
-            disabled={
-              opponents.length <= 1 ||
-              selectedPlayerIndex >= opponents.length - 1
-            }
-            onClick={(): void => {
-              setSelectedUserId(opponents[selectedPlayerIndex + 1]?.userId);
-            }}
+            disabled={hasOneOpponent}
+            onClick={handleRightClick}
           >
-            {'>'}
-          </Button>
+            <NavigateNext fontSize="small" />
+          </IconButton>
         </Box>
       </Grid>
     </Grid>

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useOpponentBoardPreview returns correct default state 1`] = `
+Object {
+  "handleLeftClick": [Function],
+  "handleRightClick": [Function],
+  "handleSelectedPlayerChange": [Function],
+  "selectedPlayerIndex": 0,
+  "selectedUserId": "123",
+}
+`;

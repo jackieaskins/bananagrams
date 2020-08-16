@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
     "pre-commit": "npm outdated && npm run check-types && lint-staged && npm test",
     "start": "NODE_ENV=production node dist/index.js",
-    "test": "jest",
+    "test": "jest --silent",
     "test:watch": "jest --watch",
     "test:server": "jest --projects server",
     "test:server:watch": "jest --projects server --watch",
