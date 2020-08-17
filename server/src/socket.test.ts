@@ -45,6 +45,7 @@ describe('socket', () => {
         getCurrentGame: (): any => ({
           toJSON: gameToJSON,
         }),
+        kickPlayer: jest.fn(),
         leaveGame: jest.fn(),
         setReady: jest.fn(),
         peel: jest.fn(),
@@ -151,6 +152,43 @@ describe('socket', () => {
           throw new Error('Error');
         });
         joinGame(callback);
+        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+      });
+    });
+
+    describe('kickPlayer', () => {
+      const kickPlayer = (callback?: () => void): void => {
+        socketCalls.kickPlayer({ userId: 'userId' }, callback);
+      };
+
+      test('throws an error when not in a game', () => {
+        kickPlayer(callback);
+        assertThrowsNoGameError();
+      });
+
+      test('kicks player', () => {
+        createGame();
+        kickPlayer(callback);
+        expect(gameController.kickPlayer).toHaveBeenCalledWith('userId');
+      });
+
+      test('calls callback with null', () => {
+        createGame();
+        kickPlayer(callback);
+        expect(callback).toHaveBeenCalledWith(null, null);
+      });
+
+      test('works without callback', () => {
+        createGame();
+        expect(() => kickPlayer()).not.toThrow();
+      });
+
+      test('calls callback with error when kick player fails', () => {
+        gameController.kickPlayer.mockImplementation(() => {
+          throw new Error('Error');
+        });
+        createGame();
+        kickPlayer(callback);
         expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
       });
     });

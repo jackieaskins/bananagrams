@@ -7,6 +7,7 @@ export type PlayerJSON = {
   username: string;
   isReady: boolean;
   isTopBanana: boolean;
+  isAdmin: boolean;
   gamesWon: number;
   hand: HandJSON;
   board: BoardJSON;
@@ -17,13 +18,15 @@ export default class Player implements BaseModel<PlayerJSON> {
   private username: string;
   private ready = false;
   private topBanana = false;
+  private admin: boolean;
   private gamesWon = 0;
   private hand = new Hand();
   private board = new Board();
 
-  constructor(userId: string, username: string) {
+  constructor(userId: string, username: string, admin = false) {
     this.userId = userId;
     this.username = username;
+    this.admin = admin;
   }
 
   getUserId(): string {
@@ -50,6 +53,14 @@ export default class Player implements BaseModel<PlayerJSON> {
     this.topBanana = topBanana;
   }
 
+  isAdmin(): boolean {
+    return this.admin;
+  }
+
+  setAdmin(admin: boolean): void {
+    this.admin = admin;
+  }
+
   getGamesWon(): number {
     return this.gamesWon;
   }
@@ -67,7 +78,16 @@ export default class Player implements BaseModel<PlayerJSON> {
   }
 
   toJSON(): PlayerJSON {
-    const { userId, username, ready, topBanana, gamesWon, board, hand } = this;
+    const {
+      userId,
+      username,
+      ready,
+      topBanana,
+      admin,
+      gamesWon,
+      board,
+      hand,
+    } = this;
 
     return {
       userId,
@@ -75,6 +95,7 @@ export default class Player implements BaseModel<PlayerJSON> {
       gamesWon,
       isReady: ready,
       isTopBanana: topBanana,
+      isAdmin: admin,
       board: board.toJSON(),
       hand: hand.toJSON(),
     };

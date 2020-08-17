@@ -16,6 +16,7 @@ describe('GameController', () => {
   });
   let io: any;
 
+  const socketDisconnect = jest.fn();
   const socketEmit = jest.fn();
   const socketTo = jest.fn().mockReturnValue({
     emit: socketEmit,
@@ -49,6 +50,15 @@ describe('GameController', () => {
       leave: jest.fn(),
       to: socketTo,
       id: 'socketId',
+      server: {
+        sockets: {
+          connected: {
+            socketId2: {
+              disconnect: socketDisconnect,
+            },
+          },
+        },
+      },
     };
 
     jest.spyOn(GameController, 'joinGame');
@@ -146,6 +156,37 @@ describe('GameController', () => {
     });
   });
 
+  describe('kickPlayer', () => {
+    let secondGameController: GameController;
+
+    beforeEach(() => {
+      secondGameController = GameController.joinGame(
+        game.getId(),
+        username,
+        io,
+        socket
+      );
+    });
+
+    test('throws an error if user is not an admin', () => {
+      expect(() =>
+        secondGameController.kickPlayer('socketId')
+      ).toThrowErrorMatchingSnapshot();
+    });
+
+    test('disconnects passed in user if current user is admin', () => {
+      gameController.kickPlayer('socketId2');
+
+      expect(socketDisconnect).toHaveBeenCalledWith(true);
+    });
+
+    test('does not disconnect a user if passed in user does not exist', () => {
+      gameController.kickPlayer('nonexistentuser');
+
+      expect(socketDisconnect).not.toHaveBeenCalled();
+    });
+  });
+
   describe('leaveGame', () => {
     test('adds player tiles to the bunch after leaving', () => {
       const handTiles = [new Tile('A1', 'A'), new Tile('B1', 'B')];
@@ -182,7 +223,29 @@ describe('GameController', () => {
       assertEmitsGameNotification(socketEmit, 'username has left the game.');
     });
 
-    test('removes game from list of games', () => {
+    test('sets another player as the admin if the leaving player is admin', () => {
+      const otherPlayer = new Player('p1', 'p');
+      otherPlayer.setReady(true);
+      game.addPlayer(otherPlayer);
+
+      gameController.leaveGame();
+
+      expect(otherPlayer.isAdmin()).toEqual(true);
+    });
+
+    test('does not set another player as admin if leaving player is not admin', () => {
+      player.setAdmin(false);
+
+      const otherPlayer = new Player('p1', 'p');
+      otherPlayer.setReady(true);
+      game.addPlayer(otherPlayer);
+
+      gameController.leaveGame();
+
+      expect(otherPlayer.isAdmin()).toEqual(false);
+    });
+
+    test('removes game from list of games if all players are gone', () => {
       expect(GameController.getGames()[game.getId()]).toBeDefined();
 
       gameController.leaveGame();

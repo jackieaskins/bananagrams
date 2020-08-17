@@ -7,8 +7,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  IconButton,
 } from '@material-ui/core';
-import { Check, Close } from '@material-ui/icons';
+import { Check, Close, DeleteOutline } from '@material-ui/icons';
 
 import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
@@ -20,6 +21,8 @@ const PlayerList: React.FC = () => {
   const { gameInfo } = useGame();
 
   const players = gameInfo?.players ?? [];
+  const isCurrentPlayerAdmin =
+    players.find(({ userId }) => userId === socket.id)?.isAdmin ?? false;
 
   return (
     <TableContainer>
@@ -36,12 +39,13 @@ const PlayerList: React.FC = () => {
             <TableCell align="center">Ready?</TableCell>
             <TableCell>Player</TableCell>
             <TableCell align="right">Games Won</TableCell>
+            {isCurrentPlayerAdmin && players.length > 1 && <TableCell />}
           </TableRow>
         </TableHead>
 
         <TableBody>
           {players.map(
-            ({ gamesWon, isReady, isTopBanana, userId, username }) => {
+            ({ gamesWon, isReady, isTopBanana, isAdmin, userId, username }) => {
               const isCurrentUser = userId === socket.id;
               const ReadyIcon = isReady ? Check : Close;
               const readyColor = isReady ? 'green' : 'red';
@@ -71,11 +75,29 @@ const PlayerList: React.FC = () => {
                       <ReadyIcon style={{ color: readyColor }} />
                     )}
                   </TableCell>
+
                   <TableCell>
                     {username}
+                    {isAdmin ? ' - Admin' : ''}
                     {isTopBanana ? ' - Winner' : ''}
                   </TableCell>
+
                   <TableCell align="right">{gamesWon}</TableCell>
+
+                  {isCurrentPlayerAdmin && (
+                    <TableCell>
+                      {!isCurrentUser && (
+                        <IconButton
+                          size="small"
+                          onClick={(): void => {
+                            socket.emit('kickPlayer', { userId });
+                          }}
+                        >
+                          <DeleteOutline />
+                        </IconButton>
+                      )}
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             }

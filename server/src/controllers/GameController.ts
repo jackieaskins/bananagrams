@@ -95,7 +95,8 @@ export default class GameController {
       throw new Error('Game is already in progress');
     }
 
-    const player = new Player(socket.id, username);
+    const isAdmin = game.getPlayers().length === 0;
+    const player = new Player(socket.id, username, isAdmin);
 
     game.addPlayer(player);
     socket.join(gameId);
@@ -111,6 +112,14 @@ export default class GameController {
 
   getCurrentPlayer(): Player {
     return this.currentPlayer;
+  }
+
+  kickPlayer(userId: string): void {
+    if (!this.currentPlayer.isAdmin()) {
+      throw new Error('Only game admins can kick players from the game');
+    }
+
+    this.socket.server.sockets.connected[userId]?.disconnect(true);
   }
 
   leaveGame(): void {
@@ -139,6 +148,10 @@ export default class GameController {
     const everyoneElseIsReady = currentGame
       .getPlayers()
       .every((player) => player.isReady());
+
+    if (currentPlayer.isAdmin()) {
+      currentGame.getPlayers()[0]?.setAdmin(true);
+    }
 
     if (currentGame.getPlayers().length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -49,6 +49,22 @@ describe('Player Model', () => {
     });
   });
 
+  describe('set/isAdmin', () => {
+    test('returns false by default', () => {
+      expect(player.isReady()).toEqual(false);
+    });
+
+    test('returns true for admin user', () => {
+      expect(new Player(userId, username, true).isAdmin()).toEqual(true);
+    });
+
+    test('sets isAdmin', () => {
+      player.setAdmin(true);
+
+      expect(player.isAdmin()).toEqual(true);
+    });
+  });
+
   describe('get/incrementGamesWon', () => {
     test('returns 0 by default', () => {
       expect(player.getGamesWon()).toEqual(0);

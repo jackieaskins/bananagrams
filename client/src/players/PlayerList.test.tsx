@@ -4,7 +4,7 @@ import { playerFixture } from '../fixtures/player';
 import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
 import PlayerList from '../players/PlayerList';
-import { Checkbox } from '@material-ui/core';
+import { Checkbox, IconButton } from '@material-ui/core';
 
 jest.mock('../socket/SocketContext', () => ({
   useSocket: jest.fn(),
@@ -46,6 +46,12 @@ describe('<PlayerList />', () => {
     });
   });
 
+  test('renders admin user properly', () => {
+    mockPlayer.isAdmin = true;
+
+    expect(renderComponent()).toMatchSnapshot();
+  });
+
   test('renders properly with 3 players', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
@@ -68,5 +74,26 @@ describe('<PlayerList />', () => {
 
       expect(mockEmit).toHaveBeenCalledWith('ready', { isReady: true });
     });
+  });
+
+  test('kick player', () => {
+    mockPlayer = playerFixture({ userId: '1', isAdmin: true });
+
+    useSocket.mockReturnValue({
+      socket: {
+        id: mockPlayer.userId,
+        emit: mockEmit,
+      },
+    });
+
+    useGame.mockReturnValue({
+      gameInfo: {
+        players: [mockPlayer, playerFixture({ userId: '2' })],
+      },
+    });
+
+    renderComponent().find(IconButton).props().onClick();
+
+    expect(mockEmit).toHaveBeenCalledWith('kickPlayer', { userId: '2' });
   });
 });

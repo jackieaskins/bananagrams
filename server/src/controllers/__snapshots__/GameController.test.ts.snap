@@ -8,6 +8,8 @@ exports[`GameController joinGame throws an error if game is in progress 1`] = `"
 
 exports[`GameController joinGame throws an error if game is shortened 1`] = `"This game was created for test purposes and cannot be joined."`;
 
+exports[`GameController kickPlayer throws an error if user is not an admin 1`] = `"Only game admins can kick players from the game"`;
+
 exports[`GameController peel bunch has less tiles than number of players updates game snapshot 1`] = `
 Array [
   Object {
@@ -498,6 +500,7 @@ Array [
     ],
     "gamesWon": 1,
     "hand": Array [],
+    "isAdmin": true,
     "isReady": false,
     "isTopBanana": true,
     "userId": "socketId",
@@ -991,6 +994,7 @@ Array [
     ],
     "gamesWon": 0,
     "hand": Array [],
+    "isAdmin": false,
     "isReady": false,
     "isTopBanana": false,
     "userId": "p1",

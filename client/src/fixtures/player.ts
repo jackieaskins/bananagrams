@@ -6,6 +6,7 @@ export const playerFixture = (overrides: Partial<Player> = {}): Player => ({
   username: 'username',
   isReady: false,
   isTopBanana: false,
+  isAdmin: false,
   gamesWon: 0,
   hand: [],
   board: [[null]],

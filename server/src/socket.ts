@@ -53,6 +53,13 @@ export const configureSocket = (io: Server): void => {
       }, callback);
     });
 
+    socket.on('kickPlayer', ({ userId }, callback) => {
+      handler(() => {
+        validateGameControllerExists();
+        (gameController as GameController).kickPlayer(userId);
+      }, callback);
+    });
+
     socket.on('leaveGame', ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
