@@ -111,6 +111,13 @@ export const configureSocket = (io: Server): void => {
       }, callback);
     });
 
+    socket.on('moveAllTilesFromBoardToHand', ({}, callback) => {
+      handler(() => {
+        validateGameControllerExists();
+        (gameController as GameController).moveAllTilesFromBoardToHand();
+      }, callback);
+    });
+
     socket.on('moveTileOnBoard', ({ fromLocation, toLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();

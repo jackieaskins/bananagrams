@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import { Box, Button, Divider } from '@material-ui/core';
+import { Box, Button, Divider, Tooltip } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
@@ -44,18 +44,20 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
 
   return (
     <TransparentPaper>
-      <Button
-        style={{
-          width: '100%',
-        }}
-        disabled={hand.length <= 1}
-        size="small"
-        onClick={(): void => {
-          socket.emit('shuffleHand', {});
-        }}
-      >
-        <Shuffle color="action" fontSize="small" />
-      </Button>
+      <Tooltip title="Shuffle hand">
+        <Button
+          style={{
+            width: '100%',
+          }}
+          disabled={hand.length <= 1}
+          size="small"
+          onClick={(): void => {
+            socket.emit('shuffleHand', {});
+          }}
+        >
+          <Shuffle color="action" fontSize="small" />
+        </Button>
+      </Tooltip>
 
       <Divider />
 

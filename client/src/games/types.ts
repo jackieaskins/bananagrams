@@ -14,11 +14,12 @@ export type GameInfo = {
 export type GameState = {
   gameInfo: GameInfo;
   handleDump: (tileItem: TileItem) => void;
-  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation | null) => void;
   handleMoveTileFromHandToBoard: (
     tileId: string,
     boardLocation: BoardLocation
   ) => void;
+  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation | null) => void;
+  handleMoveAllTilesFromBoardToHand: () => void;
   handleMoveTileOnBoard: (
     fromLocation: BoardLocation,
     toLocation: BoardLocation

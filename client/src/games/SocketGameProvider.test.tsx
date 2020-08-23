@@ -69,6 +69,15 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
+    test('handleMoveTileFromHandToBoard', () => {
+      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
+
+      expect(mockEmit).toHaveBeenCalledWith('moveTileFromHandToBoard', {
+        tileId: id,
+        boardLocation,
+      });
+    });
+
     test('handleMoveTileFromBoardToHand', () => {
       getGameState().handleMoveTileFromBoardToHand(boardLocation);
 
@@ -77,13 +86,10 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('handleMoveTileFromHandToBoard', () => {
-      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
+    test('handleMoveAllTilesFromBoardToHand', () => {
+      getGameState().handleMoveAllTilesFromBoardToHand();
 
-      expect(mockEmit).toHaveBeenCalledWith('moveTileFromHandToBoard', {
-        tileId: id,
-        boardLocation,
-      });
+      expect(mockEmit).toHaveBeenCalledWith('moveAllTilesFromBoardToHand', {});
     });
 
     test('handleMoveTileOnBoard', () => {

@@ -36,6 +36,9 @@ const SocketGameProvider: React.FC = ({ children }) => {
   ): void => {
     socket.emit('moveTileFromHandToBoard', { tileId, boardLocation });
   };
+  const handleMoveAllTilesFromBoardToHand = (): void => {
+    socket.emit('moveAllTilesFromBoardToHand', {});
+  };
   const handleMoveTileOnBoard = (
     fromLocation: BoardLocation,
     toLocation: BoardLocation
@@ -56,7 +59,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     }
 
     return;
-  }, [gameId, isInGame, pathname, replace, socket]);
+  }, []);
 
   useEffect(() => {
     socket.on('gameInfo', (gameInfo: GameInfo) => {
@@ -66,7 +69,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     return (): void => {
       socket.off('gameInfo');
     };
-  }, [socket]);
+  }, []);
 
   return (
     <GameProvider
@@ -75,6 +78,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
         handleDump,
         handleMoveTileFromBoardToHand,
         handleMoveTileFromHandToBoard,
+        handleMoveAllTilesFromBoardToHand,
         handleMoveTileOnBoard,
         handlePeel,
         isInGame,

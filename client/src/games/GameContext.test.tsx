@@ -21,12 +21,15 @@ describe('GameContext', () => {
           gameState={{
             gameInfo: getEmptyGameInfo('gameId'),
             handleDump: jest.fn().mockName('handleDump'),
-            handleMoveTileFromBoardToHand: jest
-              .fn()
-              .mockName('handleMoveTileFromBoardToHand'),
             handleMoveTileFromHandToBoard: jest
               .fn()
               .mockName('handleMoveTileFromHandToBoard'),
+            handleMoveTileFromBoardToHand: jest
+              .fn()
+              .mockName('handleMoveTileFromBoardToHand'),
+            handleMoveAllTilesFromBoardToHand: jest
+              .fn()
+              .mockName('handleMoveAllTilesFromBoardToHand'),
             handleMoveTileOnBoard: jest.fn().mockName('handleMoveTileOnBoard'),
             handlePeel: jest.fn().mockName('handlePeel'),
             isInGame: true,
@@ -56,17 +59,19 @@ describe('GameContext', () => {
       const boardLocation = { x: 0, y: 0 };
       const {
         handleDump,
-        handleMoveTileFromBoardToHand,
         handleMoveTileFromHandToBoard,
+        handleMoveTileFromBoardToHand,
+        handleMoveAllTilesFromBoardToHand,
         handleMoveTileOnBoard,
         handlePeel,
       } = getEmptyGameState('gameId');
 
       expect(() => handleDump({ id, boardLocation, type })).not.toThrow();
-      expect(() => handleMoveTileFromBoardToHand(boardLocation)).not.toThrow();
       expect(() =>
         handleMoveTileFromHandToBoard(id, boardLocation)
       ).not.toThrow();
+      expect(() => handleMoveTileFromBoardToHand(boardLocation)).not.toThrow();
+      expect(() => handleMoveAllTilesFromBoardToHand()).not.toThrow();
       expect(() =>
         handleMoveTileOnBoard(boardLocation, boardLocation)
       ).not.toThrow();

@@ -2,21 +2,25 @@
 
 exports[`<Hand /> renders properly 1`] = `
 <TransparentPaper>
-  <WithStyles(ForwardRef(Button))
-    disabled={true}
-    onClick={[Function]}
-    size="small"
-    style={
-      Object {
-        "width": "100%",
-      }
-    }
+  <WithStyles(ForwardRef(Tooltip))
+    title="Shuffle hand"
   >
-    <ShuffleIcon
-      color="action"
-      fontSize="small"
-    />
-  </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Button))
+      disabled={true}
+      onClick={[Function]}
+      size="small"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <ShuffleIcon
+        color="action"
+        fontSize="small"
+      />
+    </WithStyles(ForwardRef(Button))>
+  </WithStyles(ForwardRef(Tooltip))>
   <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
     className=""
@@ -32,21 +36,25 @@ exports[`<Hand /> renders properly 1`] = `
 
 exports[`<Hand /> renders properly with player 1`] = `
 <TransparentPaper>
-  <WithStyles(ForwardRef(Button))
-    disabled={false}
-    onClick={[Function]}
-    size="small"
-    style={
-      Object {
-        "width": "100%",
-      }
-    }
+  <WithStyles(ForwardRef(Tooltip))
+    title="Shuffle hand"
   >
-    <ShuffleIcon
-      color="action"
-      fontSize="small"
-    />
-  </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Button))
+      disabled={false}
+      onClick={[Function]}
+      size="small"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <ShuffleIcon
+        color="action"
+        fontSize="small"
+      />
+    </WithStyles(ForwardRef(Button))>
+  </WithStyles(ForwardRef(Tooltip))>
   <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
     className=""

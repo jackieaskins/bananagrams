@@ -24,7 +24,7 @@ export const SocketProvider: React.FC = ({ children }) => {
     return (): void => {
       socket.emit('disconnect');
     };
-  }, [enqueueSnackbar]);
+  }, []);
 
   return (
     <SocketContext.Provider value={{ socket }}>

@@ -17,8 +17,9 @@ export const getEmptyGameInfo = (gameId: string): GameInfo => ({
 export const getEmptyGameState = (gameId: string): GameState => ({
   gameInfo: getEmptyGameInfo(gameId),
   handleDump: (): void => undefined,
-  handleMoveTileFromBoardToHand: (): void => undefined,
   handleMoveTileFromHandToBoard: (): void => undefined,
+  handleMoveTileFromBoardToHand: (): void => undefined,
+  handleMoveAllTilesFromBoardToHand: (): void => undefined,
   handleMoveTileOnBoard: (): void => undefined,
   handlePeel: (): void => undefined,
   isInGame: false,

@@ -267,6 +267,12 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
+  moveAllTilesFromBoardToHand(): void {
+    const { io, currentPlayer } = this;
+    currentPlayer.getHand().addTiles(currentPlayer.getBoard().clear());
+    GameController.emitGameInfo(io, this.currentGame);
+  }
+
   shuffleHand(): void {
     const { io, currentGame, currentPlayer } = this;
     currentPlayer.getHand().shuffle();

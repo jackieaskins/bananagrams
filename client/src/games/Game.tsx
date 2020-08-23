@@ -1,13 +1,14 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { DoubleArrow } from '@material-ui/icons';
 
 import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import Board from '../boards/Board';
-import Button from '../buttons/Button';
 import Dump from '../hands/Dump';
 import Hand from '../hands/Hand';
+import PeelButton from './PeelButton';
 import { Player } from '../players/types';
 import { useGame } from './GameContext';
 import { useSocket } from '../socket/SocketContext';
@@ -20,11 +21,15 @@ const Game: React.FC = () => {
   const {
     gameInfo: { bunch, players },
     handlePeel,
+    handleMoveAllTilesFromBoardToHand,
   } = useGame();
 
   const { board, hand } = players.find(
     (player) => player.userId === socket.id
   ) as Player;
+
+  const canPeel = hand.length === 0 && isValidConnectedBoard(board);
+  const peelWinsGame = bunch.length < players.length;
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -34,10 +39,20 @@ const Game: React.FC = () => {
             Your board and hand:
           </Typography>
 
-          <Grid container spacing={1}>
+          <Grid container spacing={1} alignItems="center">
             <Grid item>
               <Board board={board} />
             </Grid>
+
+            <Tooltip title="Move all tiles from board to hand">
+              <IconButton
+                size="small"
+                onClick={handleMoveAllTilesFromBoardToHand}
+              >
+                <DoubleArrow fontSize="small" />
+              </IconButton>
+            </Tooltip>
+
             <Grid item>
               <Hand hand={hand} />
             </Grid>
@@ -53,17 +68,11 @@ const Game: React.FC = () => {
             </Grid>
 
             <Grid item style={{ width: '100%' }}>
-              <Button
-                size="large"
-                fullWidth
-                onClick={handlePeel}
-                disabled={
-                  Object.values(hand).length > 0 ||
-                  !isValidConnectedBoard(board)
-                }
-              >
-                {bunch.length < players.length ? 'Bananas!' : 'Peel!'}
-              </Button>
+              <PeelButton
+                canPeel={canPeel}
+                handlePeel={handlePeel}
+                peelWinsGame={peelWinsGame}
+              />
             </Grid>
 
             <Grid item style={{ width: '100%' }}>
