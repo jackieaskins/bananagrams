@@ -121,6 +121,13 @@ export const configureSocket = (io: Server): void => {
       }, callback);
     });
 
+    socket.on('shuffleHand', ({}, callback) => {
+      handler(() => {
+        validateGameControllerExists();
+        (gameController as GameController).shuffleHand();
+      }, callback);
+    });
+
     socket.on('disconnect', () => {
       gameController?.leaveGame();
       gameController = undefined;

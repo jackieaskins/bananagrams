@@ -29,6 +29,8 @@ export default class GameController {
     this.currentPlayer = currentPlayer;
   }
 
+  // From io: send to everyone, including current player
+  // From socket: send to everyone except current player
   private static emitNotification(
     from: Server | Socket,
     to: string,
@@ -262,6 +264,12 @@ export default class GameController {
   ): void {
     const { io, currentGame, currentPlayer } = this;
     currentPlayer.moveTileOnBoard(fromLocation, toLocation);
+    GameController.emitGameInfo(io, currentGame);
+  }
+
+  shuffleHand(): void {
+    const { io, currentGame, currentPlayer } = this;
+    currentPlayer.getHand().shuffle();
     GameController.emitGameInfo(io, currentGame);
   }
 

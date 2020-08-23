@@ -53,6 +53,7 @@ describe('socket', () => {
         moveTileFromHandToBoard: jest.fn(),
         moveTileFromBoardToHand: jest.fn(),
         moveTileOnBoard: jest.fn(),
+        shuffleHand: jest.fn(),
       };
 
       jest
@@ -470,6 +471,43 @@ describe('socket', () => {
         });
         createGame();
         moveTileOnBoard(callback);
+        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+      });
+    });
+
+    describe('shuffleHand', () => {
+      const shuffleHand = (callback?: () => void): void => {
+        socketCalls.shuffleHand({}, callback);
+      };
+
+      test('throws an error when not in a game', () => {
+        shuffleHand(callback);
+        assertThrowsNoGameError();
+      });
+
+      test('calls shuffle hand', () => {
+        createGame();
+        shuffleHand(callback);
+        expect(gameController.shuffleHand).toHaveBeenCalledWith();
+      });
+
+      test('calls callback with null', () => {
+        createGame();
+        shuffleHand(callback);
+        expect(callback).toHaveBeenCalledWith(null, null);
+      });
+
+      test('works without callback', () => {
+        createGame();
+        expect(() => shuffleHand()).not.toThrow();
+      });
+
+      test('calls callback with error when shuffle hand fails', () => {
+        gameController.shuffleHand.mockImplementation(() => {
+          throw new Error('Error');
+        });
+        createGame();
+        shuffleHand(callback);
         expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
       });
     });

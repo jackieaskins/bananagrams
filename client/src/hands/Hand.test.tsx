@@ -4,10 +4,13 @@ import Hand from './Hand';
 import { useDrop } from 'react-dnd';
 import { useGame } from '../games/GameContext';
 import { playerFixture } from '../fixtures/player';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 
+const mockEmit = jest.fn();
 jest.mock('../socket/SocketContext', () => ({
-  useSocket: () => ({ socket: { id: '123' } }),
+  useSocket: () => ({
+    socket: { id: '123', emit: mockEmit },
+  }),
 }));
 
 jest.mock('../styles', () => ({
@@ -50,6 +53,12 @@ describe('<Hand />', () => {
     });
 
     expect(renderComponent()).toMatchSnapshot();
+  });
+
+  test('shuffle button emits shuffle hand event', () => {
+    renderComponent().find(Button).props().onClick();
+
+    expect(mockEmit).toHaveBeenCalledWith('shuffleHand', {});
   });
 
   describe('useDrop', () => {

@@ -2,28 +2,60 @@
 
 exports[`<Hand /> renders properly 1`] = `
 <TransparentPaper>
+  <WithStyles(ForwardRef(Button))
+    disabled={true}
+    onClick={[Function]}
+    size="small"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <ShuffleIcon
+      color="action"
+      fontSize="small"
+    />
+  </WithStyles(ForwardRef(Button))>
+  <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
     className=""
     display="flex"
     flexDirection="column"
     flexWrap="wrap"
-    height="511px"
+    height="480px"
     p={1}
-    width="35px"
+    width="70px"
   />
 </TransparentPaper>
 `;
 
 exports[`<Hand /> renders properly with player 1`] = `
 <TransparentPaper>
+  <WithStyles(ForwardRef(Button))
+    disabled={false}
+    onClick={[Function]}
+    size="small"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <ShuffleIcon
+      color="action"
+      fontSize="small"
+    />
+  </WithStyles(ForwardRef(Button))>
+  <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
     className=""
     display="flex"
     flexDirection="column"
     flexWrap="wrap"
-    height="11px"
+    height="0px"
     p={1}
-    width="35px"
+    width="70px"
   >
     <Tile
       boardLocation={null}

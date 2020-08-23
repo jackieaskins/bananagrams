@@ -8,7 +8,7 @@
     "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig.json",
     "dev": "nodemon",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
-    "pre-commit": "npm outdated && npm run check-types && lint-staged && npm run lint && npm test",
+    "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test && npm outdated",
     "start": "NODE_ENV=production node dist/index.js",
     "test": "jest --silent",
     "test:watch": "jest --watch",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Button, Divider } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 
 import { Hand as HandType } from './types';
@@ -10,6 +10,7 @@ import { TileItem } from '../tiles/types';
 import { useStyles } from '../styles';
 import TransparentPaper from '../paper/TransparentPaper';
 import { useGame } from '../games/GameContext';
+import { Shuffle } from '@material-ui/icons';
 
 type HandProps = {
   hand: HandType;
@@ -43,14 +44,29 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
 
   return (
     <TransparentPaper>
+      <Button
+        style={{
+          width: '100%',
+        }}
+        disabled={hand.length <= 1}
+        size="small"
+        onClick={(): void => {
+          socket.emit('shuffleHand', {});
+        }}
+      >
+        <Shuffle color="action" fontSize="small" />
+      </Button>
+
+      <Divider />
+
       <Box
         // @ts-ignore
         ref={dropRef}
         display="flex"
         flexWrap="wrap"
         flexDirection="column"
-        width={`${Math.max(Math.ceil(hand.length / 14), 1) * 35}px`}
-        height={`${25 * boardLength + 2 - 16}px`}
+        width={`${Math.max(Math.ceil(hand.length / 14), 2) * 35}px`}
+        height={`${24 * boardLength + 2 - 26}px`}
         p={1}
         className={isOver && canDrop ? classes.validDrop : ''}
       >

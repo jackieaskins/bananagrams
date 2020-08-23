@@ -523,6 +523,23 @@ describe('GameController', () => {
     });
   });
 
+  describe('shuffleHand', () => {
+    beforeEach(() => {
+      game.setInProgress(false);
+      jest.spyOn(player.getHand(), 'shuffle');
+
+      gameController.shuffleHand();
+    });
+
+    test('shuffles player hand', () => {
+      expect(player.getHand().shuffle).toHaveBeenCalledWith();
+    });
+
+    test('emits game info', () => {
+      assertEmitsGameInfo(ioEmit);
+    });
+  });
+
   describe('split', () => {
     beforeEach(() => {
       game.setInProgress(false);
