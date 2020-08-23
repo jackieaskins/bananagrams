@@ -65,7 +65,7 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
         display="flex"
         flexWrap="wrap"
         flexDirection="column"
-        width={`${Math.max(Math.ceil(hand.length / 14), 2) * 35}px`}
+        width={`${Math.max(Math.ceil(hand.length / 13), 2) * 35}px`}
         height={`${24 * boardLength + 2 - 26}px`}
         p={1}
         className={isOver && canDrop ? classes.validDrop : ''}
