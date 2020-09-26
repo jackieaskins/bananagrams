@@ -16,7 +16,7 @@ describe('<Button />', () => {
     ).toMatchSnapshot();
   });
 
-  test('test renders properly when disabled', () => {
+  test('renders properly when disabled', () => {
     expect(renderButton({ disabled: true })).toMatchSnapshot();
   });
 });

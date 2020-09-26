@@ -308,6 +308,17 @@ describe('GameController', () => {
       otherPlayer.setTopBanana(true);
       game.addPlayer(otherPlayer);
       game.setInProgress(true);
+
+      jest.clearAllMocks();
+    });
+
+    it('does make any updates if player hand is not empty', () => {
+      player.getHand().addTiles([new Tile('A1', 'A')]);
+
+      gameController.peel();
+
+      expect(socketEmit).not.toHaveBeenCalled();
+      expect(ioEmit).not.toHaveBeenCalled();
     });
 
     describe('bunch has less tiles than number of players', () => {

@@ -185,6 +185,10 @@ export default class GameController {
     const { io, socket, currentPlayer, currentGame } = this;
     const currentPlayers = currentGame.getPlayers();
 
+    if (currentPlayer.getHand().getTiles().length > 0) {
+      return;
+    }
+
     if (currentGame.getBunch().getTiles().length < currentPlayers.length) {
       GameController.emitNotification(
         socket,
