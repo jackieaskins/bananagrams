@@ -42,17 +42,6 @@ exports[`<Game /> renders properly 1`] = `
             }
           />
         </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Tooltip))
-          title="Move all tiles from board to hand"
-        >
-          <WithStyles(ForwardRef(IconButton))
-            size="small"
-          >
-            <DoubleArrowIcon
-              fontSize="small"
-            />
-          </WithStyles(ForwardRef(IconButton))>
-        </WithStyles(ForwardRef(Tooltip))>
         <WithStyles(ForwardRef(Grid))
           item={true}
         >
@@ -177,17 +166,6 @@ exports[`<Game /> renders properly with more than one player 1`] = `
             }
           />
         </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Tooltip))
-          title="Move all tiles from board to hand"
-        >
-          <WithStyles(ForwardRef(IconButton))
-            size="small"
-          >
-            <DoubleArrowIcon
-              fontSize="small"
-            />
-          </WithStyles(ForwardRef(IconButton))>
-        </WithStyles(ForwardRef(Tooltip))>
         <WithStyles(ForwardRef(Grid))
           item={true}
         >

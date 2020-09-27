@@ -1,8 +1,7 @@
 import React from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import { Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
-import { DoubleArrow } from '@material-ui/icons';
+import { Grid, Typography } from '@material-ui/core';
 
 import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import Board from '../boards/Board';
@@ -21,7 +20,6 @@ const Game: React.FC = () => {
   const {
     gameInfo: { bunch, players },
     handlePeel,
-    handleMoveAllTilesFromBoardToHand,
   } = useGame();
 
   const { board, hand } = players.find(
@@ -43,15 +41,6 @@ const Game: React.FC = () => {
             <Grid item>
               <Board board={board} />
             </Grid>
-
-            <Tooltip title="Move all tiles from board to hand">
-              <IconButton
-                size="small"
-                onClick={handleMoveAllTilesFromBoardToHand}
-              >
-                <DoubleArrow fontSize="small" />
-              </IconButton>
-            </Tooltip>
 
             <Grid item>
               <Hand hand={hand} />
