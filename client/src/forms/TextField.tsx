@@ -4,7 +4,7 @@ import {
   StandardTextFieldProps as MaterialUITextFieldProps,
 } from '@material-ui/core';
 
-interface TextFieldProps extends MaterialUITextFieldProps {
+export interface TextFieldProps extends MaterialUITextFieldProps {
   setValue: (newValue: string) => void;
   value: string;
 }
