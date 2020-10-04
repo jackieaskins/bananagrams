@@ -45,14 +45,22 @@ describe('useCreateGameForm', () => {
   });
 
   describe('onSubmit', () => {
+    const event = { preventDefault: jest.fn() };
+
+    test('prevents default event', () => {
+      useCreateGameForm().onSubmit(event);
+
+      expect(event.preventDefault).toHaveBeenCalledWith();
+    });
+
     test('sets is creating game', () => {
-      useCreateGameForm().onSubmit();
+      useCreateGameForm().onSubmit(event);
 
       expect(mockSetIsCreatingGame).toHaveBeenCalledWith(true);
     });
 
     test('emits create game event to socket', () => {
-      useCreateGameForm().onSubmit();
+      useCreateGameForm().onSubmit(event);
 
       expect(mockEmit).toHaveBeenCalledWith(
         'createGame',
@@ -63,7 +71,7 @@ describe('useCreateGameForm', () => {
 
     test('creates shortened game if query param is present', () => {
       useLocation.mockReturnValue({ search: '?isShortenedGame=true' });
-      useCreateGameForm().onSubmit();
+      useCreateGameForm().onSubmit(event);
 
       expect(mockEmit.mock.calls[0][1]).toEqual({
         gameName: '',
@@ -74,7 +82,7 @@ describe('useCreateGameForm', () => {
 
     describe('socket createGame callback', () => {
       beforeEach(() => {
-        useCreateGameForm().onSubmit();
+        useCreateGameForm().onSubmit(event);
       });
 
       describe('on error', () => {

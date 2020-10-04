@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
@@ -9,7 +9,7 @@ export type CreateGameFormState = {
   error: string;
   gameName: string;
   isCreatingGame: boolean;
-  onSubmit: () => void;
+  onSubmit: (event: MouseEvent<HTMLElement>) => void;
   setGameName: SetState<string>;
   setUsername: SetState<string>;
   username: string;
@@ -26,7 +26,9 @@ export const useCreateGameForm = (): CreateGameFormState => {
 
   const { socket } = useSocket();
 
-  const onSubmit = (): void => {
+  const onSubmit = (event: MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
+
     setIsCreatingGame(true);
 
     socket.emit(

@@ -10,7 +10,6 @@ interface ButtonProps extends MaterialUIButtonProps {
   component?: React.ElementType;
   loading?: boolean;
   loadingText?: string;
-  onClick: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({

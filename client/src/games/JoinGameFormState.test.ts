@@ -41,8 +41,14 @@ describe('useJoinGameForm', () => {
   });
 
   describe('onSubmit', () => {
+    const event = { preventDefault: jest.fn() };
+
     beforeEach(() => {
-      useJoinGameForm().onSubmit();
+      useJoinGameForm().onSubmit(event);
+    });
+
+    test('prevents default event', () => {
+      expect(event.preventDefault).toHaveBeenCalledWith();
     });
 
     test('sets is joining game', () => {

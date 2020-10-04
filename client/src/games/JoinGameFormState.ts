@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
@@ -12,7 +12,7 @@ type JoinGameParams = {
 type JoinGameFormState = {
   error: string;
   isJoiningGame: boolean;
-  onSubmit: () => void;
+  onSubmit: (event: MouseEvent<HTMLElement>) => void;
   setUsername: SetState<string>;
   username: string;
 };
@@ -26,7 +26,9 @@ export const useJoinGameForm = (): JoinGameFormState => {
   const [error, setError] = useState('');
   const [isJoiningGame, setIsJoiningGame] = useState(false);
 
-  const onSubmit = (): void => {
+  const onSubmit = (event: MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
+
     setIsJoiningGame(true);
 
     socket.emit(
