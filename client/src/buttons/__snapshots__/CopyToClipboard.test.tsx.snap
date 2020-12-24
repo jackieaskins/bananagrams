@@ -8,7 +8,7 @@ exports[`<CopyToClipboard /> renders properly when should show 1`] = `
   onClick={[Function]}
   size="small"
 >
-  <FileCopyOutlinedIcon
+  <Memo([object Object])
     fontSize="small"
   />
 </WithStyles(ForwardRef(IconButton))>
