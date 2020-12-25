@@ -29,9 +29,6 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })],
   resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
     extensions: ['.ts', '.tsx', '.js'],
   },
 };
