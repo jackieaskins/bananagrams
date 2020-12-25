@@ -121,7 +121,7 @@ export default class GameController {
       throw new Error('Only game admins can kick players from the game');
     }
 
-    this.socket.server.sockets.connected[userId]?.disconnect(true);
+    this.io.sockets.sockets.get(userId)?.disconnect(true);
   }
 
   leaveGame(): void {

@@ -44,21 +44,21 @@ describe('GameController', () => {
   };
 
   beforeEach(() => {
-    io = { to: ioTo };
+    io = {
+      to: ioTo,
+      sockets: {
+        sockets: {
+          get: jest.fn().mockImplementation(id => id === 'socketId2' ? {
+            disconnect: socketDisconnect
+          } : null)
+        }
+      }
+    };
     socket = {
       join: jest.fn(),
       leave: jest.fn(),
       to: socketTo,
       id: 'socketId',
-      server: {
-        sockets: {
-          connected: {
-            socketId2: {
-              disconnect: socketDisconnect,
-            },
-          },
-        },
-      },
     };
 
     jest.spyOn(GameController, 'joinGame');

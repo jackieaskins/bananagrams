@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import path from 'path';
-import socketio from 'socket.io';
+import { Server } from 'socket.io';
 
 import { configureDevServer } from './devServer';
 import { configureSocket } from './socket';
@@ -12,7 +12,7 @@ Dictionary.initialize();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = new Server(server);
 
 app.use('/assets', express.static('assets'));
 if (process.env.NODE_ENV === 'development') {
