@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Dialog,
@@ -11,6 +10,7 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useStyles } from '../styles';

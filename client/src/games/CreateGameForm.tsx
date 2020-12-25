@@ -1,8 +1,8 @@
-import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import React from 'react';
 
-import Button from '../buttons/Button';
 import ErrorAlert from '../alerts/ErrorAlert';
+import Button from '../buttons/Button';
 import TextField from '../forms/TextField';
 import { useCreateGameForm } from './CreateGameFormState';
 

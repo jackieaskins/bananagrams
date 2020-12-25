@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Player } from '../players/types';
 
 type OpponentBoardPreviewState = {

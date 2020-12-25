@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box } from '@material-ui/core';
+import React from 'react';
 
-import { Board } from './types';
 import TransparentPaper from '../paper/TransparentPaper';
+import { Board } from './types';
 
 type PreviewBoardProps = {
   board: Board;

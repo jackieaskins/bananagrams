@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { GameInfo, GameLocationState } from './types';
-import { useSocket } from '../socket/SocketContext';
-import { getEmptyGameInfo, GameProvider } from './GameContext';
 import { BoardLocation } from '../boards/types';
+import { useSocket } from '../socket/SocketContext';
 import { TileItem } from '../tiles/types';
+import { getEmptyGameInfo, GameProvider } from './GameContext';
+import { GameInfo, GameLocationState } from './types';
 
 type GameParams = {
   gameId: string;

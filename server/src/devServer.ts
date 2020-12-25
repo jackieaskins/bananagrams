@@ -1,7 +1,7 @@
-import core from 'express-serve-static-core';
+import express from 'express';
 import path from 'path';
 
-export const configureDevServer = (app: core.Express): void => {
+export const configureDevServer = (app: express.Express): void => {
   /* eslint-disable @typescript-eslint/no-var-requires */
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');

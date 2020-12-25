@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { useCreateGameForm } from './CreateGameFormState';
 
 const mockPush = jest.fn();

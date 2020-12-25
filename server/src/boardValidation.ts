@@ -1,3 +1,4 @@
+import Dictionary from './dictionary/Dictionary';
 import {
   BoardSquares,
   BoardLocation,
@@ -6,7 +7,6 @@ import {
   ValidationStatus,
 } from './models/Board';
 import Tile from './models/Tile';
-import Dictionary from './dictionary/Dictionary';
 
 type ValidateLocation = {
   start: BoardLocation;

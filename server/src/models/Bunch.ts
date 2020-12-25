@@ -1,7 +1,7 @@
-import Tile, { TileJSON } from './Tile';
 import tileBreakdown from '../tileBreakdown';
 import BaseModel from './BaseModel';
 import Game from './Game';
+import Tile, { TileJSON } from './Tile';
 
 export type BunchJSON = TileJSON[];
 

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box } from '@material-ui/core';
+import React from 'react';
 import { useDrop } from 'react-dnd';
 
 import { useGame } from '../games/GameContext';
 import { useStyles } from '../styles';
-import { TileItem } from '../tiles/types';
 import Tile from '../tiles/Tile';
+import { TileItem } from '../tiles/types';
 import { BoardSquare, Direction, WordInfo, ValidationStatus } from './types';
 
 type BoardSquareProps = {

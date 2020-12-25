@@ -1,11 +1,11 @@
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { SnackbarProvider } from 'notistack';
 
 import Routes from './Routes';
-import { SocketProvider } from './socket/SocketContext';
 import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
+import { SocketProvider } from './socket/SocketContext';
 
 const App: React.FC = () => (
   <SnackbarProvider>

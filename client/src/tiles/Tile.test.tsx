@@ -1,6 +1,7 @@
-import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
+import React from 'react';
 import { useDrag } from 'react-dnd';
+
 import Tile from './Tile';
 
 jest.mock('react-dnd', () => ({

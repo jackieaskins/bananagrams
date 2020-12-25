@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useEffect, useContext } from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
+import React, { useEffect, useContext } from 'react';
+
 import { SocketProvider, useSocket, SocketContext } from './SocketContext';
+
 import socket from '.';
 
 jest.mock('react', () => ({

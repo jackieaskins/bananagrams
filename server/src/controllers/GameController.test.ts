@@ -1,8 +1,8 @@
 /* eslint-disable jest/expect-expect */
-import GameController from './GameController';
 import Game from '../models/Game';
 import Player from '../models/Player';
 import Tile from '../models/Tile';
+import GameController from './GameController';
 
 jest.mock('../boardValidation');
 

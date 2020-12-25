@@ -1,5 +1,5 @@
-import React from 'react';
 import { Grid, GridSize } from '@material-ui/core';
+import React from 'react';
 
 type CenteredLayoutProps = {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
+import React, { createContext, useContext, useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
 import socket from './index';

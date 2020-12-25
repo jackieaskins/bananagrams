@@ -1,7 +1,8 @@
-import React from 'react';
 import { set, get } from 'local-storage';
-import { useWalkthroughDialog } from './WalkthroughDialogState';
+import React from 'react';
+
 import { testHook } from '../testUtils';
+import { useWalkthroughDialog } from './WalkthroughDialogState';
 
 jest.mock('local-storage', () => ({
   set: jest.fn(),

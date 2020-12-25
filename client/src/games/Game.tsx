@@ -1,17 +1,17 @@
-import React from 'react';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 import { Grid, Typography } from '@material-ui/core';
+import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import Board from '../boards/Board';
+import OpponentBoardPreview from '../boards/OpponentBoardPreview';
+import { isValidConnectedBoard } from '../boards/validate';
 import Dump from '../hands/Dump';
 import Hand from '../hands/Hand';
-import PeelButton from './PeelButton';
 import { Player } from '../players/types';
-import { useGame } from './GameContext';
 import { useSocket } from '../socket/SocketContext';
-import { isValidConnectedBoard } from '../boards/validate';
+import { useGame } from './GameContext';
+import PeelButton from './PeelButton';
 
 import './Game.css';
 

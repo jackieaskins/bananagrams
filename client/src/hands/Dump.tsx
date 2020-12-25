@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
-
-import TransparentPaper from '../paper/TransparentPaper';
+import React from 'react';
 import { useDrop } from 'react-dnd';
-import { TileItem } from '../tiles/types';
+
 import { useGame } from '../games/GameContext';
+import TransparentPaper from '../paper/TransparentPaper';
 import { useStyles } from '../styles';
+import { TileItem } from '../tiles/types';
 
 const EXCHANGE_COUNT = 3;
 

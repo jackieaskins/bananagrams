@@ -1,5 +1,5 @@
-import React from 'react';
 import { CircularProgress, CircularProgressProps } from '@material-ui/core';
+import React from 'react';
 
 interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;

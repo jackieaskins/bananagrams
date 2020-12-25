@@ -1,8 +1,10 @@
-import React from 'react';
+import { DialogProps, FormControlLabel, Button } from '@material-ui/core';
 import { shallow, ShallowWrapper } from 'enzyme';
+import React from 'react';
+
 import WalkthroughDialog from './WalkthroughDialog';
 import { WalkthroughDialogState } from './WalkthroughDialogState';
-import { DialogProps, FormControlLabel, Button } from '@material-ui/core';
+
 
 const mockHandleClose = jest.fn().mockName('handleClose');
 const mockSetAskAgain = jest.fn().mockName('setAskAgain');

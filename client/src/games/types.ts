@@ -1,6 +1,6 @@
+import { BoardLocation } from '../boards/types';
 import { Player } from '../players/types';
 import { Tile, TileItem } from '../tiles/types';
-import { BoardLocation } from '../boards/types';
 
 export type GameInfo = {
   gameId: string;

@@ -1,6 +1,6 @@
 /* eslint-disable jest/expect-expect */
-import { configureSocket, handler } from './socket';
 import GameController from './controllers/GameController';
+import { configureSocket, handler } from './socket';
 
 describe('socket', () => {
   describe('handler', () => {

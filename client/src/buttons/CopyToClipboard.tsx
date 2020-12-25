@@ -1,6 +1,6 @@
-import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { FileCopyOutlined } from '@material-ui/icons';
+import React from 'react';
 
 import { useCopyToClipboard } from './CopyToClipboardState';
 

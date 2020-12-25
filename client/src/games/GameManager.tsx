@@ -1,11 +1,11 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Box } from '@material-ui/core';
 
-import StartGame from './StartGame';
-import GameSidebar from './GameSidebar';
-import { useGame } from './GameContext';
 import Game from './Game';
+import { useGame } from './GameContext';
+import GameSidebar from './GameSidebar';
+import StartGame from './StartGame';
 
 const GameManager: React.FC = () => {
   const {

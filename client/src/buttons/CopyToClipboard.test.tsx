@@ -1,8 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { useCopyToClipboard } from './CopyToClipboardState';
-import CopyToClipboard from './CopyToClipboard';
 import { IconButton } from '@material-ui/core';
+import { shallow } from 'enzyme';
+import React from 'react';
+
+import CopyToClipboard from './CopyToClipboard';
+import { useCopyToClipboard } from './CopyToClipboardState';
+
 
 jest.mock('./CopyToClipboardState', () => ({
   useCopyToClipboard: jest.fn().mockReturnValue({

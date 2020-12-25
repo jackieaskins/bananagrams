@@ -1,6 +1,6 @@
+import BaseModel from './BaseModel';
 import Bunch, { BunchJSON } from './Bunch';
 import Player, { PlayerJSON } from './Player';
-import BaseModel from './BaseModel';
 
 export type Snapshot = PlayerJSON[] | null;
 export type GameJSON = {

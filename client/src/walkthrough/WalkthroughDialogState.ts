@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { get, set } from 'local-storage';
+import { useState } from 'react';
+
 import { SetState } from '../state/types';
 
 export const SHOW_WALKTHROUGH_KEY = 'showWalkthrough';

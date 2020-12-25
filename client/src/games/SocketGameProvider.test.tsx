@@ -1,6 +1,7 @@
+import { shallow } from 'enzyme';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { shallow } from 'enzyme';
+
 import { gameInfoFixture } from '../fixtures/game';
 import SocketGameProvider from './SocketGameProvider';
 

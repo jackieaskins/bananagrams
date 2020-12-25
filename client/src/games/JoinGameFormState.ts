@@ -2,8 +2,8 @@ import { useState, MouseEvent } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
-import { GameInfo, GameLocationState } from './types';
 import { SetState } from '../state/types';
+import { GameInfo, GameLocationState } from './types';
 
 type JoinGameParams = {
   gameId: string;

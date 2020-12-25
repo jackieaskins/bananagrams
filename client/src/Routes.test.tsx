@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import Routes from './Routes';
+import React from 'react';
 
 import NotFound from './NotFound';
+import Routes from './Routes';
 
 describe('<Routes />', () => {
   const renderComponent = (): ShallowWrapper => shallow(<Routes />);

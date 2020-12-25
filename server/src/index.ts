@@ -4,8 +4,8 @@ import path from 'path';
 import { Server } from 'socket.io';
 
 import { configureDevServer } from './devServer';
-import { configureSocket } from './socket';
 import Dictionary from './dictionary/Dictionary';
+import { configureSocket } from './socket';
 
 const PORT = process.env.PORT || 5000;
 Dictionary.initialize();

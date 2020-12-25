@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Checkbox,
   Table,
@@ -10,9 +9,10 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Check, Close, DeleteOutline } from '@material-ui/icons';
+import React from 'react';
 
-import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
+import { useSocket } from '../socket/SocketContext';
 
 const MAX_PLAYERS = 8;
 

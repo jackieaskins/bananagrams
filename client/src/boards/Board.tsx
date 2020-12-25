@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box } from '@material-ui/core';
+import React from 'react';
 
-import BoardSquare from './BoardSquare';
 import { Board as BoardType } from '../boards/types';
 import TransparentPaper from '../paper/TransparentPaper';
+import BoardSquare from './BoardSquare';
 
 type BoardProps = {
   board: BoardType;

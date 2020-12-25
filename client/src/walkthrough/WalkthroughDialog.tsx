@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Checkbox,
@@ -9,6 +8,8 @@ import {
   DialogTitle,
   FormControlLabel,
 } from '@material-ui/core';
+import React from 'react';
+
 import { useWalkthroughDialog } from './WalkthroughDialogState';
 
 export const SHOW_WALKTHROUGH_KEY = 'showWalkthrough';

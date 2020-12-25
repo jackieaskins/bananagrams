@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useJoinGameForm } from './JoinGameFormState';
 
 const mockPush = jest.fn();

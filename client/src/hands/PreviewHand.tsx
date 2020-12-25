@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box } from '@material-ui/core';
+import React from 'react';
 
 import TransparentPaper from '../paper/TransparentPaper';
 import { Hand } from './types';

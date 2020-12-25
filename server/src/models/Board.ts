@@ -1,6 +1,6 @@
-import Tile, { TileJSON } from './Tile';
-import BaseModel from './BaseModel';
 import { validateAddTile, validateRemoveTile } from '../boardValidation';
+import BaseModel from './BaseModel';
+import Tile, { TileJSON } from './Tile';
 
 export type BoardLocation = {
   x: number;

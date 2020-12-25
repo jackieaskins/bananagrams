@@ -1,12 +1,13 @@
-import React from 'react';
 
-import PreviewBoard from './PreviewBoard';
-import { useSocket } from '../socket/SocketContext';
 import { Box, Grid, IconButton, MenuItem, TextField } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
+import React from 'react';
+
 import PreviewHand from '../hands/PreviewHand';
 import { Player } from '../players/types';
+import { useSocket } from '../socket/SocketContext';
 import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
+import PreviewBoard from './PreviewBoard';
 
 type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;

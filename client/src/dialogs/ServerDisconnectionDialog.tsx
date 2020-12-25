@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Dialog,
@@ -6,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
 } from '@material-ui/core';
+import React from 'react';
 
 import { useServerDisconnectionDialog } from './ServerDisconnectionDialogState';
 

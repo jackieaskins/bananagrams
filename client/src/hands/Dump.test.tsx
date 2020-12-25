@@ -1,9 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Dump from './Dump';
-import { useDrop } from 'react-dnd';
-import { useGame } from '../games/GameContext';
 import { Box } from '@material-ui/core';
+import { shallow } from 'enzyme';
+import React from 'react';
+import { useDrop } from 'react-dnd';
+
+import { useGame } from '../games/GameContext';
+import Dump from './Dump';
+
 
 jest.mock('../styles', () => ({
   useStyles: () => ({

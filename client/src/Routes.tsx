@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import GameManager from './games/GameManager';
 import Home from './Home';
-import JoinGame from './games/JoinGame';
 import NotFound from './NotFound';
+import GameManager from './games/GameManager';
+import JoinGame from './games/JoinGame';
 import SocketGameProvider from './games/SocketGameProvider';
 
 const Routes: React.FC = () => (

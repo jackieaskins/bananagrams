@@ -1,8 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+
 import { playerFixture } from '../fixtures/player';
-import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
 import OpponentBoardPreview from './OpponentBoardPreview';
+import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
 
 jest.mock('../socket/SocketContext', () => ({
   useSocket: () => ({

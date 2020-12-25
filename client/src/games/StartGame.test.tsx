@@ -1,5 +1,6 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+
 import { playerFixture } from '../fixtures/player';
 import { useGame } from './GameContext';
 import StartGame from './StartGame';
