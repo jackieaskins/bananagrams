@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc --project server/tsconfig.json && webpack --mode production",
+    "check-outdated": "check-outdated --ignore-pre-releases",
     "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig.json",
     "dev": "nodemon",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
@@ -47,6 +48,7 @@
     "@typescript-eslint/parser": "^4.3.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-loader": "^8.1.0",
+    "check-outdated": "^2.5.0",
     "css-loader": "^5.0.1",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.1",
