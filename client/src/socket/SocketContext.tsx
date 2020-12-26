@@ -23,7 +23,7 @@ export const SocketProvider: FunctionComponent = ({ children }) => {
     });
 
     return (): void => {
-      socket.emit('disconnect');
+      socket.disconnect();
     };
   }, []);
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { shallow, ShallowWrapper } from 'enzyme';
 import { useEffect, useContext } from 'react';
 
@@ -14,6 +13,7 @@ jest.mock('react', () => ({
 jest.mock('./index', () => ({
   on: jest.fn(),
   emit: jest.fn(),
+  disconnect: jest.fn(),
 }));
 const mockEnqueueSnackbar = jest.fn();
 jest.mock('notistack', () => ({
@@ -42,17 +42,15 @@ describe('SocketContext', () => {
     test('enqueues message to snackbar on message received', () => {
       const message = 'Message';
 
-      // @ts-ignore
       socket.on.mock.calls[0][1]({ message });
 
       expect(mockEnqueueSnackbar).toHaveBeenCalledWith(message);
     });
 
     test('disconnects from socket on dismount', () => {
-      // @ts-ignore
       useEffect.mock.calls[0][0]()();
 
-      expect(socket.emit).toHaveBeenCalledWith('disconnect');
+      expect(socket.disconnect).toHaveBeenCalledWith();
     });
   });
 
