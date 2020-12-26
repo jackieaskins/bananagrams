@@ -24,20 +24,12 @@ module.exports = {
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: ['react-refresh/babel']
-            },
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['react-refresh/babel']
           },
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
-            },
-          }
-        ],
+        },
       },
       ...otherRules,
     ],

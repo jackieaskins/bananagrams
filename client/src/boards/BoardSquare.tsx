@@ -7,10 +7,10 @@ import { useGame } from '../games/GameContext';
 import { useStyles } from '../styles';
 import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
-import { BoardSquare, Direction, WordInfo, ValidationStatus } from './types';
+import { BoardSquare as BoardSquareType, Direction, WordInfo, ValidationStatus } from './types';
 
 type BoardSquareProps = {
-  boardSquare: BoardSquare | null;
+  boardSquare: BoardSquareType | null;
   x: number;
   y: number;
 };
