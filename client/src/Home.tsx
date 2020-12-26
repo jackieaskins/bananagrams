@@ -1,10 +1,15 @@
-import CreateGameForm from './games/CreateGameForm';
-import CenteredLayout from './layouts/CenteredLayout';
+import BoardWrapper from './board/BoardWrapper';
 
 const Home = (): JSX.Element => (
-  <CenteredLayout>
-    <CreateGameForm />
-  </CenteredLayout>
+  <div
+    css={{
+      overflow: 'hidden',
+      width: '100vh',
+      height: '100vh',
+    }}
+  >
+    <BoardWrapper />
+  </div>
 );
 
 export default Home;

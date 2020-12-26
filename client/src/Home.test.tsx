@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import Home from './Home';
 
 describe('<Home />', () => {
-  test('renders centered create game form', () => {
+  test('renders board wrapper', () => {
     expect(shallow(<Home />)).toMatchSnapshot();
   });
 });

@@ -1,19 +1,7 @@
-import { SnackbarProvider } from 'notistack';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Home from './Home';
 
-import Routes from './Routes';
-import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
-import { SocketProvider } from './socket/SocketContext';
+import 'antd/dist/antd.css';
 
-const App = (): JSX.Element => (
-  <SnackbarProvider>
-    <SocketProvider>
-      <Router>
-        <ServerDisconnectionDialog />
-        <Routes />
-      </Router>
-    </SocketProvider>
-  </SnackbarProvider>
-);
+const App: React.FC = () => <Home />;
 
 export default App;

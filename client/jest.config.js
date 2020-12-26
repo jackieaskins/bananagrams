@@ -11,8 +11,8 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    "\\.(css)$": "<rootDir>/src/__mocks__/styleMock.ts"
+    '\\.(css)$': '<rootDir>/src/__mocks__/styleMock.ts',
   },
-  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
-  snapshotSerializers: ["enzyme-to-json/serializer"]
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  snapshotSerializers: ["@emotion/jest/enzyme-serializer"],
 };

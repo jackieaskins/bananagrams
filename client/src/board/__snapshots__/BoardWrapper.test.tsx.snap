@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoardWrapper /> renders board onscreen when board is smaller than window 1`] = `
+.emotion-0owdzxb-BoardView {
+  position: fixed;
+  left: -30px;
+  right: -30px;
+  top: -30px;
+  bottom: -30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-013wxq0j-BoardView {
+  position: fixed;
+  left: 12.5px;
+  right: 12.5px;
+  top: 12.5px;
+  bottom: 12.5px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+<div
+  className="emotion-0"
+>
+  <Board />
+</div>
+`;
+
+exports[`<BoardWrapper /> renders part of board offscreen when board is larger than window 1`] = `
+.emotion-0owdzxb-BoardView {
+  position: fixed;
+  left: -30px;
+  right: -30px;
+  top: -30px;
+  bottom: -30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+<div
+  className="emotion-0"
+>
+  <Board />
+</div>
+`;

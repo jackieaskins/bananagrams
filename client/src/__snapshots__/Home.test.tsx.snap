@@ -1,7 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Home /> renders centered create game form 1`] = `
-<CenteredLayout>
-  <CreateGameForm />
-</CenteredLayout>
+exports[`<Home /> renders board wrapper 1`] = `
+.emotion-0knxlce-Home {
+  overflow: hidden;
+  width: 100vh;
+  height: 100vh;
+}
+
+<div
+  className="emotion-0"
+>
+  <BoardView />
+</div>
 `;

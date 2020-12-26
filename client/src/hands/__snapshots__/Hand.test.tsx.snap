@@ -23,7 +23,6 @@ exports[`<Hand /> renders properly 1`] = `
   </WithStyles(ForwardRef(Tooltip))>
   <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
-    className=""
     display="flex"
     flexDirection="column"
     flexWrap="wrap"
@@ -57,7 +56,6 @@ exports[`<Hand /> renders properly with player 1`] = `
   </WithStyles(ForwardRef(Tooltip))>
   <WithStyles(ForwardRef(Divider)) />
   <Styled(MuiBox)
-    className=""
     display="flex"
     flexDirection="column"
     flexWrap="wrap"

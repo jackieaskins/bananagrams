@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoardSquare /> renders styled div 1`] = `
+.emotion-01118okd-BoardSquare {
+  min-width: 25px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+<div
+  className="emotion-0"
+/>
+`;

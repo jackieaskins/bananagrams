@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "module": "es6",
     "outDir": "../dist/public",
     "rootDir": "./src"

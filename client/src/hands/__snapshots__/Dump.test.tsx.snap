@@ -12,7 +12,6 @@ exports[`<Dump /> renders properly 1`] = `
 >
   <Styled(MuiBox)
     alignItems="center"
-    className=""
     display="flex"
     flexDirection="column"
     justifyContent="center"

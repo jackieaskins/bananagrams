@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Board /> renders draggable board squares 1`] = `
+.emotion-013vb242-Board {
+  cursor: move;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.emotion-0k008qs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+<Draggable
+  allowAnyClick={false}
+  axis="both"
+  bounds="parent"
+  cancel={null}
+  defaultClassName="react-draggable"
+  defaultClassNameDragged="react-draggable-dragged"
+  defaultClassNameDragging="react-draggable-dragging"
+  defaultPosition={
+    Object {
+      "x": 0,
+      "y": 0,
+    }
+  }
+  disabled={false}
+  enableUserSelectHack={true}
+  grid={null}
+  handle={null}
+  offsetParent={null}
+  onDrag={[Function]}
+  onMouseDown={[Function]}
+  onStart={[Function]}
+  onStop={[Function]}
+  position={null}
+  scale={1}
+  transform={null}
+>
+  <div
+    className="emotion-0"
+  >
+    <div
+      className="emotion-0"
+      key="0"
+    >
+      <BoardSquare
+        key="0"
+      />
+      <BoardSquare
+        key="1"
+      />
+      <BoardSquare
+        key="2"
+      />
+    </div>
+    <div
+      className="emotion-0"
+      key="1"
+    >
+      <BoardSquare
+        key="0"
+      />
+      <BoardSquare
+        key="1"
+      />
+      <BoardSquare
+        key="2"
+      />
+    </div>
+  </div>
+</Draggable>
+`;

@@ -2,7 +2,6 @@
 
 exports[`<BoardSquare /> renders black tile when not validated in any direction 1`] = `
 <Styled(MuiBox)
-  className=""
   height="25px"
   width="25px"
 >
@@ -26,7 +25,6 @@ exports[`<BoardSquare /> renders black tile when not validated in any direction 
 
 exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = `
 <Styled(MuiBox)
-  className=""
   height="25px"
   width="25px"
 >
@@ -58,7 +56,6 @@ exports[`<BoardSquare /> renders properly when is over and can drop 1`] = `
 
 exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
 <Styled(MuiBox)
-  className=""
   height="25px"
   width="25px"
 />
@@ -66,7 +63,6 @@ exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
 
 exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
 <Styled(MuiBox)
-  className=""
   height="25px"
   width="25px"
 >
