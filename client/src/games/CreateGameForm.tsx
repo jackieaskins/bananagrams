@@ -1,12 +1,11 @@
 import { Grid, Typography } from '@material-ui/core';
-import React from 'react';
 
 import ErrorAlert from '../alerts/ErrorAlert';
 import Button from '../buttons/Button';
 import TextField from '../forms/TextField';
 import { useCreateGameForm } from './CreateGameFormState';
 
-const CreateGameForm: React.FC = () => {
+const CreateGameForm = (): JSX.Element => {
   const {
     error,
     gameName,

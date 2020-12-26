@@ -1,6 +1,5 @@
 import { IconButton } from '@material-ui/core';
 import { FileCopyOutlined } from '@material-ui/icons';
-import React from 'react';
 
 import { useCopyToClipboard } from './CopyToClipboardState';
 
@@ -8,7 +7,7 @@ type CopyToClipboardProps = {
   copyText: string;
 };
 
-const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ copyText }) => {
+const CopyToClipboard = ({ copyText }: CopyToClipboardProps): JSX.Element => {
   const { shouldShow, copyToClipboard } = useCopyToClipboard();
 
   return shouldShow ? (

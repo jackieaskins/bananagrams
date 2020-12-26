@@ -2,7 +2,6 @@ import {
   Button as MaterialUIButton,
   ButtonProps as MaterialUIButtonProps,
 } from '@material-ui/core';
-import React from 'react';
 
 import LoadingIndicator from '../loading/LoadingIndicator';
 
@@ -12,7 +11,7 @@ interface ButtonProps extends MaterialUIButtonProps {
   loadingText?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   children,
   color = 'primary',
   disabled,
@@ -20,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   loadingText,
   variant = 'contained',
   ...rest
-}) => (
+}: ButtonProps): JSX.Element => (
   <MaterialUIButton
     disabled={disabled || loading}
     color={color}

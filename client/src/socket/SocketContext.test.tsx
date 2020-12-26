@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { shallow, ShallowWrapper } from 'enzyme';
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 
 import { SocketProvider, useSocket, SocketContext } from './SocketContext';
 

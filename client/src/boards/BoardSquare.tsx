@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from '@material-ui/core';
-import React from 'react';
 import { useDrop } from 'react-dnd';
 
 import { useGame } from '../games/GameContext';
@@ -32,7 +31,7 @@ const getColor = (
   return 'red';
 };
 
-const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
+const BoardSquare = ({ boardSquare, x, y }: BoardSquareProps): JSX.Element => {
   const classes = useStyles();
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};

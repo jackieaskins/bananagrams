@@ -1,5 +1,4 @@
 import { Grid, Link as MUILink, Typography } from '@material-ui/core';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ErrorAlert from '../alerts/ErrorAlert';
@@ -7,7 +6,7 @@ import Button from '../buttons/Button';
 import TextField from '../forms/TextField';
 import { useJoinGameForm } from './JoinGameFormState';
 
-const JoinGameForm: React.FC = () => {
+const JoinGameForm = (): JSX.Element => {
   const {
     error,
     isJoiningGame,

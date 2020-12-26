@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 
 import { boardSquareFixture } from '../fixtures/board';
 import PreviewBoard from './PreviewBoard';

@@ -10,13 +10,12 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useStyles } from '../styles';
 import { useGameSidebar } from './GameSidebarState';
 
-const GameSidebar: React.FC = () => {
+const GameSidebar = (): JSX.Element => {
   const classes = useStyles();
   const {
     leaveGameDialogOpen,

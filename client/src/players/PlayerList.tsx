@@ -9,14 +9,13 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Check, Close, DeleteOutline } from '@material-ui/icons';
-import React from 'react';
 
 import { useGame } from '../games/GameContext';
 import { useSocket } from '../socket/SocketContext';
 
 const MAX_PLAYERS = 8;
 
-const PlayerList: React.FC = () => {
+const PlayerList = (): JSX.Element => {
   const { socket } = useSocket();
   const { gameInfo } = useGame();
 

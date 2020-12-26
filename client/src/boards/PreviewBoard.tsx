@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from '@material-ui/core';
-import React from 'react';
 
 import TransparentPaper from '../paper/TransparentPaper';
 import { Board } from './types';
@@ -10,7 +9,7 @@ type PreviewBoardProps = {
   tileSize: number;
 };
 
-const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
+const PreviewBoard = ({ board, tileSize }: PreviewBoardProps): JSX.Element => {
   const tilePixels = `${tileSize}px`;
 
   return (

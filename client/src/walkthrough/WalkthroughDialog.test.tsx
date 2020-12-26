@@ -1,6 +1,5 @@
 import { DialogProps, FormControlLabel, Button } from '@material-ui/core';
 import { shallow, ShallowWrapper } from 'enzyme';
-import React from 'react';
 
 import WalkthroughDialog from './WalkthroughDialog';
 import { WalkthroughDialogState } from './WalkthroughDialogState';

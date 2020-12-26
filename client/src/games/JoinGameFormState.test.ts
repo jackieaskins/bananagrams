@@ -1,6 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { useJoinGameForm } from './JoinGameFormState';
+
+jest.mock('react', () => ({
+  useState: jest.fn()
+}));
 
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -27,8 +31,7 @@ describe('useJoinGameForm', () => {
   const mockSetIsJoiningGame = jest.fn().mockName('setIsJoiningGame');
 
   beforeEach(() => {
-    jest
-      .spyOn(React, 'useState')
+    useState
       .mockImplementationOnce((initialValue) => [initialValue, mockSetUsername])
       .mockImplementationOnce((initialValue) => [initialValue, mockSetError])
       .mockImplementationOnce((initialValue) => [

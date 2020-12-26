@@ -1,5 +1,4 @@
 import { shallow, ShallowWrapper } from 'enzyme';
-import React from 'react';
 
 import NotFound from './NotFound';
 import Routes from './Routes';

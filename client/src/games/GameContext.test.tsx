@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import {
   GameContext,

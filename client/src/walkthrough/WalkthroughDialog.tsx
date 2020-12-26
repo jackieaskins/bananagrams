@@ -8,7 +8,6 @@ import {
   DialogTitle,
   FormControlLabel,
 } from '@material-ui/core';
-import React from 'react';
 
 import { useWalkthroughDialog } from './WalkthroughDialogState';
 
@@ -17,9 +16,9 @@ export const SHOW_WALKTHROUGH_KEY = 'showWalkthrough';
 type WalkthroughDialogProps = {
   showWalkthrough: () => void;
 };
-const WalkthroughDialog: React.FC<WalkthroughDialogProps> = ({
+const WalkthroughDialog = ({
   showWalkthrough,
-}) => {
+}: WalkthroughDialogProps): JSX.Element => {
   const {
     askAgain,
     handleClose,

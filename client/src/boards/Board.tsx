@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from '@material-ui/core';
-import React from 'react';
 
 import { Board as BoardType } from '../boards/types';
 import TransparentPaper from '../paper/TransparentPaper';
@@ -10,7 +9,7 @@ type BoardProps = {
   board: BoardType;
 };
 
-const Board: React.FC<BoardProps> = ({ board }) => (
+const Board = ({ board }: BoardProps): JSX.Element => (
   <TransparentPaper
     component={Box}
     // @ts-ignore

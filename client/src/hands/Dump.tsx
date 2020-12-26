@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box, Typography } from '@material-ui/core';
-import React from 'react';
 import { useDrop } from 'react-dnd';
 
 import { useGame } from '../games/GameContext';
@@ -10,7 +9,7 @@ import { TileItem } from '../tiles/types';
 
 const EXCHANGE_COUNT = 3;
 
-const Dump: React.FC = () => {
+const Dump = (): JSX.Element => {
   const classes = useStyles();
   const {
     gameInfo: { bunch },

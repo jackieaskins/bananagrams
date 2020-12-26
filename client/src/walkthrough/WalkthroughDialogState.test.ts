@@ -1,8 +1,13 @@
 import { set, get } from 'local-storage';
-import React from 'react';
+import { useState } from 'react';
 
 import { testHook } from '../testUtils';
 import { useWalkthroughDialog } from './WalkthroughDialogState';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn()
+}));
 
 jest.mock('local-storage', () => ({
   set: jest.fn(),
@@ -14,8 +19,7 @@ describe('useWalkthroughDialog', () => {
   const mockSetShouldShowWalkthroughDialog = jest.fn();
 
   beforeEach(() => {
-    jest
-      .spyOn(React, 'useState')
+    useState
       .mockImplementationOnce((initialState) => [initialState, mockSetAskAgain])
       .mockImplementationOnce((initialState) => [
         initialState,

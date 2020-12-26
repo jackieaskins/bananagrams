@@ -1,15 +1,14 @@
 import { Grid, GridSize } from '@material-ui/core';
-import React from 'react';
 
 type CenteredLayoutProps = {
   children: React.ReactNode;
   width?: GridSize;
 };
 
-const CenteredLayout: React.FC<CenteredLayoutProps> = ({
+const CenteredLayout = ({
   children,
   width = 6,
-}) => (
+}: CenteredLayoutProps): JSX.Element => (
   <Grid container justify="center" alignContent="center">
     <Grid item xs={width}>
       {children}

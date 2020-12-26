@@ -1,5 +1,4 @@
 import { Grid, Typography } from '@material-ui/core';
-import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -15,7 +14,7 @@ import PeelButton from './PeelButton';
 
 import './Game.css';
 
-const Game: React.FC = () => {
+const Game = (): JSX.Element => {
   const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },

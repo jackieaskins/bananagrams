@@ -1,6 +1,5 @@
 import { IconButton } from '@material-ui/core';
 import { shallow } from 'enzyme';
-import React from 'react';
 
 import CopyToClipboard from './CopyToClipboard';
 import { useCopyToClipboard } from './CopyToClipboardState';

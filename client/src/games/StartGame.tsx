@@ -1,12 +1,11 @@
 import { Box, Grid, Typography } from '@material-ui/core';
-import React from 'react';
 
 import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import CopyToClipboard from '../buttons/CopyToClipboard';
 import PlayerList from '../players/PlayerList';
 import { useGame } from './GameContext';
 
-const StartGame: React.FC = () => {
+const StartGame = (): JSX.Element => {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();

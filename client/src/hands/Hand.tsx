@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box, Button, Divider, Tooltip } from '@material-ui/core';
 import { Shuffle } from '@material-ui/icons';
-import React from 'react';
 import { useDrop } from 'react-dnd';
 
 import { useGame } from '../games/GameContext';
@@ -19,7 +18,7 @@ type HandProps = {
 
 const DEFAULT_BOARD_LENGTH = 21;
 
-const Hand: React.FC<HandProps> = ({ hand }) => {
+const Hand = ({ hand }: HandProps): JSX.Element => {
   const classes = useStyles();
   const { socket } = useSocket();
   const {

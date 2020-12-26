@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { BoardLocation } from '../boards/types';
@@ -11,7 +11,7 @@ type GameParams = {
   gameId: string;
 };
 
-const SocketGameProvider: React.FC = ({ children }) => {
+const SocketGameProvider: FunctionComponent = ({ children }) => {
   const { socket } = useSocket();
   const { replace } = useHistory();
   const { pathname, state } = useLocation<GameLocationState>();

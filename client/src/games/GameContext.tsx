@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import { FunctionComponent, createContext, useContext } from 'react';
 
 import { GameState, GameInfo } from './types';
 
@@ -29,7 +29,7 @@ export const getEmptyGameState = (gameId: string): GameState => ({
 
 export const GameContext = createContext<GameState>(getEmptyGameState(''));
 
-export const GameProvider: React.FC<GameProviderProps> = ({
+export const GameProvider: FunctionComponent<GameProviderProps> = ({
   children,
   gameState,
 }) => <GameContext.Provider value={gameState}>{children}</GameContext.Provider>;

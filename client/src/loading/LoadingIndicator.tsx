@@ -1,15 +1,14 @@
 import { CircularProgress, CircularProgressProps } from '@material-ui/core';
-import React from 'react';
 
 interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;
 }
 
-const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+const LoadingIndicator = ({
   color = 'inherit',
   loadingText,
   ...rest
-}) => (
+}: LoadingIndicatorProps): JSX.Element => (
   <>
     <CircularProgress color={color} {...rest} />
     {loadingText ? <> {loadingText}</> : null}

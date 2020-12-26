@@ -1,6 +1,5 @@
 import { Box, Button } from '@material-ui/core';
 import { shallow } from 'enzyme';
-import React from 'react';
 import { useDrop } from 'react-dnd';
 
 import { playerFixture } from '../fixtures/player';

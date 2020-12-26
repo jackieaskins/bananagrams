@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from './Home';
@@ -7,7 +6,7 @@ import GameManager from './games/GameManager';
 import JoinGame from './games/JoinGame';
 import SocketGameProvider from './games/SocketGameProvider';
 
-const Routes: React.FC = () => (
+const Routes = (): JSX.Element => (
   <Switch>
     <Route path="/" exact>
       <Home />

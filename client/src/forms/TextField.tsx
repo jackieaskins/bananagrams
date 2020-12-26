@@ -2,18 +2,17 @@ import {
   TextField as MaterialUITextField,
   StandardTextFieldProps as MaterialUITextFieldProps,
 } from '@material-ui/core';
-import React from 'react';
 
 export interface TextFieldProps extends MaterialUITextFieldProps {
   setValue: (newValue: string) => void;
   value: string;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+const TextField = ({
   fullWidth = true,
   setValue,
   ...rest
-}) => (
+}: TextFieldProps): JSX.Element => (
   <MaterialUITextField
     fullWidth={fullWidth}
     {...rest}

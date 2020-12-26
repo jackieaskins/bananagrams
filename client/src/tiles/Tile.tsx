@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Typography, Box } from '@material-ui/core';
-import React from 'react';
 import { useDrag } from 'react-dnd';
 
 import { Tile as TileType } from './types';
@@ -11,11 +10,11 @@ type TileProps = {
   color?: string;
 };
 
-const Tile: React.FC<TileProps> = ({
+const Tile = ({
   boardLocation,
   tile: { id, letter },
   color = 'black',
-}) => {
+}: TileProps): JSX.Element => {
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: 'TILE', id, boardLocation },
     collect: (monitor) => ({

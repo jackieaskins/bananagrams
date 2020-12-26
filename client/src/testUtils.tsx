@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 
 type CallbackFn = (...args: any[]) => any;
 

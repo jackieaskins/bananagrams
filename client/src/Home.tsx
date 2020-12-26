@@ -1,7 +1,7 @@
 import CreateGameForm from './games/CreateGameForm';
 import CenteredLayout from './layouts/CenteredLayout';
 
-const Home: React.FC = () => (
+const Home = (): JSX.Element => (
   <CenteredLayout>
     <CreateGameForm />
   </CenteredLayout>

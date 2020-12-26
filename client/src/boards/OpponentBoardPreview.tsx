@@ -1,7 +1,6 @@
 
 import { Box, Grid, IconButton, MenuItem, TextField } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
-import React from 'react';
 
 import PreviewHand from '../hands/PreviewHand';
 import { Player } from '../players/types';
@@ -18,12 +17,12 @@ type OpponentBoardPreviewProps = {
 
 const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
 
-const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
+const OpponentBoardPreview = ({
   initialPlayerIndex = 0,
   players,
   tileSize = 15,
   includeCurrentPlayer = false,
-}) => {
+}: OpponentBoardPreviewProps): JSX.Element | null => {
   const {
     socket: { id: userId },
   } = useSocket();

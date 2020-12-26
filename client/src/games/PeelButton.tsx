@@ -1,5 +1,4 @@
 import { Tooltip } from '@material-ui/core';
-import React from 'react';
 
 import Button from '../buttons/Button';
 
@@ -9,11 +8,11 @@ type PeelButtonProps = {
   peelWinsGame: boolean;
 };
 
-const PeelButton: React.FC<PeelButtonProps> = ({
+const PeelButton = ({
   canPeel,
   handlePeel,
   peelWinsGame,
-}) => {
+}: PeelButtonProps): JSX.Element => {
   const getPeelButtonHint = (): string => {
     if (!canPeel) {
       return 'You must have a valid connected board to peel';

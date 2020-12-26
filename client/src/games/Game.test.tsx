@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 
 import { playerFixture } from '../fixtures/player';
 import Game from './Game';

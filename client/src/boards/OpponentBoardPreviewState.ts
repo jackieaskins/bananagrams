@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { Player } from '../players/types';
 
 type OpponentBoardPreviewState = {
   handleLeftClick: () => void;
   handleRightClick: () => void;
-  handleSelectedPlayerChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectedPlayerChange: (e: ChangeEvent<HTMLInputElement>) => void;
   selectedPlayerIndex: number;
   selectedUserId?: string;
 };
@@ -42,7 +42,7 @@ export const useOpponentBoardPreview = (
   };
 
   const handleSelectedPlayerChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement>
   ): void => {
     setSelectedUserId(e.target.value);
   };

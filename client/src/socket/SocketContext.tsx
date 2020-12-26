@@ -1,5 +1,5 @@
 import { useSnackbar } from 'notistack';
-import React, { createContext, useContext, useEffect } from 'react';
+import { FunctionComponent, createContext, useContext, useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
 import socket from './index';
@@ -14,7 +14,7 @@ export const SocketContext = createContext<SocketState>({
   socket,
 });
 
-export const SocketProvider: React.FC = ({ children }) => {
+export const SocketProvider: FunctionComponent = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {

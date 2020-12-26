@@ -1,6 +1,5 @@
 import { Checkbox, IconButton } from '@material-ui/core';
 import { shallow } from 'enzyme';
-import React from 'react';
 
 import { playerFixture } from '../fixtures/player';
 import { useGame } from '../games/GameContext';

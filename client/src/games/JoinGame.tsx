@@ -1,9 +1,7 @@
-import React from 'react';
-
 import CenteredLayout from '../layouts/CenteredLayout';
 import JoinGameForm from './JoinGameForm';
 
-const JoinGame: React.FC = () => (
+const JoinGame = (): JSX.Element => (
   <CenteredLayout>
     <JoinGameForm />
   </CenteredLayout>
