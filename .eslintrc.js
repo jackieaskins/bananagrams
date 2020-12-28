@@ -30,11 +30,13 @@ module.exports = {
   reportUnusedDisableDirectives: true,
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true }
+    ],
     '@typescript-eslint/explicit-function-return-type': [
       'error',
-      {
-        allowExpressions: true
-      }
+      { allowExpressions: true }
     ],
     '@typescript-eslint/no-explicit-any': 'off',
     'arrow-body-style': ['error', 'as-needed'],
@@ -53,9 +55,19 @@ module.exports = {
         },
       },
     ],
-    "react/jsx-uses-react": "off",
+    'jest/expect-expect': [
+      'error',
+      {
+        assertFunctionNames: [
+          'assert*',
+          'expect',
+          'validate*'
+        ]
+      }
+    ],
+    'react/jsx-uses-react': 'off',
     'react/prop-types': 'off',
-    "react/react-in-jsx-scope": "off",
+    'react/react-in-jsx-scope': 'off',
     'react/self-closing-comp': 'error',
   },
   settings: {

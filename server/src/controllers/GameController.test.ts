@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import Game from '../models/Game';
 import Player from '../models/Player';
 import Tile from '../models/Tile';
@@ -48,11 +47,15 @@ describe('GameController', () => {
       to: ioTo,
       sockets: {
         sockets: {
-          get: jest.fn().mockImplementation(id => id === 'socketId2' ? {
-            disconnect: socketDisconnect
-          } : null)
-        }
-      }
+          get: jest.fn().mockImplementation((id) =>
+            id === 'socketId2'
+              ? {
+                  disconnect: socketDisconnect,
+                }
+              : null
+          ),
+        },
+      },
     };
     socket = {
       join: jest.fn(),

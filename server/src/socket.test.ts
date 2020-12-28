@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import GameController from './controllers/GameController';
 import { configureSocket, handler } from './socket';
 

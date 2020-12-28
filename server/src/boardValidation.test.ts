@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import { validateAddTile, validateRemoveTile } from './boardValidation';
 import { Direction, ValidationStatus, WordInfo } from './models/Board';
 import Tile from './models/Tile';
