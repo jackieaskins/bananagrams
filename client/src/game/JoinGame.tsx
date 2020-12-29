@@ -1,5 +1,5 @@
 import { Card, Col, Row } from 'antd';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import JoinGameForm from './JoinGameForm';
 
@@ -13,10 +13,14 @@ const JoinGame = (): JSX.Element => {
   return (
     <Row css={{ height: '100vh' }} align="middle" justify="center">
       <Col xs={23} sm={21} md={16} lg={12}>
-        <Card>
+        <Card bordered={false}>
           <h1 css={{ textAlign: 'center' }}>Join game</h1>
 
           <JoinGameForm gameId={gameId} showGameIdField={false} />
+
+          <div css={{ width: '100%', textAlign: 'center' }}>
+            <Link to="/">Go home</Link>
+          </div>
         </Card>
       </Col>
     </Row>

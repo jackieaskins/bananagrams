@@ -20,7 +20,9 @@ exports[`<Home /> renders centered form tabs card 1`] = `
     sm={21}
     xs={23}
   >
-    <Card>
+    <Card
+      bordered={false}
+    >
       <h1
         className="emotion-0"
       >

@@ -39,7 +39,7 @@ const Home = (): JSX.Element => {
   return (
     <Row css={{ height: '100vh' }} align="middle" justify="center">
       <Col xs={23} sm={21} md={16} lg={12}>
-        <Card>
+        <Card bordered={false}>
           <h1 css={{ textAlign: 'center' }}>Welcome to Bananagrams!</h1>
           <Tabs
             activeKey={activeTabKey}

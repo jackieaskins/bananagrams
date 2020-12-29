@@ -69,6 +69,10 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/self-closing-comp': 'error',
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      { additionalHooks: 'useRecoilCallback' }
+    ]
   },
   settings: {
     'import/extensions': ['.ts', '.tsx'],

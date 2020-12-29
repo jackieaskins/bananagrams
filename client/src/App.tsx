@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import Routes from './Routes';
 import { disconnect } from './socket';
@@ -11,11 +12,13 @@ const App = (): JSX.Element => {
   useEffect(() => () => disconnect(), []);
 
   return (
-    <BrowserRouter>
-      <Layout css={{ minHeight: '100vh' }}>
-        <Routes />
-      </Layout>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Layout css={{ minHeight: '100vh' }}>
+          <Routes />
+        </Layout>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 };
 

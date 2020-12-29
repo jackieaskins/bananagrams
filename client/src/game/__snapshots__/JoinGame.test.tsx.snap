@@ -9,6 +9,11 @@ exports[`<JoinGame /> renders centered join game form 1`] = `
   text-align: center;
 }
 
+.emotion-0otcwy8-JoinGame {
+  width: 100%;
+  text-align: center;
+}
+
 <undefined
   align="middle"
   className="emotion-0"
@@ -20,7 +25,9 @@ exports[`<JoinGame /> renders centered join game form 1`] = `
     sm={21}
     xs={23}
   >
-    <Card>
+    <Card
+      bordered={false}
+    >
       <h1
         className="emotion-0"
       >
@@ -30,6 +37,15 @@ exports[`<JoinGame /> renders centered join game form 1`] = `
         gameId="gameId"
         showGameIdField={false}
       />
+      <div
+        className="emotion-0"
+      >
+        <Link
+          to="/"
+        >
+          Go home
+        </Link>
+      </div>
     </Card>
   </Col>
 </undefined>

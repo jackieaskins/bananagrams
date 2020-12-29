@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import { GameInfo } from '../games/types';
 
 export type Callback<T> = (error: { message: string } | null, data: T) => void;
+export type Listener<T> = (data: T) => void;
 
 export const socket = io();
 
@@ -27,6 +28,17 @@ export const joinGame = (
   callback: Callback<GameInfo>
 ): void => {
   socket.emit('joinGame', props, callback);
+};
+
+export const addGameInfoListener = (listener: Listener<GameInfo>): void => {
+  socket.on('gameInfo', listener);
+};
+export const removeGameInfoListener = (): void => {
+  socket.off('gameInfo');
+};
+
+export const leaveGame = (props: { gameId: string }): void => {
+  socket.emit('leaveGame', props);
 };
 
 export const disconnect = (): void => {

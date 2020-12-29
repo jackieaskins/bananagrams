@@ -31,7 +31,6 @@ const JoinGameForm = ({
           setError(error.message);
         } else {
           const locationState: GameLocationState = {
-            isInGame: true,
             gameInfo,
           };
 

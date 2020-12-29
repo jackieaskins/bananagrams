@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GameValidator /> when gameInfo is not present in location state redirects to join game route 1`] = `
+<Redirect
+  to="/game/gameId/join"
+/>
+`;
+
+exports[`<GameValidator /> when gameInfo is preset in location state renders GameRouter 1`] = `
+<GameRouter
+  initialGameInfo="gameInfo"
+/>
+`;

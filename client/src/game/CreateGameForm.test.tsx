@@ -58,7 +58,6 @@ describe('<CreateGameForm />', () => {
       submitCallback(null);
 
       expect(mockPush).toHaveBeenCalledWith('/game/gameId', {
-        isInGame: true,
         gameInfo,
       });
     });
