@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import { FunctionComponent, createContext, useContext, useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
@@ -15,17 +14,12 @@ export const SocketContext = createContext<SocketState>({
 });
 
 export const SocketProvider: FunctionComponent = ({ children }) => {
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    socket.on('notification', ({ message }: { message: string }) => {
-      enqueueSnackbar(message);
-    });
-
-    return (): void => {
+  useEffect(
+    () => () => {
       socket.disconnect();
-    };
-  }, []);
+    },
+    []
+  );
 
   return (
     <SocketContext.Provider value={{ socket }}>
@@ -33,6 +27,5 @@ export const SocketProvider: FunctionComponent = ({ children }) => {
     </SocketContext.Provider>
   );
 };
-SocketProvider.displayName = 'SocketProvider';
 
 export const useSocket = (): SocketState => useContext(SocketContext);

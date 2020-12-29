@@ -1,3 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<App /> renders properly 1`] = `<Home />`;
+exports[`<App /> renders properly 1`] = `
+<SocketProvider>
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+</SocketProvider>
+`;

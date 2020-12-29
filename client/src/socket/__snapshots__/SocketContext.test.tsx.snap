@@ -7,20 +7,7 @@ exports[`SocketContext <SocketProvider /> renders provider properly 1`] = `
       "socket": Object {
         "disconnect": [MockFunction],
         "emit": [MockFunction],
-        "on": [MockFunction] {
-          "calls": Array [
-            Array [
-              "notification",
-              [Function],
-            ],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": undefined,
-            },
-          ],
-        },
+        "on": [MockFunction],
       },
     }
   }

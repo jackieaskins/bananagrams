@@ -1,15 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Home /> renders board wrapper 1`] = `
-.emotion-0knxlce-Home {
-  overflow: hidden;
-  width: 100vh;
+exports[`<Home /> renders centered form tabs card 1`] = `
+.emotion-0awwaht-Home {
   height: 100vh;
 }
 
-<div
+.emotion-05hhcs4-Home {
+  text-align: center;
+}
+
+<undefined
+  align="middle"
   className="emotion-0"
+  justify="center"
 >
-  <BoardView />
-</div>
+  <Col
+    lg={12}
+    md={16}
+    sm={21}
+    xs={23}
+  >
+    <Card>
+      <h1
+        className="emotion-0"
+      >
+        Welcome to Bananagrams!
+      </h1>
+      <Tabs
+        activeKey="createGame"
+        centered={true}
+        onChange={[Function]}
+        size="small"
+      >
+        <TabPane
+          key="createGame"
+          tab="Create game"
+        >
+          <CreateGameForm
+            isShortenedGame={false}
+          />
+        </TabPane>
+        <TabPane
+          key="joinGame"
+          tab="Join game"
+        >
+          <JoinGameForm />
+        </TabPane>
+      </Tabs>
+    </Card>
+  </Col>
+</undefined>
 `;

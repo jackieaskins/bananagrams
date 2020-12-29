@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<JoinGameForm /> renders form with fields 1`] = `
+<Form
+  initialValues={
+    Object {
+      "gameId": "gameId",
+    }
+  }
+  labelCol={
+    Object {
+      "span": 5,
+    }
+  }
+  onSubmit={[Function]}
+>
+  <FormItem
+    hidden={false}
+    label="Game id"
+    name="gameId"
+    rules={
+      Array [
+        Object {
+          "required": true,
+        },
+      ]
+    }
+  >
+    <Input
+      type="text"
+    />
+  </FormItem>
+  <FormItem
+    label="Username"
+    name="username"
+    rules={
+      Array [
+        Object {
+          "required": true,
+        },
+      ]
+    }
+  >
+    <Input
+      type="text"
+    />
+  </FormItem>
+  <FormItem>
+    <Button
+      block={true}
+      htmlType="submit"
+      type="primary"
+    >
+      Join game
+    </Button>
+  </FormItem>
+</Form>
+`;

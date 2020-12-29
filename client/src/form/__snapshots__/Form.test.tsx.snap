@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> renders ant design form 1`] = `
+.emotion-06vinah-Form {
+  width: 100%;
+}
+
+<ForwardRef(InternalForm)
+  initialValues={
+    Object {
+      "initial": "values",
+    }
+  }
+  labelAlign="left"
+  onFinish={[MockFunction]}
+  scrollToFirstError={true}
+  validateMessages={
+    Object {
+      "required": "Required",
+    }
+  }
+>
+  <Space
+    className="emotion-0"
+    direction="vertical"
+    size="large"
+  >
+    <div>
+      <div />
+    </div>
+  </Space>
+</ForwardRef(InternalForm)>
+`;
+
+exports[`<Form /> renders error if there is an error 1`] = `
+<Alert
+  message="error"
+  type="error"
+/>
+`;

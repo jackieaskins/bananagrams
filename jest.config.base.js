@@ -5,6 +5,7 @@ module.exports = {
     // Both
     'src/**/*.{ts,tsx}',
     '!src/index.{ts,tsx}',
+    '!src/**/constants.ts',
 
     // Server
     '!src/dictionary/words.ts',

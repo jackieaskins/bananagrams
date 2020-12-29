@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<JoinGame /> renders centered join game form 1`] = `
+.emotion-01fpdlfh-JoinGame {
+  height: 100vh;
+}
+
+.emotion-01gwngnp-JoinGame {
+  text-align: center;
+}
+
+<undefined
+  align="middle"
+  className="emotion-0"
+  justify="center"
+>
+  <Col
+    lg={12}
+    md={16}
+    sm={21}
+    xs={23}
+  >
+    <Card>
+      <h1
+        className="emotion-0"
+      >
+        Join game
+      </h1>
+      <JoinGameForm
+        gameId="gameId"
+        showGameIdField={false}
+      />
+    </Card>
+  </Col>
+</undefined>
+`;

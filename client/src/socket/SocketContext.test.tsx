@@ -15,10 +15,6 @@ jest.mock('./index', () => ({
   emit: jest.fn(),
   disconnect: jest.fn(),
 }));
-const mockEnqueueSnackbar = jest.fn();
-jest.mock('notistack', () => ({
-  useSnackbar: (): any => ({ enqueueSnackbar: mockEnqueueSnackbar }),
-}));
 
 describe('SocketContext', () => {
   describe('<SocketProvider />', () => {
@@ -32,23 +28,8 @@ describe('SocketContext', () => {
       expect(component).toMatchSnapshot();
     });
 
-    test('listens on socket for notifications', () => {
-      expect(socket.on).toHaveBeenCalledWith(
-        'notification',
-        expect.any(Function)
-      );
-    });
-
-    test('enqueues message to snackbar on message received', () => {
-      const message = 'Message';
-
-      socket.on.mock.calls[0][1]({ message });
-
-      expect(mockEnqueueSnackbar).toHaveBeenCalledWith(message);
-    });
-
     test('disconnects from socket on dismount', () => {
-      useEffect.mock.calls[0][0]()();
+      (useEffect as jest.Mock).mock.calls[0][0]()();
 
       expect(socket.disconnect).toHaveBeenCalledWith();
     });

@@ -1,10 +1,11 @@
+import { randomBytes } from 'crypto';
 import { Server, Socket } from 'socket.io';
-import { v4 as uuidv4 } from 'uuid';
 
 import { BoardLocation } from '../models/Board';
 import Game, { GameJSON } from '../models/Game';
 import Player from '../models/Player';
 
+const GAME_ID_LENGTH = 10;
 const MAX_PLAYERS = 8;
 const INITIAL_TILE_COUNT = 21;
 const INITIAL_SHORTENED_GAME_TILE_COUNT = 2;
@@ -59,7 +60,7 @@ export default class GameController {
     let gameId: string;
 
     do {
-      gameId = uuidv4();
+      gameId = randomBytes(GAME_ID_LENGTH / 2).toString('hex');
     } while (this.games[gameId]);
 
     const game = new Game(gameId, gameName, isShortenedGame);

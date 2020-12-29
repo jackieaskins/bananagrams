@@ -10,14 +10,6 @@ exports[`<Routes /> renders correct routes 1`] = `
   </Route>
   <Route
     exact={true}
-    path="/game/:gameId"
-  >
-    <SocketGameProvider>
-      <GameManager />
-    </SocketGameProvider>
-  </Route>
-  <Route
-    exact={true}
     path="/game/:gameId/join"
   >
     <JoinGame />
