@@ -35,6 +35,7 @@ exports[`<Form /> renders ant design form 1`] = `
 exports[`<Form /> renders error if there is an error 1`] = `
 <Alert
   message="error"
+  showIcon={true}
   type="error"
 />
 `;

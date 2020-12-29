@@ -1,3 +1,4 @@
+import { Layout } from 'antd';
 import { BrowserRouter } from 'react-router-dom';
 
 import Routes from './Routes';
@@ -5,10 +6,12 @@ import { SocketProvider } from './socket/SocketContext';
 
 import 'antd/dist/antd.css';
 
-const App: React.FC = () => (
+const App = (): JSX.Element => (
   <SocketProvider>
     <BrowserRouter>
-      <Routes />
+      <Layout css={{ minHeight: '100vh' }}>
+        <Routes />
+      </Layout>
     </BrowserRouter>
   </SocketProvider>
 );

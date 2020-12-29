@@ -1,7 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NotFound /> renders not found header 1`] = `
-<h1>
-  Not found
-</h1>
+.emotion-01kqqglz-NotFound {
+  height: 100vh;
+}
+
+<undefined
+  align="middle"
+  className="emotion-0"
+  justify="center"
+>
+  <Col>
+    <Result
+      extra={
+        <Link
+          to="/"
+        >
+          Back to safety
+        </Link>
+      }
+      status="warning"
+      subTitle="Page not found"
+      title="404"
+    />
+  </Col>
+</undefined>
 `;

@@ -34,7 +34,7 @@ const Form = <FormValues,>({
       {...rest}
     >
       <Space direction="vertical" css={{ width: '100%' }} size="large">
-        {error && <Alert type="error" message={error} />}
+        {error && <Alert type="error" message={error} showIcon />}
 
         <div>{children}</div>
       </Space>

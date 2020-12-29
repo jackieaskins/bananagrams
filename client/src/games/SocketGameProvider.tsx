@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { BoardLocation } from '../boards/types';
@@ -11,7 +11,11 @@ type GameParams = {
   gameId: string;
 };
 
-const SocketGameProvider: FunctionComponent = ({ children }) => {
+const SocketGameProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
   const { socket } = useSocket();
   const { replace } = useHistory();
   const { pathname, state } = useLocation<GameLocationState>();

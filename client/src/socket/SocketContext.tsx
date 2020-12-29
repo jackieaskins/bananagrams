@@ -1,4 +1,4 @@
-import { FunctionComponent, createContext, useContext, useEffect } from 'react';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
 import socket from './index';
@@ -13,7 +13,11 @@ export const SocketContext = createContext<SocketState>({
   socket,
 });
 
-export const SocketProvider: FunctionComponent = ({ children }) => {
+export const SocketProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
   useEffect(
     () => () => {
       socket.disconnect();

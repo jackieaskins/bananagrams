@@ -1,8 +1,9 @@
-import { FunctionComponent, createContext, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 import { GameState, GameInfo } from './types';
 
 type GameProviderProps = {
+  children: ReactNode;
   gameState: GameState;
 };
 
@@ -29,9 +30,11 @@ export const getEmptyGameState = (gameId: string): GameState => ({
 
 export const GameContext = createContext<GameState>(getEmptyGameState(''));
 
-export const GameProvider: FunctionComponent<GameProviderProps> = ({
+export const GameProvider = ({
   children,
   gameState,
-}) => <GameContext.Provider value={gameState}>{children}</GameContext.Provider>;
+}: GameProviderProps): JSX.Element => (
+  <GameContext.Provider value={gameState}>{children}</GameContext.Provider>
+);
 
 export const useGame = (): GameState => useContext(GameContext);

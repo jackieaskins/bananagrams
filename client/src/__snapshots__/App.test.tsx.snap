@@ -1,9 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> renders properly 1`] = `
+.emotion-0dkj5uh-App {
+  min-height: 100vh;
+}
+
 <SocketProvider>
   <BrowserRouter>
-    <Routes />
+    <Adapter
+      className="emotion-0"
+    >
+      <Routes />
+    </Adapter>
   </BrowserRouter>
 </SocketProvider>
 `;
