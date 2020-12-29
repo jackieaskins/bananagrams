@@ -5,13 +5,11 @@ exports[`<App /> renders properly 1`] = `
   min-height: 100vh;
 }
 
-<SocketProvider>
-  <BrowserRouter>
-    <Adapter
-      className="emotion-0"
-    >
-      <Routes />
-    </Adapter>
-  </BrowserRouter>
-</SocketProvider>
+<BrowserRouter>
+  <Adapter
+    className="emotion-0"
+  >
+    <Routes />
+  </Adapter>
+</BrowserRouter>
 `;

@@ -3,8 +3,8 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Form, { SubmitFormFn } from '../form/Form';
-import { GameInfo, GameLocationState } from '../games/types';
-import { useSocket } from '../socket/SocketContext';
+import { GameLocationState } from '../games/types';
+import { joinGame } from '../socket';
 
 const FormItem = AntForm.Item;
 
@@ -22,29 +22,24 @@ const JoinGameForm = ({
   gameId,
   showGameIdField = true,
 }: JoinGameFormProps): JSX.Element => {
-  const { socket } = useSocket();
   const { push } = useHistory();
 
   const handleSubmit: SubmitFormFn<FormValues> = useCallback(
     (setError) => ({ gameId, username }) => {
-      socket.emit(
-        'joinGame',
-        { gameId, username },
-        (error: Error, gameInfo: GameInfo) => {
-          if (error) {
-            setError(error.message);
-          } else {
-            const locationState: GameLocationState = {
-              isInGame: true,
-              gameInfo,
-            };
+      joinGame({ gameId, username }, (error, gameInfo) => {
+        if (error) {
+          setError(error.message);
+        } else {
+          const locationState: GameLocationState = {
+            isInGame: true,
+            gameInfo,
+          };
 
-            push(`/game/${gameId}`, locationState);
-          }
+          push(`/game/${gameId}`, locationState);
         }
-      );
+      });
     },
-    [push, socket]
+    [push]
   );
 
   return (

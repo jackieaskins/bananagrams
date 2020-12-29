@@ -12,7 +12,6 @@ module.exports = {
     '!src/devServer.ts',
 
     // Client
-    '!src/socket/index.ts',
     '!src/**/*.stories.tsx',
     '!src/testUtils.tsx',
     '!src/fixtures/**/*.{ts,tsx}'

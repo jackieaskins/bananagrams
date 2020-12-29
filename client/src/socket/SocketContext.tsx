@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
-import socket from './index';
+import { socket } from './index';
 
 export type Callback<T> = (error: Error | null, data: T) => void;
 

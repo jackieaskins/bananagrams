@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`socket returns result of io() 1`] = `
+Object {
+  "disconnect": [MockFunction disconnect],
+  "emit": [MockFunction emit],
+}
+`;

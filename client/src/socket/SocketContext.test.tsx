@@ -3,7 +3,7 @@ import { useEffect, useContext } from 'react';
 
 import { SocketProvider, useSocket, SocketContext } from './SocketContext';
 
-import socket from '.';
+import { socket } from '.';
 
 jest.mock('react', () => ({
   ...(jest.requireActual('react') as Record<string, unknown>),
@@ -11,9 +11,11 @@ jest.mock('react', () => ({
   useEffect: jest.fn().mockImplementation((f) => f()),
 }));
 jest.mock('./index', () => ({
-  on: jest.fn(),
-  emit: jest.fn(),
-  disconnect: jest.fn(),
+  socket: {
+    on: jest.fn(),
+    emit: jest.fn(),
+    disconnect: jest.fn(),
+  },
 }));
 
 describe('SocketContext', () => {
