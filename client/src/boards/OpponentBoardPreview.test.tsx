@@ -19,6 +19,8 @@ describe('<OpponentBoardPreview />', () => {
     shallow(
       <OpponentBoardPreview
         players={[playerFixture({ userId: 'playerId' })]}
+        hands={{ opponent: [], playerId: [] }}
+        boards={{ opponent: [[null]], playerId: [[null]] }}
         {...propOverrides}
       />
     );

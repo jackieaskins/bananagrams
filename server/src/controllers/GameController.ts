@@ -1,8 +1,9 @@
 import { randomBytes } from 'crypto';
 import { Server, Socket } from 'socket.io';
 
-import { BoardLocation } from '../models/Board';
+import Board, { BoardLocation } from '../models/Board';
 import Game, { GameJSON } from '../models/Game';
+import Hand from '../models/Hand';
 import Player from '../models/Player';
 
 const GAME_ID_LENGTH = 10;
@@ -17,17 +18,23 @@ export default class GameController {
   private socket: Socket;
   private currentGame: Game;
   private currentPlayer: Player;
+  private currentHand: Hand;
+  private currentBoard: Board;
 
   constructor(
     io: Server,
     socket: Socket,
     currentGame: Game,
-    currentPlayer: Player
+    currentPlayer: Player,
+    currentHand: Hand,
+    currentBoard: Board
   ) {
     this.io = io;
     this.socket = socket;
     this.currentGame = currentGame;
     this.currentPlayer = currentPlayer;
+    this.currentHand = currentHand;
+    this.currentBoard = currentBoard;
   }
 
   // From io: send to everyone, including current player
@@ -106,7 +113,10 @@ export default class GameController {
     this.emitNotification(socket, gameId, `${username} has joined the game!`);
     this.emitGameInfo(socket, game);
 
-    return new GameController(io, socket, game, player);
+    const hand = game.getHands()[socket.id];
+    const board = game.getBoards()[socket.id];
+
+    return new GameController(io, socket, game, player, hand, board);
   }
 
   getCurrentGame(): Game {
@@ -115,6 +125,14 @@ export default class GameController {
 
   getCurrentPlayer(): Player {
     return this.currentPlayer;
+  }
+
+  getCurrentHand(): Hand {
+    return this.currentHand;
+  }
+
+  getCurrentBoard(): Board {
+    return this.currentBoard;
   }
 
   kickPlayer(userId: string): void {
@@ -126,15 +144,19 @@ export default class GameController {
   }
 
   leaveGame(): void {
-    const { io, socket, currentPlayer, currentGame } = this;
+    const {
+      io,
+      socket,
+      currentPlayer,
+      currentGame,
+      currentHand,
+      currentBoard,
+    } = this;
 
     if (currentGame.getStatus() === 'IN_PROGRESS') {
       currentGame
         .getBunch()
-        .addTiles([
-          ...currentPlayer.getHand().getTiles(),
-          ...currentPlayer.getBoard().getAllTiles(),
-        ]);
+        .addTiles([...currentHand.getTiles(), ...currentBoard.getAllTiles()]);
     }
 
     const gameId = currentGame.getId();
@@ -185,10 +207,10 @@ export default class GameController {
   }
 
   peel(): void {
-    const { io, socket, currentPlayer, currentGame } = this;
+    const { io, socket, currentPlayer, currentGame, currentHand } = this;
     const currentPlayers = currentGame.getPlayers();
 
-    if (currentPlayer.getHand().getTiles().length > 0) {
+    if (currentHand.getTiles().length > 0) {
       return;
     }
 
@@ -216,9 +238,21 @@ export default class GameController {
         }
       });
 
-      currentGame.setSnapshot(
-        currentGame.getPlayers().map((player) => player.toJSON())
-      );
+      currentGame.setSnapshot({
+        players: currentGame.getPlayers().map((player) => player.toJSON()),
+        hands: Object.fromEntries(
+          Object.entries(currentGame.getHands()).map(([userId, hand]) => [
+            userId,
+            hand.toJSON(),
+          ])
+        ),
+        boards: Object.fromEntries(
+          Object.entries(currentGame.getBoards()).map(([userId, board]) => [
+            userId,
+            board.toJSON(),
+          ])
+        ),
+      });
     } else {
       GameController.emitNotification(
         socket,
@@ -226,8 +260,8 @@ export default class GameController {
         `${currentPlayer.getUsername()} peeled.`
       );
 
-      currentPlayers.forEach((player) => {
-        player.getHand().addTiles(currentGame.getBunch().removeTiles(1));
+      Object.values(currentGame.getHands()).forEach((hand) => {
+        hand.addTiles(currentGame.getBunch().removeTiles(1));
       });
     }
 
@@ -235,7 +269,14 @@ export default class GameController {
   }
 
   dump(tileId: string, boardLocation: BoardLocation | null): void {
-    const { io, socket, currentGame, currentPlayer } = this;
+    const {
+      io,
+      socket,
+      currentGame,
+      currentPlayer,
+      currentHand,
+      currentBoard,
+    } = this;
 
     GameController.emitNotification(
       socket,
@@ -244,24 +285,31 @@ export default class GameController {
     );
 
     const dumpedTile = !!boardLocation
-      ? currentPlayer.getBoard().removeTile(boardLocation)
-      : currentPlayer.getHand().removeTile(tileId);
+      ? currentBoard.removeTile(boardLocation)
+      : currentHand.removeTile(tileId);
 
-    currentPlayer.getHand().addTiles(currentGame.getBunch().removeTiles(3));
+    currentHand.addTiles(currentGame.getBunch().removeTiles(3));
     currentGame.getBunch().addTiles([dumpedTile]);
 
     GameController.emitGameInfo(io, currentGame);
   }
 
   moveTileFromHandToBoard(tileId: string, boardLocation: BoardLocation): void {
-    const { io, currentGame, currentPlayer } = this;
-    currentPlayer.moveTileFromHandToBoard(tileId, boardLocation);
+    const { io, currentGame, currentHand, currentBoard } = this;
+
+    currentBoard.validateEmptySquare(boardLocation);
+    const tile = currentHand.removeTile(tileId);
+    currentBoard.addTile(boardLocation, tile);
+
     GameController.emitGameInfo(io, currentGame);
   }
 
   moveTileFromBoardToHand(boardLocation: BoardLocation): void {
-    const { io, currentGame, currentPlayer } = this;
-    currentPlayer.moveTileFromBoardToHand(boardLocation);
+    const { io, currentGame, currentHand, currentBoard } = this;
+
+    const tile = currentBoard.removeTile(boardLocation);
+    currentHand.addTiles([tile]);
+
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -269,20 +317,25 @@ export default class GameController {
     fromLocation: BoardLocation,
     toLocation: BoardLocation
   ): void {
-    const { io, currentGame, currentPlayer } = this;
-    currentPlayer.moveTileOnBoard(fromLocation, toLocation);
+    const { io, currentGame, currentBoard } = this;
+
+    currentBoard.validateEmptySquare(toLocation);
+    const tile = currentBoard.removeTile(fromLocation);
+    currentBoard.addTile(toLocation, tile);
+
     GameController.emitGameInfo(io, currentGame);
   }
 
   moveAllTilesFromBoardToHand(): void {
-    const { io, currentPlayer } = this;
-    currentPlayer.getHand().addTiles(currentPlayer.getBoard().clear());
+    const { io, currentHand, currentBoard } = this;
+
+    currentHand.addTiles(currentBoard.clear());
     GameController.emitGameInfo(io, this.currentGame);
   }
 
   shuffleHand(): void {
-    const { io, currentGame, currentPlayer } = this;
-    currentPlayer.getHand().shuffle();
+    const { io, currentGame, currentHand } = this;
+    currentHand.shuffle();
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -296,15 +349,13 @@ export default class GameController {
       'Everyone is ready, the game will start soon!'
     );
 
-    const currentPlayers = currentGame.getPlayers();
+    const currentHands = currentGame.getHands();
     currentGame.reset();
 
-    currentPlayers.forEach((player) => {
-      player
-        .getHand()
-        .addTiles(
-          currentGame.getBunch().removeTiles(this.getInitialTileCount())
-        );
+    Object.values(currentHands).forEach((hand) => {
+      hand.addTiles(
+        currentGame.getBunch().removeTiles(this.getInitialTileCount())
+      );
     });
 
     currentGame.setStatus('STARTING');

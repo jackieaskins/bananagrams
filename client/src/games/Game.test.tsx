@@ -26,6 +26,8 @@ describe('<Game />', () => {
       gameInfo: {
         bunch: [],
         players: [playerFixture({ userId: 'id' })],
+        boards: { id: [[null]] },
+        hands: { id: [] },
       },
       handlePeel: jest.fn().mockName('handlePeel'),
     });
@@ -43,6 +45,14 @@ describe('<Game />', () => {
           playerFixture({ userId: 'id' }),
           playerFixture({ userId: 'other' }),
         ],
+        boards: {
+          id: [[null]],
+          other: [[null]],
+        },
+        hands: {
+          id: [],
+          other: [],
+        },
       },
       handlePeel: jest.fn().mockName('handlePeel'),
     });

@@ -40,10 +40,12 @@ const StartGame = (): JSX.Element => {
               </Typography>
 
               <OpponentBoardPreview
-                initialPlayerIndex={previousSnapshot.findIndex(
+                initialPlayerIndex={previousSnapshot.players.findIndex(
                   (player) => player.isTopBanana
                 )}
-                players={previousSnapshot}
+                players={previousSnapshot.players}
+                hands={previousSnapshot.hands}
+                boards={previousSnapshot.boards}
                 includeCurrentPlayer
               />
             </Box>

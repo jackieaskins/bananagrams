@@ -7,7 +7,6 @@ import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import { isValidConnectedBoard } from '../boards/validate';
 import Dump from '../hands/Dump';
 import Hand from '../hands/Hand';
-import { Player } from '../players/types';
 import { useSocket } from '../socket/SocketContext';
 import { useGame } from './GameContext';
 import PeelButton from './PeelButton';
@@ -17,13 +16,12 @@ import './Game.css';
 const Game = (): JSX.Element => {
   const { socket } = useSocket();
   const {
-    gameInfo: { bunch, players },
+    gameInfo: { bunch, players, hands, boards },
     handlePeel,
   } = useGame();
 
-  const { board, hand } = players.find(
-    (player) => player.userId === socket.id
-  ) as Player;
+  const board = boards[socket.id];
+  const hand = hands[socket.id];
 
   const canPeel = hand.length === 0 && isValidConnectedBoard(board);
   const peelWinsGame = bunch.length < players.length;
@@ -73,7 +71,11 @@ const Game = (): JSX.Element => {
                 </Typography>
               )}
 
-              <OpponentBoardPreview players={players} />
+              <OpponentBoardPreview
+                players={players}
+                hands={hands}
+                boards={boards}
+              />
             </Grid>
           </Grid>
         </Grid>

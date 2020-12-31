@@ -1,6 +1,4 @@
 import BaseModel from './BaseModel';
-import Board, { BoardLocation, BoardJSON } from './Board';
-import Hand, { HandJSON } from './Hand';
 
 export type PlayerJSON = {
   userId: string;
@@ -9,8 +7,6 @@ export type PlayerJSON = {
   isTopBanana: boolean;
   isAdmin: boolean;
   gamesWon: number;
-  hand: HandJSON;
-  board: BoardJSON;
 };
 
 export default class Player implements BaseModel<PlayerJSON> {
@@ -20,8 +16,6 @@ export default class Player implements BaseModel<PlayerJSON> {
   private topBanana = false;
   private admin: boolean;
   private gamesWon = 0;
-  private hand = new Hand();
-  private board = new Board();
 
   constructor(userId: string, username: string, admin = false) {
     this.userId = userId;
@@ -69,25 +63,8 @@ export default class Player implements BaseModel<PlayerJSON> {
     this.gamesWon++;
   }
 
-  getHand(): Hand {
-    return this.hand;
-  }
-
-  getBoard(): Board {
-    return this.board;
-  }
-
   toJSON(): PlayerJSON {
-    const {
-      userId,
-      username,
-      ready,
-      topBanana,
-      admin,
-      gamesWon,
-      board,
-      hand,
-    } = this;
+    const { userId, username, ready, topBanana, admin, gamesWon } = this;
 
     return {
       userId,
@@ -96,30 +73,10 @@ export default class Player implements BaseModel<PlayerJSON> {
       isReady: ready,
       isTopBanana: topBanana,
       isAdmin: admin,
-      board: board.toJSON(),
-      hand: hand.toJSON(),
     };
   }
 
   reset(): void {
-    this.hand.reset();
-    this.board.reset();
-  }
-
-  moveTileFromHandToBoard(tileId: string, location: BoardLocation): void {
-    this.board.validateEmptySquare(location);
-    const tile = this.hand.removeTile(tileId);
-    this.board.addTile(location, tile);
-  }
-
-  moveTileFromBoardToHand(location: BoardLocation): void {
-    const tile = this.board.removeTile(location);
-    this.hand.addTiles([tile]);
-  }
-
-  moveTileOnBoard(from: BoardLocation, to: BoardLocation): void {
-    this.board.validateEmptySquare(to);
-    const tile = this.board.removeTile(from);
-    this.board.addTile(to, tile);
+    return;
   }
 }

@@ -6,13 +6,7 @@ exports[`<PlayerTable /> column renders actions column renders if admin and more
 <ActionsCell
   player={
     Object {
-      "board": Array [
-        Array [
-          null,
-        ],
-      ],
       "gamesWon": 0,
-      "hand": Array [],
       "isAdmin": false,
       "isReady": false,
       "isTopBanana": false,
@@ -27,13 +21,7 @@ exports[`<PlayerTable /> column renders name column 1`] = `
 <NameCell
   player={
     Object {
-      "board": Array [
-        Array [
-          null,
-        ],
-      ],
       "gamesWon": 0,
-      "hand": Array [],
       "isAdmin": false,
       "isReady": false,
       "isTopBanana": false,
@@ -48,13 +36,7 @@ exports[`<PlayerTable /> column renders ready column 1`] = `
 <ReadyCell
   player={
     Object {
-      "board": Array [
-        Array [
-          null,
-        ],
-      ],
       "gamesWon": 0,
-      "hand": Array [],
       "isAdmin": false,
       "isReady": false,
       "isTopBanana": false,
@@ -114,13 +96,7 @@ exports[`<PlayerTable /> renders table 1`] = `
   dataSource={
     Array [
       Object {
-        "board": Array [
-          Array [
-            null,
-          ],
-        ],
         "gamesWon": 0,
-        "hand": Array [],
         "isAdmin": false,
         "isReady": false,
         "isTopBanana": false,
@@ -128,13 +104,7 @@ exports[`<PlayerTable /> renders table 1`] = `
         "username": "username",
       },
       Object {
-        "board": Array [
-          Array [
-            null,
-          ],
-        ],
         "gamesWon": 0,
-        "hand": Array [],
         "isAdmin": false,
         "isReady": false,
         "isTopBanana": false,

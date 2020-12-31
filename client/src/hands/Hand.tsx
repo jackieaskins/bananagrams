@@ -11,7 +11,6 @@ import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
 import { Hand as HandType } from './types';
 
-
 type HandProps = {
   hand: HandType;
 };
@@ -22,12 +21,10 @@ const Hand = ({ hand }: HandProps): JSX.Element => {
   const classes = useStyles();
   const { socket } = useSocket();
   const {
-    gameInfo: { players },
+    gameInfo: { boards },
     handleMoveTileFromBoardToHand,
   } = useGame();
-  const boardLength =
-    players.find((player) => player.userId === socket.id)?.board?.length ??
-    DEFAULT_BOARD_LENGTH;
+  const boardLength = boards[socket.id]?.length ?? DEFAULT_BOARD_LENGTH;
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',

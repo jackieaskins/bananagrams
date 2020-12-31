@@ -1,16 +1,19 @@
-
 import { Box, Grid, IconButton, MenuItem, TextField } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 
 import PreviewHand from '../hands/PreviewHand';
+import { Hand } from '../hands/types';
 import { Player } from '../players/types';
 import { useSocket } from '../socket/SocketContext';
 import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
 import PreviewBoard from './PreviewBoard';
+import { Board } from './types';
 
 type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;
   players: Player[];
+  hands: Record<string, Hand>;
+  boards: Record<string, Board>;
   tileSize?: number;
   includeCurrentPlayer?: boolean;
 };
@@ -20,6 +23,8 @@ const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
 const OpponentBoardPreview = ({
   initialPlayerIndex = 0,
   players,
+  hands,
+  boards,
   tileSize = 15,
   includeCurrentPlayer = false,
 }: OpponentBoardPreviewProps): JSX.Element | null => {
@@ -43,8 +48,9 @@ const OpponentBoardPreview = ({
   }
 
   const selectedOpponent = opponents[selectedPlayerIndex];
-  const selectedBoard = selectedOpponent?.board ?? EMPTY_BOARD;
-  const selectedHand = selectedOpponent?.hand ?? [];
+  const opponentId = selectedOpponent?.userId;
+  const selectedBoard = boards[opponentId] ?? EMPTY_BOARD;
+  const selectedHand = hands[opponentId] ?? [];
   const hasOneOpponent = opponents.length === 1;
 
   return (

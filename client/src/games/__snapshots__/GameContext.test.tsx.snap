@@ -5,10 +5,12 @@ exports[`GameContext GameProvider renders properly 1`] = `
   value={
     Object {
       "gameInfo": Object {
+        "boards": Object {},
         "bunch": Array [],
         "countdown": 0,
         "gameId": "gameId",
         "gameName": "",
+        "hands": Object {},
         "players": Array [],
         "previousSnapshot": null,
         "status": "NOT_STARTED",
@@ -31,10 +33,12 @@ exports[`GameContext GameProvider renders properly 1`] = `
 exports[`GameContext getEmptyGameState generates default empty state 1`] = `
 Object {
   "gameInfo": Object {
+    "boards": Object {},
     "bunch": Array [],
     "countdown": 0,
     "gameId": "gameId",
     "gameName": "",
+    "hands": Object {},
     "players": Array [],
     "previousSnapshot": null,
     "status": "NOT_STARTED",

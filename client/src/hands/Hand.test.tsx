@@ -2,10 +2,8 @@ import { Box, Button } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import { useDrop } from 'react-dnd';
 
-import { playerFixture } from '../fixtures/player';
 import { useGame } from '../games/GameContext';
 import Hand from './Hand';
-
 
 const mockEmit = jest.fn();
 jest.mock('../socket/SocketContext', () => ({
@@ -22,7 +20,7 @@ jest.mock('../styles', () => ({
 
 jest.mock('../games/GameContext', () => ({
   useGame: jest.fn().mockReturnValue({
-    gameInfo: { players: [] },
+    gameInfo: { boards: {} },
     handleMoveTileFromBoardToHand: jest.fn(),
   }),
 }));
@@ -49,7 +47,7 @@ describe('<Hand />', () => {
 
   test('renders properly with player', () => {
     useGame.mockReturnValue({
-      gameInfo: { players: [playerFixture({ userId: '123' })] },
+      gameInfo: { boards: { 123: [[null]] } },
       handleMoveTileFromBoardToHand: jest.fn(),
     });
 
@@ -111,7 +109,7 @@ describe('<Hand />', () => {
     test('drop', () => {
       const mockHandleMoveTileFromBoardToHand = jest.fn();
       useGame.mockReturnValue({
-        gameInfo: { players: [] },
+        gameInfo: { boards: {} },
         handleMoveTileFromBoardToHand: mockHandleMoveTileFromBoardToHand,
       });
 

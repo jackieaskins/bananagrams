@@ -9,7 +9,5 @@ export const playerFixture = (overrides: Partial<Player> = {}): Player => ({
   isTopBanana: false,
   isAdmin: false,
   gamesWon: 0,
-  hand: [],
-  board: [[null]],
   ...overrides,
 });

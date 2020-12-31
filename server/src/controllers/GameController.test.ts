@@ -1,4 +1,6 @@
+import Board from '../models/Board';
 import Game from '../models/Game';
+import Hand from '../models/Hand';
 import Player from '../models/Player';
 import Tile from '../models/Tile';
 import GameController from './GameController';
@@ -26,6 +28,8 @@ describe('GameController', () => {
   let gameController: GameController;
   let game: Game;
   let player: Player;
+  let hand: Hand;
+  let board: Board;
 
   const createShortenedGame = () =>
     GameController.createGame(gameName, username, true, io, socket);
@@ -75,6 +79,8 @@ describe('GameController', () => {
     );
     game = gameController.getCurrentGame();
     player = gameController.getCurrentPlayer();
+    hand = gameController.getCurrentHand();
+    board = gameController.getCurrentBoard();
   });
 
   describe('createGame', () => {
@@ -195,8 +201,8 @@ describe('GameController', () => {
     test('adds player tiles to the bunch after leaving', () => {
       const handTiles = [new Tile('A1', 'A'), new Tile('B1', 'B')];
       const boardTile = new Tile('C1', 'C');
-      player.getHand().addTiles(handTiles);
-      player.getBoard().addTile({ x: 0, y: 0 }, boardTile);
+      hand.addTiles(handTiles);
+      board.addTile({ x: 0, y: 0 }, boardTile);
       game.setStatus('IN_PROGRESS');
 
       gameController.leaveGame();
@@ -316,8 +322,8 @@ describe('GameController', () => {
       jest.clearAllMocks();
     });
 
-    it('does make any updates if player hand is not empty', () => {
-      player.getHand().addTiles([new Tile('A1', 'A')]);
+    test('does not make any updates if player hand is not empty', () => {
+      hand.addTiles([new Tile('A1', 'A')]);
 
       gameController.peel();
 
@@ -380,8 +386,10 @@ describe('GameController', () => {
       });
 
       test('adds a tile to each player', () => {
-        expect(player.getHand().getTiles()).toHaveLength(1);
-        expect(otherPlayer.getHand().getTiles()).toHaveLength(1);
+        expect(hand.getTiles()).toHaveLength(1);
+        expect(
+          game.getHands()[otherPlayer.getUserId()].getTiles()
+        ).toHaveLength(1);
       });
     });
   });
@@ -397,8 +405,8 @@ describe('GameController', () => {
     ];
 
     beforeEach(() => {
-      player.getHand().addTiles([handTile]);
-      player.getBoard().addTile(boardLocation, boardTile);
+      hand.addTiles([handTile]);
+      board.addTile(boardLocation, boardTile);
 
       game.getBunch().addTiles(dumpTiles);
     });
@@ -411,21 +419,17 @@ describe('GameController', () => {
 
     describe('dumped tile is on board', () => {
       beforeEach(() => {
-        jest.spyOn(player.getBoard(), 'removeTile');
+        jest.spyOn(board, 'removeTile');
 
         gameController.dump(boardTile.getId(), boardLocation);
       });
 
       test('removes tile from board location', () => {
-        expect(player.getBoard().removeTile).toHaveBeenCalledWith(
-          boardLocation
-        );
+        expect(board.removeTile).toHaveBeenCalledWith(boardLocation);
       });
 
       test('adds tiles from bunch to player hand', () => {
-        expect(player.getHand().getTiles()).toEqual(
-          expect.arrayContaining(dumpTiles)
-        );
+        expect(hand.getTiles()).toEqual(expect.arrayContaining(dumpTiles));
       });
 
       test('adds dumped tile to bunch', () => {
@@ -439,21 +443,17 @@ describe('GameController', () => {
 
     describe('dumped tile is in hand', () => {
       beforeEach(() => {
-        jest.spyOn(player.getHand(), 'removeTile');
+        jest.spyOn(hand, 'removeTile');
 
         gameController.dump(handTile.getId(), null);
       });
 
       test('removes tile from board location', () => {
-        expect(player.getHand().removeTile).toHaveBeenCalledWith(
-          handTile.getId()
-        );
+        expect(hand.removeTile).toHaveBeenCalledWith(handTile.getId());
       });
 
       test('adds tiles from bunch to player hand', () => {
-        expect(player.getHand().getTiles()).toEqual(
-          expect.arrayContaining(dumpTiles)
-        );
+        expect(hand.getTiles()).toEqual(expect.arrayContaining(dumpTiles));
       });
 
       test('adds dumped tile to bunch', () => {
@@ -471,18 +471,25 @@ describe('GameController', () => {
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
-      player.getHand().addTiles([tile]);
+      jest.spyOn(board, 'validateEmptySquare');
+      jest.spyOn(hand, 'removeTile');
+      jest.spyOn(board, 'addTile');
 
-      jest.spyOn(player, 'moveTileFromHandToBoard');
+      hand.addTiles([tile]);
 
       gameController.moveTileFromHandToBoard(tile.getId(), boardLocation);
     });
 
-    test('moves tile from player hand to board', () => {
-      expect(player.moveTileFromHandToBoard).toHaveBeenCalledWith(
-        tile.getId(),
-        boardLocation
-      );
+    test('validates that board square is empty', () => {
+      expect(board.validateEmptySquare).toHaveBeenCalledWith(boardLocation);
+    });
+
+    test('removes tile from hand', () => {
+      expect(hand.removeTile).toHaveBeenCalledWith(tile.getId());
+    });
+
+    test('adds removed tile to board', () => {
+      expect(board.addTile).toHaveBeenCalledWith(boardLocation, tile);
     });
 
     test('emits game info', () => {
@@ -495,40 +502,20 @@ describe('GameController', () => {
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
-      player.getBoard().addTile(boardLocation, tile);
+      jest.spyOn(board, 'removeTile');
+      jest.spyOn(hand, 'addTiles');
 
-      jest.spyOn(player, 'moveTileFromBoardToHand');
+      board.addTile(boardLocation, tile);
 
       gameController.moveTileFromBoardToHand(boardLocation);
     });
 
-    test('moves tile from player board to hand', () => {
-      expect(player.moveTileFromBoardToHand).toHaveBeenCalledWith(
-        boardLocation
-      );
+    test('removes tile from board', () => {
+      expect(board.removeTile).toHaveBeenCalledWith(boardLocation);
     });
 
-    test('emits game info', () => {
-      assertEmitsGameInfo(ioEmit);
-    });
-  });
-
-  describe('moveAllTilesFromBoardToHand', () => {
-    const tile = new Tile('B1', 'B');
-    const boardLocation = { x: 0, y: 0 };
-
-    beforeEach(() => {
-      player.getBoard().addTile(boardLocation, tile);
-
-      jest.spyOn(player.getHand(), 'addTiles');
-      jest.spyOn(player.getBoard(), 'clear');
-
-      gameController.moveAllTilesFromBoardToHand();
-    });
-
-    test('moves all tiles from player board to hand', () => {
-      expect(player.getBoard().clear).toHaveBeenCalledWith();
-      expect(player.getHand().addTiles).toHaveBeenCalledWith([tile]);
+    test('adds removed tile to hand', () => {
+      expect(hand.addTiles).toHaveBeenCalledWith([tile]);
     });
 
     test('emits game info', () => {
@@ -542,18 +529,48 @@ describe('GameController', () => {
     const toLocation = { x: 1, y: 1 };
 
     beforeEach(() => {
-      player.getBoard().addTile(fromLocation, tile);
+      jest.spyOn(board, 'validateEmptySquare');
+      jest.spyOn(board, 'removeTile');
+      jest.spyOn(board, 'addTile');
 
-      jest.spyOn(player, 'moveTileOnBoard');
+      board.addTile(fromLocation, tile);
 
       gameController.moveTileOnBoard(fromLocation, toLocation);
     });
 
-    test('moves tile from player board to hand', () => {
-      expect(player.moveTileOnBoard).toHaveBeenCalledWith(
-        fromLocation,
-        toLocation
-      );
+    test('validates to location is empty', () => {
+      expect(board.validateEmptySquare).toHaveBeenCalledWith(toLocation);
+    });
+
+    test('removes tile from from location', () => {
+      expect(board.removeTile).toHaveBeenCalledWith(fromLocation);
+    });
+
+    test('adds removed tile to to location', () => {
+      expect(board.addTile).toHaveBeenCalledWith(toLocation, tile);
+    });
+
+    test('emits game info', () => {
+      assertEmitsGameInfo(ioEmit);
+    });
+  });
+
+  describe('moveAllTilesFromBoardToHand', () => {
+    const tile = new Tile('B1', 'B');
+    const boardLocation = { x: 0, y: 0 };
+
+    beforeEach(() => {
+      board.addTile(boardLocation, tile);
+
+      jest.spyOn(hand, 'addTiles');
+      jest.spyOn(board, 'clear');
+
+      gameController.moveAllTilesFromBoardToHand();
+    });
+
+    test('moves all tiles from player board to hand', () => {
+      expect(board.clear).toHaveBeenCalledWith();
+      expect(hand.addTiles).toHaveBeenCalledWith([tile]);
     });
 
     test('emits game info', () => {
@@ -564,13 +581,13 @@ describe('GameController', () => {
   describe('shuffleHand', () => {
     beforeEach(() => {
       game.setStatus('NOT_STARTED');
-      jest.spyOn(player.getHand(), 'shuffle');
+      jest.spyOn(hand, 'shuffle');
 
       gameController.shuffleHand();
     });
 
     test('shuffles player hand', () => {
-      expect(player.getHand().shuffle).toHaveBeenCalledWith();
+      expect(hand.shuffle).toHaveBeenCalledWith();
     });
 
     test('emits game info', () => {
@@ -598,16 +615,14 @@ describe('GameController', () => {
     });
 
     test('adds tiles to player hand', () => {
-      expect(player.getHand().getTiles()).toHaveLength(21);
+      expect(hand.getTiles()).toHaveLength(21);
     });
 
     test('adds fewer tiles to player hand in shortened game', () => {
       const controller = createShortenedGame();
       controller.split();
 
-      expect(controller.getCurrentPlayer().getHand().getTiles()).toHaveLength(
-        2
-      );
+      expect(controller.getCurrentHand().getTiles()).toHaveLength(2);
     });
 
     test('sets game to starting', () => {

@@ -98,16 +98,24 @@ exports[`<Game /> renders properly 1`] = `
           item={true}
         >
           <OpponentBoardPreview
+            boards={
+              Object {
+                "id": Array [
+                  Array [
+                    null,
+                  ],
+                ],
+              }
+            }
+            hands={
+              Object {
+                "id": Array [],
+              }
+            }
             players={
               Array [
                 Object {
-                  "board": Array [
-                    Array [
-                      null,
-                    ],
-                  ],
                   "gamesWon": 0,
-                  "hand": Array [],
                   "isAdmin": false,
                   "isReady": false,
                   "isTopBanana": false,
@@ -228,16 +236,30 @@ exports[`<Game /> renders properly with more than one player 1`] = `
             Opponent board(s):
           </WithStyles(ForwardRef(Typography))>
           <OpponentBoardPreview
+            boards={
+              Object {
+                "id": Array [
+                  Array [
+                    null,
+                  ],
+                ],
+                "other": Array [
+                  Array [
+                    null,
+                  ],
+                ],
+              }
+            }
+            hands={
+              Object {
+                "id": Array [],
+                "other": Array [],
+              }
+            }
             players={
               Array [
                 Object {
-                  "board": Array [
-                    Array [
-                      null,
-                    ],
-                  ],
                   "gamesWon": 0,
-                  "hand": Array [],
                   "isAdmin": false,
                   "isReady": false,
                   "isTopBanana": false,
@@ -245,13 +267,7 @@ exports[`<Game /> renders properly with more than one player 1`] = `
                   "username": "username",
                 },
                 Object {
-                  "board": Array [
-                    Array [
-                      null,
-                    ],
-                  ],
                   "gamesWon": 0,
-                  "hand": Array [],
                   "isAdmin": false,
                   "isReady": false,
                   "isTopBanana": false,

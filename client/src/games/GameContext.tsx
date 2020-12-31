@@ -14,6 +14,8 @@ export const getEmptyGameInfo = (gameId: string): GameInfo => ({
   countdown: 0,
   bunch: [],
   players: [],
+  hands: {},
+  boards: {},
   previousSnapshot: null,
 });
 

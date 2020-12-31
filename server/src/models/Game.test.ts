@@ -59,13 +59,25 @@ describe('Game Model', () => {
     });
 
     test('returns snapshot', () => {
-      game.setSnapshot([]);
+      const snapshot = {
+        players: [],
+        hands: {},
+        boards: {},
+      };
+      game.setSnapshot(snapshot);
 
-      expect(game.getSnapshot()).toEqual([]);
+      expect(game.getSnapshot()).toEqual(snapshot);
     });
   });
 
   describe('reset', () => {
+    beforeEach(() => {
+      const player = new Player('p', 'p');
+      game.addPlayer(player);
+
+      game.reset();
+    });
+
     test('resets bunch', () => {
       jest.spyOn(game.getBunch(), 'reset');
 
@@ -75,13 +87,30 @@ describe('Game Model', () => {
     });
 
     test('resets each player', () => {
-      const player = new Player('p', 'p');
+      const player = game.getPlayers()[0];
       jest.spyOn(player, 'reset');
-      game.addPlayer(player);
 
       game.reset();
 
       expect(player.reset).toHaveBeenCalledWith();
+    });
+
+    test('resets each hand', () => {
+      const hand = Object.values(game.getHands())[0];
+      jest.spyOn(hand, 'reset');
+
+      game.reset();
+
+      expect(hand.reset).toHaveBeenCalledWith();
+    });
+
+    test('resets each board', () => {
+      const board = Object.values(game.getBoards())[0];
+      jest.spyOn(board, 'reset');
+
+      game.reset();
+
+      expect(board.reset).toHaveBeenCalledWith();
     });
   });
 
@@ -93,18 +122,42 @@ describe('Game Model', () => {
   });
 
   describe('addPlayer', () => {
-    test('adds a player to the game', () => {
-      const player = new Player('p', 'p');
+    let player: Player;
+
+    beforeEach(() => {
+      player = new Player('p', 'p');
       game.addPlayer(player);
+    });
+
+    test('adds a player to the game', () => {
       expect(game.getPlayers()).toEqual([player]);
+    });
+
+    test('adds a hand to the game', () => {
+      expect(game.getHands()).toHaveProperty(player.getUserId());
+    });
+
+    test('adds a board to the game', () => {
+      expect(game.getBoards()).toHaveProperty(player.getUserId());
     });
   });
 
   describe('removePlayer', () => {
-    test('removes player from game', () => {
+    beforeEach(() => {
       game.addPlayer(new Player('p', 'p'));
       game.removePlayer('p');
+    });
+
+    test('removes player from game', () => {
       expect(game.getPlayers()).toEqual([]);
+    });
+
+    test('removes hand from game', () => {
+      expect(game.getHands()).toEqual({});
+    });
+
+    test('removes board from game', () => {
+      expect(game.getBoards()).toEqual({});
     });
   });
 });

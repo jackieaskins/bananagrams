@@ -11,9 +11,9 @@ exports[`GameController joinGame throws an error if game is shortened 1`] = `"Th
 exports[`GameController kickPlayer throws an error if user is not an admin 1`] = `"Only game admins can kick players from the game"`;
 
 exports[`GameController peel bunch has less tiles than number of players updates game snapshot 1`] = `
-Array [
-  Object {
-    "board": Array [
+Object {
+  "boards": Object {
+    "p1": Array [
       Array [
         null,
         null,
@@ -498,16 +498,7 @@ Array [
         null,
       ],
     ],
-    "gamesWon": 1,
-    "hand": Array [],
-    "isAdmin": true,
-    "isReady": false,
-    "isTopBanana": true,
-    "userId": "socketId",
-    "username": "username",
-  },
-  Object {
-    "board": Array [
+    "socketId": Array [
       Array [
         null,
         null,
@@ -992,13 +983,28 @@ Array [
         null,
       ],
     ],
-    "gamesWon": 0,
-    "hand": Array [],
-    "isAdmin": false,
-    "isReady": false,
-    "isTopBanana": false,
-    "userId": "p1",
-    "username": "p",
   },
-]
+  "hands": Object {
+    "p1": Array [],
+    "socketId": Array [],
+  },
+  "players": Array [
+    Object {
+      "gamesWon": 1,
+      "isAdmin": true,
+      "isReady": false,
+      "isTopBanana": true,
+      "userId": "socketId",
+      "username": "username",
+    },
+    Object {
+      "gamesWon": 0,
+      "isAdmin": false,
+      "isReady": false,
+      "isTopBanana": false,
+      "userId": "p1",
+      "username": "p",
+    },
+  ],
+}
 `;

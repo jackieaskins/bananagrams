@@ -10,6 +10,8 @@ const mockGamePlayers = [
   playerFixture({ userId: '1' }),
   playerFixture({ userId: '2' }),
 ];
+const mockGameHands = { 1: [] };
+const mockGameBoards = { 1: [[null]] };
 const mockAtom = atom as jest.Mock;
 const mockSelector = selector as jest.Mock;
 jest.mock('recoil', () => ({
@@ -29,8 +31,13 @@ describe('game state', () => {
       .mockReturnValueOnce(mockGameStatus)
       .mockReturnValueOnce(mockGameCountdown)
       .mockReturnValueOnce(mockGameName)
-      .mockReturnValueOnce(mockGamePlayers);
-    mockSelector.mockReturnValueOnce(mockGamePlayers[0]);
+      .mockReturnValueOnce(mockGamePlayers)
+      .mockReturnValueOnce(mockGameHands)
+      .mockReturnValueOnce(mockGameBoards);
+    mockSelector
+      .mockReturnValueOnce(mockGamePlayers[0])
+      .mockReturnValueOnce(mockGameHands['1'])
+      .mockReturnValueOnce(mockGameBoards['1']);
     state = initializeState();
   });
 
@@ -110,6 +117,86 @@ describe('game state', () => {
       const mockGet = jest.fn().mockReturnValue([]);
 
       expect(mockSelector.mock.calls[0][0].get({ get: mockGet })).toBeNull();
+    });
+  });
+
+  describe('handsState', () => {
+    test('returns handsState', () => {
+      expect(state.handsState).toEqual(mockGameHands);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gameHands',
+        default: {},
+      });
+    });
+  });
+
+  describe('currentHandState', () => {
+    test('returns currentHandState', () => {
+      expect(state.currentHandState).toEqual(mockGameHands['1']);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockSelector).toHaveBeenCalledWith({
+        key: 'gameCurrentHandState',
+        get: expect.any(Function),
+      });
+    });
+
+    test('gets current hand from hands state', () => {
+      const mockGet = jest.fn().mockImplementation((state) => state);
+
+      expect(mockSelector.mock.calls[1][0].get({ get: mockGet })).toEqual(
+        mockGameHands['1']
+      );
+    });
+
+    test('returns null if no current hand', () => {
+      const mockGet = jest.fn().mockReturnValue([]);
+
+      expect(mockSelector.mock.calls[1][0].get({ get: mockGet })).toBeNull();
+    });
+  });
+
+  describe('boardsState', () => {
+    test('returns boardsState', () => {
+      expect(state.boardsState).toEqual(mockGameBoards);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gameBoards',
+        default: {},
+      });
+    });
+  });
+
+  describe('currentBoardState', () => {
+    test('returns currentBoardState', () => {
+      expect(state.currentBoardState).toEqual(mockGameBoards['1']);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockSelector).toHaveBeenCalledWith({
+        key: 'gameCurrentBoardState',
+        get: expect.any(Function),
+      });
+    });
+
+    test('gets current board from boards state', () => {
+      const mockGet = jest.fn().mockImplementation((state) => state);
+
+      expect(mockSelector.mock.calls[2][0].get({ get: mockGet })).toEqual(
+        mockGameBoards['1']
+      );
+    });
+
+    test('returns null if no current board', () => {
+      const mockGet = jest.fn().mockReturnValue([]);
+
+      expect(mockSelector.mock.calls[2][0].get({ get: mockGet })).toBeNull();
     });
   });
 });

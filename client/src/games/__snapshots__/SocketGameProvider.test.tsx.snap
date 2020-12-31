@@ -5,10 +5,12 @@ exports[`<SocketGameProvider /> renders properly 1`] = `
   gameState={
     Object {
       "gameInfo": Object {
+        "boards": Object {},
         "bunch": Array [],
         "countdown": 0,
         "gameId": "gameId",
         "gameName": "",
+        "hands": Object {},
         "players": Array [],
         "previousSnapshot": null,
         "status": "NOT_STARTED",

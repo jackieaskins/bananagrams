@@ -7,6 +7,10 @@ import {
   useGameName,
   useGamePlayers,
   useCurrentPlayer,
+  useGameHands,
+  useCurrentHand,
+  useGameBoards,
+  useCurrentBoard,
   useUpdateGameState,
 } from './stateHooks';
 
@@ -26,6 +30,10 @@ jest.mock('./state', () => ({
     nameState: 'nameState',
     playersState: 'playersState',
     currentPlayerState: 'currentPlayerState',
+    handsState: 'handsState',
+    currentHandState: 'currentHandState',
+    boardsState: 'boardsState',
+    currentBoardState: 'currentBoardState',
   }),
 }));
 
@@ -53,6 +61,26 @@ describe('state hooks', () => {
   test('useCurrentPlayer returns recoil value', () => {
     expect(useCurrentPlayer()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentPlayerState');
+  });
+
+  test('useGameHands returns recoil value', () => {
+    expect(useGameHands()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('handsState');
+  });
+
+  test('useCurrentHand returns recoil value', () => {
+    expect(useCurrentHand()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('currentHandState');
+  });
+
+  test('useGameBoards returns recoil value', () => {
+    expect(useGameBoards()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('boardsState');
+  });
+
+  test('useCurrentBoard returns recoil value', () => {
+    expect(useCurrentBoard()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardState');
   });
 
   test('useUpdateGameState updates game state through recoil callback', () => {
