@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NameCell /> renders properly when is admin 1`] = `
+<Space>
+  <span>
+    username
+  </span>
+  <span>
+    <ForwardRef(KeyOutlined) />
+  </span>
+</Space>
+`;
+
+exports[`<NameCell /> renders properly when is admin and is top banana 1`] = `
+<Space>
+  <span>
+    username
+  </span>
+  <span>
+    <ForwardRef(KeyOutlined) />
+  </span>
+  <span>
+    <ForwardRef(CrownOutlined) />
+  </span>
+</Space>
+`;
+
+exports[`<NameCell /> renders properly when is top banana 1`] = `
+<Space>
+  <span>
+    username
+  </span>
+  <span>
+    <ForwardRef(CrownOutlined) />
+  </span>
+</Space>
+`;
+
+exports[`<NameCell /> renders properly when not admin or top banana 1`] = `
+<Space>
+  <span>
+    username
+  </span>
+</Space>
+`;

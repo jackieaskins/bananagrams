@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { GameInfo } from '../games/types';
 import { addGameInfoListener, removeGameInfoListener } from '../socket';
 import GameRouter from './GameRouter';
-import { useIsGameInProgress } from './state';
+import { useIsGameInProgress } from './stateHooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual<any>('react'),
@@ -17,7 +17,7 @@ jest.mock('../socket', () => ({
 }));
 
 const mockUpdateGameState = jest.fn();
-jest.mock('./state', () => ({
+jest.mock('./stateHooks', () => ({
   useIsGameInProgress: jest.fn(),
   useUpdateGameState: () => mockUpdateGameState,
 }));

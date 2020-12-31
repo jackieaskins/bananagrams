@@ -7,11 +7,12 @@ exports[`<App /> renders properly 1`] = `
 
 <RecoilRoot>
   <BrowserRouter>
-    <Adapter
+    <div
       className="emotion-0"
     >
       <Routes />
-    </Adapter>
+    </div>
+    <SocketDisconnectModal />
   </BrowserRouter>
 </RecoilRoot>
 `;

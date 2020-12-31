@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionsCell /> does not render if current player is admin and cell player 1`] = `""`;
+
+exports[`<ActionsCell /> does not render if current player is not admin 1`] = `""`;
+
+exports[`<ActionsCell /> does not render if no current player 1`] = `""`;
+
+exports[`<ActionsCell /> when current player is admin but not cell player renders action button 1`] = `
+<Button
+  icon={<ForwardRef(DeleteOutlined) />}
+  onClick={[Function]}
+  type="text"
+/>
+`;

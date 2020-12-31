@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReadyCell /> if is current user renders checkbox if current user 1`] = `
+<Checkbox
+  checked={false}
+  onChange={[Function]}
+/>
+`;
+
+exports[`<ReadyCell /> renders green check if other player is ready 1`] = `
+.emotion-0bo3dqs-ReadyCell {
+  color: green;
+}
+
+<undefined
+  className="emotion-0"
+/>
+`;
+
+exports[`<ReadyCell /> renders red x if other player is not ready 1`] = `
+.emotion-0bo3dqs-ReadyCell {
+  color: green;
+}
+
+.emotion-012kindl-ReadyCell {
+  color: red;
+}
+
+<undefined
+  className="emotion-0"
+/>
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SocketDisconnectModal /> renders modal 1`] = `
+<Modal
+  closable={false}
+  confirmLoading={false}
+  footer={
+    <Button
+      onClick={[Function]}
+    >
+      Return home
+    </Button>
+  }
+  maskTransitionName="fade"
+  okType="primary"
+  title="Disconnected"
+  transitionName="zoom"
+  visible={false}
+  width={520}
+>
+  You have been disconnected from the server
+</Modal>
+`;

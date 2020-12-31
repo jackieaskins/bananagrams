@@ -1,19 +1,41 @@
-import { atom, useRecoilCallback, useRecoilValue } from 'recoil';
+import { atom, RecoilState, RecoilValueReadOnly, selector } from 'recoil';
 
-import { GameInfo } from '../games/types';
+import { Player } from '../players/types';
+import { getUserId } from '../socket';
 
-const gameInProgressState = atom({
-  key: 'gameInProgress',
-  default: false,
-});
-export const useIsGameInProgress = (): boolean =>
-  useRecoilValue(gameInProgressState);
+export type GameState = {
+  inProgressState: RecoilState<boolean>;
+  nameState: RecoilState<string>;
+  playersState: RecoilState<Player[]>;
+  currentPlayerState: RecoilValueReadOnly<Player | null>;
+};
 
-type UpdateGameState = (gameInfo: GameInfo) => void;
-export const useUpdateGameState = (): UpdateGameState =>
-  useRecoilCallback(
-    ({ set }) => (gameInfo) => {
-      set(gameInProgressState, gameInfo.isInProgress);
-    },
-    []
-  );
+export const initializeState = (): GameState => {
+  const inProgressState = atom({
+    key: 'gameInProgress',
+    default: false,
+  });
+
+  const nameState = atom({
+    key: 'gameName',
+    default: '',
+  });
+
+  const playersState = atom<Player[]>({
+    key: 'gamePlayers',
+    default: [],
+  });
+
+  const currentPlayerState = selector({
+    key: 'gameCurrentPlayerState',
+    get: ({ get }) =>
+      get(playersState).find(({ userId }) => userId === getUserId()) ?? null,
+  });
+
+  return {
+    inProgressState,
+    nameState,
+    playersState,
+    currentPlayerState,
+  };
+};

@@ -1,7 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<WaitingRoom /> renders properly 1`] = `
-<div>
-  Waiting on game
-</div>
+.emotion-01r87dl5-WaitingRoom {
+  margin-top: 25px;
+}
+
+.emotion-016tm0n-WaitingRoom {
+  width: 100%;
+}
+
+.emotion-0iqsi0g-WaitingRoom {
+  text-align: center;
+}
+
+<undefined
+  className="emotion-0"
+  justify="center"
+>
+  <Col
+    lg={10}
+    md={12}
+    sm={14}
+    xs={20}
+  >
+    <Space
+      className="emotion-0"
+      direction="vertical"
+      size="large"
+    >
+      <div
+        className="emotion-0"
+      >
+        <h1>
+          gameName
+        </h1>
+        <Text
+          type="secondary"
+        >
+          Invite others to game: 
+        </Text>
+        <br />
+        <Text
+          code={true}
+          copyable={true}
+          type="secondary"
+        >
+          http://localhost//join
+        </Text>
+      </div>
+      <PlayerTable />
+    </Space>
+  </Col>
+</undefined>
 `;

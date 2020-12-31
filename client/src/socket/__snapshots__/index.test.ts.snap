@@ -4,6 +4,7 @@ exports[`socket returns result of io() 1`] = `
 Object {
   "disconnect": [MockFunction disconnect],
   "emit": [MockFunction emit],
+  "id": "socketId",
   "off": [MockFunction off],
   "on": [MockFunction on],
 }

@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlayerTable /> column renders actions column 1`] = `
+<ActionsCell
+  player={
+    Object {
+      "board": Array [
+        Array [
+          null,
+        ],
+      ],
+      "gamesWon": 0,
+      "hand": Array [],
+      "isAdmin": false,
+      "isReady": false,
+      "isTopBanana": false,
+      "userId": "1",
+      "username": "username",
+    }
+  }
+/>
+`;
+
+exports[`<PlayerTable /> column renders name column 1`] = `
+<NameCell
+  player={
+    Object {
+      "board": Array [
+        Array [
+          null,
+        ],
+      ],
+      "gamesWon": 0,
+      "hand": Array [],
+      "isAdmin": false,
+      "isReady": false,
+      "isTopBanana": false,
+      "userId": "1",
+      "username": "username",
+    }
+  }
+/>
+`;
+
+exports[`<PlayerTable /> column renders ready column 1`] = `
+<ReadyCell
+  player={
+    Object {
+      "board": Array [
+        Array [
+          null,
+        ],
+      ],
+      "gamesWon": 0,
+      "hand": Array [],
+      "isAdmin": false,
+      "isReady": false,
+      "isTopBanana": false,
+      "userId": "1",
+      "username": "username",
+    }
+  }
+/>
+`;
+
+exports[`<PlayerTable /> renders footer with game info 1`] = `
+<div
+  css="unknown styles"
+>
+  <Text
+    type="secondary"
+  >
+    The game will start when all players are ready
+    <br />
+    Current player count: 
+    1
+     / 
+    8
+  </Text>
+</div>
+`;
+
+exports[`<PlayerTable /> renders table 1`] = `
+<Table
+  columns={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "align": "center",
+            "key": "ready",
+            "render": [Function],
+            "title": "Ready?",
+          },
+          Object {
+            "align": "center",
+            "key": "player",
+            "render": [Function],
+            "title": "Player",
+          },
+          Object {
+            "align": "center",
+            "dataIndex": "gamesWon",
+            "title": "Games won",
+          },
+          Object {
+            "align": "center",
+            "key": "actions",
+            "render": [Function],
+          },
+        ],
+        "title": "Players",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "board": Array [
+          Array [
+            null,
+          ],
+        ],
+        "gamesWon": 0,
+        "hand": Array [],
+        "isAdmin": false,
+        "isReady": false,
+        "isTopBanana": false,
+        "userId": "1",
+        "username": "username",
+      },
+    ]
+  }
+  footer={[Function]}
+  pagination={false}
+  rowKey="key"
+  size="middle"
+/>
+`;

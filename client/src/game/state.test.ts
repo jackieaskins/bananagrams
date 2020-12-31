@@ -1,31 +1,100 @@
-import { useRecoilCallback, useRecoilValue } from 'recoil';
+import { atom, selector } from 'recoil';
 
-import { useIsGameInProgress, useUpdateGameState } from './state';
+import { playerFixture } from '../fixtures/player';
+import { GameState, initializeState } from './state';
 
-const mockGameInProgressState = 'mockGameInProgressState';
-const mockSet = jest.fn();
+const mockGameInProgress = true;
+const mockGameName = 'gameName';
+const mockGamePlayers = [
+  playerFixture({ userId: '1' }),
+  playerFixture({ userId: '2' }),
+];
+const mockAtom = atom as jest.Mock;
+const mockSelector = selector as jest.Mock;
 jest.mock('recoil', () => ({
-  atom: jest.fn().mockReturnValueOnce('mockGameInProgressState'),
-  useRecoilCallback: jest.fn((f) => f({ set: mockSet })),
-  useRecoilValue: jest.fn().mockReturnValueOnce(true),
+  ...jest.requireActual<any>('recoil'),
+  atom: jest.fn(),
+  selector: jest.fn(),
 }));
 
-const mockUseRecoilCallback = useRecoilCallback as jest.Mock;
-const mockUseRecoilValue = useRecoilValue as jest.Mock;
+jest.mock('../socket', () => ({
+  getUserId: jest.fn().mockReturnValue('1'),
+}));
+
 describe('game state', () => {
-  test('useIsGameInProgress gets value of gameInProgressState', () => {
-    expect(useIsGameInProgress()).toEqual(true);
-    expect(mockUseRecoilValue).toHaveBeenCalledWith(mockGameInProgressState);
+  let state: GameState;
+  beforeEach(() => {
+    mockAtom
+      .mockReturnValueOnce(mockGameInProgress)
+      .mockReturnValueOnce(mockGameName)
+      .mockReturnValueOnce(mockGamePlayers);
+    mockSelector.mockReturnValueOnce(mockGamePlayers[0]);
+    state = initializeState();
   });
 
-  test('useUpdateGameState updates game state through recoil callback', () => {
-    useUpdateGameState();
-    mockUseRecoilCallback.mock.results[0].value({ isInProgress: false });
+  describe('inProgressState', () => {
+    test('returns inProgressState', () => {
+      expect(state.inProgressState).toEqual(mockGameInProgress);
+    });
 
-    expect(mockUseRecoilCallback).toHaveBeenCalledWith(
-      expect.any(Function),
-      []
-    );
-    expect(mockSet).toHaveBeenCalledWith(mockGameInProgressState, false);
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gameInProgress',
+        default: false,
+      });
+    });
+  });
+
+  describe('nameState', () => {
+    test('returns nameState', () => {
+      expect(state.nameState).toEqual(mockGameName);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gameName',
+        default: '',
+      });
+    });
+  });
+
+  describe('playersState', () => {
+    test('returns playersState', () => {
+      expect(state.playersState).toEqual(mockGamePlayers);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gamePlayers',
+        default: [],
+      });
+    });
+  });
+
+  describe('currentPlayerState', () => {
+    test('returns currentPlayerState', () => {
+      expect(state.currentPlayerState).toEqual(mockGamePlayers[0]);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockSelector).toHaveBeenCalledWith({
+        key: 'gameCurrentPlayerState',
+        get: expect.any(Function),
+      });
+    });
+
+    test('gets current player from players state', () => {
+      const mockGet = jest.fn().mockImplementation((state) => state);
+
+      expect(mockSelector.mock.calls[0][0].get({ get: mockGet })).toEqual(
+        mockGamePlayers[0]
+      );
+    });
+
+    test('returns null if no current player', () => {
+      const mockGet = jest.fn().mockReturnValue([]);
+
+      expect(mockSelector.mock.calls[0][0].get({ get: mockGet })).toBeNull();
+    });
   });
 });

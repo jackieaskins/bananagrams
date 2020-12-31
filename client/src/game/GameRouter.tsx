@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { GameInfo } from '../games/types';
 import { addGameInfoListener, removeGameInfoListener } from '../socket';
 import WaitingRoom from './WaitingRoom';
-import { useIsGameInProgress, useUpdateGameState } from './state';
+import { useIsGameInProgress, useUpdateGameState } from './stateHooks';
 
 type GameRouterProps = {
   initialGameInfo: GameInfo;
