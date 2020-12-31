@@ -34,7 +34,7 @@ const Tile = ({
       border={1}
       borderRadius="borderRadius"
       style={{
-        color: color,
+        color,
         backgroundColor: '#ffffc7',
         cursor: 'move',
         height: '23px',

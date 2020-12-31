@@ -24,14 +24,25 @@ describe('Game Model', () => {
     });
   });
 
-  describe('set/isInProgress', () => {
-    test('returns false by default', () => {
-      expect(game.isInProgress()).toEqual(false);
+  describe('set/getStatus', () => {
+    test('returns NOT_STARTED by default', () => {
+      expect(game.getStatus()).toEqual('NOT_STARTED');
     });
 
-    test('returns whether or not game is in progress', () => {
-      game.setInProgress(true);
-      expect(game.isInProgress()).toEqual(true);
+    test('returns status', () => {
+      game.setStatus('IN_PROGRESS');
+      expect(game.getStatus()).toEqual('IN_PROGRESS');
+    });
+  });
+
+  describe('set/getCountdown', () => {
+    test('returns 0 by default', () => {
+      expect(game.getCountdown()).toEqual(0);
+    });
+
+    test('returns countdown', () => {
+      game.setCountdown(3);
+      expect(game.getCountdown()).toEqual(3);
     });
   });
 

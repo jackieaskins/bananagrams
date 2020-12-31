@@ -2,10 +2,12 @@ import { BoardLocation } from '../boards/types';
 import { Player } from '../players/types';
 import { Tile, TileItem } from '../tiles/types';
 
+export type GameStatus = 'NOT_STARTED' | 'STARTING' | 'IN_PROGRESS' | 'ENDING';
 export type GameInfo = {
   gameId: string;
   gameName: string;
-  isInProgress: boolean;
+  status: GameStatus;
+  countdown: number;
   bunch: Tile[];
   players: Player[];
   previousSnapshot: Player[] | null;

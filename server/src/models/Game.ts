@@ -3,10 +3,12 @@ import Bunch, { BunchJSON } from './Bunch';
 import Player, { PlayerJSON } from './Player';
 
 export type Snapshot = PlayerJSON[] | null;
+export type GameStatus = 'NOT_STARTED' | 'STARTING' | 'IN_PROGRESS' | 'ENDING';
 export type GameJSON = {
   gameId: string;
   gameName: string;
-  isInProgress: boolean;
+  status: GameStatus;
+  countdown: number;
   bunch: BunchJSON;
   players: PlayerJSON[];
   previousSnapshot: Snapshot;
@@ -15,7 +17,8 @@ export type GameJSON = {
 export default class Game implements BaseModel<GameJSON> {
   private id: string;
   private name: string;
-  private inProgress = false;
+  private status: GameStatus = 'NOT_STARTED';
+  private countdown = 0;
   private shortenedGame: boolean;
   private bunch: Bunch = new Bunch(this);
   private players: Player[] = [];
@@ -35,12 +38,20 @@ export default class Game implements BaseModel<GameJSON> {
     return this.name;
   }
 
-  isInProgress(): boolean {
-    return this.inProgress;
+  getStatus(): GameStatus {
+    return this.status;
   }
 
-  setInProgress(inProgress: boolean): void {
-    this.inProgress = inProgress;
+  setStatus(status: GameStatus): void {
+    this.status = status;
+  }
+
+  getCountdown(): number {
+    return this.countdown;
+  }
+
+  setCountdown(countdown: number): void {
+    this.countdown = countdown;
   }
 
   isShortenedGame(): boolean {
@@ -72,7 +83,8 @@ export default class Game implements BaseModel<GameJSON> {
     const {
       id: gameId,
       name: gameName,
-      inProgress: isInProgress,
+      status,
+      countdown,
       bunch,
       players,
       previousSnapshot,
@@ -81,7 +93,8 @@ export default class Game implements BaseModel<GameJSON> {
     return {
       gameId,
       gameName,
-      isInProgress,
+      status,
+      countdown,
       bunch: bunch.toJSON(),
       players: players.map((player) => player.toJSON()),
       previousSnapshot,

@@ -1,18 +1,20 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { initializeState } from '../game/state';
-import { GameInfo } from '../games/types';
+import { GameInfo, GameStatus } from '../games/types';
 import { Player } from '../players/types';
 
 const {
-  inProgressState,
+  statusState,
+  countdownState,
   nameState,
   playersState,
   currentPlayerState,
 } = initializeState();
 
-export const useIsGameInProgress = (): boolean =>
-  useRecoilValue(inProgressState);
+export const useGameStatus = (): GameStatus => useRecoilValue(statusState);
+
+export const useGameCountdown = (): number => useRecoilValue(countdownState);
 
 export const useGameName = (): string => useRecoilValue(nameState);
 
@@ -24,7 +26,8 @@ export const useCurrentPlayer = (): Player | null =>
 export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
   useRecoilCallback(
     ({ set }) => (gameInfo) => {
-      set(inProgressState, gameInfo.isInProgress);
+      set(statusState, gameInfo.status);
+      set(countdownState, gameInfo.countdown);
       set(nameState, gameInfo.gameName);
       set(playersState, gameInfo.players);
     },

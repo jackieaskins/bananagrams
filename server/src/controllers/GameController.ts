@@ -94,7 +94,7 @@ export default class GameController {
       throw new Error('Game is full');
     }
 
-    if (game.isInProgress()) {
+    if (game.getStatus() === 'IN_PROGRESS') {
       throw new Error('Game is already in progress');
     }
 
@@ -128,7 +128,7 @@ export default class GameController {
   leaveGame(): void {
     const { io, socket, currentPlayer, currentGame } = this;
 
-    if (currentGame.isInProgress()) {
+    if (currentGame.getStatus() === 'IN_PROGRESS') {
       currentGame
         .getBunch()
         .addTiles([
@@ -159,7 +159,10 @@ export default class GameController {
     if (currentGame.getPlayers().length === 0) {
       const { [gameId]: toOmit, ...rest } = GameController.games;
       GameController.games = rest;
-    } else if (!currentGame.isInProgress() && everyoneElseIsReady) {
+    } else if (
+      currentGame.getStatus() === 'NOT_STARTED' &&
+      everyoneElseIsReady
+    ) {
       this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
@@ -202,7 +205,7 @@ export default class GameController {
         'Game is over, you won!'
       );
 
-      currentGame.setInProgress(false);
+      currentGame.setStatus('NOT_STARTED');
 
       currentPlayers.forEach((player) => {
         player.setReady(false);
@@ -303,9 +306,22 @@ export default class GameController {
           currentGame.getBunch().removeTiles(this.getInitialTileCount())
         );
     });
-    currentGame.setInProgress(true);
 
+    currentGame.setStatus('STARTING');
+    currentGame.setCountdown(3);
     GameController.emitGameInfo(io, currentGame);
+
+    const interval = setInterval(() => {
+      const currentCountdown = currentGame.getCountdown();
+      currentGame.setCountdown(currentCountdown - 1);
+
+      if (currentCountdown === 1) {
+        clearInterval(interval);
+        currentGame.setStatus('IN_PROGRESS');
+      }
+
+      GameController.emitGameInfo(io, currentGame);
+    }, 1000);
   }
 
   private getInitialTileCount(): number {

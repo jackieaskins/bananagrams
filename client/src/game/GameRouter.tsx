@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { GameInfo } from '../games/types';
 import { addGameInfoListener, removeGameInfoListener } from '../socket';
 import WaitingRoom from './WaitingRoom';
-import { useIsGameInProgress, useUpdateGameState } from './stateHooks';
+import { useGameStatus, useUpdateGameState } from './stateHooks';
 
 type GameRouterProps = {
   initialGameInfo: GameInfo;
@@ -11,7 +11,8 @@ type GameRouterProps = {
 
 const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
   const updateGameState = useUpdateGameState();
-  const isGameInProgress = useIsGameInProgress();
+  const gameStatus = useGameStatus();
+  const isGameInProgress = gameStatus === 'IN_PROGRESS';
 
   useEffect(() => {
     updateGameState(initialGameInfo);

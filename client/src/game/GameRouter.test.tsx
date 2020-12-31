@@ -4,28 +4,28 @@ import { useEffect } from 'react';
 import { GameInfo } from '../games/types';
 import { addGameInfoListener, removeGameInfoListener } from '../socket';
 import GameRouter from './GameRouter';
-import { useIsGameInProgress } from './stateHooks';
+import { useGameStatus } from './stateHooks';
 
+const mockUseEffect = useEffect as jest.Mock;
 jest.mock('react', () => ({
   ...jest.requireActual<any>('react'),
   useEffect: jest.fn().mockImplementation((f) => f()),
 }));
 
+const mockAddGameInfoListener = addGameInfoListener as jest.Mock;
+const mockRemoveGameInfoListener = removeGameInfoListener as jest.Mock;
 jest.mock('../socket', () => ({
   addGameInfoListener: jest.fn(),
   removeGameInfoListener: jest.fn(),
 }));
 
+const mockUseGameStatus = useGameStatus as jest.Mock;
 const mockUpdateGameState = jest.fn();
 jest.mock('./stateHooks', () => ({
-  useIsGameInProgress: jest.fn(),
+  useGameStatus: jest.fn(),
   useUpdateGameState: () => mockUpdateGameState,
 }));
 
-const mockUseIsGameInProgress = useIsGameInProgress as jest.Mock;
-const mockAddGameInfoListener = addGameInfoListener as jest.Mock;
-const mockRemoveGameInfoListener = removeGameInfoListener as jest.Mock;
-const mockUseEffect = useEffect as jest.Mock;
 describe('<GameRouter />', () => {
   const initialGameInfo = ('initialGameInfo' as unknown) as GameInfo;
 
@@ -33,7 +33,7 @@ describe('<GameRouter />', () => {
     shallow(<GameRouter initialGameInfo={initialGameInfo} />);
 
   beforeEach(() => {
-    mockUseIsGameInProgress.mockReturnValue(false);
+    mockUseGameStatus.mockReturnValue('NOT_STARTED');
   });
 
   test('renders waiting room is game is not in progress', () => {
@@ -41,7 +41,7 @@ describe('<GameRouter />', () => {
   });
 
   test('renders properly if game is in progress', () => {
-    mockUseIsGameInProgress.mockReturnValue(true);
+    mockUseGameStatus.mockReturnValue('IN_PROGRESS');
 
     expect(renderComponent()).toMatchSnapshot();
   });

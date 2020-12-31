@@ -3,6 +3,7 @@ import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { GameLocationState } from '../games/types';
 import { leaveGame } from '../socket';
+import CountdownModal from './CountdownModal';
 import GameRouter from './GameRouter';
 
 const GameValidator = (): JSX.Element => {
@@ -25,7 +26,12 @@ const GameValidator = (): JSX.Element => {
   }, [gameId, gameInfo, pathname, replace]);
 
   if (gameInfo) {
-    return <GameRouter initialGameInfo={gameInfo} />;
+    return (
+      <>
+        <GameRouter initialGameInfo={gameInfo} />
+        <CountdownModal />
+      </>
+    );
   }
 
   return <Redirect to={`/game/${gameId}/join`} />;

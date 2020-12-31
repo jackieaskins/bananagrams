@@ -3,7 +3,8 @@ import { atom, selector } from 'recoil';
 import { playerFixture } from '../fixtures/player';
 import { GameState, initializeState } from './state';
 
-const mockGameInProgress = true;
+const mockGameStatus = 'STARTING';
+const mockGameCountdown = 3;
 const mockGameName = 'gameName';
 const mockGamePlayers = [
   playerFixture({ userId: '1' }),
@@ -25,22 +26,36 @@ describe('game state', () => {
   let state: GameState;
   beforeEach(() => {
     mockAtom
-      .mockReturnValueOnce(mockGameInProgress)
+      .mockReturnValueOnce(mockGameStatus)
+      .mockReturnValueOnce(mockGameCountdown)
       .mockReturnValueOnce(mockGameName)
       .mockReturnValueOnce(mockGamePlayers);
     mockSelector.mockReturnValueOnce(mockGamePlayers[0]);
     state = initializeState();
   });
 
-  describe('inProgressState', () => {
-    test('returns inProgressState', () => {
-      expect(state.inProgressState).toEqual(mockGameInProgress);
+  describe('statusState', () => {
+    test('returns statusState', () => {
+      expect(state.statusState).toEqual(mockGameStatus);
     });
 
     test('calls atom with correct props', () => {
       expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameInProgress',
-        default: false,
+        key: 'gameStatus',
+        default: 'NOT_STARTED',
+      });
+    });
+  });
+
+  describe('countdownState', () => {
+    test('returns countdownState', () => {
+      expect(state.countdownState).toEqual(mockGameCountdown);
+    });
+
+    test('calls atom with correct props', () => {
+      expect(mockAtom).toHaveBeenCalledWith({
+        key: 'gameCountdown',
+        default: 0,
       });
     });
   });

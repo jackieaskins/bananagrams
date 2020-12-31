@@ -3,9 +3,9 @@
 exports[`Game Model toJSON converts fields into JSON 1`] = `
 Object {
   "bunch": Array [],
+  "countdown": 0,
   "gameId": "id",
   "gameName": "name",
-  "isInProgress": false,
   "players": Array [
     Object {
       "board": Array [
@@ -503,5 +503,6 @@ Object {
     },
   ],
   "previousSnapshot": null,
+  "status": "NOT_STARTED",
 }
 `;

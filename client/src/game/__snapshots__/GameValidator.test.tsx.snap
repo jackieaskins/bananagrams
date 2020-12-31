@@ -7,7 +7,10 @@ exports[`<GameValidator /> when gameInfo is not present in location state redire
 `;
 
 exports[`<GameValidator /> when gameInfo is preset in location state renders GameRouter 1`] = `
-<GameRouter
-  initialGameInfo="gameInfo"
-/>
+<Fragment>
+  <GameRouter
+    initialGameInfo="gameInfo"
+  />
+  <CountdownModal />
+</Fragment>
 `;

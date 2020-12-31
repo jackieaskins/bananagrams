@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CountdownModal /> renders modal as not visible when game is not starting 1`] = `
+<Modal
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okType="primary"
+  title="Game starting"
+  transitionName="zoom"
+  visible={false}
+  width={520}
+>
+  Everyone is ready, the game will start in 
+   seconds
+</Modal>
+`;
+
+exports[`<CountdownModal /> renders modal as visible when game is starting 1`] = `
+<Modal
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okType="primary"
+  title="Game starting"
+  transitionName="zoom"
+  visible={true}
+  width={520}
+>
+  Everyone is ready, the game will start in 
+   seconds
+</Modal>
+`;

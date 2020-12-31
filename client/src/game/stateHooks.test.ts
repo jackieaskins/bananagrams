@@ -2,7 +2,8 @@ import { useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { playerFixture } from '../fixtures/player';
 import {
-  useIsGameInProgress,
+  useGameStatus,
+  useGameCountdown,
   useGameName,
   useGamePlayers,
   useCurrentPlayer,
@@ -20,7 +21,8 @@ jest.mock('recoil', () => ({
 
 jest.mock('./state', () => ({
   initializeState: jest.fn().mockReturnValue({
-    inProgressState: 'inProgressState',
+    statusState: 'statusState',
+    countdownState: 'countdownState',
     nameState: 'nameState',
     playersState: 'playersState',
     currentPlayerState: 'currentPlayerState',
@@ -28,9 +30,14 @@ jest.mock('./state', () => ({
 }));
 
 describe('state hooks', () => {
-  test('useIsGameInProgress returns recoil value', () => {
-    expect(useIsGameInProgress()).toEqual(mockReturnValue);
-    expect(mockUseRecoilValue).toHaveBeenCalledWith('inProgressState');
+  test('useGameStatus returns recoil value', () => {
+    expect(useGameStatus()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('statusState');
+  });
+
+  test('useGameCountdown returns recoil value', () => {
+    expect(useGameCountdown()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('countdownState');
   });
 
   test('useGameName returns recoil value', () => {
@@ -51,7 +58,8 @@ describe('state hooks', () => {
   test('useUpdateGameState updates game state through recoil callback', () => {
     const gameInfo = {
       gameName: 'gameName',
-      isInProgress: false,
+      status: 'IN_PROGRESS',
+      countdown: 3,
       players: [playerFixture()],
     };
 
@@ -63,10 +71,8 @@ describe('state hooks', () => {
       expect.any(Function),
       []
     );
-    expect(mockSet).toHaveBeenCalledWith(
-      'inProgressState',
-      gameInfo.isInProgress
-    );
+    expect(mockSet).toHaveBeenCalledWith('statusState', gameInfo.status);
+    expect(mockSet).toHaveBeenCalledWith('countdownState', gameInfo.countdown);
     expect(mockSet).toHaveBeenCalledWith('nameState', gameInfo.gameName);
     expect(mockSet).toHaveBeenCalledWith('playersState', gameInfo.players);
   });

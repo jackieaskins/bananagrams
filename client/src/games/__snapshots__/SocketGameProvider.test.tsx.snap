@@ -6,11 +6,12 @@ exports[`<SocketGameProvider /> renders properly 1`] = `
     Object {
       "gameInfo": Object {
         "bunch": Array [],
+        "countdown": 0,
         "gameId": "gameId",
         "gameName": "",
-        "isInProgress": false,
         "players": Array [],
         "previousSnapshot": null,
+        "status": "NOT_STARTED",
       },
       "handleDump": [Function],
       "handleMoveAllTilesFromBoardToHand": [Function],

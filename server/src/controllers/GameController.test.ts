@@ -3,6 +3,7 @@ import Player from '../models/Player';
 import Tile from '../models/Tile';
 import GameController from './GameController';
 
+jest.useFakeTimers();
 jest.mock('../boardValidation');
 
 describe('GameController', () => {
@@ -127,7 +128,7 @@ describe('GameController', () => {
     });
 
     test('throws an error if game is in progress', () => {
-      game.setInProgress(true);
+      game.setStatus('IN_PROGRESS');
 
       expect(() => joinGame()).toThrowErrorMatchingSnapshot();
     });
@@ -196,7 +197,7 @@ describe('GameController', () => {
       const boardTile = new Tile('C1', 'C');
       player.getHand().addTiles(handTiles);
       player.getBoard().addTile({ x: 0, y: 0 }, boardTile);
-      game.setInProgress(true);
+      game.setStatus('IN_PROGRESS');
 
       gameController.leaveGame();
 
@@ -310,7 +311,7 @@ describe('GameController', () => {
       otherPlayer.setReady(true);
       otherPlayer.setTopBanana(true);
       game.addPlayer(otherPlayer);
-      game.setInProgress(true);
+      game.setStatus('IN_PROGRESS');
 
       jest.clearAllMocks();
     });
@@ -338,7 +339,7 @@ describe('GameController', () => {
       });
 
       test('ends game', () => {
-        expect(game.isInProgress()).toEqual(false);
+        expect(game.getStatus()).toEqual('NOT_STARTED');
       });
 
       test('sets each player to not ready', () => {
@@ -562,7 +563,7 @@ describe('GameController', () => {
 
   describe('shuffleHand', () => {
     beforeEach(() => {
-      game.setInProgress(false);
+      game.setStatus('NOT_STARTED');
       jest.spyOn(player.getHand(), 'shuffle');
 
       gameController.shuffleHand();
@@ -579,7 +580,7 @@ describe('GameController', () => {
 
   describe('split', () => {
     beforeEach(() => {
-      game.setInProgress(false);
+      game.setStatus('NOT_STARTED');
       jest.spyOn(game, 'reset');
 
       gameController.split();
@@ -609,8 +610,32 @@ describe('GameController', () => {
       );
     });
 
-    test('sets game in progress', () => {
-      expect(game.isInProgress()).toEqual(true);
+    test('sets game to starting', () => {
+      expect(game.getStatus()).toEqual('STARTING');
+    });
+
+    test('remove the interval once countdown reaches 0', () => {
+      jest.runAllTimers();
+
+      expect(game.getCountdown()).toEqual(0);
+    });
+
+    test('updates current countdown every second', () => {
+      ioEmit.mockClear();
+      jest.runOnlyPendingTimers();
+      expect(game.getCountdown()).toEqual(2);
+      assertEmitsGameInfo(ioEmit);
+
+      ioEmit.mockClear();
+      jest.runOnlyPendingTimers();
+      expect(game.getCountdown()).toEqual(1);
+      assertEmitsGameInfo(ioEmit);
+
+      ioEmit.mockClear();
+      jest.runOnlyPendingTimers();
+      expect(game.getCountdown()).toEqual(0);
+      expect(game.getStatus()).toEqual('IN_PROGRESS');
+      assertEmitsGameInfo(ioEmit);
     });
 
     test('emits game info', () => {

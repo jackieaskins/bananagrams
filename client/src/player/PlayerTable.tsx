@@ -67,6 +67,7 @@ const PlayerTable = (): JSX.Element => {
         </div>
       )}
       pagination={false}
+      rowKey="userId"
       size="middle"
     />
   );

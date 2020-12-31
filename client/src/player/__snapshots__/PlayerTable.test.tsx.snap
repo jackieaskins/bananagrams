@@ -145,7 +145,7 @@ exports[`<PlayerTable /> renders table 1`] = `
   }
   footer={[Function]}
   pagination={false}
-  rowKey="key"
+  rowKey="userId"
   size="middle"
 />
 `;

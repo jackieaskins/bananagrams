@@ -10,7 +10,8 @@ type GameProviderProps = {
 export const getEmptyGameInfo = (gameId: string): GameInfo => ({
   gameId,
   gameName: '',
-  isInProgress: false,
+  status: 'NOT_STARTED',
+  countdown: 0,
   bunch: [],
   players: [],
   previousSnapshot: null,
