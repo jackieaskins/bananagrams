@@ -1,11 +1,14 @@
 import { shallow } from 'enzyme';
 
 import { playerFixture } from '../fixtures/player';
+import { useCurrentPlayer } from '../game/stateHooks';
 import PlayerTable from './PlayerTable';
 
+const mockUseCurrentPlayer = useCurrentPlayer as jest.Mock;
 const mockPlayer = playerFixture({ userId: '1' });
-const mockPlayers = [mockPlayer];
+const mockPlayers = [mockPlayer, playerFixture({ userId: '2' })];
 jest.mock('../game/stateHooks', () => ({
+  useCurrentPlayer: jest.fn(),
   useGamePlayers: () => mockPlayers,
 }));
 
@@ -29,7 +32,7 @@ describe('<PlayerTable />', () => {
     const getColumn = (columnIndex: number) =>
       renderComponent()
         .props()
-        .columns[0].children[columnIndex].render(null, mockPlayer);
+        .columns[0]?.children[columnIndex]?.render?.(null, mockPlayer);
 
     test('ready column', () => {
       expect(getColumn(READY_COLUMN)).toMatchSnapshot();
@@ -39,7 +42,15 @@ describe('<PlayerTable />', () => {
       expect(getColumn(NAME_COLUMN)).toMatchSnapshot();
     });
 
-    test('actions column', () => {
+    test('actions column does not render if not admin', () => {
+      mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: false }));
+
+      expect(getColumn(ACTIONS_COLUMN)).toMatchSnapshot();
+    });
+
+    test('actions column renders if admin and more than 1 player', () => {
+      mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: true }));
+
       expect(getColumn(ACTIONS_COLUMN)).toMatchSnapshot();
     });
   });

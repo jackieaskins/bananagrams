@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Form, { SubmitFormFn } from '../form/Form';
+import { useFocusRef } from '../form/inputRef';
 import { GameLocationState } from '../games/types';
 import { createGame } from '../socket';
 
@@ -20,6 +21,7 @@ type CreateGameFormProps = {
 const CreateGameForm = ({
   isShortenedGame = false,
 }: CreateGameFormProps): JSX.Element => {
+  const focusRef = useFocusRef();
   const { push } = useHistory();
 
   const handleSubmit: SubmitFormFn<FormValues> = useCallback(
@@ -42,7 +44,7 @@ const CreateGameForm = ({
   return (
     <Form labelCol={{ span: 5 }} onSubmit={handleSubmit}>
       <FormItem label="Game name" name="gameName" rules={[{ required: true }]}>
-        <Input />
+        <Input ref={focusRef} />
       </FormItem>
 
       <FormItem label="Username" name="username" rules={[{ required: true }]}>

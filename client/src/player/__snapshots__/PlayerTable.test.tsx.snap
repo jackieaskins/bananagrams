@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlayerTable /> column renders actions column 1`] = `
+exports[`<PlayerTable /> column renders actions column does not render if not admin 1`] = `undefined`;
+
+exports[`<PlayerTable /> column renders actions column renders if admin and more than 1 player 1`] = `
 <ActionsCell
   player={
     Object {
@@ -73,7 +75,7 @@ exports[`<PlayerTable /> renders footer with game info 1`] = `
     The game will start when all players are ready
     <br />
     Current player count: 
-    1
+    2
      / 
     8
   </Text>
@@ -82,6 +84,7 @@ exports[`<PlayerTable /> renders footer with game info 1`] = `
 
 exports[`<PlayerTable /> renders table 1`] = `
 <Table
+  bordered={true}
   columns={
     Array [
       Object {
@@ -103,11 +106,6 @@ exports[`<PlayerTable /> renders table 1`] = `
             "dataIndex": "gamesWon",
             "title": "Games won",
           },
-          Object {
-            "align": "center",
-            "key": "actions",
-            "render": [Function],
-          },
         ],
         "title": "Players",
       },
@@ -127,6 +125,20 @@ exports[`<PlayerTable /> renders table 1`] = `
         "isReady": false,
         "isTopBanana": false,
         "userId": "1",
+        "username": "username",
+      },
+      Object {
+        "board": Array [
+          Array [
+            null,
+          ],
+        ],
+        "gamesWon": 0,
+        "hand": Array [],
+        "isAdmin": false,
+        "isReady": false,
+        "isTopBanana": false,
+        "userId": "2",
         "username": "username",
       },
     ]

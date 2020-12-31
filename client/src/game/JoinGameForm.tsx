@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Form, { SubmitFormFn } from '../form/Form';
+import { useFocusRef } from '../form/inputRef';
 import { GameLocationState } from '../games/types';
 import { joinGame } from '../socket';
 
@@ -22,6 +23,7 @@ const JoinGameForm = ({
   gameId,
   showGameIdField = true,
 }: JoinGameFormProps): JSX.Element => {
+  const focusRef = useFocusRef();
   const { push } = useHistory();
 
   const handleSubmit: SubmitFormFn<FormValues> = useCallback(
@@ -53,7 +55,7 @@ const JoinGameForm = ({
         name="gameId"
         rules={[{ required: true }]}
       >
-        <Input />
+        <Input ref={focusRef} />
       </FormItem>
 
       <FormItem label="Username" name="username" rules={[{ required: true }]}>

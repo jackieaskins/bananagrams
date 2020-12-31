@@ -1,6 +1,8 @@
 import { Table, Typography } from 'antd';
+import { ColumnType } from 'antd/lib/table';
 
-import { useGamePlayers } from '../game/stateHooks';
+import { useCurrentPlayer, useGamePlayers } from '../game/stateHooks';
+import { Player } from '../players/types';
 import ActionsCell from './ActionsCell';
 import NameCell from './NameCell';
 import ReadyCell from './ReadyCell';
@@ -10,11 +12,21 @@ const MAX_PLAYERS = 8;
 
 const { Text } = Typography;
 
+const actionsColumn: ColumnType<Player> = {
+  align: COLUMN_ALIGN,
+  key: 'actions',
+  render: function ActionsRender(_: any, player: Player) {
+    return <ActionsCell player={player} />;
+  },
+};
+
 const PlayerTable = (): JSX.Element => {
   const players = useGamePlayers();
+  const isAdmin = !!useCurrentPlayer()?.isAdmin;
 
   return (
     <Table
+      bordered
       columns={[
         {
           title: 'Players',
@@ -40,13 +52,7 @@ const PlayerTable = (): JSX.Element => {
               dataIndex: 'gamesWon',
               title: 'Games won',
             },
-            {
-              align: COLUMN_ALIGN,
-              key: 'actions',
-              render: function ActionsRender(_, player) {
-                return <ActionsCell player={player} />;
-              },
-            },
+            ...(isAdmin && players.length > 1 ? [actionsColumn] : []),
           ],
         },
       ]}
