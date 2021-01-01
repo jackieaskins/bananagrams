@@ -20,13 +20,13 @@ describe('<StartGame />', () => {
 
   const renderComponent = () => shallow(<StartGame />);
 
-  test('does not render board when no snapshot', () => {
+  it('does not render board when no snapshot', () => {
     mockUseGame();
 
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders game boards when snapshot is present', () => {
+  it('renders game boards when snapshot is present', () => {
     mockUseGame({
       players: [playerFixture({ userId: '123', isTopBanana: true })],
       boards: { 123: [[null]] },

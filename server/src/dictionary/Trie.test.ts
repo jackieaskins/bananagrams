@@ -10,11 +10,11 @@ describe('Trie', () => {
     validWords.forEach((word) => trie.insert(word));
   });
 
-  test('search returns true for words in trie', () => {
+  it('search returns true for words in trie', () => {
     validWords.forEach((word) => expect(trie.search(word)).toEqual(true));
   });
 
-  test('search returns false for words not in trie', () => {
+  it('search returns false for words not in trie', () => {
     invalidWords.forEach((word) => expect(trie.search(word)).toEqual(false));
   });
 });

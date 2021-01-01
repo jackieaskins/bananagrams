@@ -35,14 +35,14 @@ jest.mock('../games/GameContext', () => ({
 describe('<Dump />', () => {
   const renderComponent = () => shallow(<Dump />);
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
   describe('useDrop', () => {
     const getUseDropCall = () => useDrop.mock.calls[0][0];
 
-    test('is called', () => {
+    it('is called', () => {
       renderComponent();
 
       expect(useDrop).toHaveBeenCalledWith({
@@ -54,12 +54,12 @@ describe('<Dump />', () => {
     });
 
     describe('canDrop', () => {
-      test('returns true if there are at least 3 tiles remaining', () => {
+      it('returns true if there are at least 3 tiles remaining', () => {
         renderComponent();
         expect(getUseDropCall().canDrop()).toEqual(true);
       });
 
-      test('returns false if there are less than 3 tiles remaining', () => {
+      it('returns false if there are less than 3 tiles remaining', () => {
         useGame.mockReturnValue({
           gameInfo: {
             bunch: [],
@@ -72,7 +72,7 @@ describe('<Dump />', () => {
       });
     });
 
-    test('drop calls handle dump with tile item', () => {
+    it('drop calls handle dump with tile item', () => {
       const mockHandleDump = jest.fn();
       useGame.mockReturnValue({
         gameInfo: { bunch: [] },
@@ -95,11 +95,11 @@ describe('<Dump />', () => {
         getUseDropCall().collect(monitor);
       });
 
-      test('isOver', () => {
+      it('isOver', () => {
         expect(monitor.isOver).toHaveBeenCalledWith({ shallow: true });
       });
 
-      test('canDrop', () => {
+      it('canDrop', () => {
         expect(monitor.canDrop).toHaveBeenCalledWith();
       });
     });
@@ -108,17 +108,17 @@ describe('<Dump />', () => {
   describe('className', () => {
     const getClassName = () => renderComponent().find(Box).props().className;
 
-    test('is empty when is not over', () => {
+    it('is empty when is not over', () => {
       expect(getClassName()).toEqual('');
     });
 
-    test('is validDrop when is over and can be dropped', () => {
+    it('is validDrop when is over and can be dropped', () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]);
 
       expect(getClassName()).toEqual('validDrop');
     });
 
-    test('is invalidDrop when is over but cannot be dropped', () => {
+    it('is invalidDrop when is over but cannot be dropped', () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]);
 
       expect(getClassName()).toEqual('invalidDrop');
@@ -126,11 +126,11 @@ describe('<Dump />', () => {
   });
 
   describe('drag text', () => {
-    test('renders when can drop', () => {
+    it('renders when can drop', () => {
       expect(renderComponent().find({ variant: 'caption' })).toMatchSnapshot();
     });
 
-    test('does not render when cannot drop', () => {
+    it('does not render when cannot drop', () => {
       useGame.mockReturnValue({
         gameInfo: { bunch: [] },
       });

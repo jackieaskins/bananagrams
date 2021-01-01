@@ -36,7 +36,7 @@ describe('<GameValidator />', () => {
       });
     });
 
-    test('redirects to join game route', () => {
+    it('redirects to join game route', () => {
       expect(renderComponent()).toMatchSnapshot();
     });
   });
@@ -51,17 +51,17 @@ describe('<GameValidator />', () => {
       });
     });
 
-    test('renders GameRouter', () => {
+    it('renders GameRouter', () => {
       expect(renderComponent()).toMatchSnapshot();
     });
 
-    test('replaces pathname on component mount', () => {
+    it('replaces pathname on component mount', () => {
       renderComponent();
 
       expect(mockReplace).toHaveBeenCalledWith('/game/gameId');
     });
 
-    test('leaves game on unmount', () => {
+    it('leaves game on unmount', () => {
       renderComponent();
       mockUseEffect.mock.results[0].value();
 

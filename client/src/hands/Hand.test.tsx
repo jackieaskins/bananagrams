@@ -41,11 +41,11 @@ describe('<Hand />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<Hand hand={hand} {...propOverrides} />);
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent({ hand: [] })).toMatchSnapshot();
   });
 
-  test('renders properly with player', () => {
+  it('renders properly with player', () => {
     useGame.mockReturnValue({
       gameInfo: { boards: { 123: [[null]] } },
       handleMoveTileFromBoardToHand: jest.fn(),
@@ -54,7 +54,7 @@ describe('<Hand />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('shuffle button emits shuffle hand event', () => {
+  it('shuffle button emits shuffle hand event', () => {
     renderComponent().find(Button).props().onClick();
 
     expect(mockEmit).toHaveBeenCalledWith('shuffleHand', {});
@@ -63,7 +63,7 @@ describe('<Hand />', () => {
   describe('useDrop', () => {
     const getUseDropCall = () => useDrop.mock.calls[0][0];
 
-    test('is called', () => {
+    it('is called', () => {
       renderComponent();
       expect(useDrop).toHaveBeenCalledWith({
         accept: 'TILE',
@@ -81,32 +81,32 @@ describe('<Hand />', () => {
         renderComponent();
       });
 
-      test('returns true if is over and tile is on board', () => {
+      it('returns true if is over and tile is on board', () => {
         expect(
           canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => true })
         ).toEqual(true);
       });
 
-      test('returns false if is over but not on board', () => {
+      it('returns false if is over but not on board', () => {
         expect(
           canDrop({ boardLocation: null }, { isOver: () => true })
         ).toEqual(false);
       });
 
-      test('returns false if is not over but is on board', () => {
+      it('returns false if is not over but is on board', () => {
         expect(
           canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => false })
         ).toEqual(false);
       });
 
-      test('returns false if is not over and is not on board', () => {
+      it('returns false if is not over and is not on board', () => {
         expect(
           canDrop({ boardLocation: null }, { isOver: () => false })
         ).toEqual(false);
       });
     });
 
-    test('drop', () => {
+    it('drop', () => {
       const mockHandleMoveTileFromBoardToHand = jest.fn();
       useGame.mockReturnValue({
         gameInfo: { boards: {} },
@@ -123,7 +123,7 @@ describe('<Hand />', () => {
       );
     });
 
-    test('collect', () => {
+    it('collect', () => {
       renderComponent();
 
       expect(
@@ -136,14 +136,14 @@ describe('<Hand />', () => {
   });
 
   describe('className', () => {
-    test('ha validDrop class name when is over and can drop', () => {
+    it('ha validDrop class name when is over and can drop', () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]),
         expect(renderComponent().find(Box).props().className).toEqual(
           'validDrop'
         );
     });
 
-    test('has no class name when is not over or cannot drop', () => {
+    it('has no class name when is not over or cannot drop', () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]),
         expect(renderComponent().find(Box).props().className).toEqual('');
     });

@@ -6,7 +6,7 @@ describe('<LoadingContainer />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<LoadingContainer {...propOverrides} />);
 
-  test('renders centered spinner', () => {
+  it('renders centered spinner', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 });

@@ -22,7 +22,7 @@ describe('<JoinGameForm />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<JoinGameForm gameId="gameId" {...propOverrides} />);
 
-  test('renders form with fields', () => {
+  it('renders form with fields', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
@@ -39,18 +39,18 @@ describe('<JoinGameForm />', () => {
       >).onSubmit(mockSetError)(values);
     });
 
-    test('emits join game event', () => {
+    it('emits join game event', () => {
       expect(mockJoinGame).toHaveBeenCalledWith(values, expect.any(Function));
     });
 
-    test('sets error on error', () => {
+    it('sets error on error', () => {
       const message = 'error';
       submitCallback({ message });
 
       expect(mockSetError).toHaveBeenCalledWith(message);
     });
 
-    test('redirects to game with state', () => {
+    it('redirects to game with state', () => {
       submitCallback(null);
 
       expect(mockPush).toHaveBeenCalledWith('/game/gameId', {

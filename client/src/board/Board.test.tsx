@@ -5,7 +5,7 @@ import Board from './Board';
 jest.mock('./constants');
 
 describe('<Board />', () => {
-  test('renders draggable board squares', () => {
+  it('renders draggable board squares', () => {
     expect(shallow(<Board />)).toMatchSnapshot();
   });
 });

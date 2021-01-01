@@ -10,13 +10,13 @@ describe('<Button />', () => {
       </Button>
     );
 
-  test('renders properly while loading', () => {
+  it('renders properly while loading', () => {
     expect(
       renderButton({ loadingText: 'Loading', loading: true })
     ).toMatchSnapshot();
   });
 
-  test('renders properly when disabled', () => {
+  it('renders properly when disabled', () => {
     expect(renderButton({ disabled: true })).toMatchSnapshot();
   });
 });

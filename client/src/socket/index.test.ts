@@ -25,15 +25,15 @@ jest.mock('socket.io-client', () => ({
 const mockCallback = jest.fn();
 const mockListener = jest.fn();
 describe('socket', () => {
-  test('returns result of io()', () => {
+  it('returns result of io()', () => {
     expect(socket).toMatchSnapshot();
   });
 
-  test('getUserId returns socket id', () => {
+  it('getUserId returns socket id', () => {
     expect(getUserId()).toEqual(socket.id);
   });
 
-  test('createGame calls emit', () => {
+  it('createGame calls emit', () => {
     const props = {
       gameName: 'gameName',
       username: 'username',
@@ -44,53 +44,53 @@ describe('socket', () => {
     expect(socket.emit).toHaveBeenCalledWith('createGame', props, mockCallback);
   });
 
-  test('joinGame calls emit', () => {
+  it('joinGame calls emit', () => {
     const props = { gameId: 'gameId', username: 'username' };
     joinGame(props, mockCallback);
 
     expect(socket.emit).toHaveBeenCalledWith('joinGame', props, mockCallback);
   });
 
-  test('setReady calls emit', () => {
+  it('setReady calls emit', () => {
     const props = { isReady: true };
     setReady(props);
 
     expect(socket.emit).toHaveBeenCalledWith('ready', props);
   });
 
-  test('kickPlayer calls emit', () => {
+  it('kickPlayer calls emit', () => {
     const props = { userId: 'userId' };
     kickPlayer(props);
 
     expect(socket.emit).toHaveBeenCalledWith('kickPlayer', props);
   });
 
-  test('leaveGame calls emit', () => {
+  it('leaveGame calls emit', () => {
     const props = { gameId: 'gameId' };
     leaveGame(props);
 
     expect(socket.emit).toHaveBeenCalledWith('leaveGame', props);
   });
 
-  test('disconnect calls disconnect', () => {
+  it('disconnect calls disconnect', () => {
     disconnect();
 
     expect(socket.disconnect).toHaveBeenCalledWith();
   });
 
-  test('addGameInfoListener listens on gameInfo', () => {
+  it('addGameInfoListener listens on gameInfo', () => {
     addGameInfoListener(mockListener);
 
     expect(socket.on).toHaveBeenCalledWith('gameInfo', mockListener);
   });
 
-  test('removeGameInfoListener removes listener on gameInfo', () => {
+  it('removeGameInfoListener removes listener on gameInfo', () => {
     removeGameInfoListener();
 
     expect(socket.off).toHaveBeenCalledWith('gameInfo');
   });
 
-  test('addDisconnectListener listens on disconnect', () => {
+  it('addDisconnectListener listens on disconnect', () => {
     addDisconnectListener(mockListener);
 
     expect(socket.on).toHaveBeenCalledWith('disconnect', mockListener);

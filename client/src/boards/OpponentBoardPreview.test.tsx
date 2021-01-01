@@ -44,11 +44,11 @@ describe('<OpponentBoardPreview />', () => {
     mockOpponentBoardPreviewState();
   });
 
-  test('does not render if no opponents', () => {
+  it('does not render if no opponents', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders current player if includeCurrentPlayer', () => {
+  it('renders current player if includeCurrentPlayer', () => {
     expect(
       renderComponent({
         includeCurrentPlayer: true,
@@ -57,13 +57,13 @@ describe('<OpponentBoardPreview />', () => {
     ).toMatchSnapshot();
   });
 
-  test('renders properly with one opponent', () => {
+  it('renders properly with one opponent', () => {
     expect(
       renderComponent({ players: [playerFixture({ userId: 'opponent' })] })
     ).toMatchSnapshot();
   });
 
-  test('renders properly with multiple opponents', () => {
+  it('renders properly with multiple opponents', () => {
     expect(
       renderComponent({
         players: [
@@ -74,7 +74,7 @@ describe('<OpponentBoardPreview />', () => {
     ).toMatchSnapshot();
   });
 
-  test('renders empty board and hand when selectedIndex is out of bounds', () => {
+  it('renders empty board and hand when selectedIndex is out of bounds', () => {
     mockOpponentBoardPreviewState(5);
 
     expect(

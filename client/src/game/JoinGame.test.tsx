@@ -8,7 +8,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('<JoinGame />', () => {
-  test('renders centered join game form', () => {
+  it('renders centered join game form', () => {
     expect(shallow(<JoinGame />)).toMatchSnapshot();
   });
 });

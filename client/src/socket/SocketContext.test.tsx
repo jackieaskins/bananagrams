@@ -26,11 +26,11 @@ describe('SocketContext', () => {
       component = shallow(<SocketProvider>children</SocketProvider>);
     });
 
-    test('renders provider properly', () => {
+    it('renders provider properly', () => {
       expect(component).toMatchSnapshot();
     });
 
-    test('disconnects from socket on dismount', () => {
+    it('disconnects from socket on dismount', () => {
       (useEffect as jest.Mock).mock.calls[0][0]()();
 
       expect(socket.disconnect).toHaveBeenCalledWith();
@@ -38,7 +38,7 @@ describe('SocketContext', () => {
   });
 
   describe('useSocket', () => {
-    test('calls useContext with SocketContext', () => {
+    it('calls useContext with SocketContext', () => {
       useSocket();
       expect(useContext).toHaveBeenCalledWith(SocketContext);
     });

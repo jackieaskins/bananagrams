@@ -16,11 +16,11 @@ describe('<PlayerTable />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<PlayerTable {...propOverrides} />);
 
-  test('renders table', () => {
+  it('renders table', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders footer with game info', () => {
+  it('renders footer with game info', () => {
     expect(renderComponent().props().footer()).toMatchSnapshot();
   });
 
@@ -34,21 +34,21 @@ describe('<PlayerTable />', () => {
         .props()
         .columns[0]?.children[columnIndex]?.render?.(null, mockPlayer);
 
-    test('ready column', () => {
+    it('ready column', () => {
       expect(getColumn(READY_COLUMN)).toMatchSnapshot();
     });
 
-    test('name column', () => {
+    it('name column', () => {
       expect(getColumn(NAME_COLUMN)).toMatchSnapshot();
     });
 
-    test('actions column does not render if not admin', () => {
+    it('actions column does not render if not admin', () => {
       mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: false }));
 
       expect(getColumn(ACTIONS_COLUMN)).toMatchSnapshot();
     });
 
-    test('actions column renders if admin and more than 1 player', () => {
+    it('actions column renders if admin and more than 1 player', () => {
       mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: true }));
 
       expect(getColumn(ACTIONS_COLUMN)).toMatchSnapshot();

@@ -4,7 +4,7 @@ import { boardSquareFixture } from '../fixtures/board';
 import PreviewBoard from './PreviewBoard';
 
 describe('<PreviewBoard />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(
       shallow(
         <PreviewBoard

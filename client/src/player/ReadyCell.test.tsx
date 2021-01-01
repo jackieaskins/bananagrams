@@ -25,11 +25,11 @@ describe('<ReadyCell />', () => {
       mockGetUserId.mockReturnValue(userId);
     });
 
-    test('renders checkbox if current user', () => {
+    it('renders checkbox if current user', () => {
       expect(renderComponent()).toMatchSnapshot();
     });
 
-    test('sets socket ready', () => {
+    it('sets socket ready', () => {
       const checked = true;
       renderComponent()
         .find(Checkbox)
@@ -39,13 +39,13 @@ describe('<ReadyCell />', () => {
     });
   });
 
-  test('renders green check if other player is ready', () => {
+  it('renders green check if other player is ready', () => {
     expect(
       renderComponent({ player: playerFixture({ isReady: true }) })
     ).toMatchSnapshot();
   });
 
-  test('renders red x if other player is not ready', () => {
+  it('renders red x if other player is not ready', () => {
     expect(
       renderComponent({ player: playerFixture({ isReady: false }) })
     ).toMatchSnapshot();

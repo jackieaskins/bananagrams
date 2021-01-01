@@ -37,7 +37,7 @@ describe('useWalkthroughDialog', () => {
     return state;
   };
 
-  test('has correct default values', () => {
+  it('has correct default values', () => {
     expect(getState()).toMatchSnapshot();
   });
 
@@ -46,27 +46,27 @@ describe('useWalkthroughDialog', () => {
       getState().handleClose();
     });
 
-    test('updates show walkthrough in local storage', () => {
+    it('updates show walkthrough in local storage', () => {
       expect(set).toHaveBeenCalledWith('showWalkthrough', false);
     });
 
-    test('hides dialog', () => {
+    it('hides dialog', () => {
       expect(mockSetShouldShowWalkthroughDialog).toHaveBeenCalledWith(false);
     });
   });
 
   describe('shouldShowWalkthroughDialog', () => {
-    test('shows dialog when key is not in local storage', () => {
+    it('shows dialog when key is not in local storage', () => {
       get.mockReturnValue(undefined);
       expect(getState().shouldShowWalkthroughDialog).toEqual(true);
     });
 
-    test('shows dialog when key is set to true', () => {
+    it('shows dialog when key is set to true', () => {
       get.mockReturnValue(true);
       expect(getState().shouldShowWalkthroughDialog).toEqual(true);
     });
 
-    test('does not show dialog when key is set to false', () => {
+    it('does not show dialog when key is set to false', () => {
       get.mockReturnValue(false);
       expect(getState().shouldShowWalkthroughDialog).toEqual(false);
     });

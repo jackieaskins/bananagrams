@@ -4,7 +4,7 @@ import { boardSquareFixture } from '../fixtures/board';
 import Board from './Board';
 
 describe('<Board />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     const board = [
       [boardSquareFixture(), null],
       [null, null],

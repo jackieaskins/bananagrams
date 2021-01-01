@@ -16,17 +16,17 @@ describe('<CopyToClipboard />', () => {
   const renderComponent = () =>
     shallow(<CopyToClipboard copyText="copyText" />);
 
-  test('renders properly when should show', () => {
+  it('renders properly when should show', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly when should not show', () => {
+  it('renders properly when should not show', () => {
     useCopyToClipboard.mockReturnValue({ shouldShow: false });
 
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('onClick calls copyToClipboard', () => {
+  it('onClick calls copyToClipboard', () => {
     const mockCopyToClipboard = jest.fn();
     useCopyToClipboard.mockReturnValue({
       shouldShow: true,

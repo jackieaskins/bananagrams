@@ -28,14 +28,14 @@ describe('window', () => {
   });
 
   describe('useWindowSize', () => {
-    test('initializes window size', () => {
+    it('initializes window size', () => {
       expect(useWindowSize()).toEqual({
         width: 1024,
         height: 768,
       });
     });
 
-    test('adds resize event listener on mount', () => {
+    it('adds resize event listener on mount', () => {
       useWindowSize();
 
       expect(mockAddEventListener).toHaveBeenCalledWith(
@@ -49,7 +49,7 @@ describe('window', () => {
       });
     });
 
-    test('removes resize event listener on dismount', () => {
+    it('removes resize event listener on dismount', () => {
       useWindowSize();
       (useEffect as jest.Mock).mock.results[0].value();
 

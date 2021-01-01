@@ -33,11 +33,11 @@ describe('<Game />', () => {
     });
   });
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly with more than one player', () => {
+  it('renders properly with more than one player', () => {
     useGame.mockReturnValue({
       gameInfo: {
         bunch: [],

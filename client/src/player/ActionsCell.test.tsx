@@ -28,18 +28,18 @@ describe('<ActionsCell />', () => {
       mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: true }));
     });
 
-    test('renders action button', () => {
+    it('renders action button', () => {
       expect(renderComponent()).toMatchSnapshot();
     });
 
-    test('kicks player on button click', () => {
+    it('kicks player on button click', () => {
       renderComponent().find(Button).simulate('click');
 
       expect(mockKickPlayer).toHaveBeenCalledWith({ userId });
     });
   });
 
-  test('does not render if current player is admin and cell player', () => {
+  it('does not render if current player is admin and cell player', () => {
     mockUseCurrentPlayer.mockReturnValue(
       playerFixture({ isAdmin: true, userId })
     );
@@ -47,13 +47,13 @@ describe('<ActionsCell />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('does not render if current player is not admin', () => {
+  it('does not render if current player is not admin', () => {
     mockUseCurrentPlayer.mockReturnValue(playerFixture({ isAdmin: false }));
 
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('does not render if no current player', () => {
+  it('does not render if no current player', () => {
     mockUseCurrentPlayer.mockReturnValue(null);
 
     expect(renderComponent()).toMatchSnapshot();

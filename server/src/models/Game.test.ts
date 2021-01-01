@@ -13,52 +13,52 @@ describe('Game Model', () => {
   });
 
   describe('getId', () => {
-    test('returns game id', () => {
+    it('returns game id', () => {
       expect(game.getId()).toEqual(id);
     });
   });
 
   describe('getName', () => {
-    test('returns game name', () => {
+    it('returns game name', () => {
       expect(game.getName()).toEqual(name);
     });
   });
 
   describe('set/getStatus', () => {
-    test('returns NOT_STARTED by default', () => {
+    it('returns NOT_STARTED by default', () => {
       expect(game.getStatus()).toEqual('NOT_STARTED');
     });
 
-    test('returns status', () => {
+    it('returns status', () => {
       game.setStatus('IN_PROGRESS');
       expect(game.getStatus()).toEqual('IN_PROGRESS');
     });
   });
 
   describe('set/getCountdown', () => {
-    test('returns 0 by default', () => {
+    it('returns 0 by default', () => {
       expect(game.getCountdown()).toEqual(0);
     });
 
-    test('returns countdown', () => {
+    it('returns countdown', () => {
       game.setCountdown(3);
       expect(game.getCountdown()).toEqual(3);
     });
   });
 
   describe('isShortenedGame', () => {
-    test('returns whether or not game is shortened', () => {
+    it('returns whether or not game is shortened', () => {
       game = new Game(id, name, true);
       expect(game.isShortenedGame()).toEqual(true);
     });
   });
 
   describe('set/getSnapshot', () => {
-    test('returns null by default', () => {
+    it('returns null by default', () => {
       expect(game.getSnapshot()).toBeNull();
     });
 
-    test('returns snapshot', () => {
+    it('returns snapshot', () => {
       const snapshot = {
         players: [],
         hands: {},
@@ -78,7 +78,7 @@ describe('Game Model', () => {
       game.reset();
     });
 
-    test('resets bunch', () => {
+    it('resets bunch', () => {
       jest.spyOn(game.getBunch(), 'reset');
 
       game.reset();
@@ -86,7 +86,7 @@ describe('Game Model', () => {
       expect(game.getBunch().reset).toHaveBeenCalledWith();
     });
 
-    test('resets each player', () => {
+    it('resets each player', () => {
       const player = game.getPlayers()[0];
       jest.spyOn(player, 'reset');
 
@@ -95,7 +95,7 @@ describe('Game Model', () => {
       expect(player.reset).toHaveBeenCalledWith();
     });
 
-    test('resets each hand', () => {
+    it('resets each hand', () => {
       const hand = Object.values(game.getHands())[0];
       jest.spyOn(hand, 'reset');
 
@@ -104,7 +104,7 @@ describe('Game Model', () => {
       expect(hand.reset).toHaveBeenCalledWith();
     });
 
-    test('resets each board', () => {
+    it('resets each board', () => {
       const board = Object.values(game.getBoards())[0];
       jest.spyOn(board, 'reset');
 
@@ -115,7 +115,7 @@ describe('Game Model', () => {
   });
 
   describe('toJSON', () => {
-    test('converts fields into JSON', () => {
+    it('converts fields into JSON', () => {
       game.addPlayer(new Player('p', 'p'));
       expect(game.toJSON()).toMatchSnapshot();
     });
@@ -129,15 +129,15 @@ describe('Game Model', () => {
       game.addPlayer(player);
     });
 
-    test('adds a player to the game', () => {
+    it('adds a player to the game', () => {
       expect(game.getPlayers()).toEqual([player]);
     });
 
-    test('adds a hand to the game', () => {
+    it('adds a hand to the game', () => {
       expect(game.getHands()).toHaveProperty(player.getUserId());
     });
 
-    test('adds a board to the game', () => {
+    it('adds a board to the game', () => {
       expect(game.getBoards()).toHaveProperty(player.getUserId());
     });
   });
@@ -148,15 +148,15 @@ describe('Game Model', () => {
       game.removePlayer('p');
     });
 
-    test('removes player from game', () => {
+    it('removes player from game', () => {
       expect(game.getPlayers()).toEqual([]);
     });
 
-    test('removes hand from game', () => {
+    it('removes hand from game', () => {
       expect(game.getHands()).toEqual({});
     });
 
-    test('removes board from game', () => {
+    it('removes board from game', () => {
       expect(game.getBoards()).toEqual({});
     });
   });

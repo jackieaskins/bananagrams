@@ -38,52 +38,52 @@ jest.mock('./state', () => ({
 }));
 
 describe('state hooks', () => {
-  test('useGameStatus returns recoil value', () => {
+  it('useGameStatus returns recoil value', () => {
     expect(useGameStatus()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('statusState');
   });
 
-  test('useGameCountdown returns recoil value', () => {
+  it('useGameCountdown returns recoil value', () => {
     expect(useGameCountdown()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('countdownState');
   });
 
-  test('useGameName returns recoil value', () => {
+  it('useGameName returns recoil value', () => {
     expect(useGameName()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('nameState');
   });
 
-  test('useGamePlayers returns recoil value', () => {
+  it('useGamePlayers returns recoil value', () => {
     expect(useGamePlayers()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('playersState');
   });
 
-  test('useCurrentPlayer returns recoil value', () => {
+  it('useCurrentPlayer returns recoil value', () => {
     expect(useCurrentPlayer()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentPlayerState');
   });
 
-  test('useGameHands returns recoil value', () => {
+  it('useGameHands returns recoil value', () => {
     expect(useGameHands()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('handsState');
   });
 
-  test('useCurrentHand returns recoil value', () => {
+  it('useCurrentHand returns recoil value', () => {
     expect(useCurrentHand()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentHandState');
   });
 
-  test('useGameBoards returns recoil value', () => {
+  it('useGameBoards returns recoil value', () => {
     expect(useGameBoards()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('boardsState');
   });
 
-  test('useCurrentBoard returns recoil value', () => {
+  it('useCurrentBoard returns recoil value', () => {
     expect(useCurrentBoard()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardState');
   });
 
-  test('useUpdateGameState updates game state through recoil callback', () => {
+  it('useUpdateGameState updates game state through recoil callback', () => {
     const userId = 'userId';
     const gameInfo = {
       gameName: 'gameName',

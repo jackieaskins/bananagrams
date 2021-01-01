@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import PreviewHand from './PreviewHand';
 
 describe('<PreviewHand />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     const hand = [
       { id: 'A1', letter: 'A' },
       { id: 'B1', letter: 'B' },

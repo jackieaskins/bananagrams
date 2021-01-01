@@ -11,17 +11,17 @@ jest.mock('react', () => ({
 }));
 
 describe('useGameSidebar', () => {
-  test('starts dialog as closed', () => {
+  it('starts dialog as closed', () => {
     expect(useGameSidebar().leaveGameDialogOpen).toEqual(false);
   });
 
-  test('opens dialog on showLeaveGameDialog', () => {
+  it('opens dialog on showLeaveGameDialog', () => {
     useGameSidebar().showLeaveGameDialog();
 
     expect(mockSetLeaveGameDialogOpen).toHaveBeenCalledWith(true);
   });
 
-  test('hides dialog on handleLeaveGameCancel', () => {
+  it('hides dialog on handleLeaveGameCancel', () => {
     useGameSidebar().handleLeaveGameCancel();
 
     expect(mockSetLeaveGameDialogOpen).toHaveBeenCalledWith(false);

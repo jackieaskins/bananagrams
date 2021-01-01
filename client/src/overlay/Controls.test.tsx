@@ -6,7 +6,7 @@ describe('<Controls />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<Controls {...propOverrides} />);
 
-  test('renders action buttons', () => {
+  it('renders action buttons', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 });

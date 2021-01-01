@@ -26,7 +26,7 @@ jest.mock('@material-ui/core/styles', () => ({
 
 describe('styles', () => {
   describe('useStyles', () => {
-    test('contains expected values', () => {
+    it('contains expected values', () => {
       expect(useStyles).toMatchSnapshot();
     });
   });

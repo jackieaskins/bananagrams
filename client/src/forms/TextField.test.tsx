@@ -8,11 +8,11 @@ describe('<TextField />', () => {
   const renderComponent = () =>
     shallow(<TextField setValue={mockSetValue} value="value" />);
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('onChange calls setValue', () => {
+  it('onChange calls setValue', () => {
     renderComponent()
       .props()
       .onChange({ target: { value: 'newValue' } });

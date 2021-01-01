@@ -25,11 +25,11 @@ describe('<Home />', () => {
     mockUseLocation.mockReturnValue({ search: '' });
   });
 
-  test('renders centered form tabs card', () => {
+  it('renders centered form tabs card', () => {
     expect(shallow(<Home />)).toMatchSnapshot();
   });
 
-  test('initializes activeTabKey if query param is present', () => {
+  it('initializes activeTabKey if query param is present', () => {
     mockUseLocation.mockReturnValue({ search: '?tabKey=joinGame' });
 
     expect(
@@ -39,7 +39,7 @@ describe('<Home />', () => {
     ).toEqual('joinGame');
   });
 
-  test('passes isShortenedGame to CreateGameForm', () => {
+  it('passes isShortenedGame to CreateGameForm', () => {
     mockUseLocation.mockReturnValue({ search: '?shortenedGame' });
 
     expect(
@@ -49,7 +49,7 @@ describe('<Home />', () => {
     ).toEqual(true);
   });
 
-  test('passes gameId to JoinGameForm', () => {
+  it('passes gameId to JoinGameForm', () => {
     mockUseLocation.mockReturnValue({ search: '?gameId=gameId' });
 
     expect(
@@ -69,11 +69,11 @@ describe('<Home />', () => {
         .onChange?.(newKey);
     });
 
-    test('sets active tab key', () => {
+    it('sets active tab key', () => {
       expect(mockSetActiveTabKey).toHaveBeenCalledWith(newKey);
     });
 
-    test('adds query param to url', () => {
+    it('adds query param to url', () => {
       expect(mockReplace).toHaveBeenCalledWith({ search: `tabKey=${newKey}` });
     });
   });

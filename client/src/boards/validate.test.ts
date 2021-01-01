@@ -3,7 +3,7 @@ import { Direction, ValidationStatus } from './types';
 import { isValidConnectedBoard } from './validate';
 
 describe('isValidConnectedBoard', () => {
-  test('returns false for empty board', () => {
+  it('returns false for empty board', () => {
     expect(
       isValidConnectedBoard([
         [null, null],
@@ -12,7 +12,7 @@ describe('isValidConnectedBoard', () => {
     ).toEqual(false);
   });
 
-  test('returns false if everything is valid but multiple islands', () => {
+  it('returns false if everything is valid but multiple islands', () => {
     const validWordInfo = {
       [Direction.ACROSS]: wordInfoFixture({
         validation: ValidationStatus.VALID,
@@ -28,7 +28,7 @@ describe('isValidConnectedBoard', () => {
     expect(isValidConnectedBoard(board)).toEqual(false);
   });
 
-  test('returns false if one island but invalid', () => {
+  it('returns false if one island but invalid', () => {
     const invalidWordInfo = {
       [Direction.ACROSS]: wordInfoFixture({
         validation: ValidationStatus.INVALID,
@@ -45,7 +45,7 @@ describe('isValidConnectedBoard', () => {
     expect(isValidConnectedBoard(board)).toEqual(false);
   });
 
-  test('returns true if nothing is invalid and board is one connected component', () => {
+  it('returns true if nothing is invalid and board is one connected component', () => {
     const getSquare = () =>
       boardSquareFixture({
         wordInfo: {

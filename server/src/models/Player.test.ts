@@ -13,23 +13,23 @@ describe('Player Model', () => {
   });
 
   describe('getUserId', () => {
-    test('returns user id', () => {
+    it('returns user id', () => {
       expect(player.getUserId()).toEqual(userId);
     });
   });
 
   describe('getUsername', () => {
-    test('returns user name', () => {
+    it('returns user name', () => {
       expect(player.getUsername()).toEqual(username);
     });
   });
 
   describe('set/isReady', () => {
-    test('returns false by default', () => {
+    it('returns false by default', () => {
       expect(player.isReady()).toEqual(false);
     });
 
-    test('sets ready', () => {
+    it('sets ready', () => {
       player.setReady(true);
 
       expect(player.isReady()).toEqual(true);
@@ -37,11 +37,11 @@ describe('Player Model', () => {
   });
 
   describe('set/isTopBanana', () => {
-    test('returns false by default', () => {
+    it('returns false by default', () => {
       expect(player.isTopBanana()).toEqual(false);
     });
 
-    test('sets isTopBanana', () => {
+    it('sets isTopBanana', () => {
       player.setTopBanana(true);
 
       expect(player.isTopBanana()).toEqual(true);
@@ -49,15 +49,15 @@ describe('Player Model', () => {
   });
 
   describe('set/isAdmin', () => {
-    test('returns false by default', () => {
+    it('returns false by default', () => {
       expect(player.isReady()).toEqual(false);
     });
 
-    test('returns true for admin user', () => {
+    it('returns true for admin user', () => {
       expect(new Player(userId, username, true).isAdmin()).toEqual(true);
     });
 
-    test('sets isAdmin', () => {
+    it('sets isAdmin', () => {
       player.setAdmin(true);
 
       expect(player.isAdmin()).toEqual(true);
@@ -65,11 +65,11 @@ describe('Player Model', () => {
   });
 
   describe('get/incrementGamesWon', () => {
-    test('returns 0 by default', () => {
+    it('returns 0 by default', () => {
       expect(player.getGamesWon()).toEqual(0);
     });
 
-    test('increments games won', () => {
+    it('increments games won', () => {
       player.incrementGamesWon();
 
       expect(player.getGamesWon()).toEqual(1);
@@ -77,12 +77,12 @@ describe('Player Model', () => {
   });
 
   describe('toJSON', () => {
-    test('converts fields into JSON', () => {
+    it('converts fields into JSON', () => {
       expect(player.toJSON()).toMatchSnapshot();
     });
   });
 
-  test('reset is implemented', () => {
+  it('reset is implemented', () => {
     expect(() => player.reset()).not.toThrow();
   });
 });

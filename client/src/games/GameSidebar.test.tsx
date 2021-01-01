@@ -17,7 +17,7 @@ jest.mock('./GameSidebarState', () => ({
 }));
 
 describe('<GameSidebar />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(shallow(<GameSidebar />)).toMatchSnapshot();
   });
 });

@@ -21,12 +21,12 @@ describe('<WalkthroughDialog />', () => {
   const renderComponent = (): ShallowWrapper<DialogProps> =>
     shallow(<WalkthroughDialog showWalkthrough={mockShowWalkthrough} />);
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
   describe("don't ask again checkbox", () => {
-    test('calls setAskAgain with negated checked on change', () => {
+    it('calls setAskAgain with negated checked on change', () => {
       shallow(renderComponent().find(FormControlLabel).props().control)
         .props()
         .onChange?.({ target: { checked: false } });
@@ -44,11 +44,11 @@ describe('<WalkthroughDialog />', () => {
         .onClick();
     });
 
-    test('shows the walkthrough', () => {
+    it('shows the walkthrough', () => {
       expect(mockShowWalkthrough).toHaveBeenCalledWith();
     });
 
-    test('closes the dialog', () => {
+    it('closes the dialog', () => {
       expect(mockHandleClose).toHaveBeenCalledWith();
     });
   });

@@ -24,12 +24,12 @@ jest.mock('../socket/SocketContext', () => ({
 }));
 
 describe('useServerDisconnectionDialog', () => {
-  test('listens for socket disconnect event', () => {
+  it('listens for socket disconnect event', () => {
     useServerDisconnectionDialog();
     expect(mockOn).toHaveBeenCalledWith('disconnect', expect.any(Function));
   });
 
-  test('on disconnect shows dialog', () => {
+  it('on disconnect shows dialog', () => {
     useServerDisconnectionDialog();
     mockOn.mock.calls[0][1]();
 
@@ -41,11 +41,11 @@ describe('useServerDisconnectionDialog', () => {
       useServerDisconnectionDialog().hideDialog();
     });
 
-    test('redirects to homepage', () => {
+    it('redirects to homepage', () => {
       expect(mockPush).toHaveBeenCalledWith('/');
     });
 
-    test('hides dialog', () => {
+    it('hides dialog', () => {
       expect(mockSetShouldShowDialog).toHaveBeenCalledWith(false);
     });
   });

@@ -11,14 +11,14 @@ jest.mock('react', () => ({
 
 describe('inputRef', () => {
   describe('useFocusRef', () => {
-    test('returns focus ref', () => {
+    it('returns focus ref', () => {
       const mockReturnValue = null;
       mockUseRef.mockReturnValue(mockReturnValue);
 
       expect(useFocusRef()).toEqual(mockReturnValue);
     });
 
-    test('calls focus if it exists', () => {
+    it('calls focus if it exists', () => {
       const mockFocus = jest.fn();
       mockUseRef.mockReturnValue({
         current: { focus: mockFocus },

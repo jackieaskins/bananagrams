@@ -20,7 +20,7 @@ describe('<Tile />', () => {
       />
     );
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
@@ -29,7 +29,7 @@ describe('<Tile />', () => {
       renderComponent();
     });
 
-    test('is called with correct params', () => {
+    it('is called with correct params', () => {
       expect(useDrag).toHaveBeenCalledWith({
         item: {
           type: 'TILE',
@@ -40,7 +40,7 @@ describe('<Tile />', () => {
       });
     });
 
-    test('collect retrieves isDragging from monitor', () => {
+    it('collect retrieves isDragging from monitor', () => {
       const monitor = {
         isDragging: jest.fn().mockReturnValue('isDragging'),
       };
@@ -52,11 +52,11 @@ describe('<Tile />', () => {
   });
 
   describe('margin', () => {
-    test('is set to 0 when on board', () => {
+    it('is set to 0 when on board', () => {
       expect(renderComponent().props().style.margin).toEqual('0');
     });
 
-    test('is set when not on board', () => {
+    it('is set when not on board', () => {
       expect(
         renderComponent({ boardLocation: null }).props().style.margin
       ).toEqual('5px');
@@ -64,22 +64,22 @@ describe('<Tile />', () => {
   });
 
   describe('opacity', () => {
-    test('is set to 1 when not dragging', () => {
+    it('is set to 1 when not dragging', () => {
       expect(renderComponent().props().style.opacity).toEqual(1);
     });
 
-    test('is dimmed while dragging', () => {
+    it('is dimmed while dragging', () => {
       useDrag.mockReturnValue([{ isDragging: true }, jest.fn()]);
       expect(renderComponent().props().style.opacity).toEqual(0.5);
     });
   });
 
   describe('color', () => {
-    test('is set to black by default', () => {
+    it('is set to black by default', () => {
       expect(renderComponent().props().style.color).toEqual('black');
     });
 
-    test('is set to passed in color', () => {
+    it('is set to passed in color', () => {
       const color = 'red';
       expect(renderComponent({ color }).props().style.color).toEqual(color);
     });

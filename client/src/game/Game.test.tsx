@@ -6,7 +6,7 @@ describe('<Game />', () => {
   const renderComponent = (propOverrides = {}) =>
     mount(<Game {...propOverrides} />);
 
-  test('renders board with overlay', () => {
+  it('renders board with overlay', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 });

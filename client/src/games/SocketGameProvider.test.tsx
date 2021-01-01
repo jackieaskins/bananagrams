@@ -51,7 +51,7 @@ describe('<SocketGameProvider />', () => {
       ]);
   });
 
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
@@ -61,7 +61,7 @@ describe('<SocketGameProvider />', () => {
 
     const getGameState = () => renderComponent().props().gameState;
 
-    test('handleDump', () => {
+    it('handleDump', () => {
       getGameState().handleDump({ boardLocation, id });
 
       expect(mockEmit).toHaveBeenCalledWith('dump', {
@@ -70,7 +70,7 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('handleMoveTileFromHandToBoard', () => {
+    it('handleMoveTileFromHandToBoard', () => {
       getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileFromHandToBoard', {
@@ -79,7 +79,7 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('handleMoveTileFromBoardToHand', () => {
+    it('handleMoveTileFromBoardToHand', () => {
       getGameState().handleMoveTileFromBoardToHand(boardLocation);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileFromBoardToHand', {
@@ -87,13 +87,13 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('handleMoveAllTilesFromBoardToHand', () => {
+    it('handleMoveAllTilesFromBoardToHand', () => {
       getGameState().handleMoveAllTilesFromBoardToHand();
 
       expect(mockEmit).toHaveBeenCalledWith('moveAllTilesFromBoardToHand', {});
     });
 
-    test('handleMoveTileOnBoard', () => {
+    it('handleMoveTileOnBoard', () => {
       getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileOnBoard', {
@@ -102,7 +102,7 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('handlePeel', () => {
+    it('handlePeel', () => {
       getGameState().handlePeel();
 
       expect(mockEmit).toHaveBeenCalledWith('peel', {});
@@ -126,12 +126,12 @@ describe('<SocketGameProvider />', () => {
         });
       });
 
-      test('removes router state', () => {
+      it('removes router state', () => {
         callComponentMount();
         expect(mockReplace).toHaveBeenCalledWith('/pathname');
       });
 
-      test('emits leave game event on dismount', () => {
+      it('emits leave game event on dismount', () => {
         callComponentMount()();
 
         expect(mockEmit).toHaveBeenCalledWith('leaveGame', {
@@ -140,7 +140,7 @@ describe('<SocketGameProvider />', () => {
       });
     });
 
-    test('if not in game does not do any dismount actions', () => {
+    it('if not in game does not do any dismount actions', () => {
       useLocation.mockReturnValue({ pathname: '/pathname' });
 
       expect(callComponentMount()).toBeUndefined();
@@ -153,13 +153,13 @@ describe('<SocketGameProvider />', () => {
       return useEffect.mock.calls[1][0]();
     };
 
-    test('listens on game info events', () => {
+    it('listens on game info events', () => {
       callComponentMount();
 
       expect(mockOn).toHaveBeenCalledWith('gameInfo', expect.any(Function));
     });
 
-    test('sets game info on change', () => {
+    it('sets game info on change', () => {
       const gameInfo = gameInfoFixture();
 
       callComponentMount();
@@ -168,7 +168,7 @@ describe('<SocketGameProvider />', () => {
       expect(mockSetGameInfo).toHaveBeenCalledWith(gameInfo);
     });
 
-    test('stops listening for game info on dismount', () => {
+    it('stops listening for game info on dismount', () => {
       callComponentMount()();
 
       expect(mockOff).toHaveBeenCalledWith('gameInfo');

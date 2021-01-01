@@ -11,7 +11,7 @@ describe('<BoardWrapper />', () => {
     (useWindowSize as jest.Mock).mockReturnValue(rv);
   };
 
-  test('renders part of board offscreen when board is larger than window', () => {
+  it('renders part of board offscreen when board is larger than window', () => {
     mockUseWindowSizeFn({
       width: 25,
       height: 25,
@@ -19,7 +19,7 @@ describe('<BoardWrapper />', () => {
     expect(shallow(<BoardWrapper />)).toMatchSnapshot();
   });
 
-  test('renders board onscreen when board is smaller than window', () => {
+  it('renders board onscreen when board is smaller than window', () => {
     mockUseWindowSizeFn({
       width: 75,
       height: 75,

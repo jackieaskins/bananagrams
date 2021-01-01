@@ -27,11 +27,11 @@ describe('<SocketDisconnectModal />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<SocketDisconnectModal {...propOverrides} />);
 
-  test('renders modal', () => {
+  it('renders modal', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('adds listener on socket disconnect', () => {
+  it('adds listener on socket disconnect', () => {
     renderComponent();
 
     expect(mockAddDisconnectListener).toHaveBeenCalled();
@@ -43,13 +43,13 @@ describe('<SocketDisconnectModal />', () => {
   describe('footer button', () => {
     const getButtonProps = () => renderComponent().props().footer.props;
 
-    test('redirects to homepage', () => {
+    it('redirects to homepage', () => {
       getButtonProps().onClick();
 
       expect(mockPush).toHaveBeenCalledWith('/');
     });
 
-    test('hides modal', () => {
+    it('hides modal', () => {
       getButtonProps().onClick();
 
       expect(mockSetShouldShowModal).toHaveBeenCalledWith(false);

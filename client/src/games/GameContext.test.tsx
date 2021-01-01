@@ -15,7 +15,7 @@ jest.mock('react', () => ({
 }));
 
 describe('GameContext', () => {
-  test('GameProvider renders properly', () => {
+  it('GameProvider renders properly', () => {
     expect(
       shallow(
         <GameProvider
@@ -43,18 +43,18 @@ describe('GameContext', () => {
     ).toMatchSnapshot();
   });
 
-  test('useGame calls useContext', () => {
+  it('useGame calls useContext', () => {
     useGame();
 
     expect(useContext).toHaveBeenCalledWith(GameContext);
   });
 
   describe('getEmptyGameState', () => {
-    test('generates default empty state', () => {
+    it('generates default empty state', () => {
       expect(getEmptyGameState('gameId')).toMatchSnapshot();
     });
 
-    test('handle methods are callable', () => {
+    it('handle methods are callable', () => {
       const type = 'type';
       const id = 'id';
       const boardLocation = { x: 0, y: 0 };

@@ -47,17 +47,17 @@ describe('<PlayerList />', () => {
     });
   });
 
-  test('renders admin user properly', () => {
+  it('renders admin user properly', () => {
     mockPlayer.isAdmin = true;
 
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly with 3 players', () => {
+  it('renders properly with 3 players', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly without gameInfo', () => {
+  it('renders properly without gameInfo', () => {
     useGame.mockReturnValue({});
 
     expect(renderComponent()).toMatchSnapshot();
@@ -70,14 +70,14 @@ describe('<PlayerList />', () => {
       checkbox = renderComponent().find(Checkbox);
     });
 
-    test('emits ready event on check', () => {
+    it('emits ready event on check', () => {
       checkbox.props().onChange({ target: { checked: true } });
 
       expect(mockEmit).toHaveBeenCalledWith('ready', { isReady: true });
     });
   });
 
-  test('kick player', () => {
+  it('kick player', () => {
     mockPlayer = playerFixture({ userId: '1', isAdmin: true });
 
     useSocket.mockReturnValue({

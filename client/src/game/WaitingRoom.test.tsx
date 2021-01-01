@@ -7,7 +7,7 @@ jest.mock('./stateHooks', () => ({
 }));
 
 describe('<WaitingRoom />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(shallow(<WaitingRoom />)).toMatchSnapshot();
   });
 });

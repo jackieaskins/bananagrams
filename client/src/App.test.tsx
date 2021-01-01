@@ -13,11 +13,11 @@ jest.mock('./socket', () => ({
 }));
 
 describe('<App />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(shallow(<App />)).toMatchSnapshot();
   });
 
-  test('calls disconnect on dismount', () => {
+  it('calls disconnect on dismount', () => {
     shallow(<App />);
 
     expect(disconnect).toHaveBeenCalledWith();

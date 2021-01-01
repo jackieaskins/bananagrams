@@ -12,7 +12,7 @@ describe('<Hand />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<Hand {...propOverrides} />);
 
-  test('renders tiles', () => {
+  it('renders tiles', () => {
     mockUseCurrentHand.mockReturnValue([
       { id: 'A1', letter: 'A' },
       { id: 'B1', letter: 'B' },
@@ -21,7 +21,7 @@ describe('<Hand />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders when no hand', () => {
+  it('renders when no hand', () => {
     mockUseCurrentHand.mockReturnValue(null);
 
     expect(renderComponent()).toMatchSnapshot();

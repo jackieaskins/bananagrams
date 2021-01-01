@@ -6,7 +6,7 @@ describe('<Tile />', () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(<Tile letter="A" {...propOverrides} />);
 
-  test('renders styled div', () => {
+  it('renders styled div', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 });

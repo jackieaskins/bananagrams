@@ -36,11 +36,11 @@ describe('<GameRouter />', () => {
     mockUseGameStatus.mockReturnValue('NOT_STARTED');
   });
 
-  test('renders waiting room is game is not in progress', () => {
+  it('renders waiting room is game is not in progress', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly if game is in progress', () => {
+  it('renders properly if game is in progress', () => {
     mockUseGameStatus.mockReturnValue('IN_PROGRESS');
 
     expect(renderComponent()).toMatchSnapshot();
@@ -51,11 +51,11 @@ describe('<GameRouter />', () => {
       renderComponent();
     });
 
-    test('updates game state with initial info', () => {
+    it('updates game state with initial info', () => {
       expect(mockUpdateGameState).toHaveBeenCalledWith(initialGameInfo);
     });
 
-    test('adds game info listener', () => {
+    it('adds game info listener', () => {
       const gameInfo = ('gameInfo' as unknown) as GameInfo;
       mockAddGameInfoListener.mock.calls[0][0](gameInfo);
 
@@ -63,7 +63,7 @@ describe('<GameRouter />', () => {
       expect(mockUpdateGameState).toHaveBeenCalledWith(gameInfo);
     });
 
-    test('removes game info listener on dismount', () => {
+    it('removes game info listener on dismount', () => {
       mockUseEffect.mock.results[0].value();
 
       expect(mockRemoveGameInfoListener).toHaveBeenCalledWith();

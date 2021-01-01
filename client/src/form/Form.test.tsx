@@ -26,19 +26,19 @@ describe('<Form />', () => {
       </Form>
     );
 
-  test('renders ant design form', () => {
+  it('renders ant design form', () => {
     expect(
       renderComponent({ initialValues: { initial: 'values' } })
     ).toMatchSnapshot();
   });
 
-  test('renders error if there is an error', () => {
+  it('renders error if there is an error', () => {
     mockUseState.mockReturnValue(['error', mockSetError]);
 
     expect(renderComponent().find(Alert)).toMatchSnapshot();
   });
 
-  test('calls handleSubmit and inner function on submit', () => {
+  it('calls handleSubmit and inner function on submit', () => {
     const values = { form: 'values' };
     (renderComponent().find(AntForm).props() as FormProps).onFinish?.(values);
 

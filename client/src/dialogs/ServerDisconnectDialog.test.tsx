@@ -10,7 +10,7 @@ jest.mock('./ServerDisconnectionDialogState', () => ({
 }));
 
 describe('<ServerDisconnectionDialog />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(shallow(<ServerDisconnectionDialog />)).toMatchSnapshot();
   });
 });

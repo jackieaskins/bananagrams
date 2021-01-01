@@ -32,7 +32,7 @@ describe('useCopyToClipboard', () => {
   });
 
   describe('shouldShow', () => {
-    test('calls navigator permissions query', () => {
+    it('calls navigator permissions query', () => {
       mockQuery.mockResolvedValue({ state: 'granted' });
 
       useCopyToClipboard();
@@ -42,7 +42,7 @@ describe('useCopyToClipboard', () => {
       });
     });
 
-    test('is true when navigator permissions query state is granted', async () => {
+    it('is true when navigator permissions query state is granted', async () => {
       mockQuery.mockResolvedValue({ state: 'granted' });
 
       useCopyToClipboard();
@@ -52,7 +52,7 @@ describe('useCopyToClipboard', () => {
       expect(mockSetShouldShow).toHaveBeenCalledWith(true);
     });
 
-    test('is true when navigator permissions query state is prompt', async () => {
+    it('is true when navigator permissions query state is prompt', async () => {
       mockQuery.mockResolvedValue({ state: 'prompt' });
 
       useCopyToClipboard();
@@ -62,7 +62,7 @@ describe('useCopyToClipboard', () => {
       expect(mockSetShouldShow).toHaveBeenCalledWith(true);
     });
 
-    test('is false when navigator permissions query state is not granted or prompt', async () => {
+    it('is false when navigator permissions query state is not granted or prompt', async () => {
       mockQuery.mockResolvedValue({ state: 'some-other-state' });
 
       useCopyToClipboard();
@@ -74,7 +74,7 @@ describe('useCopyToClipboard', () => {
   });
 
   describe('copyToClipboard', () => {
-    test('calls writeText', async () => {
+    it('calls writeText', async () => {
       mockWriteText.mockResolvedValue(null);
 
       await useCopyToClipboard().copyToClipboard('copyText');
@@ -82,7 +82,7 @@ describe('useCopyToClipboard', () => {
       expect(mockWriteText).toHaveBeenCalledWith('copyText');
     });
 
-    test('calls enqueueSnackbar on success', async () => {
+    it('calls enqueueSnackbar on success', async () => {
       mockWriteText.mockResolvedValue(null);
 
       await useCopyToClipboard().copyToClipboard('copyText');
@@ -92,7 +92,7 @@ describe('useCopyToClipboard', () => {
       );
     });
 
-    test('calls enqueueSnackbar on error', async () => {
+    it('calls enqueueSnackbar on error', async () => {
       mockWriteText.mockRejectedValue(null);
 
       await useCopyToClipboard().copyToClipboard('copyText');

@@ -9,7 +9,7 @@ jest.mock('../styles', () => ({
 }));
 
 describe('<TransparentPaper />', () => {
-  test('renders properly', () => {
+  it('renders properly', () => {
     expect(shallow(<TransparentPaper />)).toMatchSnapshot();
   });
 });
