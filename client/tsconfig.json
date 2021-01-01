@@ -4,7 +4,7 @@
     "baseUrl": "./src",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "module": "es6",
+    "module": "es2020",
     "outDir": "../dist/public",
     "rootDir": "./src"
   }

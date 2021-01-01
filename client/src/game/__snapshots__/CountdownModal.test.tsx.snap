@@ -2,6 +2,7 @@
 
 exports[`<CountdownModal /> renders modal as not visible when game is not starting 1`] = `
 <Modal
+  closable={false}
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"
@@ -18,6 +19,7 @@ exports[`<CountdownModal /> renders modal as not visible when game is not starti
 
 exports[`<CountdownModal /> renders modal as visible when game is starting 1`] = `
 <Modal
+  closable={false}
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"

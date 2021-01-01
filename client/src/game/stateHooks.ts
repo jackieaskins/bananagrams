@@ -45,6 +45,8 @@ export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
       set(countdownState, gameInfo.countdown);
       set(nameState, gameInfo.gameName);
       set(playersState, gameInfo.players);
+      set(handsState, gameInfo.hands);
+      set(boardsState, gameInfo.boards);
     },
     []
   );

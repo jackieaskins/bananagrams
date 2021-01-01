@@ -8,6 +8,7 @@ const CountdownModal = (): JSX.Element => {
 
   return (
     <Modal
+      closable={false}
       footer={null}
       title="Game starting"
       visible={gameStatus === 'STARTING'}

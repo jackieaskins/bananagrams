@@ -84,11 +84,14 @@ describe('state hooks', () => {
   });
 
   test('useUpdateGameState updates game state through recoil callback', () => {
+    const userId = 'userId';
     const gameInfo = {
       gameName: 'gameName',
       status: 'IN_PROGRESS',
       countdown: 3,
-      players: [playerFixture()],
+      players: [playerFixture({ userId })],
+      boards: { [userId]: [[null]] },
+      hands: { [userId]: [] },
     };
 
     useUpdateGameState();
@@ -103,5 +106,7 @@ describe('state hooks', () => {
     expect(mockSet).toHaveBeenCalledWith('countdownState', gameInfo.countdown);
     expect(mockSet).toHaveBeenCalledWith('nameState', gameInfo.gameName);
     expect(mockSet).toHaveBeenCalledWith('playersState', gameInfo.players);
+    expect(mockSet).toHaveBeenCalledWith('handsState', gameInfo.hands);
+    expect(mockSet).toHaveBeenCalledWith('boardsState', gameInfo.boards);
   });
 });

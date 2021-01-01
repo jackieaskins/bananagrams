@@ -1,1 +1,1 @@
-export const TILE_SIZE = 25;
+export const TILE_SIZE = 30;

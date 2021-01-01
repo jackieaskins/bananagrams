@@ -1,11 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<BoardSquare /> renders styled div 1`] = `
-.emotion-067ugy6-BoardSquare {
-  min-width: 30px;
+exports[`<Tile /> renders styled div 1`] = `
+.emotion-012pngpo-Tile {
   width: 30px;
   height: 30px;
-  border: 1px solid black;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,6 +25,8 @@ exports[`<BoardSquare /> renders styled div 1`] = `
 }
 
 <div
-  className="emotion-0"
-/>
+  className="no-drag emotion-0"
+>
+  A
+</div>
 `;

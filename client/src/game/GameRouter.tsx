@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { GameInfo } from '../games/types';
 import { addGameInfoListener, removeGameInfoListener } from '../socket';
+import Game from './Game';
 import WaitingRoom from './WaitingRoom';
 import { useGameStatus, useUpdateGameState } from './stateHooks';
 
@@ -27,7 +28,7 @@ const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
   }, [initialGameInfo, updateGameState]);
 
   if (isGameInProgress) {
-    return <div>Game is in progress</div>;
+    return <Game />;
   }
 
   return <WaitingRoom />;

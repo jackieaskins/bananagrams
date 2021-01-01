@@ -2,7 +2,7 @@ import { useWindowSize } from '../util/window';
 import Board from './Board';
 import { BOARD_HEIGHT, BOARD_WIDTH } from './constants';
 
-const BoardView = (): JSX.Element => {
+const BoardWrapper = (): JSX.Element => {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   return (
@@ -35,4 +35,4 @@ const BoardView = (): JSX.Element => {
   );
 };
 
-export default BoardView;
+export default BoardWrapper;
