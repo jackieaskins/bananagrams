@@ -202,7 +202,7 @@ describe('GameController', () => {
       const handTiles = [new Tile('A1', 'A'), new Tile('B1', 'B')];
       const boardTile = new Tile('C1', 'C');
       hand.addTiles(handTiles);
-      board.addTile({ x: 0, y: 0 }, boardTile);
+      board.addTile({ row: 0, col: 0 }, boardTile);
       game.setStatus('IN_PROGRESS');
 
       gameController.leaveGame();
@@ -396,7 +396,7 @@ describe('GameController', () => {
 
   describe('dump', () => {
     const handTile = new Tile('H1', 'H');
-    const boardLocation = { x: 0, y: 0 };
+    const boardPosition = { row: 0, col: 0 };
     const boardTile = new Tile('B1', 'B');
     const dumpTiles = [
       new Tile('D1', 'D'),
@@ -406,7 +406,7 @@ describe('GameController', () => {
 
     beforeEach(() => {
       hand.addTiles([handTile]);
-      board.addTile(boardLocation, boardTile);
+      board.addTile(boardPosition, boardTile);
 
       game.getBunch().addTiles(dumpTiles);
     });
@@ -421,11 +421,11 @@ describe('GameController', () => {
       beforeEach(() => {
         jest.spyOn(board, 'removeTile');
 
-        gameController.dump(boardTile.getId(), boardLocation);
+        gameController.dump(boardTile.getId(), boardPosition);
       });
 
-      it('removes tile from board location', () => {
-        expect(board.removeTile).toHaveBeenCalledWith(boardLocation);
+      it('removes tile from board position', () => {
+        expect(board.removeTile).toHaveBeenCalledWith(boardPosition);
       });
 
       it('adds tiles from bunch to player hand', () => {
@@ -448,7 +448,7 @@ describe('GameController', () => {
         gameController.dump(handTile.getId(), null);
       });
 
-      it('removes tile from board location', () => {
+      it('removes tile from board position', () => {
         expect(hand.removeTile).toHaveBeenCalledWith(handTile.getId());
       });
 
@@ -468,7 +468,7 @@ describe('GameController', () => {
 
   describe('moveTileFromHandToBoard', () => {
     const tile = new Tile('H1', 'H');
-    const boardLocation = { x: 0, y: 0 };
+    const boardPosition = { row: 0, col: 0 };
 
     beforeEach(() => {
       jest.spyOn(board, 'validateEmptySquare');
@@ -477,11 +477,11 @@ describe('GameController', () => {
 
       hand.addTiles([tile]);
 
-      gameController.moveTileFromHandToBoard(tile.getId(), boardLocation);
+      gameController.moveTileFromHandToBoard(tile.getId(), boardPosition);
     });
 
     it('validates that board square is empty', () => {
-      expect(board.validateEmptySquare).toHaveBeenCalledWith(boardLocation);
+      expect(board.validateEmptySquare).toHaveBeenCalledWith(boardPosition);
     });
 
     it('removes tile from hand', () => {
@@ -489,7 +489,7 @@ describe('GameController', () => {
     });
 
     it('adds removed tile to board', () => {
-      expect(board.addTile).toHaveBeenCalledWith(boardLocation, tile);
+      expect(board.addTile).toHaveBeenCalledWith(boardPosition, tile);
     });
 
     it('emits game info', () => {
@@ -499,19 +499,19 @@ describe('GameController', () => {
 
   describe('moveTileFromBoardToHand', () => {
     const tile = new Tile('B1', 'B');
-    const boardLocation = { x: 0, y: 0 };
+    const boardPosition = { row: 0, col: 0 };
 
     beforeEach(() => {
       jest.spyOn(board, 'removeTile');
       jest.spyOn(hand, 'addTiles');
 
-      board.addTile(boardLocation, tile);
+      board.addTile(boardPosition, tile);
 
-      gameController.moveTileFromBoardToHand(boardLocation);
+      gameController.moveTileFromBoardToHand(boardPosition);
     });
 
     it('removes tile from board', () => {
-      expect(board.removeTile).toHaveBeenCalledWith(boardLocation);
+      expect(board.removeTile).toHaveBeenCalledWith(boardPosition);
     });
 
     it('adds removed tile to hand', () => {
@@ -525,29 +525,29 @@ describe('GameController', () => {
 
   describe('moveTileOnBoard', () => {
     const tile = new Tile('B1', 'B');
-    const fromLocation = { x: 0, y: 0 };
-    const toLocation = { x: 1, y: 1 };
+    const fromPosition = { row: 0, col: 0 };
+    const toPosition = { row: 1, col: 1 };
 
     beforeEach(() => {
       jest.spyOn(board, 'validateEmptySquare');
       jest.spyOn(board, 'removeTile');
       jest.spyOn(board, 'addTile');
 
-      board.addTile(fromLocation, tile);
+      board.addTile(fromPosition, tile);
 
-      gameController.moveTileOnBoard(fromLocation, toLocation);
+      gameController.moveTileOnBoard(fromPosition, toPosition);
     });
 
-    it('validates to location is empty', () => {
-      expect(board.validateEmptySquare).toHaveBeenCalledWith(toLocation);
+    it('validates to position is empty', () => {
+      expect(board.validateEmptySquare).toHaveBeenCalledWith(toPosition);
     });
 
-    it('removes tile from from location', () => {
-      expect(board.removeTile).toHaveBeenCalledWith(fromLocation);
+    it('removes tile from from position', () => {
+      expect(board.removeTile).toHaveBeenCalledWith(fromPosition);
     });
 
-    it('adds removed tile to to location', () => {
-      expect(board.addTile).toHaveBeenCalledWith(toLocation, tile);
+    it('adds removed tile to to position', () => {
+      expect(board.addTile).toHaveBeenCalledWith(toPosition, tile);
     });
 
     it('emits game info', () => {
@@ -557,10 +557,10 @@ describe('GameController', () => {
 
   describe('moveAllTilesFromBoardToHand', () => {
     const tile = new Tile('B1', 'B');
-    const boardLocation = { x: 0, y: 0 };
+    const boardPosition = { row: 0, col: 0 };
 
     beforeEach(() => {
-      board.addTile(boardLocation, tile);
+      board.addTile(boardPosition, tile);
 
       jest.spyOn(hand, 'addTiles');
       jest.spyOn(board, 'clear');

@@ -28,10 +28,10 @@ const Hand = ({ hand }: HandProps): JSX.Element => {
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
-    canDrop: ({ boardLocation }: TileItem, monitor) =>
-      monitor.isOver() && !!boardLocation,
-    drop: ({ boardLocation }: TileItem) => {
-      handleMoveTileFromBoardToHand(boardLocation);
+    canDrop: ({ boardPosition }: TileItem, monitor) =>
+      monitor.isOver() && !!boardPosition,
+    drop: ({ boardPosition }: TileItem) => {
+      handleMoveTileFromBoardToHand(boardPosition);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -70,7 +70,7 @@ const Hand = ({ hand }: HandProps): JSX.Element => {
         className={isOver && canDrop ? classes.validDrop : ''}
       >
         {hand.map((tile) => (
-          <Tile key={tile.id} tile={tile} boardLocation={null} />
+          <Tile key={tile.id} tile={tile} boardPosition={null} />
         ))}
       </Box>
     </TransparentPaper>

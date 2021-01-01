@@ -1,13 +1,13 @@
 export const validateAddTile = jest
   .fn()
-  .mockImplementation((squares, { x, y }, tile) => {
-    squares[x][y] = { tile };
+  .mockImplementation((squares, { row, col }, tile) => {
+    squares[row][col] = { tile };
     return squares;
   });
 
 export const validateRemoveTile = jest
   .fn()
-  .mockImplementation((squares, { x, y }) => {
-    squares[x][y] = null;
+  .mockImplementation((squares, { row, col }) => {
+    squares[row][col] = null;
     return squares;
   });

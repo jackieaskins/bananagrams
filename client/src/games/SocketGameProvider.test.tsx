@@ -56,34 +56,34 @@ describe('<SocketGameProvider />', () => {
   });
 
   describe('handle methods', () => {
-    const boardLocation = { x: 0, y: 0 };
+    const boardPosition = { row: 0, col: 0 };
     const id = 'id';
 
     const getGameState = () => renderComponent().props().gameState;
 
     it('handleDump', () => {
-      getGameState().handleDump({ boardLocation, id });
+      getGameState().handleDump({ boardPosition, id });
 
       expect(mockEmit).toHaveBeenCalledWith('dump', {
-        boardLocation,
+        boardPosition,
         tileId: id,
       });
     });
 
     it('handleMoveTileFromHandToBoard', () => {
-      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
+      getGameState().handleMoveTileFromHandToBoard(id, boardPosition);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileFromHandToBoard', {
         tileId: id,
-        boardLocation,
+        boardPosition,
       });
     });
 
     it('handleMoveTileFromBoardToHand', () => {
-      getGameState().handleMoveTileFromBoardToHand(boardLocation);
+      getGameState().handleMoveTileFromBoardToHand(boardPosition);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileFromBoardToHand', {
-        boardLocation,
+        boardPosition,
       });
     });
 
@@ -94,11 +94,11 @@ describe('<SocketGameProvider />', () => {
     });
 
     it('handleMoveTileOnBoard', () => {
-      getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
+      getGameState().handleMoveTileOnBoard(boardPosition, boardPosition);
 
       expect(mockEmit).toHaveBeenCalledWith('moveTileOnBoard', {
-        fromLocation: boardLocation,
-        toLocation: boardLocation,
+        fromPosition: boardPosition,
+        toPosition: boardPosition,
       });
     });
 

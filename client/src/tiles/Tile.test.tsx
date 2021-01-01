@@ -7,14 +7,14 @@ jest.mock('react-dnd', () => ({
   useDrag: jest.fn().mockReturnValue([{ isDragging: false }, jest.fn()]),
 }));
 
-const DEFAULT_BOARD_LOCATION = { x: 0, y: 0 };
+const DEFAULT_BOARD_POSITION = { row: 0, col: 0 };
 const DEFAULT_ID = 'A1';
 
 describe('<Tile />', () => {
   const renderComponent = (propOverrides = {}): ShallowWrapper =>
     shallow(
       <Tile
-        boardLocation={DEFAULT_BOARD_LOCATION}
+        boardPosition={DEFAULT_BOARD_POSITION}
         tile={{ id: DEFAULT_ID, letter: 'A' }}
         {...propOverrides}
       />
@@ -34,7 +34,7 @@ describe('<Tile />', () => {
         item: {
           type: 'TILE',
           id: DEFAULT_ID,
-          boardLocation: DEFAULT_BOARD_LOCATION,
+          boardPosition: DEFAULT_BOARD_POSITION,
         },
         collect: expect.any(Function),
       });
@@ -58,7 +58,7 @@ describe('<Tile />', () => {
 
     it('is set when not on board', () => {
       expect(
-        renderComponent({ boardLocation: null }).props().style.margin
+        renderComponent({ boardPosition: null }).props().style.margin
       ).toEqual('5px');
     });
   });

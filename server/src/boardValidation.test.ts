@@ -2,7 +2,6 @@ import { validateAddTile, validateRemoveTile } from './boardValidation';
 import { Direction, ValidationStatus, WordInfo } from './models/Board';
 import Tile from './models/Tile';
 
-// I'm pretty sure I mixed up x & y so flip this:
 //     0 1 2 3 4
 //     ---------
 // 0 | x x 7 x x
@@ -43,33 +42,33 @@ describe('boardValidation', () => {
   };
   let board = [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
 
-  const addTile = (x: number, y: number): void => {
-    board = validateAddTile(board, { x, y }, tiles[`${x},${y}`]);
+  const addTile = (row: number, col: number): void => {
+    board = validateAddTile(board, { row, col }, tiles[`${row},${col}`]);
   };
-  const removeTile = (x: number, y: number): void => {
-    board = validateRemoveTile(board, { x, y });
+  const removeTile = (row: number, col: number): void => {
+    board = validateRemoveTile(board, { row, col });
   };
 
   const validateSquare = (
-    x: number,
-    y: number,
+    row: number,
+    col: number,
     acrossValidated = false,
     downValidated = false,
     acrossInfo?: WordInfo,
     downInfo?: WordInfo
   ): void => {
-    const { tile, wordInfo } = board[x][y];
+    const { tile, wordInfo } = board[row][col];
 
-    expect(tile).toEqual(tiles[`${x},${y}`]);
+    expect(tile).toEqual(tiles[`${row},${col}`]);
     expect(wordInfo[Direction.ACROSS]).toEqual(
       acrossValidated
         ? acrossInfo
-        : { start: { x, y }, validation: ValidationStatus.NOT_VALIDATED }
+        : { start: { row, col }, validation: ValidationStatus.NOT_VALIDATED }
     );
     expect(wordInfo[Direction.DOWN]).toEqual(
       downValidated
         ? downInfo
-        : { start: { x, y }, validation: ValidationStatus.NOT_VALIDATED }
+        : { start: { row, col }, validation: ValidationStatus.NOT_VALIDATED }
     );
   };
 
@@ -88,11 +87,11 @@ describe('boardValidation', () => {
 
     it('validates when connecting words in both directions', () => {
       const acrossInfo = {
-        start: { x: 2, y: 1 },
+        start: { row: 2, col: 1 },
         validation: ValidationStatus.INVALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -107,11 +106,11 @@ describe('boardValidation', () => {
 
     it('validates when adding to start of across word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -127,11 +126,11 @@ describe('boardValidation', () => {
 
     it('validates when adding to end of across word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -148,11 +147,11 @@ describe('boardValidation', () => {
 
     it('validates when adding to start of down word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 0, y: 2 },
+        start: { row: 0, col: 2 },
         validation: ValidationStatus.VALID,
       };
 
@@ -170,11 +169,11 @@ describe('boardValidation', () => {
 
     it('validates when adding to end of down word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 0, y: 2 },
+        start: { row: 0, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -191,13 +190,13 @@ describe('boardValidation', () => {
       validateSquare(4, 2, false, true, acrossInfo, downInfo);
     });
 
-    it('validates when adding at connected location', () => {
+    it('validates when adding at connected position', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 0, y: 2 },
+        start: { row: 0, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -208,12 +207,12 @@ describe('boardValidation', () => {
         2,
         true,
         true,
-        { start: { x: 1, y: 2 }, validation: ValidationStatus.VALID },
+        { start: { row: 1, col: 2 }, validation: ValidationStatus.VALID },
         downInfo
       );
       validateSquare(2, 1, true, false, acrossInfo, downInfo);
       validateSquare(2, 3, true, true, acrossInfo, {
-        start: { x: 1, y: 3 },
+        start: { row: 1, col: 3 },
         validation: ValidationStatus.INVALID,
       });
       validateSquare(3, 2, false, true, acrossInfo, downInfo);
@@ -227,9 +226,9 @@ describe('boardValidation', () => {
         3,
         true,
         true,
-        { start: { x: 1, y: 2 }, validation: ValidationStatus.VALID },
+        { start: { row: 1, col: 2 }, validation: ValidationStatus.VALID },
         {
-          start: { x: 1, y: 3 },
+          start: { row: 1, col: 3 },
           validation: ValidationStatus.INVALID,
         }
       );
@@ -237,13 +236,13 @@ describe('boardValidation', () => {
   });
 
   describe('validateRemoveTile', () => {
-    it('validates when removing from connected location', () => {
+    it('validates when removing from connected position', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 0, y: 2 },
+        start: { row: 0, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -263,11 +262,11 @@ describe('boardValidation', () => {
 
     it('validates when removing from end of down word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 0, y: 2 },
+        start: { row: 0, col: 2 },
         validation: ValidationStatus.VALID,
       };
 
@@ -286,11 +285,11 @@ describe('boardValidation', () => {
 
     it('validates when removing from start of down word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -308,11 +307,11 @@ describe('boardValidation', () => {
 
     it('validates when removing from end of across word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 0 },
+        start: { row: 2, col: 0 },
         validation: ValidationStatus.VALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 
@@ -329,11 +328,11 @@ describe('boardValidation', () => {
 
     it('validates when removing from start of across word', () => {
       const acrossInfo = {
-        start: { x: 2, y: 1 },
+        start: { row: 2, col: 1 },
         validation: ValidationStatus.INVALID,
       };
       const downInfo = {
-        start: { x: 1, y: 2 },
+        start: { row: 1, col: 2 },
         validation: ValidationStatus.INVALID,
       };
 

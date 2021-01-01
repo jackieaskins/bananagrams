@@ -1,45 +1,47 @@
-import { Board, BoardLocation, ValidationStatus, BoardSquare } from './types';
+import { Board, BoardPosition, ValidationStatus, BoardSquare } from './types';
 
 export const isValidConnectedBoard = (board: Board): boolean => {
   const width = board.length;
   const height = board[0].length;
 
-  const getSurroundingTiles = (x: number, y: number): BoardLocation[] =>
+  const getSurroundingTiles = (row: number, col: number): BoardPosition[] =>
     [
-      { x: x - 1, y },
-      { x: x + 1, y },
-      { x, y: y - 1 },
-      { x, y: y + 1 },
-    ].filter(({ x, y }) => x >= 0 && x < width && y >= 0 && y < height);
+      { row: row - 1, col },
+      { row: row + 1, col },
+      { row, col: col - 1 },
+      { row, col: col + 1 },
+    ].filter(
+      ({ row, col }) => row >= 0 && row < width && col >= 0 && col < height
+    );
 
-  const stack: BoardLocation[] = [];
+  const stack: BoardPosition[] = [];
   let connectedComponents = 0;
   const visited = [...Array(width)].map(() => Array(height).fill(false));
 
-  const shouldCheckTile = (x: number, y: number): boolean =>
-    board[x][y] != null && !visited[x][y];
+  const shouldCheckTile = (row: number, col: number): boolean =>
+    board[row][col] != null && !visited[row][col];
 
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      if (shouldCheckTile(x, y)) {
+  for (let row = 0; row < width; row++) {
+    for (let col = 0; col < height; col++) {
+      if (shouldCheckTile(row, col)) {
         if (connectedComponents > 0) return false;
         connectedComponents++;
 
-        stack.push({ x, y });
+        stack.push({ row, col });
         while (stack.length > 0) {
-          const { x, y } = stack.pop() as BoardLocation;
-          visited[x][y] = true;
+          const { row, col } = stack.pop() as BoardPosition;
+          visited[row][col] = true;
 
           if (
-            Object.values((board[x][y] as BoardSquare).wordInfo).some(
+            Object.values((board[row][col] as BoardSquare).wordInfo).some(
               ({ validation }) => validation === ValidationStatus.INVALID
             )
           ) {
             return false;
           }
 
-          getSurroundingTiles(x, y).forEach(({ x, y }) => {
-            if (shouldCheckTile(x, y)) stack.push({ x, y });
+          getSurroundingTiles(row, col).forEach(({ row, col }) => {
+            if (shouldCheckTile(row, col)) stack.push({ row, col });
           });
         }
       }

@@ -1,4 +1,4 @@
-import { Board, BoardLocation } from '../boards/types';
+import { Board, BoardPosition } from '../boards/types';
 import { Hand } from '../hands/types';
 import { Player } from '../players/types';
 import { Tile, TileItem } from '../tiles/types';
@@ -26,13 +26,13 @@ export type GameState = {
   handleDump: (tileItem: TileItem) => void;
   handleMoveTileFromHandToBoard: (
     tileId: string,
-    boardLocation: BoardLocation
+    boardPosition: BoardPosition
   ) => void;
-  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation | null) => void;
+  handleMoveTileFromBoardToHand: (boardPosition: BoardPosition | null) => void;
   handleMoveAllTilesFromBoardToHand: () => void;
   handleMoveTileOnBoard: (
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation
+    fromPosition: BoardPosition,
+    toPosition: BoardPosition
   ) => void;
   handlePeel: () => void;
   isInGame: boolean;

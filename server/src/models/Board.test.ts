@@ -37,7 +37,7 @@ describe('Board Model', () => {
 
     it('returns tiles on board', () => {
       const tile = new Tile('A1', 'A');
-      board.addTile({ x: 0, y: 0 }, tile);
+      board.addTile({ row: 0, col: 0 }, tile);
 
       expect(board.getAllTiles()).toEqual([tile]);
     });
@@ -45,7 +45,7 @@ describe('Board Model', () => {
 
   describe('reset', () => {
     it('removes all tiles from board', () => {
-      board.addTile({ x: 0, y: 0 }, new Tile('A1', 'A'));
+      board.addTile({ row: 0, col: 0 }, new Tile('A1', 'A'));
       board.reset();
 
       expect(board.getAllTiles()).toEqual([]);
@@ -56,7 +56,7 @@ describe('Board Model', () => {
     const tile = new Tile('A1', 'A');
 
     beforeEach(() => {
-      board.addTile({ x: 0, y: 0 }, tile);
+      board.addTile({ row: 0, col: 0 }, tile);
     });
 
     it('removes all tiles form board', () => {
@@ -71,73 +71,75 @@ describe('Board Model', () => {
   });
 
   describe('validateEmptySquare', () => {
-    const location = { x: 0, y: 0 };
+    const position = { row: 0, col: 0 };
 
-    it('does not throw an error when location is empty', () => {
-      expect(() => board.validateEmptySquare(location)).not.toThrow();
+    it('does not throw an error when position is empty', () => {
+      expect(() => board.validateEmptySquare(position)).not.toThrow();
     });
 
-    it('throws an error when location is not empty', () => {
-      board.addTile(location, new Tile('A1', 'A'));
+    it('throws an error when position is not empty', () => {
+      board.addTile(position, new Tile('A1', 'A'));
 
       expect(() =>
-        board.validateEmptySquare(location)
+        board.validateEmptySquare(position)
       ).toThrowErrorMatchingSnapshot();
     });
   });
 
   describe('toJSON', () => {
     it('turns fields into JSON', () => {
-      board.addTile({ x: 0, y: 0 }, new Tile('A1', 'A'));
+      board.addTile({ row: 0, col: 0 }, new Tile('A1', 'A'));
 
       expect(board.toJSON()).toMatchSnapshot();
     });
   });
 
   describe('removeTile', () => {
-    const location = { x: 0, y: 0 };
+    const position = { row: 0, col: 0 };
     const tile = new Tile('A1', 'A');
 
-    it('throws an error if there is no tile at location', () => {
-      expect(() => board.removeTile(location)).toThrowErrorMatchingSnapshot();
+    it('throws an error if there is no tile at position', () => {
+      expect(() => board.removeTile(position)).toThrowErrorMatchingSnapshot();
     });
 
     it('updates squares to validated board after removing tile', () => {
-      board.addTile(location, tile);
-      board.removeTile(location);
+      board.addTile(position, tile);
+      board.removeTile(position);
 
       const squares = board.getSquares();
 
-      expect(validateRemoveTile).toHaveBeenCalledWith(squares, location);
-      expect(board.getSquares()[location.x][location.y]).toBeNull();
+      expect(validateRemoveTile).toHaveBeenCalledWith(squares, position);
+      expect(board.getSquares()[position.row][position.col]).toBeNull();
     });
 
     it('returns removed tile', () => {
-      board.addTile(location, tile);
+      board.addTile(position, tile);
 
-      expect(board.removeTile(location)).toEqual(tile);
+      expect(board.removeTile(position)).toEqual(tile);
     });
   });
 
   describe('addTile', () => {
-    const location = { x: 0, y: 0 };
+    const position = { row: 0, col: 0 };
     const tile = new Tile('A1', 'A');
 
     it('throws error if square is not empty', () => {
-      board.addTile(location, tile);
+      board.addTile(position, tile);
 
       expect(() =>
-        board.addTile(location, tile)
+        board.addTile(position, tile)
       ).toThrowErrorMatchingSnapshot();
     });
 
     it('updates squares to validated board after adding tile', () => {
-      board.addTile(location, tile);
+      board.addTile(position, tile);
 
       const squares = board.getSquares();
 
-      expect(validateAddTile).toHaveBeenCalledWith(squares, location, tile);
-      expect(board.getSquares()[location.x][location.y]?.tile).toEqual(tile);
+      expect(validateAddTile).toHaveBeenCalledWith(squares, position, tile);
+      expect(board.getSquares()[position.row][position.col]?.tile).toEqual(
+        tile
+      );
     });
   });
 });

@@ -1,7 +1,7 @@
 import { Server } from 'socket.io';
 
 import GameController from './controllers/GameController';
-import { BoardLocation } from './models/Board';
+import { BoardPosition } from './models/Board';
 
 type Callback = (
   error: { message: string } | null,
@@ -115,13 +115,13 @@ export const configureSocket = (io: Server): void => {
       (
         {
           tileId,
-          boardLocation,
-        }: { tileId: string; boardLocation: BoardLocation | null },
+          boardPosition,
+        }: { tileId: string; boardPosition: BoardPosition | null },
         callback?: Callback
       ) => {
         handler(() => {
           validateGameControllerExists();
-          (gameController as GameController).dump(tileId, boardLocation);
+          (gameController as GameController).dump(tileId, boardPosition);
         }, callback);
       }
     );
@@ -131,15 +131,15 @@ export const configureSocket = (io: Server): void => {
       (
         {
           tileId,
-          boardLocation,
-        }: { tileId: string; boardLocation: BoardLocation },
+          boardPosition,
+        }: { tileId: string; boardPosition: BoardPosition },
         callback?: Callback
       ) => {
         handler(() => {
           validateGameControllerExists();
           (gameController as GameController).moveTileFromHandToBoard(
             tileId,
-            boardLocation
+            boardPosition
           );
         }, callback);
       }
@@ -148,13 +148,13 @@ export const configureSocket = (io: Server): void => {
     socket.on(
       'moveTileFromBoardToHand',
       (
-        { boardLocation }: { boardLocation: BoardLocation },
+        { boardPosition }: { boardPosition: BoardPosition },
         callback?: Callback
       ) => {
         handler(() => {
           validateGameControllerExists();
           (gameController as GameController).moveTileFromBoardToHand(
-            boardLocation
+            boardPosition
           );
         }, callback);
       }
@@ -171,16 +171,16 @@ export const configureSocket = (io: Server): void => {
       'moveTileOnBoard',
       (
         {
-          fromLocation,
-          toLocation,
-        }: { fromLocation: BoardLocation; toLocation: BoardLocation },
+          fromPosition,
+          toPosition,
+        }: { fromPosition: BoardPosition; toPosition: BoardPosition },
         callback?: Callback
       ) => {
         handler(() => {
           validateGameControllerExists();
           (gameController as GameController).moveTileOnBoard(
-            fromLocation,
-            toLocation
+            fromPosition,
+            toPosition
           );
         }, callback);
       }

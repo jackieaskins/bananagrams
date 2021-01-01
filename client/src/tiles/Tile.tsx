@@ -5,24 +5,24 @@ import { useDrag } from 'react-dnd';
 import { Tile as TileType } from './types';
 
 type TileProps = {
-  boardLocation: { x: number; y: number } | null;
+  boardPosition: { row: number; col: number } | null;
   tile: TileType;
   color?: string;
 };
 
 const Tile = ({
-  boardLocation,
+  boardPosition,
   tile: { id, letter },
   color = 'black',
 }: TileProps): JSX.Element => {
   const [{ isDragging }, dragRef] = useDrag({
-    item: { type: 'TILE', id, boardLocation },
+    item: { type: 'TILE', id, boardPosition },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const margin = !!boardLocation ? '0' : '5px';
+  const margin = !!boardPosition ? '0' : '5px';
 
   return (
     <Box

@@ -307,10 +307,10 @@ describe('socket', () => {
 
     describe('dump', () => {
       const tileId = 'tileId';
-      const boardLocation = { x: 0, y: 0 };
+      const boardPosition = { x: 0, y: 0 };
 
       const dump = (callback?: () => void): void => {
-        socketCalls.dump({ tileId, boardLocation }, callback);
+        socketCalls.dump({ tileId, boardPosition }, callback);
       };
 
       it('throws an error when not in a game', () => {
@@ -321,7 +321,7 @@ describe('socket', () => {
       it('calls dump on game', () => {
         createGame();
         dump(callback);
-        expect(gameController.dump).toHaveBeenCalledWith(tileId, boardLocation);
+        expect(gameController.dump).toHaveBeenCalledWith(tileId, boardPosition);
       });
 
       it('calls callback with null', () => {
@@ -347,11 +347,11 @@ describe('socket', () => {
 
     describe('moveTileFromHandToBoard', () => {
       const tileId = 'tileId';
-      const boardLocation = { x: 0, y: 0 };
+      const boardPosition = { x: 0, y: 0 };
 
       const moveTileFromHandToBoard = (callback?: () => void): void => {
         socketCalls.moveTileFromHandToBoard(
-          { tileId, boardLocation },
+          { tileId, boardPosition },
           callback
         );
       };
@@ -366,7 +366,7 @@ describe('socket', () => {
         moveTileFromHandToBoard(callback);
         expect(gameController.moveTileFromHandToBoard).toHaveBeenCalledWith(
           tileId,
-          boardLocation
+          boardPosition
         );
       });
 
@@ -392,10 +392,10 @@ describe('socket', () => {
     });
 
     describe('moveTileFromBoardToHand', () => {
-      const boardLocation = { x: 0, y: 0 };
+      const boardPosition = { x: 0, y: 0 };
 
       const moveTileFromBoardToHand = (callback?: () => void): void => {
-        socketCalls.moveTileFromBoardToHand({ boardLocation }, callback);
+        socketCalls.moveTileFromBoardToHand({ boardPosition }, callback);
       };
 
       it('throws an error when not in a game', () => {
@@ -407,7 +407,7 @@ describe('socket', () => {
         createGame();
         moveTileFromBoardToHand(callback);
         expect(gameController.moveTileFromBoardToHand).toHaveBeenCalledWith(
-          boardLocation
+          boardPosition
         );
       });
 
@@ -472,11 +472,11 @@ describe('socket', () => {
     });
 
     describe('moveTileOnBoard', () => {
-      const fromLocation = { x: 0, y: 0 };
-      const toLocation = { x: 1, y: 0 };
+      const fromPosition = { x: 0, y: 0 };
+      const toPosition = { x: 1, y: 0 };
 
       const moveTileOnBoard = (callback?: () => void): void => {
-        socketCalls.moveTileOnBoard({ fromLocation, toLocation }, callback);
+        socketCalls.moveTileOnBoard({ fromPosition, toPosition }, callback);
       };
 
       it('throws an error when not in a game', () => {
@@ -488,8 +488,8 @@ describe('socket', () => {
         createGame();
         moveTileOnBoard(callback);
         expect(gameController.moveTileOnBoard).toHaveBeenCalledWith(
-          fromLocation,
-          toLocation
+          fromPosition,
+          toPosition
         );
       });
 

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Board Model addTile throws error if square is not empty 1`] = `"Board already has tile at location 0, 0"`;
+exports[`Board Model addTile throws error if square is not empty 1`] = `"Board already has tile at position 0, 0"`;
 
-exports[`Board Model removeTile throws an error if there is no tile at location 1`] = `"Board does not have a tile at location 0, 0"`;
+exports[`Board Model removeTile throws an error if there is no tile at position 1`] = `"Board does not have a tile at position 0, 0"`;
 
 exports[`Board Model toJSON turns fields into JSON 1`] = `
 Array [
@@ -498,4 +498,4 @@ Array [
 ]
 `;
 
-exports[`Board Model validateEmptySquare throws an error when location is not empty 1`] = `"Board already has tile at location 0, 0"`;
+exports[`Board Model validateEmptySquare throws an error when position is not empty 1`] = `"Board already has tile at position 0, 0"`;

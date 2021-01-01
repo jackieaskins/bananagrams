@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { BoardLocation } from '../boards/types';
+import { BoardPosition } from '../boards/types';
 import { useSocket } from '../socket/SocketContext';
 import { TileItem } from '../tiles/types';
 import { getEmptyGameInfo, GameProvider } from './GameContext';
@@ -26,28 +26,28 @@ const SocketGameProvider = ({
   );
   const [isInGame] = useState<boolean>(state?.isInGame ?? false);
 
-  const handleDump = ({ boardLocation, id }: TileItem): void => {
-    socket.emit('dump', { boardLocation, tileId: id });
+  const handleDump = ({ boardPosition, id }: TileItem): void => {
+    socket.emit('dump', { boardPosition, tileId: id });
   };
   const handleMoveTileFromBoardToHand = (
-    boardLocation: BoardLocation | null
+    boardPosition: BoardPosition | null
   ): void => {
-    socket.emit('moveTileFromBoardToHand', { boardLocation });
+    socket.emit('moveTileFromBoardToHand', { boardPosition });
   };
   const handleMoveTileFromHandToBoard = (
     tileId: string,
-    boardLocation: BoardLocation
+    boardPosition: BoardPosition
   ): void => {
-    socket.emit('moveTileFromHandToBoard', { tileId, boardLocation });
+    socket.emit('moveTileFromHandToBoard', { tileId, boardPosition });
   };
   const handleMoveAllTilesFromBoardToHand = (): void => {
     socket.emit('moveAllTilesFromBoardToHand', {});
   };
   const handleMoveTileOnBoard = (
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation
+    fromPosition: BoardPosition,
+    toPosition: BoardPosition
   ): void => {
-    socket.emit('moveTileOnBoard', { fromLocation, toLocation });
+    socket.emit('moveTileOnBoard', { fromPosition, toPosition });
   };
   const handlePeel = (): void => {
     socket.emit('peel', {});

@@ -16,10 +16,15 @@ const Board = ({ board }: BoardProps): JSX.Element => (
     display="inline-flex"
     flexDirection="column"
   >
-    {board.map((row, x) => (
-      <Box key={x} display="flex">
-        {row.map((boardSquare, y) => (
-          <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
+    {board.map((rowSquares, row) => (
+      <Box key={row} display="flex">
+        {rowSquares.map((boardSquare, col) => (
+          <BoardSquare
+            key={col}
+            row={row}
+            col={col}
+            boardSquare={boardSquare}
+          />
         ))}
       </Box>
     ))}

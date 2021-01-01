@@ -8,7 +8,7 @@ import {
 export const wordInfoFixture = (
   overrides: Partial<WordInfo> = {}
 ): WordInfo => ({
-  start: { x: 0, y: 0 },
+  start: { row: 0, col: 0 },
   validation: ValidationStatus.VALID,
   ...overrides,
 });
@@ -19,11 +19,11 @@ export const boardSquareFixture = (
   tile: { id: 'A1', letter: 'A' },
   wordInfo: {
     [Direction.ACROSS]: {
-      start: { x: 0, y: 0 },
+      start: { row: 0, col: 0 },
       validation: ValidationStatus.VALID,
     },
     [Direction.DOWN]: {
-      start: { x: 0, y: 0 },
+      start: { row: 0, col: 0 },
       validation: ValidationStatus.NOT_VALIDATED,
     },
   },

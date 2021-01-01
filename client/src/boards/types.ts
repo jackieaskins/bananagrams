@@ -4,9 +4,9 @@ export enum Direction {
   ACROSS = 'ACROSS',
   DOWN = 'DOWN',
 }
-export type BoardLocation = {
-  x: number;
-  y: number;
+export type BoardPosition = {
+  row: number;
+  col: number;
 };
 export enum ValidationStatus {
   NOT_VALIDATED = 'NOT_VALIDATED',
@@ -14,7 +14,7 @@ export enum ValidationStatus {
   INVALID = 'INVALID',
 }
 export type WordInfo = {
-  start: BoardLocation;
+  start: BoardPosition;
   validation: ValidationStatus;
 };
 export type BoardSquare = {

@@ -64,7 +64,7 @@ exports[`<Hand /> renders properly with player 1`] = `
     width="70px"
   >
     <Tile
-      boardLocation={null}
+      boardPosition={null}
       key="A1"
       tile={
         Object {
@@ -74,7 +74,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       }
     />
     <Tile
-      boardLocation={null}
+      boardPosition={null}
       key="B1"
       tile={
         Object {
@@ -84,7 +84,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       }
     />
     <Tile
-      boardLocation={null}
+      boardPosition={null}
       key="C1"
       tile={
         Object {

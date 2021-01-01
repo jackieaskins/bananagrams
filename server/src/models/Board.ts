@@ -2,9 +2,9 @@ import { validateAddTile, validateRemoveTile } from '../boardValidation';
 import BaseModel from './BaseModel';
 import Tile, { TileJSON } from './Tile';
 
-export type BoardLocation = {
-  x: number;
-  y: number;
+export type BoardPosition = {
+  row: number;
+  col: number;
 };
 export enum Direction {
   ACROSS = 'ACROSS',
@@ -16,7 +16,7 @@ export enum ValidationStatus {
   INVALID = 'INVALID',
 }
 export type WordInfo = {
-  start: BoardLocation;
+  start: BoardPosition;
   validation: ValidationStatus;
 };
 export type BoardSquare = {
@@ -76,9 +76,9 @@ export default class Board implements BaseModel<BoardJSON> {
     return clearedTiles;
   }
 
-  validateEmptySquare({ x, y }: BoardLocation): void {
-    if (this.squares[x][y]) {
-      throw new Error(`Board already has tile at location ${x}, ${y}`);
+  validateEmptySquare({ row, col }: BoardPosition): void {
+    if (this.squares[row][col]) {
+      throw new Error(`Board already has tile at position ${row}, ${col}`);
     }
   }
 
@@ -94,20 +94,20 @@ export default class Board implements BaseModel<BoardJSON> {
     );
   }
 
-  removeTile({ x, y }: BoardLocation): Tile {
-    const square = this.squares[x][y];
+  removeTile({ row, col }: BoardPosition): Tile {
+    const square = this.squares[row][col];
     if (!square) {
-      throw new Error(`Board does not have a tile at location ${x}, ${y}`);
+      throw new Error(`Board does not have a tile at position ${row}, ${col}`);
     }
 
     const { tile } = square;
-    this.squares = validateRemoveTile(this.getSquares(), { x, y });
+    this.squares = validateRemoveTile(this.getSquares(), { row, col });
     return tile;
   }
 
-  addTile(location: BoardLocation, tile: Tile): void {
-    this.validateEmptySquare(location);
+  addTile(position: BoardPosition, tile: Tile): void {
+    this.validateEmptySquare(position);
 
-    this.squares = validateAddTile(this.getSquares(), location, tile);
+    this.squares = validateAddTile(this.getSquares(), position, tile);
   }
 }

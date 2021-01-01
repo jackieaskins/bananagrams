@@ -83,25 +83,28 @@ describe('<Hand />', () => {
 
       it('returns true if is over and tile is on board', () => {
         expect(
-          canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => true })
+          canDrop({ boardPosition: { row: 0, col: 0 } }, { isOver: () => true })
         ).toEqual(true);
       });
 
       it('returns false if is over but not on board', () => {
         expect(
-          canDrop({ boardLocation: null }, { isOver: () => true })
+          canDrop({ boardPosition: null }, { isOver: () => true })
         ).toEqual(false);
       });
 
       it('returns false if is not over but is on board', () => {
         expect(
-          canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => false })
+          canDrop(
+            { boardPosition: { row: 0, col: 0 } },
+            { isOver: () => false }
+          )
         ).toEqual(false);
       });
 
       it('returns false if is not over and is not on board', () => {
         expect(
-          canDrop({ boardLocation: null }, { isOver: () => false })
+          canDrop({ boardPosition: null }, { isOver: () => false })
         ).toEqual(false);
       });
     });
@@ -115,11 +118,11 @@ describe('<Hand />', () => {
 
       renderComponent();
 
-      const boardLocation = { x: 0, y: 0 };
-      getUseDropCall().drop({ boardLocation });
+      const boardPosition = { row: 0, col: 0 };
+      getUseDropCall().drop({ boardPosition });
 
       expect(mockHandleMoveTileFromBoardToHand).toHaveBeenCalledWith(
-        boardLocation
+        boardPosition
       );
     });
 

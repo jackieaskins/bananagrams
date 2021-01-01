@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import { Server, Socket } from 'socket.io';
 
-import Board, { BoardLocation } from '../models/Board';
+import Board, { BoardPosition } from '../models/Board';
 import Game, { GameJSON } from '../models/Game';
 import Hand from '../models/Hand';
 import Player from '../models/Player';
@@ -268,7 +268,7 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
-  dump(tileId: string, boardLocation: BoardLocation | null): void {
+  dump(tileId: string, boardPosition: BoardPosition | null): void {
     const {
       io,
       socket,
@@ -284,8 +284,8 @@ export default class GameController {
       `${currentPlayer.getUsername()} dumped a tile.`
     );
 
-    const dumpedTile = !!boardLocation
-      ? currentBoard.removeTile(boardLocation)
+    const dumpedTile = !!boardPosition
+      ? currentBoard.removeTile(boardPosition)
       : currentHand.removeTile(tileId);
 
     currentHand.addTiles(currentGame.getBunch().removeTiles(3));
@@ -294,34 +294,34 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
-  moveTileFromHandToBoard(tileId: string, boardLocation: BoardLocation): void {
+  moveTileFromHandToBoard(tileId: string, boardPosition: BoardPosition): void {
     const { io, currentGame, currentHand, currentBoard } = this;
 
-    currentBoard.validateEmptySquare(boardLocation);
+    currentBoard.validateEmptySquare(boardPosition);
     const tile = currentHand.removeTile(tileId);
-    currentBoard.addTile(boardLocation, tile);
+    currentBoard.addTile(boardPosition, tile);
 
     GameController.emitGameInfo(io, currentGame);
   }
 
-  moveTileFromBoardToHand(boardLocation: BoardLocation): void {
+  moveTileFromBoardToHand(boardPosition: BoardPosition): void {
     const { io, currentGame, currentHand, currentBoard } = this;
 
-    const tile = currentBoard.removeTile(boardLocation);
+    const tile = currentBoard.removeTile(boardPosition);
     currentHand.addTiles([tile]);
 
     GameController.emitGameInfo(io, currentGame);
   }
 
   moveTileOnBoard(
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation
+    fromPosition: BoardPosition,
+    toPosition: BoardPosition
   ): void {
     const { io, currentGame, currentBoard } = this;
 
-    currentBoard.validateEmptySquare(toLocation);
-    const tile = currentBoard.removeTile(fromLocation);
-    currentBoard.addTile(toLocation, tile);
+    currentBoard.validateEmptySquare(toPosition);
+    const tile = currentBoard.removeTile(fromPosition);
+    currentBoard.addTile(toPosition, tile);
 
     GameController.emitGameInfo(io, currentGame);
   }

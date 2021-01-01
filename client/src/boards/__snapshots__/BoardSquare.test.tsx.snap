@@ -6,10 +6,10 @@ exports[`<BoardSquare /> renders black tile when not validated in any direction 
   width="25px"
 >
   <Tile
-    boardLocation={
+    boardPosition={
       Object {
-        "x": 0,
-        "y": 0,
+        "col": 0,
+        "row": 0,
       }
     }
     color="black"
@@ -29,10 +29,10 @@ exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = 
   width="25px"
 >
   <Tile
-    boardLocation={
+    boardPosition={
       Object {
-        "x": 0,
-        "y": 0,
+        "col": 0,
+        "row": 0,
       }
     }
     color="green"
@@ -67,10 +67,10 @@ exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
   width="25px"
 >
   <Tile
-    boardLocation={
+    boardPosition={
       Object {
-        "x": 0,
-        "y": 0,
+        "col": 0,
+        "row": 0,
       }
     }
     color="red"

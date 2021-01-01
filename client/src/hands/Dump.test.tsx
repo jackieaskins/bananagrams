@@ -5,7 +5,6 @@ import { useDrop } from 'react-dnd';
 import { useGame } from '../games/GameContext';
 import Dump from './Dump';
 
-
 jest.mock('../styles', () => ({
   useStyles: () => ({
     validDrop: 'validDrop',
@@ -81,7 +80,7 @@ describe('<Dump />', () => {
 
       renderComponent();
 
-      const tileItem = { id: 'A1', boardLocation: null };
+      const tileItem = { id: 'A1', boardPosition: null };
       getUseDropCall().drop(tileItem);
 
       expect(mockHandleDump).toHaveBeenCalledWith(tileItem);

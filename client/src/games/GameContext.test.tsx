@@ -57,7 +57,7 @@ describe('GameContext', () => {
     it('handle methods are callable', () => {
       const type = 'type';
       const id = 'id';
-      const boardLocation = { x: 0, y: 0 };
+      const boardPosition = { row: 0, col: 0 };
       const {
         handleDump,
         handleMoveTileFromHandToBoard,
@@ -67,14 +67,14 @@ describe('GameContext', () => {
         handlePeel,
       } = getEmptyGameState('gameId');
 
-      expect(() => handleDump({ id, boardLocation, type })).not.toThrow();
+      expect(() => handleDump({ id, boardPosition, type })).not.toThrow();
       expect(() =>
-        handleMoveTileFromHandToBoard(id, boardLocation)
+        handleMoveTileFromHandToBoard(id, boardPosition)
       ).not.toThrow();
-      expect(() => handleMoveTileFromBoardToHand(boardLocation)).not.toThrow();
+      expect(() => handleMoveTileFromBoardToHand(boardPosition)).not.toThrow();
       expect(() => handleMoveAllTilesFromBoardToHand()).not.toThrow();
       expect(() =>
-        handleMoveTileOnBoard(boardLocation, boardLocation)
+        handleMoveTileOnBoard(boardPosition, boardPosition)
       ).not.toThrow();
       expect(() => handlePeel()).not.toThrow();
     });

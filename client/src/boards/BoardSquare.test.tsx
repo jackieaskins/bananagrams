@@ -8,7 +8,7 @@ import {
   Direction,
   ValidationStatus,
   WordInfo,
-  BoardLocation,
+  BoardPosition,
 } from './types';
 
 jest.mock('react-dnd', () => ({
@@ -43,7 +43,9 @@ describe('<BoardSquare />', () => {
     });
 
   const renderComponent = (propOverrides = {}) =>
-    shallow(<BoardSquare boardSquare={null} x={0} y={0} {...propOverrides} />);
+    shallow(
+      <BoardSquare boardSquare={null} row={0} col={0} {...propOverrides} />
+    );
 
   beforeEach(() => {
     useDrop.mockReturnValue([{ canDrop: true, isOver: false }, jest.fn()]);
@@ -128,20 +130,20 @@ describe('<BoardSquare />', () => {
     });
 
     describe('drop', () => {
-      const callDrop = (boardLocation: BoardLocation) =>
-        useDrop.mock.calls[0][0].drop({ id: 'id', boardLocation });
+      const callDrop = (boardPosition: BoardPosition) =>
+        useDrop.mock.calls[0][0].drop({ id: 'id', boardPosition });
 
       beforeEach(() => {
         renderComponent();
       });
 
       it('moves tile to new location on board if tile is already on board', () => {
-        const boardLocation = { x: 1, y: 1 };
-        callDrop(boardLocation);
+        const boardPosition = { row: 1, col: 1 };
+        callDrop(boardPosition);
 
-        expect(mockHandleMoveTileOnBoard).toHaveBeenCalledWith(boardLocation, {
-          x: 0,
-          y: 0,
+        expect(mockHandleMoveTileOnBoard).toHaveBeenCalledWith(boardPosition, {
+          row: 0,
+          col: 0,
         });
       });
 
@@ -149,8 +151,8 @@ describe('<BoardSquare />', () => {
         callDrop(null);
 
         expect(mockHandleMoveTileFromHandToBoard).toHaveBeenCalledWith('id', {
-          x: 0,
-          y: 0,
+          row: 0,
+          col: 0,
         });
       });
     });

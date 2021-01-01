@@ -6,12 +6,17 @@ import { useGame } from '../games/GameContext';
 import { useStyles } from '../styles';
 import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
-import { BoardSquare as BoardSquareType, Direction, WordInfo, ValidationStatus } from './types';
+import {
+  BoardSquare as BoardSquareType,
+  Direction,
+  WordInfo,
+  ValidationStatus,
+} from './types';
 
 type BoardSquareProps = {
   boardSquare: BoardSquareType | null;
-  x: number;
-  y: number;
+  row: number;
+  col: number;
 };
 
 type CheckValidation = (wordInfo: WordInfo) => boolean;
@@ -31,7 +36,11 @@ const getColor = (
   return 'red';
 };
 
-const BoardSquare = ({ boardSquare, x, y }: BoardSquareProps): JSX.Element => {
+const BoardSquare = ({
+  boardSquare,
+  row,
+  col,
+}: BoardSquareProps): JSX.Element => {
   const classes = useStyles();
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};
@@ -39,11 +48,11 @@ const BoardSquare = ({ boardSquare, x, y }: BoardSquareProps): JSX.Element => {
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
     canDrop: (_, monitor) => monitor.isOver() && !tile,
-    drop: ({ id, boardLocation }: TileItem) => {
-      if (!!boardLocation) {
-        handleMoveTileOnBoard(boardLocation, { x, y });
+    drop: ({ id, boardPosition }: TileItem) => {
+      if (!!boardPosition) {
+        handleMoveTileOnBoard(boardPosition, { row, col });
       } else {
-        handleMoveTileFromHandToBoard(id, { x, y });
+        handleMoveTileFromHandToBoard(id, { row, col });
       }
     },
     collect: (monitor) => ({
@@ -61,7 +70,11 @@ const BoardSquare = ({ boardSquare, x, y }: BoardSquareProps): JSX.Element => {
       ref={dropRef}
     >
       {tile && wordInfo ? (
-        <Tile tile={tile} color={getColor(wordInfo)} boardLocation={{ x, y }} />
+        <Tile
+          tile={tile}
+          color={getColor(wordInfo)}
+          boardPosition={{ row, col }}
+        />
       ) : (
         ''
       )}
