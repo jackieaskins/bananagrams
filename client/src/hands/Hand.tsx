@@ -15,7 +15,7 @@ type HandProps = {
   hand: HandType;
 };
 
-const DEFAULT_BOARD_LENGTH = 21;
+export const DEFAULT_BOARD_LENGTH = 21;
 
 const Hand = ({ hand }: HandProps): JSX.Element => {
   const classes = useStyles();
@@ -24,7 +24,9 @@ const Hand = ({ hand }: HandProps): JSX.Element => {
     gameInfo: { boards },
     handleMoveTileFromBoardToHand,
   } = useGame();
-  const boardLength = boards[socket.id]?.length ?? DEFAULT_BOARD_LENGTH;
+  const boardLength = boards[socket.id]
+    ? Object.values(boards[socket.id]).length
+    : DEFAULT_BOARD_LENGTH;
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',

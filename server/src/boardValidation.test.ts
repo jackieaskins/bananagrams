@@ -1,5 +1,10 @@
 import { validateAddTile, validateRemoveTile } from './boardValidation';
-import { Direction, ValidationStatus, WordInfo } from './models/Board';
+import {
+  BoardSquares,
+  Direction,
+  ValidationStatus,
+  WordInfo,
+} from './models/Board';
 import Tile from './models/Tile';
 
 //     0 1 2 3 4
@@ -25,8 +30,6 @@ jest.mock('./dictionary/Dictionary', () => {
   };
 });
 
-const BOARD_SIZE = 5;
-
 describe('boardValidation', () => {
   const tiles: Record<string, Tile> = {
     '0,2': new Tile('C1', 'C'),
@@ -40,7 +43,7 @@ describe('boardValidation', () => {
     '3,2': new Tile('E2', 'E'),
     '4,2': new Tile('Z1', 'Z'),
   };
-  let board = [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
+  let board: BoardSquares = {};
 
   const addTile = (row: number, col: number): void => {
     board = validateAddTile(board, { row, col }, tiles[`${row},${col}`]);
@@ -49,6 +52,9 @@ describe('boardValidation', () => {
     board = validateRemoveTile(board, { row, col });
   };
 
+  const validateNullSquare = (row: number, col: number): void => {
+    expect(board[`${row},${col}`]).toBeNull();
+  };
   const validateSquare = (
     row: number,
     col: number,
@@ -57,7 +63,14 @@ describe('boardValidation', () => {
     acrossInfo?: WordInfo,
     downInfo?: WordInfo
   ): void => {
-    const { tile, wordInfo } = board[row][col];
+    const square = board[`${row},${col}`];
+
+    if (!square) {
+      expect(square).not.toBeNull();
+      return;
+    }
+
+    const { tile, wordInfo } = square;
 
     expect(tile).toEqual(tiles[`${row},${col}`]);
     expect(wordInfo[Direction.ACROSS]).toEqual(
@@ -257,7 +270,7 @@ describe('boardValidation', () => {
       validateSquare(2, 4, true, false, acrossInfo, downInfo);
       validateSquare(0, 2, false, true, acrossInfo, downInfo);
       validateSquare(4, 2, false, true, acrossInfo, downInfo);
-      expect(board[1][3]).toBeNull();
+      validateNullSquare(1, 3);
     });
 
     it('validates when removing from end of down word', () => {
@@ -280,7 +293,7 @@ describe('boardValidation', () => {
       validateSquare(2, 0, true, false, acrossInfo, downInfo);
       validateSquare(2, 4, true, false, acrossInfo, downInfo);
       validateSquare(0, 2, false, true, acrossInfo, downInfo);
-      expect(board[4][2]).toBeNull();
+      validateNullSquare(4, 2);
     });
 
     it('validates when removing from start of down word', () => {
@@ -302,7 +315,7 @@ describe('boardValidation', () => {
       validateSquare(2, 2, true, true, acrossInfo, downInfo);
       validateSquare(2, 0, true, false, acrossInfo, downInfo);
       validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      expect(board[0][2]).toBeNull();
+      validateNullSquare(0, 2);
     });
 
     it('validates when removing from end of across word', () => {
@@ -323,7 +336,7 @@ describe('boardValidation', () => {
       validateSquare(3, 2, false, true, acrossInfo, downInfo);
       validateSquare(2, 2, true, true, acrossInfo, downInfo);
       validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      expect(board[2][4]).toBeNull();
+      validateNullSquare(2, 4);
     });
 
     it('validates when removing from start of across word', () => {
@@ -343,7 +356,7 @@ describe('boardValidation', () => {
       validateSquare(2, 3, true, false, acrossInfo, downInfo);
       validateSquare(3, 2, false, true, acrossInfo, downInfo);
       validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      expect(board[2][0]).toBeNull();
+      validateNullSquare(2, 0);
     });
 
     it('validates when disconnecting words in both directions', () => {
@@ -353,7 +366,7 @@ describe('boardValidation', () => {
       validateSquare(2, 1);
       validateSquare(2, 3);
       validateSquare(3, 2);
-      expect(board[2][2]).toBeNull();
+      validateNullSquare(2, 2);
     });
 
     it('has an empty board after removing all tiles', () => {
@@ -362,10 +375,10 @@ describe('boardValidation', () => {
       removeTile(2, 3);
       removeTile(3, 2);
 
-      expect(board[1][2]).toBeNull();
-      expect(board[2][1]).toBeNull();
-      expect(board[2][3]).toBeNull();
-      expect(board[3][2]).toBeNull();
+      validateNullSquare(1, 2);
+      validateNullSquare(2, 1);
+      validateNullSquare(2, 3);
+      validateNullSquare(3, 2);
     });
   });
 });

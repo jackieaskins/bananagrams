@@ -3,15 +3,18 @@ import { shallow } from 'enzyme';
 import { boardSquareFixture } from '../fixtures/board';
 import PreviewBoard from './PreviewBoard';
 
+jest.mock('../hands/Hand', () => ({
+  DEFAULT_BOARD_LENGTH: 2,
+}));
+
 describe('<PreviewBoard />', () => {
   it('renders properly', () => {
     expect(
       shallow(
         <PreviewBoard
-          board={[
-            [boardSquareFixture(), null],
-            [null, null],
-          ]}
+          board={{
+            '0,0': boardSquareFixture(),
+          }}
           tileSize={23}
         />
       )

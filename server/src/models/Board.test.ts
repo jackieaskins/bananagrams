@@ -1,5 +1,5 @@
 import { validateAddTile, validateRemoveTile } from '../boardValidation';
-import Board, { BoardSquares } from './Board';
+import Board, { getSquareId } from './Board';
 import Tile from './Tile';
 
 jest.mock('../boardValidation');
@@ -12,21 +12,8 @@ describe('Board Model', () => {
   });
 
   describe('getSquares', () => {
-    let squares: BoardSquares;
-
-    beforeEach(() => {
-      squares = board.getSquares();
-    });
-
-    it('initializes a 21 x 21 2-D array', () => {
-      expect(squares).toHaveLength(21);
-      expect(squares.every((row) => row.length === 21)).toEqual(true);
-    });
-
-    it('makes all squares null by default', () => {
-      expect(
-        squares.every((row) => row.every((square) => square === null))
-      ).toEqual(true);
+    it('initializes an empty boardValidation', () => {
+      expect(board.getSquares()).toEqual({});
     });
   });
 
@@ -48,7 +35,7 @@ describe('Board Model', () => {
       board.addTile({ row: 0, col: 0 }, new Tile('A1', 'A'));
       board.reset();
 
-      expect(board.getAllTiles()).toEqual([]);
+      expect(board.getSquares()).toEqual({});
     });
   });
 
@@ -89,6 +76,8 @@ describe('Board Model', () => {
   describe('toJSON', () => {
     it('turns fields into JSON', () => {
       board.addTile({ row: 0, col: 0 }, new Tile('A1', 'A'));
+      board.addTile({ row: 0, col: 1 }, new Tile('T1', 'T'));
+      board.removeTile({ row: 0, col: 1 });
 
       expect(board.toJSON()).toMatchSnapshot();
     });
@@ -103,13 +92,16 @@ describe('Board Model', () => {
     });
 
     it('updates squares to validated board after removing tile', () => {
+      const { row, col } = position;
+
       board.addTile(position, tile);
       board.removeTile(position);
 
-      const squares = board.getSquares();
-
-      expect(validateRemoveTile).toHaveBeenCalledWith(squares, position);
-      expect(board.getSquares()[position.row][position.col]).toBeNull();
+      expect(validateRemoveTile).toHaveBeenCalledWith(
+        board.getSquares(),
+        position
+      );
+      expect(board.getSquares()[getSquareId({ row, col })]).toBeNull();
     });
 
     it('returns removed tile', () => {
@@ -132,14 +124,15 @@ describe('Board Model', () => {
     });
 
     it('updates squares to validated board after adding tile', () => {
+      const { row, col } = position;
       board.addTile(position, tile);
 
-      const squares = board.getSquares();
-
-      expect(validateAddTile).toHaveBeenCalledWith(squares, position, tile);
-      expect(board.getSquares()[position.row][position.col]?.tile).toEqual(
+      expect(validateAddTile).toHaveBeenCalledWith(
+        board.getSquares(),
+        position,
         tile
       );
+      expect(board.getSquares()[getSquareId({ row, col })]?.tile).toEqual(tile);
     });
   });
 });

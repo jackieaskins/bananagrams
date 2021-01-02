@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from '@material-ui/core';
 
+import { DEFAULT_BOARD_LENGTH } from '../hands/Hand';
 import TransparentPaper from '../paper/TransparentPaper';
-import { Board } from './types';
+import { Board, getSquareId } from './types';
 
 type PreviewBoardProps = {
   board: Board;
@@ -19,18 +20,18 @@ const PreviewBoard = ({ board, tileSize }: PreviewBoardProps): JSX.Element => {
       display="inline-flex"
       flexDirection="column"
     >
-      {board.map((row, x) => (
-        <Box key={x} display="flex">
-          {row.map((boardSquare, y) => {
-            const tile = boardSquare?.tile ?? null;
+      {[...Array(DEFAULT_BOARD_LENGTH)].map((_, row) => (
+        <Box key={row} display="flex">
+          {[...Array(DEFAULT_BOARD_LENGTH)].map((_, col) => {
+            const tile = board[getSquareId({ row, col })]?.tile ?? null;
 
             if (tile === null) {
-              return <Box key={y} height={tilePixels} width={tilePixels} />;
+              return <Box key={col} height={tilePixels} width={tilePixels} />;
             }
 
             return (
               <img
-                key={y}
+                key={col}
                 src={`/assets/images/${tile.letter}.png`}
                 alt={`Tile for the letter ${tile.letter}`}
                 width={tilePixels}

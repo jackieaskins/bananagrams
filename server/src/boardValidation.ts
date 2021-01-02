@@ -5,12 +5,19 @@ import {
   Direction,
   BoardSquare,
   ValidationStatus,
+  getSquareId,
 } from './models/Board';
 import Tile from './models/Tile';
 
 type ValidatePosition = {
   start: BoardPosition;
   direction: Direction;
+};
+type BoardBoundaries = {
+  rowStart: number;
+  rowEnd: number;
+  colStart: number;
+  colEnd: number;
 };
 
 const getDelta = (direction: Direction): BoardPosition => {
@@ -22,32 +29,64 @@ const getDelta = (direction: Direction): BoardPosition => {
   }
 };
 
+const getBoardBoundaries = (
+  board: BoardSquares,
+  { row, col }: BoardPosition
+): BoardBoundaries => {
+  let rowStart = row;
+  let rowEnd = row;
+  let colStart = col;
+  let colEnd = col;
+
+  Object.keys(board).forEach((id) => {
+    const [r, c] = id.split(',');
+
+    const row = parseInt(r);
+    const col = parseInt(c);
+
+    if (row < rowStart) rowStart = row;
+    if (row > rowEnd) rowEnd = row;
+    if (col < colStart) colStart = col;
+    if (col > colEnd) colEnd = col;
+  });
+
+  return {
+    rowStart,
+    rowEnd,
+    colStart,
+    colEnd,
+  };
+};
+
 const iterateWordFromStart = (
   board: BoardSquares,
+  boardBoundaries: BoardBoundaries,
   start: BoardPosition,
   direction: Direction,
   loopFn: (square: BoardSquare) => boolean | void
 ): void => {
-  const delta = getDelta(direction);
+  const { rowEnd, colEnd } = boardBoundaries;
+  const { row: rowDelta, col: colDelta } = getDelta(direction);
   let { row: nextRow, col: nextCol } = start;
 
-  while (nextRow < board.length && nextCol < board[nextRow].length) {
-    const square = board[nextRow][nextCol];
+  while (nextRow <= rowEnd && nextCol <= colEnd) {
+    const square = board[getSquareId({ row: nextRow, col: nextCol })];
     if (!square || loopFn(square)) break;
 
-    nextRow += delta.row;
-    nextCol += delta.col;
+    nextRow += rowDelta;
+    nextCol += colDelta;
   }
 };
 
 const validateWordsAtPositions = (
   board: BoardSquares,
+  boardBoundaries: BoardBoundaries,
   positionsToValidate: ValidatePosition[]
 ): void => {
   const positionsWithWords = positionsToValidate.map(({ start, direction }) => {
     const word: string[] = [];
 
-    iterateWordFromStart(board, start, direction, (square) => {
+    iterateWordFromStart(board, boardBoundaries, start, direction, (square) => {
       word.push(square.tile.getLetter());
     });
 
@@ -65,7 +104,7 @@ const validateWordsAtPositions = (
         : ValidationStatus.INVALID;
     }
 
-    iterateWordFromStart(board, start, direction, (square) => {
+    iterateWordFromStart(board, boardBoundaries, start, direction, (square) => {
       square.wordInfo[direction].validation = validationStatus;
     });
   });
@@ -76,6 +115,8 @@ export const validateAddTile = (
   position: BoardPosition,
   tile: Tile
 ): BoardSquares => {
+  const boardBoundaries = getBoardBoundaries(board, position);
+
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction]
   );
@@ -84,10 +125,12 @@ export const validateAddTile = (
   const positionsToValidate: ValidatePosition[] = [];
 
   directions.forEach((direction) => {
-    const delta = getDelta(direction);
+    const { row: rowDelta, col: colDelta } = getDelta(direction);
 
-    const beforeSquare = board[row - delta.row]?.[col - delta.col];
-    const afterSquare = board[row + delta.row]?.[col + delta.col];
+    const beforeSquare =
+      board[getSquareId({ row: row - rowDelta, col: col - colDelta })];
+    const afterSquare =
+      board[getSquareId({ row: row + rowDelta, col: col + colDelta })];
 
     const start = !!beforeSquare
       ? beforeSquare.wordInfo[direction].start
@@ -96,7 +139,8 @@ export const validateAddTile = (
     if (!!afterSquare) {
       iterateWordFromStart(
         board,
-        { row: row + delta.row, col: col + delta.col },
+        boardBoundaries,
+        { row: row + rowDelta, col: col + colDelta },
         direction,
         (square) => {
           square.wordInfo[direction].start = start;
@@ -112,9 +156,12 @@ export const validateAddTile = (
     { start, validation: ValidationStatus.NOT_VALIDATED },
   ]);
 
-  board[row][col] = { tile, wordInfo: Object.fromEntries(wordInfo) };
+  board[getSquareId({ row, col })] = {
+    tile,
+    wordInfo: Object.fromEntries(wordInfo),
+  };
 
-  validateWordsAtPositions(board, positionsToValidate);
+  validateWordsAtPositions(board, boardBoundaries, positionsToValidate);
 
   return board;
 };
@@ -123,6 +170,8 @@ export const validateRemoveTile = (
   board: BoardSquares,
   position: BoardPosition
 ): BoardSquares => {
+  const boardBoundaries = getBoardBoundaries(board, position);
+
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction]
   );
@@ -130,10 +179,12 @@ export const validateRemoveTile = (
 
   const positionsToValidate: ValidatePosition[] = [];
   directions.forEach((direction) => {
-    const delta = getDelta(direction);
+    const { row: rowDelta, col: colDelta } = getDelta(direction);
 
-    const beforeSquare = board[row - delta.row]?.[col - delta.col];
-    const afterSquare = board[row + delta.row]?.[col + delta.col];
+    const beforeSquare =
+      board[getSquareId({ row: row - rowDelta, col: col - colDelta })];
+    const afterSquare =
+      board[getSquareId({ row: row + rowDelta, col: col + colDelta })];
 
     if (!!beforeSquare) {
       positionsToValidate.push({
@@ -143,18 +194,24 @@ export const validateRemoveTile = (
     }
 
     if (!!afterSquare) {
-      const newStart = { row: row + delta.row, col: col + delta.col };
-      iterateWordFromStart(board, newStart, direction, (square) => {
-        square.wordInfo[direction].start = newStart;
-      });
+      const newStart = { row: row + rowDelta, col: col + colDelta };
+      iterateWordFromStart(
+        board,
+        boardBoundaries,
+        newStart,
+        direction,
+        (square) => {
+          square.wordInfo[direction].start = newStart;
+        }
+      );
 
       positionsToValidate.push({ start: newStart, direction });
     }
   });
 
-  board[row][col] = null;
+  board[getSquareId({ row, col })] = null;
 
-  validateWordsAtPositions(board, positionsToValidate);
+  validateWordsAtPositions(board, boardBoundaries, positionsToValidate);
 
   return board;
 };

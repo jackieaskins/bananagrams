@@ -4,12 +4,7 @@ import { isValidConnectedBoard } from './validate';
 
 describe('isValidConnectedBoard', () => {
   it('returns false for empty board', () => {
-    expect(
-      isValidConnectedBoard([
-        [null, null],
-        [null, null],
-      ])
-    ).toEqual(false);
+    expect(isValidConnectedBoard({})).toEqual(false);
   });
 
   it('returns false if everything is valid but multiple islands', () => {
@@ -19,11 +14,10 @@ describe('isValidConnectedBoard', () => {
       }),
       [Direction.DOWN]: wordInfoFixture({ validation: ValidationStatus.VALID }),
     };
-    const board = [
-      [boardSquareFixture({ wordInfo: validWordInfo }), null, null],
-      [null, null, null],
-      [null, null, boardSquareFixture({ wordInfo: validWordInfo })],
-    ];
+    const board = {
+      '0,0': boardSquareFixture({ wordInfo: validWordInfo }),
+      '2,2': boardSquareFixture({ wordInfo: validWordInfo }),
+    };
 
     expect(isValidConnectedBoard(board)).toEqual(false);
   });
@@ -37,10 +31,10 @@ describe('isValidConnectedBoard', () => {
         validation: ValidationStatus.NOT_VALIDATED,
       }),
     };
-    const board = [
-      [null, null],
-      [boardSquareFixture({ wordInfo: invalidWordInfo }), boardSquareFixture()],
-    ];
+    const board = {
+      '1,0': boardSquareFixture({ wordInfo: invalidWordInfo }),
+      '1,1': boardSquareFixture(),
+    };
 
     expect(isValidConnectedBoard(board)).toEqual(false);
   });
@@ -58,11 +52,15 @@ describe('isValidConnectedBoard', () => {
         },
       });
 
-    const board = [
-      [getSquare(), getSquare(), getSquare()],
-      [getSquare(), null, getSquare()],
-      [getSquare(), null, getSquare()],
-    ];
+    const board = {
+      '0,0': getSquare(),
+      '0,1': getSquare(),
+      '0,2': getSquare(),
+      '1,0': getSquare(),
+      '1,2': getSquare(),
+      '2,0': getSquare(),
+      '2,2': getSquare(),
+    };
 
     expect(isValidConnectedBoard(board)).toEqual(true);
   });

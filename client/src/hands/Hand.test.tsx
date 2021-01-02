@@ -2,6 +2,7 @@ import { Box, Button } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import { useDrop } from 'react-dnd';
 
+import { boardSquareFixture } from '../fixtures/board';
 import { useGame } from '../games/GameContext';
 import Hand from './Hand';
 
@@ -47,7 +48,7 @@ describe('<Hand />', () => {
 
   it('renders properly with player', () => {
     useGame.mockReturnValue({
-      gameInfo: { boards: { 123: [[null]] } },
+      gameInfo: { boards: { 123: { '1,1': boardSquareFixture() } } },
       handleMoveTileFromBoardToHand: jest.fn(),
     });
 
