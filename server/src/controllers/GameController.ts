@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import { Server, Socket } from 'socket.io';
 
-import Board, { BoardPosition } from '../models/Board';
+import Board, { BoardPosition, getSquareId } from '../models/Board';
 import Game, { GameJSON } from '../models/Game';
 import Hand from '../models/Hand';
 import Player from '../models/Player';
@@ -290,6 +290,37 @@ export default class GameController {
 
     currentHand.addTiles(currentGame.getBunch().removeTiles(3));
     currentGame.getBunch().addTiles([dumpedTile]);
+
+    GameController.emitGameInfo(io, currentGame);
+  }
+
+  moveTile(
+    tileId: string,
+    fromPosition: BoardPosition | null,
+    toPosition: BoardPosition | null
+  ): void {
+    const { io, currentGame, currentHand, currentBoard } = this;
+
+    const tile = fromPosition
+      ? currentBoard.removeTile(fromPosition)
+      : currentHand.removeTile(tileId);
+
+    if (toPosition) {
+      const { row, col } = toPosition;
+      if (currentBoard.getSquares()[getSquareId({ row, col })]) {
+        const oldTile = currentBoard.removeTile(toPosition);
+
+        if (fromPosition) {
+          currentBoard.addTile(fromPosition, oldTile);
+        } else {
+          currentHand.addTiles([oldTile]);
+        }
+      }
+
+      currentBoard.addTile(toPosition, tile);
+    } else {
+      currentHand.addTiles([tile]);
+    }
 
     GameController.emitGameInfo(io, currentGame);
   }

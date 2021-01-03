@@ -466,6 +466,87 @@ describe('GameController', () => {
     });
   });
 
+  describe('moveTile', () => {
+    const tileId = 'A1';
+    const tile = new Tile(tileId, 'A');
+    const oldTile = new Tile('B1', 'B');
+    const fromPosition = { row: 0, col: 0 };
+    const toPosition = { row: 1, col: 1 };
+
+    beforeEach(() => {
+      jest.spyOn(board, 'removeTile');
+      jest.spyOn(hand, 'removeTile');
+      jest.spyOn(board, 'addTile');
+      jest.spyOn(hand, 'addTiles');
+    });
+
+    it('removes tile from hand if no fromPosition', () => {
+      hand.addTiles([tile]);
+
+      gameController.moveTile(tileId, null, toPosition);
+
+      expect(hand.removeTile).toHaveBeenCalledWith(tileId);
+    });
+
+    it('removes tile from board if fromPosition', () => {
+      board.addTile(fromPosition, tile);
+
+      gameController.moveTile(tileId, fromPosition, toPosition);
+
+      expect(board.removeTile).toHaveBeenCalledWith(fromPosition);
+    });
+
+    describe('when toPosition exists', () => {
+      it('adds tile to board', () => {
+        board.addTile(fromPosition, tile);
+
+        gameController.moveTile(tileId, fromPosition, toPosition);
+
+        expect(board.addTile).toHaveBeenCalledWith(toPosition, tile);
+      });
+
+      describe('when position has tile', () => {
+        beforeEach(() => {
+          board.addTile(toPosition, oldTile);
+        });
+
+        it('moves old tile to board if fromPosition', () => {
+          board.addTile(fromPosition, tile);
+
+          gameController.moveTile(tileId, fromPosition, toPosition);
+
+          expect(board.removeTile).toHaveBeenCalledWith(toPosition);
+          expect(board.addTile).toHaveBeenCalledWith(fromPosition, oldTile);
+        });
+
+        it('moves old tile to hand if no fromPosition', () => {
+          hand.addTiles([tile]);
+
+          gameController.moveTile(tileId, null, toPosition);
+
+          expect(board.removeTile).toHaveBeenCalledWith(toPosition);
+          expect(hand.addTiles).toHaveBeenCalledWith([oldTile]);
+        });
+      });
+    });
+
+    it('adds tile to hand if no toPosition', () => {
+      board.addTile(fromPosition, tile);
+
+      gameController.moveTile(tileId, fromPosition, null);
+
+      expect(hand.addTiles).toHaveBeenCalledWith([tile]);
+    });
+
+    it('emits game info', () => {
+      hand.addTiles([tile]);
+
+      gameController.moveTile(tileId, null, toPosition);
+
+      assertEmitsGameInfo(ioEmit);
+    });
+  });
+
   describe('moveTileFromHandToBoard', () => {
     const tile = new Tile('H1', 'H');
     const boardPosition = { row: 0, col: 0 };

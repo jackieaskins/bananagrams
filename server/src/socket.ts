@@ -127,6 +127,31 @@ export const configureSocket = (io: Server): void => {
     );
 
     socket.on(
+      'moveTile',
+      (
+        {
+          tileId,
+          fromPosition,
+          toPosition,
+        }: {
+          tileId: string;
+          fromPosition: BoardPosition;
+          toPosition: BoardPosition;
+        },
+        callback?: Callback
+      ) => {
+        handler(() => {
+          validateGameControllerExists();
+          (gameController as GameController).moveTile(
+            tileId,
+            fromPosition,
+            toPosition
+          );
+        }, callback);
+      }
+    );
+
+    socket.on(
       'moveTileFromHandToBoard',
       (
         {
