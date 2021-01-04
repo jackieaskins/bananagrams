@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
 
 import { GameInfo } from '../games/types';
-import { addGameInfoListener, removeGameInfoListener } from '../socket';
+import { addListeners, removeListeners } from '../socket';
 import Game from './Game';
 import WaitingRoom from './WaitingRoom';
-import { useGameStatus, useUpdateGameState } from './stateHooks';
+import {
+  useGameStatus,
+  useSetCurrentBoardSquare,
+  useSetCurrentHand,
+  useUpdateGameState,
+} from './stateHooks';
 
 type GameRouterProps = {
   initialGameInfo: GameInfo;
@@ -13,19 +18,27 @@ type GameRouterProps = {
 const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
   const updateGameState = useUpdateGameState();
   const gameStatus = useGameStatus();
+  const setCurrentBoardSquare = useSetCurrentBoardSquare();
+  const setCurrentHand = useSetCurrentHand();
   const isGameInProgress = gameStatus === 'IN_PROGRESS';
 
   useEffect(() => {
     updateGameState(initialGameInfo);
 
-    addGameInfoListener((info: GameInfo) => {
-      updateGameState(info);
-    });
+    addListeners(
+      (info) => {
+        updateGameState(info);
+      },
+      (boardSquare) => {
+        setCurrentBoardSquare(boardSquare);
+      },
+      (hand) => {
+        setCurrentHand(hand);
+      }
+    );
 
-    return (): void => {
-      removeGameInfoListener();
-    };
-  }, [initialGameInfo, updateGameState]);
+    return removeListeners;
+  }, [initialGameInfo, updateGameState, setCurrentHand, setCurrentBoardSquare]);
 
   if (isGameInProgress) {
     return <Game />;

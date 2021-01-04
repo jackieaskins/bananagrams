@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Tile /> renders styled div 1`] = `
-.emotion-012pngpo-Tile {
+exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
+.emotion-0ezjqdi-Tile {
   width: 30px;
   height: 30px;
   background-color: #ffffc7;
@@ -22,10 +22,69 @@ exports[`<Tile /> renders styled div 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
+  opacity: 1;
+}
+
+.emotion-012n29wf-Tile {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  opacity: 0.5;
 }
 
 <div
-  className="no-drag emotion-0"
+  className="no-drag tile emotion-0"
+  onClick={[Function]}
+>
+  A
+</div>
+`;
+
+exports[`<Tile /> renders styled div 1`] = `
+.emotion-0ezjqdi-Tile {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+<div
+  className="no-drag tile emotion-0"
+  onClick={[Function]}
 >
   A
 </div>

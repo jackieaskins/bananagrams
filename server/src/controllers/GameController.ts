@@ -299,7 +299,20 @@ export default class GameController {
     fromPosition: BoardPosition | null,
     toPosition: BoardPosition | null
   ): void {
-    const { io, currentGame, currentHand, currentBoard } = this;
+    const { io, currentGame, currentHand, currentBoard, currentPlayer } = this;
+
+    if (fromPosition === null && toPosition === null) {
+      return;
+    }
+
+    if (
+      fromPosition &&
+      toPosition &&
+      fromPosition.row === toPosition.row &&
+      fromPosition.col === toPosition.col
+    ) {
+      return;
+    }
 
     const tile = fromPosition
       ? currentBoard.removeTile(fromPosition)
@@ -320,6 +333,24 @@ export default class GameController {
       currentBoard.addTile(toPosition, tile);
     } else {
       currentHand.addTiles([tile]);
+    }
+
+    const userId = currentPlayer.getUserId();
+
+    if (!fromPosition || !toPosition) {
+      io.to(userId).emit('handUpdate', currentHand.toJSON());
+    }
+    if (fromPosition) {
+      io.to(userId).emit('boardSquareUpdate', {
+        id: getSquareId(fromPosition),
+        square: currentBoard.getSquare(fromPosition),
+      });
+    }
+    if (toPosition) {
+      io.to(userId).emit('boardSquareUpdate', {
+        id: getSquareId(toPosition),
+        square: currentBoard.getSquare(toPosition),
+      });
     }
 
     GameController.emitGameInfo(io, currentGame);
@@ -391,6 +422,12 @@ export default class GameController {
 
     currentGame.setStatus('STARTING');
     currentGame.setCountdown(3);
+
+    const hands = currentGame.getHands();
+    currentGame.getPlayers().forEach((player) => {
+      const userId = player.getUserId();
+      io.to(userId).emit('handUpdate', hands[userId]);
+    });
     GameController.emitGameInfo(io, currentGame);
 
     const interval = setInterval(() => {

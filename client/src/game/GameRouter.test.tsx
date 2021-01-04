@@ -1,8 +1,9 @@
 import { shallow } from 'enzyme';
 import { useEffect } from 'react';
 
+import { getEmptyGameInfo } from '../games/GameContext';
 import { GameInfo } from '../games/types';
-import { addGameInfoListener, removeGameInfoListener } from '../socket';
+import { addListeners, removeListeners } from '../socket';
 import GameRouter from './GameRouter';
 import { useGameStatus } from './stateHooks';
 
@@ -12,17 +13,21 @@ jest.mock('react', () => ({
   useEffect: jest.fn().mockImplementation((f) => f()),
 }));
 
-const mockAddGameInfoListener = addGameInfoListener as jest.Mock;
-const mockRemoveGameInfoListener = removeGameInfoListener as jest.Mock;
+const mockAddListeners = addListeners as jest.Mock;
+const mockRemoveListeners = removeListeners as jest.Mock;
 jest.mock('../socket', () => ({
-  addGameInfoListener: jest.fn(),
-  removeGameInfoListener: jest.fn(),
+  addListeners: jest.fn(),
+  removeListeners: jest.fn(),
 }));
 
 const mockUseGameStatus = useGameStatus as jest.Mock;
+const mockSetCurrentBoardSquare = jest.fn();
+const mockSetCurrentHand = jest.fn();
 const mockUpdateGameState = jest.fn();
 jest.mock('./stateHooks', () => ({
   useGameStatus: jest.fn(),
+  useSetCurrentBoardSquare: () => mockSetCurrentBoardSquare,
+  useSetCurrentHand: () => mockSetCurrentHand,
   useUpdateGameState: () => mockUpdateGameState,
 }));
 
@@ -55,18 +60,33 @@ describe('<GameRouter />', () => {
       expect(mockUpdateGameState).toHaveBeenCalledWith(initialGameInfo);
     });
 
-    it('adds game info listener', () => {
-      const gameInfo = ('gameInfo' as unknown) as GameInfo;
-      mockAddGameInfoListener.mock.calls[0][0](gameInfo);
-
-      expect(mockAddGameInfoListener).toHaveBeenCalled();
-      expect(mockUpdateGameState).toHaveBeenCalledWith(gameInfo);
+    it('adds listeners', () => {
+      expect(mockAddListeners).toHaveBeenCalled();
     });
 
-    it('removes game info listener on dismount', () => {
+    it('removes listeners on dismount', () => {
       mockUseEffect.mock.results[0].value();
 
-      expect(mockRemoveGameInfoListener).toHaveBeenCalledWith();
+      expect(mockRemoveListeners).toHaveBeenCalledWith();
+    });
+
+    it('updates game state on gameInfo change', () => {
+      const info = getEmptyGameInfo('id');
+      mockAddListeners.mock.calls[0][0](info);
+
+      expect(mockUpdateGameState).toHaveBeenCalledWith(info);
+    });
+
+    it('updates current board square on boardSquare update', () => {
+      mockAddListeners.mock.calls[0][1](null);
+
+      expect(mockSetCurrentBoardSquare).toHaveBeenCalledWith(null);
+    });
+
+    it('updates current hand on hand update', () => {
+      mockAddListeners.mock.calls[0][2]([]);
+
+      expect(mockSetCurrentHand).toHaveBeenCalledWith([]);
     });
   });
 });

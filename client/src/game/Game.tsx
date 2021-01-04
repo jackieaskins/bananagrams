@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 
+import BoardWrapper from '../board/LazyBoardWrapper';
 import LoadingContainer from '../loading/LoadingContainer';
 import Overlay from '../overlay/Overlay';
-
-const BoardWrapper = lazy(() => import('../board/BoardWrapper'));
+import SelectedTile from '../tile/SelectedTile';
 
 const Game = (): JSX.Element => (
   <div
@@ -16,6 +16,7 @@ const Game = (): JSX.Element => (
       <BoardWrapper />
     </Suspense>
     <Overlay />
+    <SelectedTile />
   </div>
 );
 

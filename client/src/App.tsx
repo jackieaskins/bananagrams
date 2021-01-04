@@ -9,7 +9,7 @@ import SocketDisconnectModal from './socket/SocketDisconnectModal';
 import 'antd/dist/antd.css';
 
 const App = (): JSX.Element => {
-  useEffect(() => () => disconnect(), []);
+  useEffect(() => disconnect, []);
 
   return (
     <RecoilRoot>

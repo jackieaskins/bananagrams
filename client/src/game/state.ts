@@ -1,6 +1,12 @@
-import { atom, RecoilState, RecoilValueReadOnly, selector } from 'recoil';
+import {
+  atom,
+  atomFamily,
+  RecoilState,
+  RecoilValueReadOnly,
+  selector,
+} from 'recoil';
 
-import { Board } from '../boards/types';
+import { Board, BoardSquare } from '../boards/types';
 import { GameStatus } from '../games/types';
 import { Hand } from '../hands/types';
 import { Player } from '../players/types';
@@ -13,9 +19,9 @@ export type GameState = {
   playersState: RecoilState<Player[]>;
   currentPlayerState: RecoilValueReadOnly<Player | null>;
   handsState: RecoilState<Record<string, Hand>>;
-  currentHandState: RecoilValueReadOnly<Hand | null>;
+  currentHandState: RecoilState<Hand>;
   boardsState: RecoilState<Record<string, Board>>;
-  currentBoardState: RecoilValueReadOnly<Board | null>;
+  currentBoardState: (param: string) => RecoilState<BoardSquare | null>;
 };
 
 export const initializeState = (): GameState => {
@@ -48,18 +54,20 @@ export const initializeState = (): GameState => {
     key: 'gameHands',
     default: {},
   });
-  const currentHandState = selector({
+
+  const currentHandState = atom<Hand>({
     key: 'gameCurrentHandState',
-    get: ({ get }) => get(handsState)[getUserId()] ?? null,
+    default: [],
   });
 
   const boardsState = atom<Record<string, Board>>({
     key: 'gameBoards',
     default: {},
   });
-  const currentBoardState = selector({
+
+  const currentBoardState = atomFamily<BoardSquare | null, string>({
     key: 'gameCurrentBoardState',
-    get: ({ get }) => get(boardsState)[getUserId()] ?? null,
+    default: null,
   });
 
   return {

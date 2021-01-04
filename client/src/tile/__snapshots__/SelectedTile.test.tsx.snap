@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectedTile /> does not render when no tile is selected 1`] = `""`;
+
+exports[`<SelectedTile /> renders Tile when tile is selected 1`] = `
+.emotion-01rduh4j-SelectedTile {
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  z-index: 1000000;
+}
+
+<div
+  className="emotion-0"
+>
+  <Memo(Tile)
+    id="A1"
+    letter="A"
+  />
+</div>
+`;

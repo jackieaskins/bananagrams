@@ -1,11 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Overlay /> renders hand and controls 1`] = `
-.emotion-0vp45pi-Overlay {
+.emotion-0jv3q9u-Overlay {
   position: absolute;
   background-color: rgba(173, 216, 230, 0.5);
   border: 1px solid rgb(173, 216, 230);
-  cursor: move;
   width: 70vw;
   bottom: 0;
   left: 0;
@@ -28,133 +27,43 @@ exports[`<Overlay /> renders hand and controls 1`] = `
   transition: width 0.5s,height 0.5s;
 }
 
-.emotion-02lf239-LoadingContainer {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 100%;
-}
-
-<Overlay>
-  <Draggable
-    allowAnyClick={false}
-    axis="both"
-    bounds={false}
-    cancel=".no-drag"
-    defaultClassName="react-draggable"
-    defaultClassNameDragged="react-draggable-dragged"
-    defaultClassNameDragging="react-draggable-dragging"
-    defaultPosition={
-      Object {
-        "x": 0,
-        "y": 0,
-      }
+<Draggable
+  allowAnyClick={false}
+  axis="both"
+  bounds={false}
+  cancel=".no-drag"
+  defaultClassName="react-draggable"
+  defaultClassNameDragged="react-draggable-dragged"
+  defaultClassNameDragging="react-draggable-dragging"
+  defaultPosition={
+    Object {
+      "x": 0,
+      "y": 0,
     }
-    disabled={false}
-    enableUserSelectHack={true}
-    grid={null}
-    handle={null}
-    offsetParent={null}
-    onDrag={[Function]}
-    onMouseDown={[Function]}
-    onStart={[Function]}
-    onStop={[Function]}
-    position={null}
-    scale={1}
-    transform={null}
+  }
+  disabled={false}
+  enableUserSelectHack={true}
+  grid={null}
+  handle={null}
+  offsetParent={null}
+  onDrag={[Function]}
+  onMouseDown={[Function]}
+  onStart={[Function]}
+  onStop={[Function]}
+  position={null}
+  scale={1}
+  transform={null}
+>
+  <div
+    className="overlay emotion-0"
+    onClick={[Function]}
   >
-    <DraggableCore
-      allowAnyClick={false}
-      cancel=".no-drag"
-      disabled={false}
-      enableUserSelectHack={true}
-      grid={null}
-      handle={null}
-      offsetParent={null}
-      onDrag={[Function]}
-      onMouseDown={[Function]}
-      onStart={[Function]}
-      onStop={[Function]}
-      scale={1}
-      transform={null}
+    <Suspense
+      fallback={<LoadingContainer />}
     >
-      <div
-        className="react-draggable emotion-0"
-        onMouseDown={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        style={
-          Object {
-            "transform": "translate(0px,0px)",
-          }
-        }
-        transform={null}
-      >
-        <div
-          className="react-draggable emotion-0vp45pi-Overlay"
-          onMouseDown={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          style={
-            Object {
-              "transform": "translate(0px,0px)",
-            }
-          }
-          transform={null}
-        >
-          <Suspense
-            fallback={<LoadingContainer />}
-          >
-            <LoadingContainer>
-              <div
-                className="emotion-0"
-              >
-                <div
-                  className="emotion-02lf239-LoadingContainer"
-                >
-                  <Spin
-                    size="default"
-                    spinning={true}
-                    wrapperClassName=""
-                  >
-                    <div
-                      className="ant-spin ant-spin-spinning"
-                    >
-                      <span
-                        className="ant-spin-dot ant-spin-dot-spin"
-                      >
-                        <i
-                          className="ant-spin-dot-item"
-                        />
-                        <i
-                          className="ant-spin-dot-item"
-                        />
-                        <i
-                          className="ant-spin-dot-item"
-                        />
-                        <i
-                          className="ant-spin-dot-item"
-                        />
-                      </span>
-                    </div>
-                  </Spin>
-                </div>
-              </div>
-            </LoadingContainer>
-          </Suspense>
-        </div>
-      </div>
-    </DraggableCore>
-  </Draggable>
-</Overlay>
+      <lazy />
+      <Controls />
+    </Suspense>
+  </div>
+</Draggable>
 `;

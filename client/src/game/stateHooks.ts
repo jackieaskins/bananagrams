@@ -1,10 +1,16 @@
-import { useRecoilCallback, useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { Board } from '../boards/types';
+import {
+  Board,
+  BoardPosition,
+  BoardSquare,
+  getSquareId,
+} from '../boards/types';
 import { initializeState } from '../game/state';
 import { GameInfo, GameStatus } from '../games/types';
 import { Hand } from '../hands/types';
 import { Player } from '../players/types';
+import { SetState } from '../state/types';
 
 const {
   statusState,
@@ -30,13 +36,28 @@ export const useCurrentPlayer = (): Player | null =>
 
 export const useGameHands = (): Record<string, Hand> =>
   useRecoilValue(handsState);
-export const useCurrentHand = (): Hand | null =>
-  useRecoilValue(currentHandState);
+
+export const useCurrentHand = (): Hand => useRecoilValue(currentHandState);
+export const useSetCurrentHand = (): SetState<Hand> =>
+  useSetRecoilState(currentHandState);
 
 export const useGameBoards = (): Record<string, Board> =>
   useRecoilValue(boardsState);
-export const useCurrentBoard = (): Board | null =>
-  useRecoilValue(currentBoardState);
+
+export const useCurrentBoardSquare = (
+  position: BoardPosition
+): BoardSquare | null =>
+  useRecoilValue(currentBoardState(getSquareId(position)));
+export const useSetCurrentBoardSquare = (): ((boardSquare: {
+  id: string;
+  square: BoardSquare | null;
+}) => void) =>
+  useRecoilCallback(
+    ({ set }) => ({ id, square }) => {
+      set(currentBoardState(id), square);
+    },
+    []
+  );
 
 export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
   useRecoilCallback(

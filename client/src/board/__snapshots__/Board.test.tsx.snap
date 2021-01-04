@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Board /> renders draggable board squares 1`] = `
-.emotion-013vb242-Board {
-  cursor: move;
+.emotion-0178nl7-Board {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -57,13 +56,19 @@ exports[`<Board /> renders draggable board squares 1`] = `
       key="0"
     >
       <BoardSquare
+        col={0}
         key="0"
+        row={0}
       />
       <BoardSquare
+        col={1}
         key="1"
+        row={0}
       />
       <BoardSquare
+        col={2}
         key="2"
+        row={0}
       />
     </div>
     <div
@@ -71,13 +76,19 @@ exports[`<Board /> renders draggable board squares 1`] = `
       key="1"
     >
       <BoardSquare
+        col={0}
         key="0"
+        row={1}
       />
       <BoardSquare
+        col={1}
         key="1"
+        row={1}
       />
       <BoardSquare
+        col={2}
         key="2"
+        row={1}
       />
     </div>
   </div>

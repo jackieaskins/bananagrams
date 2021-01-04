@@ -42,6 +42,11 @@ export const getSquareId = ({ row, col }: BoardPosition): string =>
 export default class Board implements BaseModel<BoardJSON> {
   private squares: BoardSquares = {};
 
+  getSquare(position: BoardPosition): BoardSquare | null {
+    const square = this.squares[getSquareId(position)];
+    return square ? { ...square } : null;
+  }
+
   getSquares(): BoardSquares {
     return { ...this.squares };
   }

@@ -11,6 +11,21 @@ describe('Board Model', () => {
     board = new Board();
   });
 
+  describe('getSquare', () => {
+    const tile = new Tile('A1', 'A');
+    const boardPosition = { row: 0, col: 0 };
+
+    it('returns the square at current position', () => {
+      board.addTile(boardPosition, tile);
+
+      expect(board.getSquare(boardPosition)).toEqual({ tile });
+    });
+
+    it('returns null if no current square', () => {
+      expect(board.getSquare(boardPosition)).toBeNull();
+    });
+  });
+
   describe('getSquares', () => {
     it('initializes an empty boardValidation', () => {
       expect(board.getSquares()).toEqual({});

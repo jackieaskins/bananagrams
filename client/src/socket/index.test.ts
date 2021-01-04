@@ -1,15 +1,16 @@
 import {
   socket,
+  getUserId,
   createGame,
   joinGame,
-  disconnect,
-  addGameInfoListener,
-  removeGameInfoListener,
-  leaveGame,
-  getUserId,
   setReady,
+  moveTile,
   kickPlayer,
+  leaveGame,
   addDisconnectListener,
+  addListeners,
+  removeListeners,
+  disconnect,
 } from './index';
 
 jest.mock('socket.io-client', () => ({
@@ -58,6 +59,17 @@ describe('socket', () => {
     expect(socket.emit).toHaveBeenCalledWith('ready', props);
   });
 
+  it('moveTile calls emit', () => {
+    const props = {
+      tileId: 'A1',
+      fromPosition: null,
+      toPosition: { row: 0, col: 0 },
+    };
+    moveTile(props);
+
+    expect(socket.emit).toHaveBeenCalledWith('moveTile', props);
+  });
+
   it('kickPlayer calls emit', () => {
     const props = { userId: 'userId' };
     kickPlayer(props);
@@ -78,16 +90,51 @@ describe('socket', () => {
     expect(socket.disconnect).toHaveBeenCalledWith();
   });
 
-  it('addGameInfoListener listens on gameInfo', () => {
-    addGameInfoListener(mockListener);
+  describe('addListeners', () => {
+    const gameInfoListener = jest.fn();
+    const boardSquareUpdateListener = jest.fn();
+    const handUpdateListener = jest.fn();
 
-    expect(socket.on).toHaveBeenCalledWith('gameInfo', mockListener);
+    beforeEach(() => {
+      addListeners(
+        gameInfoListener,
+        boardSquareUpdateListener,
+        handUpdateListener
+      );
+    });
+
+    it('listens for game info event', () => {
+      expect(socket.on).toHaveBeenCalledWith('gameInfo', gameInfoListener);
+    });
+
+    it('listens for board square update event', () => {
+      expect(socket.on).toHaveBeenCalledWith(
+        'boardSquareUpdate',
+        boardSquareUpdateListener
+      );
+    });
+
+    it('listns for hand update event', () => {
+      expect(socket.on).toHaveBeenCalledWith('handUpdate', handUpdateListener);
+    });
   });
 
-  it('removeGameInfoListener removes listener on gameInfo', () => {
-    removeGameInfoListener();
+  describe('removeListeners', () => {
+    beforeEach(() => {
+      removeListeners();
+    });
 
-    expect(socket.off).toHaveBeenCalledWith('gameInfo');
+    it('removes game info listener', () => {
+      expect(socket.off).toHaveBeenCalledWith('gameInfo');
+    });
+
+    it('removes board square update listener', () => {
+      expect(socket.off).toHaveBeenCalledWith('boardSquareUpdate');
+    });
+
+    it('removes hand update listener', () => {
+      expect(socket.off).toHaveBeenCalledWith('handUpdate');
+    });
   });
 
   it('addDisconnectListener listens on disconnect', () => {

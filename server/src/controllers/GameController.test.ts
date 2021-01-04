@@ -480,20 +480,55 @@ describe('GameController', () => {
       jest.spyOn(hand, 'addTiles');
     });
 
-    it('removes tile from hand if no fromPosition', () => {
-      hand.addTiles([tile]);
+    it('returns early if both tiles are in hand', () => {
+      gameController.moveTile(tileId, null, null);
 
-      gameController.moveTile(tileId, null, toPosition);
-
-      expect(hand.removeTile).toHaveBeenCalledWith(tileId);
+      expect(hand.removeTile).not.toHaveBeenCalled();
+      expect(hand.removeTile).not.toHaveBeenCalled();
     });
 
-    it('removes tile from board if fromPosition', () => {
-      board.addTile(fromPosition, tile);
+    it('returns early if tiles are at same position', () => {
+      gameController.moveTile(tileId, fromPosition, fromPosition);
 
-      gameController.moveTile(tileId, fromPosition, toPosition);
+      expect(hand.removeTile).not.toHaveBeenCalled();
+      expect(hand.removeTile).not.toHaveBeenCalled();
+    });
 
-      expect(board.removeTile).toHaveBeenCalledWith(fromPosition);
+    describe('when no fromPosition', () => {
+      beforeEach(() => {
+        hand.addTiles([tile]);
+
+        gameController.moveTile(tileId, null, toPosition);
+      });
+
+      it('removes tile from hand', () => {
+        expect(hand.removeTile).toHaveBeenCalledWith(tileId);
+      });
+
+      it('emits handUpdate event to current user', () => {
+        expect(ioTo).toHaveBeenCalledWith(player.getUserId());
+        expect(ioEmit).toHaveBeenCalledWith('handUpdate', hand.toJSON());
+      });
+    });
+
+    describe('when fromPosition', () => {
+      beforeEach(() => {
+        board.addTile(fromPosition, tile);
+
+        gameController.moveTile(tileId, fromPosition, toPosition);
+      });
+
+      it('removes tile from board if fromPosition', () => {
+        expect(board.removeTile).toHaveBeenCalledWith(fromPosition);
+      });
+
+      it('emits boardSquareUpdate event to current user', () => {
+        expect(ioTo).toHaveBeenCalledWith(player.getUserId());
+        expect(ioEmit).toHaveBeenCalledWith('boardSquareUpdate', {
+          id: '0,0',
+          square: null,
+        });
+      });
     });
 
     describe('when toPosition exists', () => {
@@ -508,6 +543,18 @@ describe('GameController', () => {
       describe('when position has tile', () => {
         beforeEach(() => {
           board.addTile(toPosition, oldTile);
+        });
+
+        it('emits boardSquareUpdate event to curent user', () => {
+          board.addTile(fromPosition, tile);
+
+          gameController.moveTile(tileId, fromPosition, toPosition);
+
+          expect(ioTo).toHaveBeenCalledWith(player.getUserId());
+          expect(ioEmit).toHaveBeenCalledWith('boardSquareUpdate', {
+            id: '1,1',
+            square: { tile: { letter: 'A', id: 'A1' } },
+          });
         });
 
         it('moves old tile to board if fromPosition', () => {

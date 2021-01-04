@@ -19,13 +19,17 @@ exports[`<Hand /> renders tiles 1`] = `
 <div
   className="emotion-0"
 >
-  <Tile
+  <Memo(Tile)
+    id="A1"
     key="A1"
     letter="A"
+    onClick={[Function]}
   />
-  <Tile
+  <Memo(Tile)
+    id="B1"
     key="B1"
     letter="B"
+    onClick={[Function]}
   />
 </div>
 `;

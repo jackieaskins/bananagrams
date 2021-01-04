@@ -13,10 +13,10 @@ import {
 const Board = (): JSX.Element => {
   const boardSquares = useMemo(
     () =>
-      [...Array(TILES_PER_COL)].map((_, y) => (
-        <div key={y} css={{ display: 'flex' }}>
-          {[...Array(TILES_PER_ROW)].map((_, x) => (
-            <BoardSquare key={x} />
+      [...Array(TILES_PER_COL)].map((_, row) => (
+        <div key={row} css={{ display: 'flex' }}>
+          {[...Array(TILES_PER_ROW)].map((_, col) => (
+            <BoardSquare key={col} row={row} col={col} />
           ))}
         </div>
       )),
@@ -27,7 +27,6 @@ const Board = (): JSX.Element => {
     <Draggable bounds="parent" cancel=".no-drag">
       <div
         css={{
-          cursor: 'move',
           display: 'flex',
           flexDirection: 'column',
           width: `${BOARD_WIDTH}px`,

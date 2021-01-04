@@ -1,4 +1,4 @@
-import { useRecoilCallback, useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { playerFixture } from '../fixtures/player';
 import {
@@ -9,18 +9,23 @@ import {
   useCurrentPlayer,
   useGameHands,
   useCurrentHand,
+  useSetCurrentHand,
   useGameBoards,
-  useCurrentBoard,
+  useCurrentBoardSquare,
+  useSetCurrentBoardSquare,
   useUpdateGameState,
 } from './stateHooks';
 
 const mockSet = jest.fn();
 const mockUseRecoilCallback = useRecoilCallback as jest.Mock;
 const mockUseRecoilValue = useRecoilValue as jest.Mock;
+const mockUseSetRecoilState = useSetRecoilState as jest.Mock;
 const mockReturnValue = 'mockReturnValue';
+const mockSetReturnValue = 'mockSetReturnValue';
 jest.mock('recoil', () => ({
   useRecoilCallback: jest.fn((fn) => fn({ set: mockSet })),
   useRecoilValue: jest.fn().mockReturnValue('mockReturnValue'),
+  useSetRecoilState: jest.fn().mockReturnValue(() => mockSetReturnValue),
 }));
 
 jest.mock('./state', () => ({
@@ -33,7 +38,7 @@ jest.mock('./state', () => ({
     handsState: 'handsState',
     currentHandState: 'currentHandState',
     boardsState: 'boardsState',
-    currentBoardState: 'currentBoardState',
+    currentBoardState: jest.fn().mockReturnValue('currentBoardState'),
   }),
 }));
 
@@ -73,14 +78,34 @@ describe('state hooks', () => {
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentHandState');
   });
 
+  it('useSetCurrentHand returns set recoil state', () => {
+    expect(useSetCurrentHand()([])).toEqual(mockSetReturnValue);
+    expect(mockUseSetRecoilState).toHaveBeenCalledWith('currentHandState');
+  });
+
   it('useGameBoards returns recoil value', () => {
     expect(useGameBoards()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('boardsState');
   });
 
   it('useCurrentBoard returns recoil value', () => {
-    expect(useCurrentBoard()).toEqual(mockReturnValue);
+    expect(useCurrentBoardSquare({ row: 0, col: 0 })).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardState');
+  });
+
+  it('useSetCurrentBoardSquare returns recoil callback', () => {
+    useSetCurrentBoardSquare();
+
+    mockUseRecoilCallback.mock.results[0].value({
+      id: '0,0',
+      square: null,
+    });
+
+    expect(mockUseRecoilCallback).toHaveBeenCalledWith(
+      expect.any(Function),
+      []
+    );
+    expect(mockSet).toHaveBeenCalledWith('currentBoardState', null);
   });
 
   it('useUpdateGameState updates game state through recoil callback', () => {
@@ -102,6 +127,9 @@ describe('state hooks', () => {
       expect.any(Function),
       []
     );
+
+    expect(mockSet).toHaveBeenCalledTimes(6);
+
     expect(mockSet).toHaveBeenCalledWith('statusState', gameInfo.status);
     expect(mockSet).toHaveBeenCalledWith('countdownState', gameInfo.countdown);
     expect(mockSet).toHaveBeenCalledWith('nameState', gameInfo.gameName);

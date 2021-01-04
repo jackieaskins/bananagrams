@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<BoardSquare /> renders styled div 1`] = `
+exports[`<BoardSquare /> renders empty div when no tile at square 1`] = `
 .emotion-067ugy6-BoardSquare {
   min-width: 30px;
   width: 30px;
@@ -22,5 +22,38 @@ exports[`<BoardSquare /> renders styled div 1`] = `
 
 <div
   className="emotion-0"
+  onClick={[Function]}
 />
+`;
+
+exports[`<BoardSquare /> renders tile within div 1`] = `
+.emotion-067ugy6-BoardSquare {
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+<div
+  className="emotion-0"
+  onClick={[Function]}
+>
+  <Memo(Tile)
+    id="A1"
+    letter="A"
+    onClick={[Function]}
+  />
+</div>
 `;
