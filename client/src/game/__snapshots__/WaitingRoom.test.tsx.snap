@@ -45,7 +45,7 @@ exports[`<WaitingRoom /> renders properly 1`] = `
           copyable={true}
           type="secondary"
         >
-          http://localhost//join
+          http://localhost?gameId=gameId&tabKey=joinGame
         </Text>
       </div>
       <PlayerTable />

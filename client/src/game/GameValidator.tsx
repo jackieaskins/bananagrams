@@ -34,7 +34,7 @@ const GameValidator = (): JSX.Element => {
     );
   }
 
-  return <Redirect to={`/game/${gameId}/join`} />;
+  return <Redirect to={`/?gameId=${gameId}&tabKey=joinGame`} />;
 };
 
 export default GameValidator;

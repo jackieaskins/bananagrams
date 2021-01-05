@@ -26,6 +26,10 @@ describe('<JoinGameForm />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
+  it('renders form without gameId', () => {
+    expect(renderComponent({ gameId: null })).toMatchSnapshot();
+  });
+
   describe('handleSubmit', () => {
     const gameId = 'gameId';
     const values = { gameId, username: 'username' };

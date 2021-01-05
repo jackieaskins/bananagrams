@@ -2,7 +2,7 @@
 
 exports[`<GameValidator /> when gameInfo is not present in location state redirects to join game route 1`] = `
 <Redirect
-  to="/game/gameId/join"
+  to="/?gameId=gameId&tabKey=joinGame"
 />
 `;
 

@@ -2,6 +2,10 @@ import { shallow } from 'enzyme';
 
 import WaitingRoom from './WaitingRoom';
 
+jest.mock('react-router-dom', () => ({
+  useParams: () => ({ gameId: 'gameId' }),
+}));
+
 jest.mock('./stateHooks', () => ({
   useGameName: jest.fn().mockReturnValue('gameName'),
 }));

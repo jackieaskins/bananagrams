@@ -1,12 +1,14 @@
 import { Col, Row, Space, Typography } from 'antd';
+import { useParams } from 'react-router-dom';
 
 import PlayerTable from '../player/PlayerTable';
 import { useGameName } from './stateHooks';
 
 const { Text } = Typography;
 const WaitingRoom = (): JSX.Element => {
+  const { gameId } = useParams<{ gameId: string }>();
   const gameName = useGameName();
-  const joinUrl = `${window.location.href}/join`;
+  const joinUrl = `${window.location.origin}?gameId=${gameId}&tabKey=joinGame`;
 
   return (
     <Row justify="center" css={{ marginTop: '25px' }}>

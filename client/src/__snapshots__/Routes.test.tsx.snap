@@ -14,12 +14,6 @@ exports[`<Routes /> renders correct routes 1`] = `
   >
     <GameValidator />
   </Route>
-  <Route
-    exact={true}
-    path="/game/:gameId/join"
-  >
-    <JoinGame />
-  </Route>
   <Route>
     <NotFound />
   </Route>

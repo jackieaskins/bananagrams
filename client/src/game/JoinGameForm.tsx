@@ -55,11 +55,11 @@ const JoinGameForm = ({
         name="gameId"
         rules={[{ required: true }]}
       >
-        <Input ref={focusRef} />
+        <Input ref={gameId ? null : focusRef} />
       </FormItem>
 
       <FormItem label="Username" name="username" rules={[{ required: true }]}>
-        <Input />
+        <Input ref={gameId ? focusRef : null} />
       </FormItem>
 
       <FormItem>

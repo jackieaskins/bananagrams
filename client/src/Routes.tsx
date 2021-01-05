@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import NotFound from './NotFound';
 import GameValidator from './game/GameValidator';
-import JoinGame from './game/JoinGame';
 
 const Routes = (): JSX.Element => (
   <Switch>
@@ -13,10 +12,6 @@ const Routes = (): JSX.Element => (
 
     <Route path="/game/:gameId" exact>
       <GameValidator />
-    </Route>
-
-    <Route path="/game/:gameId/join" exact>
-      <JoinGame />
     </Route>
 
     <Route>
