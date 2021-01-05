@@ -420,27 +420,35 @@ export default class GameController {
       );
     });
 
-    currentGame.setStatus('STARTING');
-    currentGame.setCountdown(3);
+    const players = currentGame.getPlayers();
+
+    if (players.length === 1) {
+      currentGame.setStatus('IN_PROGRESS');
+    } else {
+      currentGame.setStatus('STARTING');
+      currentGame.setCountdown(3);
+    }
 
     const hands = currentGame.getHands();
-    currentGame.getPlayers().forEach((player) => {
+    players.forEach((player) => {
       const userId = player.getUserId();
       io.to(userId).emit('handUpdate', hands[userId]);
     });
     GameController.emitGameInfo(io, currentGame);
 
-    const interval = setInterval(() => {
-      const currentCountdown = currentGame.getCountdown();
-      currentGame.setCountdown(currentCountdown - 1);
+    if (players.length !== 1) {
+      const interval = setInterval(() => {
+        const currentCountdown = currentGame.getCountdown();
+        currentGame.setCountdown(currentCountdown - 1);
 
-      if (currentCountdown === 1) {
-        clearInterval(interval);
-        currentGame.setStatus('IN_PROGRESS');
-      }
+        if (currentCountdown === 1) {
+          clearInterval(interval);
+          currentGame.setStatus('IN_PROGRESS');
+        }
 
-      GameController.emitGameInfo(io, currentGame);
-    }, 1000);
+        GameController.emitGameInfo(io, currentGame);
+      }, 1000);
+    }
   }
 
   private getInitialTileCount(): number {

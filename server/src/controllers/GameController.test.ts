@@ -727,11 +727,10 @@ describe('GameController', () => {
     beforeEach(() => {
       game.setStatus('NOT_STARTED');
       jest.spyOn(game, 'reset');
-
-      gameController.split();
     });
 
     it('emits game ready notification', () => {
+      gameController.split();
       assertEmitsGameNotification(
         ioEmit,
         'Everyone is ready, the game will start soon!'
@@ -739,10 +738,12 @@ describe('GameController', () => {
     });
 
     it('resets current game', () => {
+      gameController.split();
       expect(game.reset).toHaveBeenCalledWith();
     });
 
     it('adds tiles to player hand', () => {
+      gameController.split();
       expect(hand.getTiles()).toHaveLength(21);
     });
 
@@ -753,35 +754,61 @@ describe('GameController', () => {
       expect(controller.getCurrentHand().getTiles()).toHaveLength(2);
     });
 
-    it('sets game to starting', () => {
-      expect(game.getStatus()).toEqual('STARTING');
+    describe('when there is more than 1 player', () => {
+      beforeEach(() => {
+        game.addPlayer(new Player('2', 'u2'));
+        gameController.split();
+      });
+
+      it('sets game to starting', () => {
+        expect(game.getStatus()).toEqual('STARTING');
+      });
+
+      it('sets the countdown to 3', () => {
+        expect(game.getCountdown()).toEqual(3);
+      });
+
+      it('removes the interval once countdown reaches 0', () => {
+        jest.runAllTimers();
+
+        expect(game.getCountdown()).toEqual(0);
+      });
+
+      it('updates current countdown every second', () => {
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(2);
+        assertEmitsGameInfo(ioEmit);
+
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(1);
+        assertEmitsGameInfo(ioEmit);
+
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(0);
+        expect(game.getStatus()).toEqual('IN_PROGRESS');
+        assertEmitsGameInfo(ioEmit);
+      });
     });
 
-    it('remove the interval once countdown reaches 0', () => {
-      jest.runAllTimers();
+    describe('when there is one player', () => {
+      beforeEach(() => {
+        gameController.split();
+      });
 
-      expect(game.getCountdown()).toEqual(0);
-    });
+      it('moves the game directly to in progress', () => {
+        expect(game.getStatus()).toEqual('IN_PROGRESS');
+      });
 
-    it('updates current countdown every second', () => {
-      ioEmit.mockClear();
-      jest.runOnlyPendingTimers();
-      expect(game.getCountdown()).toEqual(2);
-      assertEmitsGameInfo(ioEmit);
-
-      ioEmit.mockClear();
-      jest.runOnlyPendingTimers();
-      expect(game.getCountdown()).toEqual(1);
-      assertEmitsGameInfo(ioEmit);
-
-      ioEmit.mockClear();
-      jest.runOnlyPendingTimers();
-      expect(game.getCountdown()).toEqual(0);
-      expect(game.getStatus()).toEqual('IN_PROGRESS');
-      assertEmitsGameInfo(ioEmit);
+      it('does not set a countdown timer', () => {
+        expect(setInterval).not.toHaveBeenCalled();
+      });
     });
 
     it('emits game info', () => {
+      gameController.split();
       assertEmitsGameInfo(ioEmit);
     });
   });
