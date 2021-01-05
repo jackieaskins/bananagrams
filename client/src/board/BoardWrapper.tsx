@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { useWindowSize } from '../util/window';
 import Board from './Board';
 import { BOARD_HEIGHT, BOARD_WIDTH } from './constants';
@@ -35,4 +37,4 @@ const BoardWrapper = (): JSX.Element => {
   );
 };
 
-export default BoardWrapper;
+export default memo(BoardWrapper);

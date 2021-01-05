@@ -21,16 +21,17 @@ const Tile = ({ onClick, id, letter }: TileProps): JSX.Element => {
     <div
       className="no-drag tile"
       css={{
-        width: `${TILE_SIZE}px`,
-        height: `${TILE_SIZE}px`,
+        alignItems: 'center',
         backgroundColor: '#ffffc7',
         border: '0.5px solid black',
         borderRadius: '5px',
-        flexShrink: 0,
+        cursor: 'pointer',
         display: 'flex',
-        alignItems: 'center',
+        flexShrink: 0,
+        height: `${TILE_SIZE}px`,
         justifyContent: 'center',
         opacity: isSelectedTile ? 0.5 : 1,
+        width: `${TILE_SIZE}px`,
       }}
       onClick={handleClick}
     >

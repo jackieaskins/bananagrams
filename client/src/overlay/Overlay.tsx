@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { memo, Suspense } from 'react';
 import Draggable from 'react-draggable';
 import { useRecoilCallback } from 'recoil';
 
@@ -64,4 +64,4 @@ const Overlay = (): JSX.Element => {
   );
 };
 
-export default Overlay;
+export default memo(Overlay);

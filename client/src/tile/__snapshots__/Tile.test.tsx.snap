@@ -1,52 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
-.emotion-0ezjqdi-Tile {
-  width: 30px;
-  height: 30px;
-  background-color: #ffffc7;
-  border: 0.5px solid black;
-  border-radius: 5px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.emotion-0173spon-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 30px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
   opacity: 1;
+  width: 30px;
 }
 
-.emotion-012n29wf-Tile {
-  width: 30px;
-  height: 30px;
-  background-color: #ffffc7;
-  border: 0.5px solid black;
-  border-radius: 5px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.emotion-01gq781s-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 30px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
   opacity: 0.5;
+  width: 30px;
 }
 
 <div
@@ -58,28 +60,29 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
 `;
 
 exports[`<Tile /> renders styled div 1`] = `
-.emotion-0ezjqdi-Tile {
-  width: 30px;
-  height: 30px;
-  background-color: #ffffc7;
-  border: 0.5px solid black;
-  border-radius: 5px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.emotion-0173spon-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #ffffc7;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 30px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
   opacity: 1;
+  width: 30px;
 }
 
 <div

@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Game /> renders board with overlay 1`] = `
-.emotion-0at1na8-Game {
+exports[`<Game /> renders board and overlay with move cursor if no tile 1`] = `
+.emotion-01gtsv1y-Game {
+  cursor: move;
   width: 100vw;
   height: 100vh;
 }
@@ -18,7 +19,38 @@ exports[`<Game /> renders board with overlay 1`] = `
   >
     <lazy />
   </Suspense>
-  <Overlay />
+  <Memo(Overlay) />
+  <SelectedTile />
+</div>
+`;
+
+exports[`<Game /> renders board and overlay with move cursor if tile 1`] = `
+.emotion-01gtsv1y-Game {
+  cursor: move;
+  width: 100vw;
+  height: 100vh;
+}
+
+.emotion-0zeng4e-Game {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+  width: 100vw;
+  height: 100vh;
+}
+
+<div
+  className="emotion-0"
+>
+  <Suspense
+    fallback={
+      <LoadingContainer
+        size="large"
+      />
+    }
+  >
+    <lazy />
+  </Suspense>
+  <Memo(Overlay) />
   <SelectedTile />
 </div>
 `;
