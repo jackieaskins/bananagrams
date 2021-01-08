@@ -15,11 +15,11 @@ export enum ValidationStatus {
 }
 export type WordInfo = {
   start: BoardPosition;
-  validation: ValidationStatus;
+  validationStatus: ValidationStatus;
 };
 export type BoardSquare = {
   tile: Tile;
-  wordInfo: Record<Direction, WordInfo>;
+  validationStatus: ValidationStatus;
 };
 export type Board = Record<string, BoardSquare | null>;
 

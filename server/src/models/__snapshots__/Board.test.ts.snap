@@ -11,7 +11,7 @@ Object {
       "id": "A1",
       "letter": "A",
     },
-    "wordInfo": undefined,
+    "validationStatus": "NOT_VALIDATED",
   },
   "0,1": null,
 }

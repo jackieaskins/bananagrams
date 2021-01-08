@@ -118,22 +118,7 @@ exports[`<Board /> renders properly 1`] = `
             "id": "A1",
             "letter": "A",
           },
-          "wordInfo": Object {
-            "ACROSS": Object {
-              "start": Object {
-                "col": 0,
-                "row": 0,
-              },
-              "validation": "VALID",
-            },
-            "DOWN": Object {
-              "start": Object {
-                "col": 0,
-                "row": 0,
-              },
-              "validation": "NOT_VALIDATED",
-            },
-          },
+          "validationStatus": "VALID",
         }
       }
       col={0}

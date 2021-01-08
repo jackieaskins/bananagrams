@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<BoardSquare /> renders black tile when not validated in any direction 1`] = `
+exports[`<BoardSquare /> renders black tile when not validated 1`] = `
 <Styled(MuiBox)
   height="25px"
   width="25px"
@@ -23,7 +23,7 @@ exports[`<BoardSquare /> renders black tile when not validated in any direction 
 </Styled(MuiBox)>
 `;
 
-exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = `
+exports[`<BoardSquare /> renders green tile when valid 1`] = `
 <Styled(MuiBox)
   height="25px"
   width="25px"
@@ -61,7 +61,7 @@ exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
 />
 `;
 
-exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
+exports[`<BoardSquare /> renders red tile when invalid 1`] = `
 <Styled(MuiBox)
   height="25px"
   width="25px"

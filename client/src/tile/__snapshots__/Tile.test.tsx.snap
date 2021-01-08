@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
-.emotion-0173spon-Tile {
+.emotion-0ju21v4-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -9,6 +9,7 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
   background-color: #ffffc7;
   border: 0.5px solid black;
   border-radius: 5px;
+  color: black;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -26,7 +27,7 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
   width: 30px;
 }
 
-.emotion-01gq781s-Tile {
+.emotion-0gustx6-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -34,6 +35,7 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
   background-color: #ffffc7;
   border: 0.5px solid black;
   border-radius: 5px;
+  color: black;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -60,7 +62,7 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
 `;
 
 exports[`<Tile /> renders styled div 1`] = `
-.emotion-0173spon-Tile {
+.emotion-0ju21v4-Tile {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -68,6 +70,7 @@ exports[`<Tile /> renders styled div 1`] = `
   background-color: #ffffc7;
   border: 0.5px solid black;
   border-radius: 5px;
+  color: black;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;

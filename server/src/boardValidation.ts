@@ -6,6 +6,7 @@ import {
   BoardSquare,
   ValidationStatus,
   getSquareId,
+  WordInfo,
 } from './models/Board';
 import Tile from './models/Tile';
 
@@ -105,7 +106,7 @@ const validateWordsAtPositions = (
     }
 
     iterateWordFromStart(board, boardBoundaries, start, direction, (square) => {
-      square.wordInfo[direction].validation = validationStatus;
+      square.wordInfo[direction].validationStatus = validationStatus;
     });
   });
 };
@@ -153,7 +154,7 @@ export const validateAddTile = (
 
   const wordInfo = positionsToValidate.map(({ direction, start }) => [
     direction,
-    { start, validation: ValidationStatus.NOT_VALIDATED },
+    { start, validationStatus: ValidationStatus.NOT_VALIDATED },
   ]);
 
   board[getSquareId({ row, col })] = {
@@ -214,4 +215,27 @@ export const validateRemoveTile = (
   validateWordsAtPositions(board, boardBoundaries, positionsToValidate);
 
   return board;
+};
+
+export const getValidationStatus = (
+  wordInfo: Record<Direction, WordInfo> | null
+): ValidationStatus => {
+  const validations = Object.values(wordInfo ?? {}).filter(
+    ({ validationStatus }) =>
+      validationStatus !== ValidationStatus.NOT_VALIDATED
+  );
+
+  if (validations.length === 0) {
+    return ValidationStatus.NOT_VALIDATED;
+  }
+
+  if (
+    validations.every(
+      ({ validationStatus }) => validationStatus === ValidationStatus.VALID
+    )
+  ) {
+    return ValidationStatus.VALID;
+  }
+
+  return ValidationStatus.INVALID;
 };

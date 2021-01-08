@@ -4,7 +4,6 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import WalkthroughDialog from './WalkthroughDialog';
 import { WalkthroughDialogState } from './WalkthroughDialogState';
 
-
 const mockHandleClose = jest.fn().mockName('handleClose');
 const mockSetAskAgain = jest.fn().mockName('setAskAgain');
 jest.mock('./WalkthroughDialogState', () => ({

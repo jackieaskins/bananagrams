@@ -44,6 +44,7 @@ describe('<BoardSquare />', () => {
   it('renders tile within div', () => {
     mockUseCurrentBoardSquare.mockReturnValue({
       tile: { letter: 'A', id: 'A1' },
+      validationStatus: 'NOT_VALIDATED',
     });
 
     expect(renderComponent()).toMatchSnapshot();

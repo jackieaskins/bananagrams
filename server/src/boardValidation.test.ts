@@ -1,4 +1,8 @@
-import { validateAddTile, validateRemoveTile } from './boardValidation';
+import {
+  getValidationStatus,
+  validateAddTile,
+  validateRemoveTile,
+} from './boardValidation';
 import {
   BoardSquares,
   Direction,
@@ -76,12 +80,18 @@ describe('boardValidation', () => {
     expect(wordInfo[Direction.ACROSS]).toEqual(
       acrossValidated
         ? acrossInfo
-        : { start: { row, col }, validation: ValidationStatus.NOT_VALIDATED }
+        : {
+            start: { row, col },
+            validationStatus: ValidationStatus.NOT_VALIDATED,
+          }
     );
     expect(wordInfo[Direction.DOWN]).toEqual(
       downValidated
         ? downInfo
-        : { start: { row, col }, validation: ValidationStatus.NOT_VALIDATED }
+        : {
+            start: { row, col },
+            validationStatus: ValidationStatus.NOT_VALIDATED,
+          }
     );
   };
 
@@ -101,11 +111,11 @@ describe('boardValidation', () => {
     it('validates when connecting words in both directions', () => {
       const acrossInfo = {
         start: { row: 2, col: 1 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       addTile(2, 2);
@@ -120,11 +130,11 @@ describe('boardValidation', () => {
     it('validates when adding to start of across word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       addTile(2, 0);
@@ -140,11 +150,11 @@ describe('boardValidation', () => {
     it('validates when adding to end of across word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       addTile(2, 4);
@@ -161,11 +171,11 @@ describe('boardValidation', () => {
     it('validates when adding to start of down word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 0, col: 2 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
 
       addTile(0, 2);
@@ -183,11 +193,11 @@ describe('boardValidation', () => {
     it('validates when adding to end of down word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 0, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       addTile(4, 2);
@@ -206,11 +216,11 @@ describe('boardValidation', () => {
     it('validates when adding at connected position', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 0, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       addTile(1, 3);
@@ -220,13 +230,13 @@ describe('boardValidation', () => {
         2,
         true,
         true,
-        { start: { row: 1, col: 2 }, validation: ValidationStatus.VALID },
+        { start: { row: 1, col: 2 }, validationStatus: ValidationStatus.VALID },
         downInfo
       );
       validateSquare(2, 1, true, false, acrossInfo, downInfo);
       validateSquare(2, 3, true, true, acrossInfo, {
         start: { row: 1, col: 3 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       });
       validateSquare(3, 2, false, true, acrossInfo, downInfo);
       validateSquare(2, 2, true, true, acrossInfo, downInfo);
@@ -239,10 +249,10 @@ describe('boardValidation', () => {
         3,
         true,
         true,
-        { start: { row: 1, col: 2 }, validation: ValidationStatus.VALID },
+        { start: { row: 1, col: 2 }, validationStatus: ValidationStatus.VALID },
         {
           start: { row: 1, col: 3 },
-          validation: ValidationStatus.INVALID,
+          validationStatus: ValidationStatus.INVALID,
         }
       );
     });
@@ -252,11 +262,11 @@ describe('boardValidation', () => {
     it('validates when removing from connected position', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 0, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       removeTile(1, 3);
@@ -276,11 +286,11 @@ describe('boardValidation', () => {
     it('validates when removing from end of down word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 0, col: 2 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
 
       removeTile(4, 2);
@@ -299,11 +309,11 @@ describe('boardValidation', () => {
     it('validates when removing from start of down word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       removeTile(0, 2);
@@ -321,11 +331,11 @@ describe('boardValidation', () => {
     it('validates when removing from end of across word', () => {
       const acrossInfo = {
         start: { row: 2, col: 0 },
-        validation: ValidationStatus.VALID,
+        validationStatus: ValidationStatus.VALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       removeTile(2, 4);
@@ -342,11 +352,11 @@ describe('boardValidation', () => {
     it('validates when removing from start of across word', () => {
       const acrossInfo = {
         start: { row: 2, col: 1 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
       const downInfo = {
         start: { row: 1, col: 2 },
-        validation: ValidationStatus.INVALID,
+        validationStatus: ValidationStatus.INVALID,
       };
 
       removeTile(2, 0);
@@ -379,6 +389,59 @@ describe('boardValidation', () => {
       validateNullSquare(2, 1);
       validateNullSquare(2, 3);
       validateNullSquare(3, 2);
+    });
+  });
+
+  describe('getValidationStatus', () => {
+    it('returns not validated if no word info', () => {
+      expect(getValidationStatus(null)).toEqual(ValidationStatus.NOT_VALIDATED);
+    });
+
+    it('returns not validated if all directions are not validated', () => {
+      const wordInfo = {
+        [Direction.ACROSS]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.NOT_VALIDATED,
+        },
+        [Direction.DOWN]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.NOT_VALIDATED,
+        },
+      };
+
+      expect(getValidationStatus(wordInfo)).toEqual(
+        ValidationStatus.NOT_VALIDATED
+      );
+    });
+
+    it('returns valid if no directions are invalid', () => {
+      const wordInfo = {
+        [Direction.ACROSS]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.NOT_VALIDATED,
+        },
+        [Direction.DOWN]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.VALID,
+        },
+      };
+
+      expect(getValidationStatus(wordInfo)).toEqual(ValidationStatus.VALID);
+    });
+
+    it('returns invalid if at least one direction is invalid', () => {
+      const wordInfo = {
+        [Direction.ACROSS]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.INVALID,
+        },
+        [Direction.DOWN]: {
+          start: { row: 0, col: 0 },
+          validationStatus: ValidationStatus.VALID,
+        },
+      };
+
+      expect(getValidationStatus(wordInfo)).toEqual(ValidationStatus.INVALID);
     });
   });
 });

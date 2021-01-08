@@ -11,3 +11,5 @@ export const validateRemoveTile = jest
     squares[`${row},${col}`] = null;
     return squares;
   });
+
+export const getValidationStatus = jest.fn().mockReturnValue('NOT_VALIDATED');

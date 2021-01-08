@@ -11,7 +11,7 @@ import Hand from './LazyHand';
 const Overlay = (): JSX.Element => {
   const handleClick = useRecoilCallback(
     ({ set, snapshot }) => async ({ target }) => {
-      if (target.className.split(' ').includes('tile')) {
+      if (!target.className.split(' ').includes('overlay')) {
         return;
       }
 

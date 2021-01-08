@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShuffleButton /> renders button 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="right"
+  title="Shuffle hand"
+  transitionName="zoom-big-fast"
+>
+  <Button
+    disabled={false}
+    onClick={[MockFunction shuffleHand]}
+  >
+    Shuffle hand
+  </Button>
+</Tooltip>
+`;
+
+exports[`<ShuffleButton /> tooltip text shows not enough tiles message if not enough tiles 1`] = `"Not enough tiles in hand to shuffle"`;
+
+exports[`<ShuffleButton /> tooltip text shows shuffle hand message by default 1`] = `"Shuffle hand"`;

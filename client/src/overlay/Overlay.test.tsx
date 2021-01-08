@@ -10,6 +10,7 @@ const mockSnapshot = {
   getPromise: jest.fn(),
 };
 jest.mock('recoil', () => ({
+  ...jest.requireActual<any>('recoil'),
   useRecoilCallback: jest.fn((fn) =>
     fn({ set: mockSet, snapshot: mockSnapshot })
   ),
@@ -34,13 +35,15 @@ describe('<Overlay />', () => {
   });
 
   describe('handleClick', () => {
-    const handleClick = async (event = { target: { className: '' } }) => {
+    const handleClick = async (
+      event = { target: { className: 'overlay' } }
+    ) => {
       renderComponent();
       await mockUseRecoilCallback.mock.results[0].value(event);
     };
 
-    it('returns early if tile was clicked', async () => {
-      await handleClick({ target: { className: 'class tile' } });
+    it('returns early if non-overlay was clicked', async () => {
+      await handleClick({ target: { className: 'tile' } });
 
       expect(mockMoveTile).not.toHaveBeenCalled();
     });

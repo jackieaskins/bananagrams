@@ -21,12 +21,12 @@ jest.mock('../socket', () => ({
 }));
 
 const mockUseGameStatus = useGameStatus as jest.Mock;
-const mockSetCurrentBoardSquare = jest.fn();
+const mockSetCurrentBoard = jest.fn();
 const mockSetCurrentHand = jest.fn();
 const mockUpdateGameState = jest.fn();
 jest.mock('./stateHooks', () => ({
   useGameStatus: jest.fn(),
-  useSetCurrentBoardSquare: () => mockSetCurrentBoardSquare,
+  useSetCurrentBoard: () => mockSetCurrentBoard,
   useSetCurrentHand: () => mockSetCurrentHand,
   useUpdateGameState: () => mockUpdateGameState,
 }));
@@ -77,10 +77,10 @@ describe('<GameRouter />', () => {
       expect(mockUpdateGameState).toHaveBeenCalledWith(info);
     });
 
-    it('updates current board square on boardSquare update', () => {
-      mockAddListeners.mock.calls[0][1](null);
+    it('updates current board on board update', () => {
+      mockAddListeners.mock.calls[0][1]({});
 
-      expect(mockSetCurrentBoardSquare).toHaveBeenCalledWith(null);
+      expect(mockSetCurrentBoard).toHaveBeenCalledWith({});
     });
 
     it('updates current hand on hand update', () => {

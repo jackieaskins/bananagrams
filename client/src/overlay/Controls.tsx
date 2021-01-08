@@ -1,11 +1,17 @@
-import { Button, Space } from 'antd';
+import { Space } from 'antd';
+
+import DumpButton from './DumpButton';
+import PeelButton from './PeelButton';
+import ShuffleButton from './ShuffleButton';
 
 const Controls = (): JSX.Element => (
   <Space direction="vertical">
-    <Button block type="primary">
-      Peel
-    </Button>
-    <Button block>Shuffle hand</Button>
+    <Space>
+      <PeelButton />
+      <ShuffleButton />
+    </Space>
+
+    <DumpButton />
   </Space>
 );
 

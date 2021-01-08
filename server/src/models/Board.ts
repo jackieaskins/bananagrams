@@ -1,4 +1,8 @@
-import { validateAddTile, validateRemoveTile } from '../boardValidation';
+import {
+  getValidationStatus,
+  validateAddTile,
+  validateRemoveTile,
+} from '../boardValidation';
 import BaseModel from './BaseModel';
 import Tile, { TileJSON } from './Tile';
 
@@ -17,7 +21,7 @@ export enum ValidationStatus {
 }
 export type WordInfo = {
   start: BoardPosition;
-  validation: ValidationStatus;
+  validationStatus: ValidationStatus;
 };
 export type BoardSquare = {
   tile: Tile;
@@ -29,10 +33,7 @@ export type BoardJSON = Record<
   string,
   {
     tile: TileJSON;
-    wordInfo: {
-      [Direction.ACROSS]?: WordInfo;
-      [Direction.DOWN]?: WordInfo;
-    };
+    validationStatus: ValidationStatus;
   } | null
 >;
 
@@ -79,7 +80,10 @@ export default class Board implements BaseModel<BoardJSON> {
         if (square) {
           return [
             id,
-            { tile: square.tile.toJSON(), wordInfo: square.wordInfo },
+            {
+              tile: square.tile.toJSON(),
+              validationStatus: getValidationStatus(square.wordInfo),
+            },
           ];
         }
 

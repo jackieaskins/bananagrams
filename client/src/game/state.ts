@@ -11,17 +11,20 @@ import { GameStatus } from '../games/types';
 import { Hand } from '../hands/types';
 import { Player } from '../players/types';
 import { getUserId } from '../socket';
+import { Tile } from '../tiles/types';
 
 export type GameState = {
   statusState: RecoilState<GameStatus>;
   countdownState: RecoilState<number>;
   nameState: RecoilState<string>;
+  bunchState: RecoilState<Tile[]>;
   playersState: RecoilState<Player[]>;
   currentPlayerState: RecoilValueReadOnly<Player | null>;
   handsState: RecoilState<Record<string, Hand>>;
   currentHandState: RecoilState<Hand>;
   boardsState: RecoilState<Record<string, Board>>;
-  currentBoardState: (param: string) => RecoilState<BoardSquare | null>;
+  currentBoardState: RecoilState<Board>;
+  currentBoardSquaresState: (param: string) => RecoilState<BoardSquare | null>;
 };
 
 export const initializeState = (): GameState => {
@@ -38,6 +41,11 @@ export const initializeState = (): GameState => {
   const nameState = atom({
     key: 'gameName',
     default: '',
+  });
+
+  const bunchState = atom<Tile[]>({
+    key: 'gameBunch',
+    default: [],
   });
 
   const playersState = atom<Player[]>({
@@ -65,8 +73,12 @@ export const initializeState = (): GameState => {
     default: {},
   });
 
-  const currentBoardState = atomFamily<BoardSquare | null, string>({
+  const currentBoardState = atom<Board>({
     key: 'gameCurrentBoardState',
+    default: {},
+  });
+  const currentBoardSquaresState = atomFamily<BoardSquare | null, string>({
+    key: 'gameCurrentBoardSquaresState',
     default: null,
   });
 
@@ -74,11 +86,13 @@ export const initializeState = (): GameState => {
     statusState,
     countdownState,
     nameState,
+    bunchState,
     playersState,
     currentPlayerState,
     handsState,
     currentHandState,
     boardsState,
     currentBoardState,
+    currentBoardSquaresState,
   };
 };

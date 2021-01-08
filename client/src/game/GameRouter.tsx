@@ -6,7 +6,7 @@ import Game from './Game';
 import WaitingRoom from './WaitingRoom';
 import {
   useGameStatus,
-  useSetCurrentBoardSquare,
+  useSetCurrentBoard,
   useSetCurrentHand,
   useUpdateGameState,
 } from './stateHooks';
@@ -18,7 +18,7 @@ type GameRouterProps = {
 const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
   const updateGameState = useUpdateGameState();
   const gameStatus = useGameStatus();
-  const setCurrentBoardSquare = useSetCurrentBoardSquare();
+  const setCurrentBoard = useSetCurrentBoard();
   const setCurrentHand = useSetCurrentHand();
   const isGameInProgress = gameStatus === 'IN_PROGRESS';
 
@@ -29,8 +29,8 @@ const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
       (info) => {
         updateGameState(info);
       },
-      (boardSquare) => {
-        setCurrentBoardSquare(boardSquare);
+      (board) => {
+        setCurrentBoard(board);
       },
       (hand) => {
         setCurrentHand(hand);
@@ -38,7 +38,7 @@ const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
     );
 
     return removeListeners;
-  }, [initialGameInfo, updateGameState, setCurrentHand, setCurrentBoardSquare]);
+  }, [initialGameInfo, updateGameState, setCurrentHand, setCurrentBoard]);
 
   if (isGameInProgress) {
     return <Game />;

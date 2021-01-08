@@ -40,6 +40,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-explicit-any': 'off',
     'arrow-body-style': ['error', 'as-needed'],
+    'import/namespace': ['error', { allowComputed: true }],
     'import/order': [
       'error',
       {
@@ -67,6 +68,11 @@ module.exports = {
       }
     ],
     'object-shorthand': 'error',
+    'quotes': [
+      'error',
+      'single',
+      { allowTemplateLiterals: false, avoidEscape: true }
+    ],
     'react/jsx-uses-react': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',

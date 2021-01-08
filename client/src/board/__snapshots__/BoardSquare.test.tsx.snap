@@ -54,6 +54,7 @@ exports[`<BoardSquare /> renders tile within div 1`] = `
     id="A1"
     letter="A"
     onClick={[Function]}
+    validationStatus="NOT_VALIDATED"
   />
 </div>
 `;

@@ -5,6 +5,7 @@ import Game from './Game';
 
 const mockUseRecoilValue = useRecoilValue as jest.Mock;
 jest.mock('recoil', () => ({
+  ...jest.requireActual<any>('recoil'),
   useRecoilValue: jest.fn(),
 }));
 

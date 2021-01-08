@@ -53,6 +53,20 @@ export default class GameController {
     return gameInfo;
   }
 
+  private emitHandUpdate(): void {
+    const { io, currentHand, currentPlayer } = this;
+    const userId = currentPlayer.getUserId();
+
+    io.to(userId).emit('handUpdate', currentHand.toJSON());
+  }
+
+  private emitBoardUpdate(): void {
+    const { io, currentBoard, currentPlayer } = this;
+    const userId = currentPlayer.getUserId();
+
+    io.to(userId).emit('boardUpdate', currentBoard.toJSON());
+  }
+
   static getGames(): Record<string, Game> {
     return { ...this.games };
   }
@@ -105,16 +119,17 @@ export default class GameController {
       throw new Error('Game is already in progress');
     }
 
+    const playerId = socket.id;
     const isAdmin = game.getPlayers().length === 0;
-    const player = new Player(socket.id, username, isAdmin);
+    const player = new Player(playerId, username, isAdmin);
 
     game.addPlayer(player);
     socket.join(gameId);
     this.emitNotification(socket, gameId, `${username} has joined the game!`);
     this.emitGameInfo(socket, game);
 
-    const hand = game.getHands()[socket.id];
-    const board = game.getBoards()[socket.id];
+    const hand = game.getHands()[playerId];
+    const board = game.getBoards()[playerId];
 
     return new GameController(io, socket, game, player, hand, board);
   }
@@ -265,6 +280,7 @@ export default class GameController {
       });
     }
 
+    this.emitHandUpdate();
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -291,6 +307,11 @@ export default class GameController {
     currentHand.addTiles(currentGame.getBunch().removeTiles(3));
     currentGame.getBunch().addTiles([dumpedTile]);
 
+    if (boardPosition) {
+      this.emitBoardUpdate();
+    }
+    this.emitHandUpdate();
+
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -299,7 +320,7 @@ export default class GameController {
     fromPosition: BoardPosition | null,
     toPosition: BoardPosition | null
   ): void {
-    const { io, currentGame, currentHand, currentBoard, currentPlayer } = this;
+    const { io, currentGame, currentHand, currentBoard } = this;
 
     if (fromPosition === null && toPosition === null) {
       return;
@@ -319,8 +340,7 @@ export default class GameController {
       : currentHand.removeTile(tileId);
 
     if (toPosition) {
-      const { row, col } = toPosition;
-      if (currentBoard.getSquares()[getSquareId({ row, col })]) {
+      if (currentBoard.getSquares()[getSquareId(toPosition)]) {
         const oldTile = currentBoard.removeTile(toPosition);
 
         if (fromPosition) {
@@ -335,23 +355,10 @@ export default class GameController {
       currentHand.addTiles([tile]);
     }
 
-    const userId = currentPlayer.getUserId();
-
     if (!fromPosition || !toPosition) {
-      io.to(userId).emit('handUpdate', currentHand.toJSON());
+      this.emitHandUpdate();
     }
-    if (fromPosition) {
-      io.to(userId).emit('boardSquareUpdate', {
-        id: getSquareId(fromPosition),
-        square: currentBoard.getSquare(fromPosition),
-      });
-    }
-    if (toPosition) {
-      io.to(userId).emit('boardSquareUpdate', {
-        id: getSquareId(toPosition),
-        square: currentBoard.getSquare(toPosition),
-      });
-    }
+    this.emitBoardUpdate();
 
     GameController.emitGameInfo(io, currentGame);
   }
@@ -398,6 +405,8 @@ export default class GameController {
   shuffleHand(): void {
     const { io, currentGame, currentHand } = this;
     currentHand.shuffle();
+
+    this.emitHandUpdate();
     GameController.emitGameInfo(io, currentGame);
   }
 

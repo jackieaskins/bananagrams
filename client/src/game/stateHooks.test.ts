@@ -12,8 +12,10 @@ import {
   useSetCurrentHand,
   useGameBoards,
   useCurrentBoardSquare,
-  useSetCurrentBoardSquare,
+  useSetCurrentBoard,
   useUpdateGameState,
+  useGameBunch,
+  useCurrentBoard,
 } from './stateHooks';
 
 const mockSet = jest.fn();
@@ -33,12 +35,16 @@ jest.mock('./state', () => ({
     statusState: 'statusState',
     countdownState: 'countdownState',
     nameState: 'nameState',
+    bunchState: 'bunchState',
     playersState: 'playersState',
     currentPlayerState: 'currentPlayerState',
     handsState: 'handsState',
     currentHandState: 'currentHandState',
     boardsState: 'boardsState',
-    currentBoardState: jest.fn().mockReturnValue('currentBoardState'),
+    currentBoardState: 'currentBoardState',
+    currentBoardSquaresState: jest
+      .fn()
+      .mockReturnValue('currentBoardSquaresState'),
   }),
 }));
 
@@ -56,6 +62,11 @@ describe('state hooks', () => {
   it('useGameName returns recoil value', () => {
     expect(useGameName()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('nameState');
+  });
+
+  it('useGameBunch returns recoil value', () => {
+    expect(useGameBunch()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('bunchState');
   });
 
   it('useGamePlayers returns recoil value', () => {
@@ -89,23 +100,47 @@ describe('state hooks', () => {
   });
 
   it('useCurrentBoard returns recoil value', () => {
-    expect(useCurrentBoardSquare({ row: 0, col: 0 })).toEqual(mockReturnValue);
+    expect(useCurrentBoard()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardState');
   });
 
-  it('useSetCurrentBoardSquare returns recoil callback', () => {
-    useSetCurrentBoardSquare();
+  it('useCurrentBoardSquare returns recoil value', () => {
+    expect(useCurrentBoardSquare({ row: 0, col: 0 })).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardSquaresState');
+  });
 
-    mockUseRecoilCallback.mock.results[0].value({
-      id: '0,0',
-      square: null,
+  describe('useSetCurrentBoard', () => {
+    const boardSquare = {
+      tile: { id: 'A1', letter: 'A' },
+      validationStatus: 'NOT_VALIDATED',
+    };
+    const board = {
+      '0,0': boardSquare,
+    };
+
+    beforeEach(() => {
+      useSetCurrentBoard();
+
+      mockUseRecoilCallback.mock.results[0].value(board);
     });
 
-    expect(mockUseRecoilCallback).toHaveBeenCalledWith(
-      expect.any(Function),
-      []
-    );
-    expect(mockSet).toHaveBeenCalledWith('currentBoardState', null);
+    it('returns recoil callback', () => {
+      expect(mockUseRecoilCallback).toHaveBeenCalledWith(
+        expect.any(Function),
+        []
+      );
+    });
+
+    it('sets currentBoardState', () => {
+      expect(mockSet).toHaveBeenCalledWith('currentBoardState', board);
+    });
+
+    it.each([
+      [null, boardSquare],
+      [boardSquare, boardSquare],
+    ])('#%#: sets currentBoardSquaresState', (square, expectedSquare) => {
+      expect(mockSet.mock.calls[1][1](square)).toEqual(expectedSquare);
+    });
   });
 
   it('useUpdateGameState updates game state through recoil callback', () => {
@@ -113,6 +148,7 @@ describe('state hooks', () => {
     const gameInfo = {
       gameName: 'gameName',
       status: 'IN_PROGRESS',
+      bunch: [],
       countdown: 3,
       players: [playerFixture({ userId })],
       boards: { [userId]: [[null]] },
@@ -128,11 +164,12 @@ describe('state hooks', () => {
       []
     );
 
-    expect(mockSet).toHaveBeenCalledTimes(6);
+    expect(mockSet).toHaveBeenCalledTimes(7);
 
     expect(mockSet).toHaveBeenCalledWith('statusState', gameInfo.status);
     expect(mockSet).toHaveBeenCalledWith('countdownState', gameInfo.countdown);
     expect(mockSet).toHaveBeenCalledWith('nameState', gameInfo.gameName);
+    expect(mockSet).toHaveBeenCalledWith('bunchState', gameInfo.bunch);
     expect(mockSet).toHaveBeenCalledWith('playersState', gameInfo.players);
     expect(mockSet).toHaveBeenCalledWith('handsState', gameInfo.hands);
     expect(mockSet).toHaveBeenCalledWith('boardsState', gameInfo.boards);

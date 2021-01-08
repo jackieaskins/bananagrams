@@ -4,16 +4,10 @@ exports[`<Controls /> renders action buttons 1`] = `
 <Space
   direction="vertical"
 >
-  <Button
-    block={true}
-    type="primary"
-  >
-    Peel
-  </Button>
-  <Button
-    block={true}
-  >
-    Shuffle hand
-  </Button>
+  <Space>
+    <Memo(PeelButton) />
+    <Memo(ShuffleButton) />
+  </Space>
+  <Memo(DumpButton) />
 </Space>
 `;

@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-import { BoardPosition, BoardSquare } from '../boards/types';
+import { Board, BoardPosition } from '../boards/types';
 import { GameInfo } from '../games/types';
 import { Hand } from '../hands/types';
 
@@ -37,6 +37,18 @@ export const moveTile = (props: {
 }): void => {
   socket.emit('moveTile', props);
 };
+export const shuffleHand = (): void => {
+  socket.emit('shuffleHand', {});
+};
+export const peel = (): void => {
+  socket.emit('peel', {});
+};
+export const dump = (props: {
+  boardPosition: BoardPosition | null;
+  tileId: string;
+}): void => {
+  socket.emit('dump', props);
+};
 export const kickPlayer = (props: { userId: string }): void => {
   socket.emit('kickPlayer', props);
 };
@@ -50,19 +62,16 @@ export const addDisconnectListener = (listener: Listener): void => {
 
 export const addListeners = (
   gameInfoListener: Listener<GameInfo>,
-  boardSquareUpdateListener: Listener<{
-    id: string;
-    square: BoardSquare | null;
-  }>,
+  boardUpdateListener: Listener<Board>,
   handUpdateListener: Listener<Hand>
 ): void => {
   socket.on('gameInfo', gameInfoListener);
-  socket.on('boardSquareUpdate', boardSquareUpdateListener);
+  socket.on('boardUpdate', boardUpdateListener);
   socket.on('handUpdate', handUpdateListener);
 };
 export const removeListeners = (): void => {
   socket.off('gameInfo');
-  socket.off('boardSquareUpdate');
+  socket.off('boardUpdate');
   socket.off('handUpdate');
 };
 

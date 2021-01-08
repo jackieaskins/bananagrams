@@ -6,12 +6,7 @@ import { useGame } from '../games/GameContext';
 import { useStyles } from '../styles';
 import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
-import {
-  BoardSquare as BoardSquareType,
-  Direction,
-  WordInfo,
-  ValidationStatus,
-} from './types';
+import { BoardSquare as BoardSquareType, ValidationStatus } from './types';
 
 type BoardSquareProps = {
   boardSquare: BoardSquareType | null;
@@ -19,20 +14,9 @@ type BoardSquareProps = {
   col: number;
 };
 
-type CheckValidation = (wordInfo: WordInfo) => boolean;
-
-const getColor = (
-  wordInfo: Record<Direction, WordInfo>
-): string | undefined => {
-  const isValid: CheckValidation = ({ validation }) =>
-    validation === ValidationStatus.VALID;
-  const isValidated: CheckValidation = ({ validation }) =>
-    validation !== ValidationStatus.NOT_VALIDATED;
-
-  const validations = Object.values(wordInfo).filter(isValidated);
-
-  if (validations.length === 0) return 'black';
-  if (validations.every(isValid)) return 'green';
+const getColor = (validationStatus: ValidationStatus): string | undefined => {
+  if (validationStatus === ValidationStatus.NOT_VALIDATED) return 'black';
+  if (validationStatus === ValidationStatus.VALID) return 'green';
   return 'red';
 };
 
@@ -43,7 +27,7 @@ const BoardSquare = ({
 }: BoardSquareProps): JSX.Element => {
   const classes = useStyles();
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
-  const { tile, wordInfo } = boardSquare ?? {};
+  const { tile, validationStatus } = boardSquare ?? {};
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: 'TILE',
@@ -69,10 +53,10 @@ const BoardSquare = ({
       // @ts-ignore
       ref={dropRef}
     >
-      {tile && wordInfo ? (
+      {tile && validationStatus ? (
         <Tile
           tile={tile}
-          color={getColor(wordInfo)}
+          color={getColor(validationStatus)}
           boardPosition={{ row, col }}
         />
       ) : (

@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { useRecoilValue } from 'recoil';
 
+import { ValidationStatus } from '../boards/types';
 import Tile from './Tile';
 
 const mockUseRecoilValue = useRecoilValue as jest.Mock;
@@ -18,6 +19,20 @@ describe('<Tile />', () => {
 
   it('renders styled div', () => {
     expect(renderComponent()).toMatchSnapshot();
+  });
+
+  it('renders green when valid', () => {
+    expect(
+      renderComponent({ validationStatus: ValidationStatus.VALID }).props().css
+        .color
+    ).toEqual('green');
+  });
+
+  it('renders red when invalid', () => {
+    expect(
+      renderComponent({ validationStatus: ValidationStatus.INVALID }).props()
+        .css.color
+    ).toEqual('red');
   });
 
   it('renders at half opacity if tile is selected', () => {

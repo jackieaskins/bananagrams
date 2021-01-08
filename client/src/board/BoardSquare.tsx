@@ -57,6 +57,7 @@ const BoardSquare = ({ row, col }: BoardPosition): JSX.Element => {
           id={square.tile.id}
           letter={square.tile.letter}
           onClick={selectTile}
+          validationStatus={square.validationStatus}
         />
       ) : null}
     </div>

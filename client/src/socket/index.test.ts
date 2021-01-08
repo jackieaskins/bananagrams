@@ -1,17 +1,13 @@
-import {
+import * as socketImports from './index';
+
+const {
   socket,
   getUserId,
-  createGame,
-  joinGame,
-  setReady,
-  moveTile,
-  kickPlayer,
-  leaveGame,
   addDisconnectListener,
   addListeners,
   removeListeners,
   disconnect,
-} from './index';
+} = socketImports;
 
 jest.mock('socket.io-client', () => ({
   io: () => ({
@@ -25,6 +21,7 @@ jest.mock('socket.io-client', () => ({
 
 const mockCallback = jest.fn();
 const mockListener = jest.fn();
+
 describe('socket', () => {
   it('returns result of io()', () => {
     expect(socket).toMatchSnapshot();
@@ -34,55 +31,58 @@ describe('socket', () => {
     expect(getUserId()).toEqual(socket.id);
   });
 
-  it('createGame calls emit', () => {
-    const props = {
-      gameName: 'gameName',
-      username: 'username',
-      isShortenedGame: true,
-    };
-    createGame(props, mockCallback);
+  const emitEvents: Array<
+    [keyof typeof import('.'), string, any, jest.Mock | undefined]
+  > = [
+    [
+      'createGame',
+      'createGame',
+      {
+        gameName: 'gameName',
+        username: 'username',
+        isShortenedGame: true,
+      },
+      mockCallback,
+    ],
+    [
+      'joinGame',
+      'joinGame',
+      { gameId: 'gameId', username: 'username' },
+      mockCallback,
+    ],
+    ['setReady', 'ready', { isReady: true }, undefined],
+    [
+      'moveTile',
+      'moveTile',
+      {
+        tileId: 'A1',
+        fromPosition: null,
+        toPosition: { row: 0, col: 0 },
+      },
+      undefined,
+    ],
+    ['shuffleHand', 'shuffleHand', {}, undefined],
+    ['peel', 'peel', {}, undefined],
+    ['dump', 'dump', { boardPosition: { row: 0, col: 0 } }, undefined],
+    ['kickPlayer', 'kickPlayer', { userId: 'userId' }, undefined],
+    ['leaveGame', 'leaveGame', { gameId: 'gameId' }, undefined],
+  ];
 
-    expect(socket.emit).toHaveBeenCalledWith('createGame', props, mockCallback);
-  });
+  it.each(emitEvents)(
+    '%s method emits %s event',
+    (fnName, eventName, props, callback) => {
+      (socketImports[fnName] as (props?: any, callback?: any) => void)(
+        props,
+        callback
+      );
 
-  it('joinGame calls emit', () => {
-    const props = { gameId: 'gameId', username: 'username' };
-    joinGame(props, mockCallback);
-
-    expect(socket.emit).toHaveBeenCalledWith('joinGame', props, mockCallback);
-  });
-
-  it('setReady calls emit', () => {
-    const props = { isReady: true };
-    setReady(props);
-
-    expect(socket.emit).toHaveBeenCalledWith('ready', props);
-  });
-
-  it('moveTile calls emit', () => {
-    const props = {
-      tileId: 'A1',
-      fromPosition: null,
-      toPosition: { row: 0, col: 0 },
-    };
-    moveTile(props);
-
-    expect(socket.emit).toHaveBeenCalledWith('moveTile', props);
-  });
-
-  it('kickPlayer calls emit', () => {
-    const props = { userId: 'userId' };
-    kickPlayer(props);
-
-    expect(socket.emit).toHaveBeenCalledWith('kickPlayer', props);
-  });
-
-  it('leaveGame calls emit', () => {
-    const props = { gameId: 'gameId' };
-    leaveGame(props);
-
-    expect(socket.emit).toHaveBeenCalledWith('leaveGame', props);
-  });
+      if (callback) {
+        expect(socket.emit).toHaveBeenCalledWith(eventName, props, callback);
+      } else {
+        expect(socket.emit).toHaveBeenCalledWith(eventName, props);
+      }
+    }
+  );
 
   it('disconnect calls disconnect', () => {
     disconnect();
@@ -92,29 +92,25 @@ describe('socket', () => {
 
   describe('addListeners', () => {
     const gameInfoListener = jest.fn();
-    const boardSquareUpdateListener = jest.fn();
+    const boardUpdateListener = jest.fn();
     const handUpdateListener = jest.fn();
 
     beforeEach(() => {
-      addListeners(
-        gameInfoListener,
-        boardSquareUpdateListener,
-        handUpdateListener
-      );
+      addListeners(gameInfoListener, boardUpdateListener, handUpdateListener);
     });
 
     it('listens for game info event', () => {
       expect(socket.on).toHaveBeenCalledWith('gameInfo', gameInfoListener);
     });
 
-    it('listens for board square update event', () => {
+    it('listens for board update event', () => {
       expect(socket.on).toHaveBeenCalledWith(
-        'boardSquareUpdate',
-        boardSquareUpdateListener
+        'boardUpdate',
+        boardUpdateListener
       );
     });
 
-    it('listns for hand update event', () => {
+    it('listens for hand update event', () => {
       expect(socket.on).toHaveBeenCalledWith('handUpdate', handUpdateListener);
     });
   });
@@ -129,7 +125,7 @@ describe('socket', () => {
     });
 
     it('removes board square update listener', () => {
-      expect(socket.off).toHaveBeenCalledWith('boardSquareUpdate');
+      expect(socket.off).toHaveBeenCalledWith('boardUpdate');
     });
 
     it('removes hand update listener', () => {

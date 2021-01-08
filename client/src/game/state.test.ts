@@ -1,20 +1,12 @@
 import { atom, atomFamily, selector } from 'recoil';
 
 import { playerFixture } from '../fixtures/player';
-import { Hand } from '../hands/types';
 import { GameState, initializeState } from './state';
 
-const mockGameStatus = 'STARTING';
-const mockGameCountdown = 3;
-const mockGameName = 'gameName';
 const mockGamePlayers = [
   playerFixture({ userId: '1' }),
   playerFixture({ userId: '2' }),
 ];
-const mockGameHands = { 1: [] };
-const mockCurrentHand: Hand = [];
-const mockGameBoards = { 1: [[null]] };
-const mockCurrentBoard = null;
 const mockAtom = atom as jest.Mock;
 const mockAtomFamily = atomFamily as jest.Mock;
 const mockSelector = selector as jest.Mock;
@@ -31,73 +23,67 @@ jest.mock('../socket', () => ({
 
 describe('game state', () => {
   let state: GameState;
+  const tile = { id: 'A1', letter: 'A' };
+  const board = { '1,1': null };
+  const atomCalls: Array<[keyof GameState, string, any, any]> = [
+    ['statusState', 'gameStatus', 'NOT_STARTED', 'STARTING'],
+    ['countdownState', 'gameCountdown', 0, 3],
+    ['nameState', 'gameName', '', 'gameName'],
+    ['bunchState', 'gameBunch', [], [tile]],
+    [
+      'playersState',
+      'gamePlayers',
+      [],
+      [playerFixture({ userId: '1' }), playerFixture({ userId: '2' })],
+    ],
+    ['handsState', 'gameHands', {}, { 1: [tile] }],
+    ['currentHandState', 'gameCurrentHandState', [], [tile]],
+    ['boardsState', 'gameBoards', {}, { 1: board }],
+    ['currentBoardState', 'gameCurrentBoardState', {}, board],
+  ];
+  const atomFamilyCalls: Array<[keyof GameState, string, any, any]> = [
+    ['currentBoardSquaresState', 'gameCurrentBoardSquaresState', null, board],
+  ];
   beforeEach(() => {
-    mockAtom
-      .mockReturnValueOnce(mockGameStatus)
-      .mockReturnValueOnce(mockGameCountdown)
-      .mockReturnValueOnce(mockGameName)
-      .mockReturnValueOnce(mockGamePlayers)
-      .mockReturnValueOnce(mockGameHands)
-      .mockReturnValueOnce(mockCurrentHand)
-      .mockReturnValueOnce(mockGameBoards);
+    atomCalls.forEach(([, , , val]) => mockAtom.mockReturnValueOnce(val));
+    atomFamilyCalls.forEach(([, , , val]) =>
+      mockAtomFamily.mockReturnValueOnce(() => val)
+    );
     mockSelector.mockReturnValueOnce(mockGamePlayers[0]);
-    mockAtomFamily.mockReturnValueOnce(mockCurrentBoard);
+
     state = initializeState();
   });
 
-  describe('statusState', () => {
-    it('returns statusState', () => {
-      expect(state.statusState).toEqual(mockGameStatus);
+  describe.each(atomCalls)('atom - %s', (key, stateKey, defaultVal, val) => {
+    it('returns correct state', () => {
+      expect(state[key]).toEqual(val);
     });
 
     it('calls atom with correct props', () => {
       expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameStatus',
-        default: 'NOT_STARTED',
+        key: stateKey,
+        default: defaultVal,
       });
     });
   });
 
-  describe('countdownState', () => {
-    it('returns countdownState', () => {
-      expect(state.countdownState).toEqual(mockGameCountdown);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameCountdown',
-        default: 0,
+  describe.each(atomFamilyCalls)(
+    'atomFamily - %s',
+    (key, stateKey, defaultVal, val) => {
+      it('returns correct state fn', () => {
+        expect((state[key] as () => any)()).toEqual(val);
       });
-    });
-  });
 
-  describe('nameState', () => {
-    it('returns nameState', () => {
-      expect(state.nameState).toEqual(mockGameName);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameName',
-        default: '',
+      it('calls atomFamily with correct props', () => {
+        expect(mockAtomFamily).toHaveBeenCalledWith({
+          key: stateKey,
+          default: defaultVal,
+        });
       });
-    });
-  });
+    }
+  );
 
-  describe('playersState', () => {
-    it('returns playersState', () => {
-      expect(state.playersState).toEqual(mockGamePlayers);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gamePlayers',
-        default: [],
-      });
-    });
-  });
-
-  describe('currentPlayerState', () => {
+  describe('selector - currentPlayerState', () => {
     it('returns currentPlayerState', () => {
       expect(state.currentPlayerState).toEqual(mockGamePlayers[0]);
     });
@@ -121,58 +107,6 @@ describe('game state', () => {
       const mockGet = jest.fn().mockReturnValue([]);
 
       expect(mockSelector.mock.calls[0][0].get({ get: mockGet })).toBeNull();
-    });
-  });
-
-  describe('handsState', () => {
-    it('returns handsState', () => {
-      expect(state.handsState).toEqual(mockGameHands);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameHands',
-        default: {},
-      });
-    });
-  });
-
-  describe('currentHandState', () => {
-    it('returns currentHandState', () => {
-      expect(state.currentHandState).toEqual(mockCurrentHand);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameCurrentHandState',
-        default: [],
-      });
-    });
-  });
-
-  describe('boardsState', () => {
-    it('returns boardsState', () => {
-      expect(state.boardsState).toEqual(mockGameBoards);
-    });
-
-    it('calls atom with correct props', () => {
-      expect(mockAtom).toHaveBeenCalledWith({
-        key: 'gameBoards',
-        default: {},
-      });
-    });
-  });
-
-  describe('currentBoardState', () => {
-    it('returns currentBoardState', () => {
-      expect(state.currentBoardState).toEqual(mockCurrentBoard);
-    });
-
-    it('calls atom faily with correct props', () => {
-      expect(mockAtomFamily).toHaveBeenCalledWith({
-        key: 'gameCurrentBoardState',
-        default: null,
-      });
     });
   });
 });

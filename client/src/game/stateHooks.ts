@@ -11,17 +11,20 @@ import { GameInfo, GameStatus } from '../games/types';
 import { Hand } from '../hands/types';
 import { Player } from '../players/types';
 import { SetState } from '../state/types';
+import { Tile } from '../tiles/types';
 
 const {
   statusState,
   countdownState,
   nameState,
+  bunchState,
   playersState,
   currentPlayerState,
   handsState,
   currentHandState,
   boardsState,
   currentBoardState,
+  currentBoardSquaresState,
 } = initializeState();
 
 export const useGameStatus = (): GameStatus => useRecoilValue(statusState);
@@ -29,6 +32,8 @@ export const useGameStatus = (): GameStatus => useRecoilValue(statusState);
 export const useGameCountdown = (): number => useRecoilValue(countdownState);
 
 export const useGameName = (): string => useRecoilValue(nameState);
+
+export const useGameBunch = (): Tile[] => useRecoilValue(bunchState);
 
 export const useGamePlayers = (): Player[] => useRecoilValue(playersState);
 export const useCurrentPlayer = (): Player | null =>
@@ -43,18 +48,31 @@ export const useSetCurrentHand = (): SetState<Hand> =>
 
 export const useGameBoards = (): Record<string, Board> =>
   useRecoilValue(boardsState);
-
+export const useCurrentBoard = (): Board => useRecoilValue(currentBoardState);
 export const useCurrentBoardSquare = (
   position: BoardPosition
 ): BoardSquare | null =>
-  useRecoilValue(currentBoardState(getSquareId(position)));
-export const useSetCurrentBoardSquare = (): ((boardSquare: {
-  id: string;
-  square: BoardSquare | null;
-}) => void) =>
+  useRecoilValue(currentBoardSquaresState(getSquareId(position)));
+
+export const useSetCurrentBoard = (): ((board: Board) => void) =>
   useRecoilCallback(
-    ({ set }) => ({ id, square }) => {
-      set(currentBoardState(id), square);
+    ({ set }) => (board) => {
+      set(currentBoardState, board);
+      Object.entries(board).forEach(([id, square]) => {
+        set(currentBoardSquaresState(id), (currSquare) => {
+          if (
+            currSquare &&
+            square &&
+            currSquare.tile.id === square.tile.id &&
+            currSquare.tile.letter === square.tile.letter &&
+            currSquare.validationStatus === square.validationStatus
+          ) {
+            return currSquare;
+          }
+
+          return square;
+        });
+      });
     },
     []
   );
@@ -65,6 +83,7 @@ export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
       set(statusState, gameInfo.status);
       set(countdownState, gameInfo.countdown);
       set(nameState, gameInfo.gameName);
+      set(bunchState, gameInfo.bunch);
       set(playersState, gameInfo.players);
       set(handsState, gameInfo.hands);
       set(boardsState, gameInfo.boards);

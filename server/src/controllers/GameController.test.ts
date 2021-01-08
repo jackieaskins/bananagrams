@@ -34,6 +34,16 @@ describe('GameController', () => {
   const createShortenedGame = () =>
     GameController.createGame(gameName, username, true, io, socket);
 
+  const assertEmitsBoardUpdate = () => {
+    expect(ioTo).toHaveBeenCalledWith(player.getUserId());
+    expect(ioEmit).toHaveBeenCalledWith('boardUpdate', board.toJSON());
+  };
+
+  const assertEmitsHandUpdate = () => {
+    expect(ioTo).toHaveBeenCalledWith(player.getUserId());
+    expect(ioEmit).toHaveBeenCalledWith('handUpdate', hand.toJSON());
+  };
+
   const assertEmitsGameNotification = (
     emitFrom: any,
     message: string
@@ -366,6 +376,10 @@ describe('GameController', () => {
       it('updates game snapshot', () => {
         expect(game.getSnapshot()).toMatchSnapshot();
       });
+
+      it('emits hand update', () => {
+        assertEmitsHandUpdate();
+      });
     });
 
     describe('bunch has enough tiles remaining', () => {
@@ -436,6 +450,10 @@ describe('GameController', () => {
         expect(game.getBunch().getTiles()).toEqual([boardTile]);
       });
 
+      it('emits board square update', () => {
+        assertEmitsBoardUpdate();
+      });
+
       it('emits game info', () => {
         assertEmitsGameInfo(ioEmit);
       });
@@ -458,6 +476,10 @@ describe('GameController', () => {
 
       it('adds dumped tile to bunch', () => {
         expect(game.getBunch().getTiles()).toEqual([handTile]);
+      });
+
+      it('emits hand update', () => {
+        assertEmitsHandUpdate();
       });
 
       it('emits game info', () => {
@@ -506,8 +528,7 @@ describe('GameController', () => {
       });
 
       it('emits handUpdate event to current user', () => {
-        expect(ioTo).toHaveBeenCalledWith(player.getUserId());
-        expect(ioEmit).toHaveBeenCalledWith('handUpdate', hand.toJSON());
+        assertEmitsHandUpdate();
       });
     });
 
@@ -523,11 +544,7 @@ describe('GameController', () => {
       });
 
       it('emits boardSquareUpdate event to current user', () => {
-        expect(ioTo).toHaveBeenCalledWith(player.getUserId());
-        expect(ioEmit).toHaveBeenCalledWith('boardSquareUpdate', {
-          id: '0,0',
-          square: null,
-        });
+        assertEmitsBoardUpdate();
       });
     });
 
@@ -550,11 +567,7 @@ describe('GameController', () => {
 
           gameController.moveTile(tileId, fromPosition, toPosition);
 
-          expect(ioTo).toHaveBeenCalledWith(player.getUserId());
-          expect(ioEmit).toHaveBeenCalledWith('boardSquareUpdate', {
-            id: '1,1',
-            square: { tile: { letter: 'A', id: 'A1' } },
-          });
+          assertEmitsBoardUpdate();
         });
 
         it('moves old tile to board if fromPosition', () => {
@@ -716,6 +729,10 @@ describe('GameController', () => {
 
     it('shuffles player hand', () => {
       expect(hand.shuffle).toHaveBeenCalledWith();
+    });
+
+    it('emits hand update', () => {
+      assertEmitsHandUpdate();
     });
 
     it('emits game info', () => {

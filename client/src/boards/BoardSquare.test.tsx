@@ -1,15 +1,9 @@
 import { shallow } from 'enzyme';
 import { useDrop } from 'react-dnd';
 
-import { boardSquareFixture, wordInfoFixture } from '../fixtures/board';
+import { boardSquareFixture } from '../fixtures/board';
 import BoardSquare from './BoardSquare';
-import {
-  BoardSquare as BoardSquareType,
-  Direction,
-  ValidationStatus,
-  WordInfo,
-  BoardPosition,
-} from './types';
+import { ValidationStatus, BoardPosition } from './types';
 
 jest.mock('react-dnd', () => ({
   useDrop: jest.fn(),
@@ -31,17 +25,6 @@ jest.mock('../styles', () => ({
 }));
 
 describe('<BoardSquare />', () => {
-  const getBoardSquare = (
-    across: WordInfo = wordInfoFixture(),
-    down: WordInfo = wordInfoFixture()
-  ): BoardSquareType =>
-    boardSquareFixture({
-      wordInfo: {
-        [Direction.ACROSS]: across,
-        [Direction.DOWN]: down,
-      },
-    });
-
   const renderComponent = (propOverrides = {}) =>
     shallow(
       <BoardSquare boardSquare={null} row={0} col={0} {...propOverrides} />
@@ -61,29 +44,26 @@ describe('<BoardSquare />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  it('renders black tile when not validated in any direction', () => {
-    const boardSquare = getBoardSquare(
-      wordInfoFixture({ validation: ValidationStatus.NOT_VALIDATED }),
-      wordInfoFixture({ validation: ValidationStatus.NOT_VALIDATED })
-    );
+  it('renders black tile when not validated', () => {
+    const boardSquare = boardSquareFixture({
+      validationStatus: ValidationStatus.NOT_VALIDATED,
+    });
 
     expect(renderComponent({ boardSquare })).toMatchSnapshot();
   });
 
-  it('renders green tile when valid in every direction', () => {
-    const boardSquare = getBoardSquare(
-      wordInfoFixture({ validation: ValidationStatus.VALID }),
-      wordInfoFixture({ validation: ValidationStatus.VALID })
-    );
+  it('renders green tile when valid', () => {
+    const boardSquare = boardSquareFixture({
+      validationStatus: ValidationStatus.VALID,
+    });
 
     expect(renderComponent({ boardSquare })).toMatchSnapshot();
   });
 
-  it('renders red tile when invalid in any direction', () => {
-    const boardSquare = getBoardSquare(
-      wordInfoFixture({ validation: ValidationStatus.VALID }),
-      wordInfoFixture({ validation: ValidationStatus.INVALID })
-    );
+  it('renders red tile when invalid', () => {
+    const boardSquare = boardSquareFixture({
+      validationStatus: ValidationStatus.INVALID,
+    });
 
     expect(renderComponent({ boardSquare })).toMatchSnapshot();
   });
