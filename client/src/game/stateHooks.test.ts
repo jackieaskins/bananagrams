@@ -16,16 +16,23 @@ import {
   useUpdateGameState,
   useGameBunch,
   useCurrentBoard,
+  useResetCurrentBoard,
 } from './stateHooks';
 
 const mockSet = jest.fn();
+const mockReset = jest.fn();
+const mockSnapshot = {
+  getPromise: jest.fn(),
+};
 const mockUseRecoilCallback = useRecoilCallback as jest.Mock;
 const mockUseRecoilValue = useRecoilValue as jest.Mock;
 const mockUseSetRecoilState = useSetRecoilState as jest.Mock;
 const mockReturnValue = 'mockReturnValue';
 const mockSetReturnValue = 'mockSetReturnValue';
 jest.mock('recoil', () => ({
-  useRecoilCallback: jest.fn((fn) => fn({ set: mockSet })),
+  useRecoilCallback: jest.fn((fn) =>
+    fn({ set: mockSet, reset: mockReset, snapshot: mockSnapshot })
+  ),
   useRecoilValue: jest.fn().mockReturnValue('mockReturnValue'),
   useSetRecoilState: jest.fn().mockReturnValue(() => mockSetReturnValue),
 }));
@@ -42,9 +49,7 @@ jest.mock('./state', () => ({
     currentHandState: 'currentHandState',
     boardsState: 'boardsState',
     currentBoardState: 'currentBoardState',
-    currentBoardSquaresState: jest
-      .fn()
-      .mockReturnValue('currentBoardSquaresState'),
+    currentBoardSquaresState: jest.fn((id) => `currentBoardSquaresState-${id}`),
   }),
 }));
 
@@ -106,7 +111,9 @@ describe('state hooks', () => {
 
   it('useCurrentBoardSquare returns recoil value', () => {
     expect(useCurrentBoardSquare({ row: 0, col: 0 })).toEqual(mockReturnValue);
-    expect(mockUseRecoilValue).toHaveBeenCalledWith('currentBoardSquaresState');
+    expect(mockUseRecoilValue).toHaveBeenCalledWith(
+      'currentBoardSquaresState-0,0'
+    );
   });
 
   describe('useSetCurrentBoard', () => {
@@ -140,6 +147,33 @@ describe('state hooks', () => {
       [boardSquare, boardSquare],
     ])('#%#: sets currentBoardSquaresState', (square, expectedSquare) => {
       expect(mockSet.mock.calls[1][1](square)).toEqual(expectedSquare);
+    });
+  });
+
+  describe('useResetCurrentBoard', () => {
+    const boardSquare = {
+      tile: { id: 'A1', letter: 'A' },
+      validationStatus: 'NOT_VALIDATED',
+    };
+    const board = {
+      '0,0': boardSquare,
+      '0,1': boardSquare,
+    };
+
+    beforeEach(() => {
+      mockSnapshot.getPromise.mockReturnValue(board);
+      useResetCurrentBoard();
+
+      mockUseRecoilCallback.mock.results[0].value();
+    });
+
+    it('resets current board', () => {
+      expect(mockReset).toHaveBeenCalledWith('currentBoardState');
+    });
+
+    it('resets each board square', () => {
+      expect(mockReset).toHaveBeenCalledWith('currentBoardSquaresState-0,0');
+      expect(mockReset).toHaveBeenCalledWith('currentBoardSquaresState-0,1');
     });
   });
 

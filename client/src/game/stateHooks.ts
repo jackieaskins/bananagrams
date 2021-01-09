@@ -54,6 +54,16 @@ export const useCurrentBoardSquare = (
 ): BoardSquare | null =>
   useRecoilValue(currentBoardSquaresState(getSquareId(position)));
 
+export const useResetCurrentBoard = (): (() => void) =>
+  useRecoilCallback(({ reset, snapshot }) => async () => {
+    const oldBoard = await snapshot.getPromise(currentBoardState);
+
+    reset(currentBoardState);
+    Object.keys(oldBoard).forEach((id) => {
+      reset(currentBoardSquaresState(id));
+    });
+  });
+
 export const useSetCurrentBoard = (): ((board: Board) => void) =>
   useRecoilCallback(
     ({ set }) => (board) => {

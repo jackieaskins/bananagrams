@@ -1,14 +1,20 @@
 import { Col, Row, Space, Typography } from 'antd';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import PlayerTable from '../player/PlayerTable';
-import { useGameName } from './stateHooks';
+import { useGameName, useResetCurrentBoard } from './stateHooks';
 
 const { Text } = Typography;
 const WaitingRoom = (): JSX.Element => {
   const { gameId } = useParams<{ gameId: string }>();
+  const resetCurrentBoard = useResetCurrentBoard();
   const gameName = useGameName();
   const joinUrl = `${window.location.origin}?gameId=${gameId}&tabKey=joinGame`;
+
+  useEffect(() => {
+    resetCurrentBoard();
+  }, [resetCurrentBoard]);
 
   return (
     <Row justify="center" css={{ marginTop: '25px' }}>
