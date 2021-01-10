@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { shallow } from 'enzyme';
 import { useEffect } from 'react';
 
@@ -6,6 +7,14 @@ import { GameInfo } from '../games/types';
 import { addListeners, removeListeners } from '../socket';
 import GameRouter from './GameRouter';
 import { useGameStatus } from './stateHooks';
+
+jest.mock('antd', () => ({
+  ...jest.requireActual<any>('antd'),
+  message: {
+    config: jest.fn(),
+    info: jest.fn(),
+  },
+}));
 
 const mockUseEffect = useEffect as jest.Mock;
 jest.mock('react', () => ({
@@ -56,6 +65,12 @@ describe('<GameRouter />', () => {
       renderComponent();
     });
 
+    it('ensures only 3 messages can be shown at one time', () => {
+      expect(message.config).toHaveBeenCalledWith({
+        maxCount: 3,
+      });
+    });
+
     it('updates game state with initial info', () => {
       expect(mockUpdateGameState).toHaveBeenCalledWith(initialGameInfo);
     });
@@ -70,21 +85,28 @@ describe('<GameRouter />', () => {
       expect(mockRemoveListeners).toHaveBeenCalledWith();
     });
 
+    it('shows info message on notification', () => {
+      const notification = 'notification';
+      mockAddListeners.mock.calls[0][0](notification);
+
+      expect(message.info).toHaveBeenCalledWith(notification);
+    });
+
     it('updates game state on gameInfo change', () => {
       const info = getEmptyGameInfo('id');
-      mockAddListeners.mock.calls[0][0](info);
+      mockAddListeners.mock.calls[0][1](info);
 
       expect(mockUpdateGameState).toHaveBeenCalledWith(info);
     });
 
     it('updates current board on board update', () => {
-      mockAddListeners.mock.calls[0][1]({});
+      mockAddListeners.mock.calls[0][2]({});
 
       expect(mockSetCurrentBoard).toHaveBeenCalledWith({});
     });
 
     it('updates current hand on hand update', () => {
-      mockAddListeners.mock.calls[0][2]([]);
+      mockAddListeners.mock.calls[0][3]([]);
 
       expect(mockSetCurrentHand).toHaveBeenCalledWith([]);
     });

@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { useEffect } from 'react';
 
 import { GameInfo } from '../games/types';
@@ -24,8 +25,12 @@ const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
 
   useEffect(() => {
     updateGameState(initialGameInfo);
+    message.config({ maxCount: 3 });
 
     addListeners(
+      (notification) => {
+        message.info(notification);
+      },
       (info) => {
         updateGameState(info);
       },

@@ -61,15 +61,18 @@ export const addDisconnectListener = (listener: Listener): void => {
 };
 
 export const addListeners = (
+  notificationListener: Listener<string>,
   gameInfoListener: Listener<GameInfo>,
   boardUpdateListener: Listener<Board>,
   handUpdateListener: Listener<Hand>
 ): void => {
+  socket.on('notification', notificationListener);
   socket.on('gameInfo', gameInfoListener);
   socket.on('boardUpdate', boardUpdateListener);
   socket.on('handUpdate', handUpdateListener);
 };
 export const removeListeners = (): void => {
+  socket.off('notification');
   socket.off('gameInfo');
   socket.off('boardUpdate');
   socket.off('handUpdate');

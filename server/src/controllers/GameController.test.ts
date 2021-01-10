@@ -54,9 +54,7 @@ describe('GameController', () => {
     emitFrom: any,
     message: string
   ): void => {
-    expect(emitFrom).toHaveBeenCalledWith('notification', {
-      message,
-    });
+    expect(emitFrom).toHaveBeenCalledWith('notification', message);
   };
 
   const assertEmitsGameInfo = (emitFrom: any): void => {
@@ -751,14 +749,6 @@ describe('GameController', () => {
     beforeEach(() => {
       game.setStatus('NOT_STARTED');
       jest.spyOn(game, 'reset');
-    });
-
-    it('emits game ready notification', () => {
-      gameController.split();
-      assertEmitsGameNotification(
-        ioEmit,
-        'Everyone is ready, the game will start soon!'
-      );
     });
 
     it('resets current game', () => {

@@ -44,7 +44,7 @@ export default class GameController {
     to: string,
     message: string
   ): void {
-    from.to(to).emit('notification', { message });
+    from.to(to).emit('notification', message);
   }
 
   private static emitGameInfo(from: Server | Socket, game: Game): GameJSON {
@@ -414,13 +414,6 @@ export default class GameController {
 
   split(): void {
     const { io, currentGame } = this;
-    const gameId = currentGame.getId();
-
-    GameController.emitNotification(
-      io,
-      gameId,
-      'Everyone is ready, the game will start soon!'
-    );
 
     const currentHands = currentGame.getHands();
     currentGame.reset();

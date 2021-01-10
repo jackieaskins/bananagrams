@@ -91,12 +91,25 @@ describe('socket', () => {
   });
 
   describe('addListeners', () => {
+    const notificationListener = jest.fn();
     const gameInfoListener = jest.fn();
     const boardUpdateListener = jest.fn();
     const handUpdateListener = jest.fn();
 
     beforeEach(() => {
-      addListeners(gameInfoListener, boardUpdateListener, handUpdateListener);
+      addListeners(
+        notificationListener,
+        gameInfoListener,
+        boardUpdateListener,
+        handUpdateListener
+      );
+    });
+
+    it('listens for notification event', () => {
+      expect(socket.on).toHaveBeenCalledWith(
+        'notification',
+        notificationListener
+      );
     });
 
     it('listens for game info event', () => {
@@ -118,6 +131,10 @@ describe('socket', () => {
   describe('removeListeners', () => {
     beforeEach(() => {
       removeListeners();
+    });
+
+    it('removes notification listener', () => {
+      expect(socket.off).toHaveBeenCalledWith('notification');
     });
 
     it('removes game info listener', () => {
