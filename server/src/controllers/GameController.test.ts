@@ -34,14 +34,20 @@ describe('GameController', () => {
   const createShortenedGame = () =>
     GameController.createGame(gameName, username, true, io, socket);
 
-  const assertEmitsBoardUpdate = () => {
-    expect(ioTo).toHaveBeenCalledWith(player.getUserId());
-    expect(ioEmit).toHaveBeenCalledWith('boardUpdate', board.toJSON());
+  const assertEmitsBoardUpdate = (userId: string) => {
+    expect(ioTo).toHaveBeenCalledWith(userId);
+    expect(ioEmit).toHaveBeenCalledWith(
+      'boardUpdate',
+      game.getBoards()[userId].toJSON()
+    );
   };
 
-  const assertEmitsHandUpdate = () => {
-    expect(ioTo).toHaveBeenCalledWith(player.getUserId());
-    expect(ioEmit).toHaveBeenCalledWith('handUpdate', hand.toJSON());
+  const assertEmitsHandUpdate = (userId: string) => {
+    expect(ioTo).toHaveBeenCalledWith(userId);
+    expect(ioEmit).toHaveBeenCalledWith(
+      'handUpdate',
+      game.getHands()[userId].toJSON()
+    );
   };
 
   const assertEmitsGameNotification = (
@@ -376,10 +382,6 @@ describe('GameController', () => {
       it('updates game snapshot', () => {
         expect(game.getSnapshot()).toMatchSnapshot();
       });
-
-      it('emits hand update', () => {
-        assertEmitsHandUpdate();
-      });
     });
 
     describe('bunch has enough tiles remaining', () => {
@@ -404,6 +406,11 @@ describe('GameController', () => {
         expect(
           game.getHands()[otherPlayer.getUserId()].getTiles()
         ).toHaveLength(1);
+      });
+
+      it('emits hand update for each player', () => {
+        assertEmitsHandUpdate(player.getUserId());
+        assertEmitsHandUpdate(otherPlayer.getUserId());
       });
     });
   });
@@ -451,7 +458,7 @@ describe('GameController', () => {
       });
 
       it('emits board square update', () => {
-        assertEmitsBoardUpdate();
+        assertEmitsBoardUpdate(player.getUserId());
       });
 
       it('emits game info', () => {
@@ -479,7 +486,7 @@ describe('GameController', () => {
       });
 
       it('emits hand update', () => {
-        assertEmitsHandUpdate();
+        assertEmitsHandUpdate(player.getUserId());
       });
 
       it('emits game info', () => {
@@ -528,7 +535,7 @@ describe('GameController', () => {
       });
 
       it('emits handUpdate event to current user', () => {
-        assertEmitsHandUpdate();
+        assertEmitsHandUpdate(player.getUserId());
       });
     });
 
@@ -544,7 +551,7 @@ describe('GameController', () => {
       });
 
       it('emits boardSquareUpdate event to current user', () => {
-        assertEmitsBoardUpdate();
+        assertEmitsBoardUpdate(player.getUserId());
       });
     });
 
@@ -567,7 +574,7 @@ describe('GameController', () => {
 
           gameController.moveTile(tileId, fromPosition, toPosition);
 
-          assertEmitsBoardUpdate();
+          assertEmitsBoardUpdate(player.getUserId());
         });
 
         it('moves old tile to board if fromPosition', () => {
@@ -732,7 +739,7 @@ describe('GameController', () => {
     });
 
     it('emits hand update', () => {
-      assertEmitsHandUpdate();
+      assertEmitsHandUpdate(player.getUserId());
     });
 
     it('emits game info', () => {

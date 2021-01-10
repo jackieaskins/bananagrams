@@ -53,18 +53,16 @@ export default class GameController {
     return gameInfo;
   }
 
-  private emitHandUpdate(): void {
-    const { io, currentHand, currentPlayer } = this;
-    const userId = currentPlayer.getUserId();
+  private emitHandUpdate(userId: string): void {
+    const { io, currentGame } = this;
 
-    io.to(userId).emit('handUpdate', currentHand.toJSON());
+    io.to(userId).emit('handUpdate', currentGame.getHands()[userId].toJSON());
   }
 
-  private emitBoardUpdate(): void {
-    const { io, currentBoard, currentPlayer } = this;
-    const userId = currentPlayer.getUserId();
+  private emitBoardUpdate(userId: string): void {
+    const { io, currentGame } = this;
 
-    io.to(userId).emit('boardUpdate', currentBoard.toJSON());
+    io.to(userId).emit('boardUpdate', currentGame.getBoards()[userId].toJSON());
   }
 
   static getGames(): Record<string, Game> {
@@ -278,9 +276,11 @@ export default class GameController {
       Object.values(currentGame.getHands()).forEach((hand) => {
         hand.addTiles(currentGame.getBunch().removeTiles(1));
       });
+      currentPlayers.forEach((player) => {
+        this.emitHandUpdate(player.getUserId());
+      });
     }
 
-    this.emitHandUpdate();
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -307,10 +307,11 @@ export default class GameController {
     currentHand.addTiles(currentGame.getBunch().removeTiles(3));
     currentGame.getBunch().addTiles([dumpedTile]);
 
+    const userId = currentPlayer.getUserId();
     if (boardPosition) {
-      this.emitBoardUpdate();
+      this.emitBoardUpdate(userId);
     }
-    this.emitHandUpdate();
+    this.emitHandUpdate(userId);
 
     GameController.emitGameInfo(io, currentGame);
   }
@@ -355,10 +356,11 @@ export default class GameController {
       currentHand.addTiles([tile]);
     }
 
+    const userId = this.currentPlayer.getUserId();
     if (!fromPosition || !toPosition) {
-      this.emitHandUpdate();
+      this.emitHandUpdate(userId);
     }
-    this.emitBoardUpdate();
+    this.emitBoardUpdate(userId);
 
     GameController.emitGameInfo(io, currentGame);
   }
@@ -403,10 +405,10 @@ export default class GameController {
   }
 
   shuffleHand(): void {
-    const { io, currentGame, currentHand } = this;
+    const { io, currentGame, currentHand, currentPlayer } = this;
     currentHand.shuffle();
 
-    this.emitHandUpdate();
+    this.emitHandUpdate(currentPlayer.getUserId());
     GameController.emitGameInfo(io, currentGame);
   }
 
@@ -438,10 +440,9 @@ export default class GameController {
       currentGame.setCountdown(3);
     }
 
-    const hands = currentGame.getHands();
     players.forEach((player) => {
       const userId = player.getUserId();
-      io.to(userId).emit('handUpdate', hands[userId]);
+      this.emitHandUpdate(userId);
     });
     GameController.emitGameInfo(io, currentGame);
 
