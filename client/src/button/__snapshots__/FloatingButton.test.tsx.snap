@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FloatingButton /> renders button with box shadow 1`] = `
+.emotion-01u75vs5-FloatingButton {
+  box-shadow: 2px 3px 3px gray;
+}
+
+<undefined
+  className="emotion-0"
+  onClick={[MockFunction handleClick]}
+/>
+`;

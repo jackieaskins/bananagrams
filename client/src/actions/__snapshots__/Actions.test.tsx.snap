@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Actions /> renders action buttons 1`] = `
+.emotion-01r8kp4j-Actions {
+  margin: 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+<div
+  className="emotion-0"
+>
+  <LeaveGameButton />
+</div>
+`;

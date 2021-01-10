@@ -19,6 +19,7 @@ exports[`<Game /> renders board and overlay with move cursor if no tile 1`] = `
   >
     <lazy />
   </Suspense>
+  <Actions />
   <Memo(Overlay) />
   <SelectedTile />
 </div>
@@ -50,6 +51,7 @@ exports[`<Game /> renders board and overlay with move cursor if tile 1`] = `
   >
     <lazy />
   </Suspense>
+  <Actions />
   <Memo(Overlay) />
   <SelectedTile />
 </div>

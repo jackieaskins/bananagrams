@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LeaveGameButton /> renders floating button with confirmation and tooltip 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="left"
+  title="Leave game"
+  transitionName="zoom-big-fast"
+>
+  <ForwardRef
+    cancelText="No"
+    disabled={false}
+    icon={<ForwardRef(ExclamationCircleFilled) />}
+    okText="Yes"
+    okType="primary"
+    onConfirm={[Function]}
+    placement="topLeft"
+    title="Are you sure you want to leave the game?"
+    transitionName="zoom-big"
+    trigger="click"
+  >
+    <FloatingButton
+      icon={<ForwardRef(ExportOutlined) />}
+      shape="circle"
+    />
+  </ForwardRef>
+</Tooltip>
+`;

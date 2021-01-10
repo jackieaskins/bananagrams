@@ -1,6 +1,7 @@
 import { Suspense, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import Actions from '../actions/Actions';
 import BoardWrapper from '../board/LazyBoardWrapper';
 import LoadingContainer from '../loading/LoadingContainer';
 import Overlay from '../overlay/Overlay';
@@ -23,6 +24,7 @@ const Game = (): JSX.Element => {
       <Suspense fallback={<LoadingContainer size="large" />}>
         <BoardWrapper />
       </Suspense>
+      <Actions />
       <Overlay />
       <SelectedTile />
     </div>
