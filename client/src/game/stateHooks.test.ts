@@ -15,6 +15,7 @@ import {
   useSetCurrentBoard,
   useUpdateGameState,
   useGameBunch,
+  useGameBunchCount,
   useCurrentBoard,
   useResetCurrentBoard,
 } from './stateHooks';
@@ -43,6 +44,7 @@ jest.mock('./state', () => ({
     countdownState: 'countdownState',
     nameState: 'nameState',
     bunchState: 'bunchState',
+    bunchCountState: 'bunchCountState',
     playersState: 'playersState',
     currentPlayerState: 'currentPlayerState',
     handsState: 'handsState',
@@ -72,6 +74,11 @@ describe('state hooks', () => {
   it('useGameBunch returns recoil value', () => {
     expect(useGameBunch()).toEqual(mockReturnValue);
     expect(mockUseRecoilValue).toHaveBeenCalledWith('bunchState');
+  });
+
+  it('useGameBunchCount returns recoil value', () => {
+    expect(useGameBunchCount()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('bunchCountState');
   });
 
   it('useGamePlayers returns recoil value', () => {

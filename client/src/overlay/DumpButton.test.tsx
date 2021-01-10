@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import { shallow } from 'enzyme';
 import { useRecoilState } from 'recoil';
 
-import { useGameBunch } from '../game/stateHooks';
+import { useGameBunchCount } from '../game/stateHooks';
 import { dump } from '../socket';
 import DumpButton from './DumpButton';
 
@@ -12,9 +12,9 @@ jest.mock('recoil', () => ({
   useRecoilState: jest.fn(),
 }));
 
-const mockUseGameBunch = useGameBunch as jest.Mock;
+const mockUseGameBunchCount = useGameBunchCount as jest.Mock;
 jest.mock('../game/stateHooks', () => ({
-  useGameBunch: jest.fn(),
+  useGameBunchCount: jest.fn(),
 }));
 
 const mockDump = dump as jest.Mock;
@@ -37,7 +37,7 @@ describe('<DumpButton />', () => {
       init,
       mockSetSelectedTile,
     ]);
-    mockUseGameBunch.mockReturnValue([]);
+    mockUseGameBunchCount.mockReturnValue(0);
   });
 
   it('renders button', () => {
@@ -50,21 +50,21 @@ describe('<DumpButton />', () => {
 
     it('is disabled if no selected tile', () => {
       mockUseRecoilState.mockReturnValue([null, mockSetSelectedTile]);
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
 
       expect(isButtonDisabled()).toEqual(true);
     });
 
     it('is disabled if bunch has less than exchange count', () => {
       mockUseRecoilState.mockReturnValue([selectedTile, mockSetSelectedTile]);
-      mockUseGameBunch.mockReturnValue([]);
+      mockUseGameBunchCount.mockReturnValue(0);
 
       expect(isButtonDisabled()).toEqual(true);
     });
 
     it('is enabled if selected tile and enough tiles left in bunch', () => {
       mockUseRecoilState.mockReturnValue([selectedTile, mockSetSelectedTile]);
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
 
       expect(isButtonDisabled()).toEqual(false);
     });
@@ -74,20 +74,20 @@ describe('<DumpButton />', () => {
     const getTooltipText = () => renderComponent().props().title;
 
     it('shows not enough tils if less than exchange count', () => {
-      mockUseGameBunch.mockReturnValue([tile]);
+      mockUseGameBunchCount.mockReturnValue(1);
 
       expect(getTooltipText()).toMatchSnapshot();
     });
 
     it('shows no selected tile if no selected tile', () => {
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
       mockUseRecoilState.mockReturnValue([null, mockSetSelectedTile]);
 
       expect(getTooltipText()).toMatchSnapshot();
     });
 
     it('shows explanation tooltip otherwise', () => {
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
       mockUseRecoilState.mockReturnValue([selectedTile, mockSetSelectedTile]);
 
       expect(getTooltipText()).toMatchSnapshot();

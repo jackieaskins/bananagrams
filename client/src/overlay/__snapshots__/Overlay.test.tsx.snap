@@ -62,7 +62,7 @@ exports[`<Overlay /> renders hand and controls 1`] = `
       fallback={<LoadingContainer />}
     >
       <lazy />
-      <Controls />
+      <Memo(Controls) />
     </Suspense>
   </div>
 </Draggable>

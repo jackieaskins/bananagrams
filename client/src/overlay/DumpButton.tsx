@@ -2,7 +2,7 @@ import { Button, Tooltip } from 'antd';
 import { memo, useCallback, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { useGameBunch } from '../game/stateHooks';
+import { useGameBunchCount } from '../game/stateHooks';
 import { dump } from '../socket';
 import { selectedTileState } from '../tile/selectedTileState';
 
@@ -10,15 +10,15 @@ const EXCHANGE_COUNT = 3;
 
 const DumpButton = (): JSX.Element => {
   const [selectedTile, setSelectedTile] = useRecoilState(selectedTileState);
-  const bunch = useGameBunch();
+  const bunchCount = useGameBunchCount();
 
   const isDisabled = useMemo(
-    () => !selectedTile || bunch.length < EXCHANGE_COUNT,
-    [selectedTile, bunch]
+    () => !selectedTile || bunchCount < EXCHANGE_COUNT,
+    [selectedTile, bunchCount]
   );
 
   const tooltipText = useMemo(() => {
-    if (bunch.length < EXCHANGE_COUNT) {
+    if (bunchCount < EXCHANGE_COUNT) {
       return 'Not enough tiles remaining in bunch to dump';
     }
 
@@ -27,7 +27,7 @@ const DumpButton = (): JSX.Element => {
     }
 
     return `Exchange the selected tile for ${EXCHANGE_COUNT} from the bunch`;
-  }, [bunch, selectedTile]);
+  }, [bunchCount, selectedTile]);
 
   const handleClick = useCallback(() => {
     if (selectedTile) {

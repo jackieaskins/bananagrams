@@ -18,6 +18,7 @@ const {
   countdownState,
   nameState,
   bunchState,
+  bunchCountState,
   playersState,
   currentPlayerState,
   handsState,
@@ -34,6 +35,7 @@ export const useGameCountdown = (): number => useRecoilValue(countdownState);
 export const useGameName = (): string => useRecoilValue(nameState);
 
 export const useGameBunch = (): Tile[] => useRecoilValue(bunchState);
+export const useGameBunchCount = (): number => useRecoilValue(bunchCountState);
 
 export const useGamePlayers = (): Player[] => useRecoilValue(playersState);
 export const useCurrentPlayer = (): Player | null =>

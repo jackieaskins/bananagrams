@@ -18,6 +18,7 @@ export type GameState = {
   countdownState: RecoilState<number>;
   nameState: RecoilState<string>;
   bunchState: RecoilState<Tile[]>;
+  bunchCountState: RecoilValueReadOnly<number>;
   playersState: RecoilState<Player[]>;
   currentPlayerState: RecoilValueReadOnly<Player | null>;
   handsState: RecoilState<Record<string, Hand>>;
@@ -47,13 +48,17 @@ export const initializeState = (): GameState => {
     key: 'gameBunch',
     default: [],
   });
+  const bunchCountState = selector({
+    key: 'bunchCount',
+    get: ({ get }) => get(bunchState).length,
+  });
 
   const playersState = atom<Player[]>({
     key: 'gamePlayers',
     default: [],
   });
   const currentPlayerState = selector({
-    key: 'gameCurrentPlayerState',
+    key: 'gameCurrentPlayer',
     get: ({ get }) =>
       get(playersState).find(({ userId }) => userId === getUserId()) ?? null,
   });
@@ -64,7 +69,7 @@ export const initializeState = (): GameState => {
   });
 
   const currentHandState = atom<Hand>({
-    key: 'gameCurrentHandState',
+    key: 'gameCurrentHand',
     default: [],
   });
 
@@ -74,11 +79,11 @@ export const initializeState = (): GameState => {
   });
 
   const currentBoardState = atom<Board>({
-    key: 'gameCurrentBoardState',
+    key: 'gameCurrentBoard',
     default: {},
   });
   const currentBoardSquaresState = atomFamily<BoardSquare | null, string>({
-    key: 'gameCurrentBoardSquaresState',
+    key: 'gameCurrentBoardSquares',
     default: null,
   });
 
@@ -87,6 +92,7 @@ export const initializeState = (): GameState => {
     countdownState,
     nameState,
     bunchState,
+    bunchCountState,
     playersState,
     currentPlayerState,
     handsState,

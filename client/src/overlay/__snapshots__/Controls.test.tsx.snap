@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Controls /> renders action buttons 1`] = `
+.emotion-01rbyu3-Controls {
+  text-align: center;
+}
+
 <Space
   direction="vertical"
 >
@@ -9,5 +13,21 @@ exports[`<Controls /> renders action buttons 1`] = `
     <Memo(ShuffleButton) />
   </Space>
   <Memo(DumpButton) />
+  <div
+    className="emotion-0"
+  >
+    <Text
+      type="secondary"
+    >
+      Remaining tiles:
+       
+      <Text
+        strong={true}
+        type="secondary"
+      >
+        42
+      </Text>
+    </Text>
+  </div>
 </Space>
 `;

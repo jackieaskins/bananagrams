@@ -6,7 +6,7 @@ import { playerFixture } from '../fixtures/player';
 import {
   useCurrentBoard,
   useCurrentHand,
-  useGameBunch,
+  useGameBunchCount,
   useGamePlayers,
 } from '../game/stateHooks';
 import PeelButton from './PeelButton';
@@ -18,12 +18,12 @@ jest.mock('../boards/validate', () => ({
 
 const mockUseCurrentHand = useCurrentHand as jest.Mock;
 const mockUseCurrentBoard = useCurrentBoard as jest.Mock;
-const mockUseGameBunch = useGameBunch as jest.Mock;
+const mockUseGameBunchCount = useGameBunchCount as jest.Mock;
 const mockUseGamePlayers = useGamePlayers as jest.Mock;
 jest.mock('../game/stateHooks', () => ({
   useCurrentBoard: jest.fn(),
   useCurrentHand: jest.fn(),
-  useGameBunch: jest.fn(),
+  useGameBunchCount: jest.fn(),
   useGamePlayers: jest.fn(),
 }));
 
@@ -39,7 +39,7 @@ describe('<PeelButton />', () => {
   beforeEach(() => {
     mockUseCurrentHand.mockReturnValue([]);
     mockUseCurrentBoard.mockReturnValue({});
-    mockUseGameBunch.mockReturnValue([]);
+    mockUseGameBunchCount.mockReturnValue(0);
     mockUseGamePlayers.mockReturnValue([playerFixture()]);
 
     mockIsValidConnectedBoard.mockReturnValue(false);
@@ -81,7 +81,7 @@ describe('<PeelButton />', () => {
     });
 
     it('shows peel if there are still enough tiles', () => {
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
 
       expect(getButtonText()).toEqual('Peel');
     });
@@ -104,7 +104,7 @@ describe('<PeelButton />', () => {
 
     it('shows default message otherwise', () => {
       mockIsValidConnectedBoard.mockReturnValue(true);
-      mockUseGameBunch.mockReturnValue([tile, tile, tile, tile]);
+      mockUseGameBunchCount.mockReturnValue(4);
 
       expect(getTooltipText()).toMatchSnapshot();
     });

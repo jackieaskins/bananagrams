@@ -5,7 +5,7 @@ import { isValidConnectedBoard } from '../boards/validate';
 import {
   useCurrentBoard,
   useCurrentHand,
-  useGameBunch,
+  useGameBunchCount,
   useGamePlayers,
 } from '../game/stateHooks';
 import { peel } from '../socket';
@@ -14,14 +14,14 @@ const PeelButton = (): JSX.Element => {
   const hand = useCurrentHand();
   const board = useCurrentBoard();
   const players = useGamePlayers();
-  const bunch = useGameBunch();
+  const bunchCount = useGameBunchCount();
 
   const canPeel = useMemo(
     () => hand.length === 0 && isValidConnectedBoard(board),
     [hand, board]
   );
-  const peelWinsGame = useMemo(() => bunch.length < players.length, [
-    bunch,
+  const peelWinsGame = useMemo(() => bunchCount < players.length, [
+    bunchCount,
     players,
   ]);
 
