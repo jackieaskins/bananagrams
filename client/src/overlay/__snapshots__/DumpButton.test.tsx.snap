@@ -6,7 +6,7 @@ exports[`<DumpButton /> renders button 1`] = `
   autoAdjustOverflow={true}
   mouseEnterDelay={0.1}
   mouseLeaveDelay={0.1}
-  placement="left"
+  placement="bottom"
   title="Not enough tiles remaining in bunch to dump"
   transitionName="zoom-big-fast"
 >

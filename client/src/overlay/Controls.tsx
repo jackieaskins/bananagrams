@@ -11,12 +11,12 @@ const Controls = (): JSX.Element => {
 
   return (
     <Space direction="vertical">
-      <Space>
-        <PeelButton />
-        <ShuffleButton />
-      </Space>
+      <PeelButton />
 
-      <DumpButton />
+      <Space>
+        <ShuffleButton />
+        <DumpButton />
+      </Space>
 
       <div css={{ textAlign: 'center' }}>
         <Typography.Text type="secondary">

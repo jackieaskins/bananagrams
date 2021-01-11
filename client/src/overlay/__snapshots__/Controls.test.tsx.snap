@@ -8,11 +8,11 @@ exports[`<Controls /> renders action buttons 1`] = `
 <Space
   direction="vertical"
 >
+  <Memo(PeelButton) />
   <Space>
-    <Memo(PeelButton) />
     <Memo(ShuffleButton) />
+    <Memo(DumpButton) />
   </Space>
-  <Memo(DumpButton) />
   <div
     className="emotion-0"
   >

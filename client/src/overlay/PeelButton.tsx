@@ -39,8 +39,8 @@ const PeelButton = (): JSX.Element => {
 
   return useMemo(
     () => (
-      <Tooltip title={tooltipText} placement="left">
-        <Button type="primary" disabled={!canPeel} onClick={peel}>
+      <Tooltip title={tooltipText} placement="top">
+        <Button type="primary" disabled={!canPeel} onClick={peel} block>
           {peelWinsGame ? 'Bananas' : 'Peel'}
         </Button>
       </Tooltip>

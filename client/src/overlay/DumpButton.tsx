@@ -40,7 +40,7 @@ const DumpButton = (): JSX.Element => {
   }, [selectedTile, setSelectedTile]);
 
   return (
-    <Tooltip title={tooltipText} placement="left">
+    <Tooltip title={tooltipText} placement="bottom">
       <Button block disabled={isDisabled} onClick={handleClick}>
         Dump
       </Button>

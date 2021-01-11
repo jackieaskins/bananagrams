@@ -6,11 +6,12 @@ exports[`<PeelButton /> renders button 1`] = `
   autoAdjustOverflow={true}
   mouseEnterDelay={0.1}
   mouseLeaveDelay={0.1}
-  placement="left"
+  placement="top"
   title="You must have a valid connected board to peel"
   transitionName="zoom-big-fast"
 >
   <Button
+    block={true}
     disabled={true}
     onClick={[MockFunction peel]}
     type="primary"

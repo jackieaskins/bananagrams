@@ -6,7 +6,7 @@ exports[`<ShuffleButton /> renders button 1`] = `
   autoAdjustOverflow={true}
   mouseEnterDelay={0.1}
   mouseLeaveDelay={0.1}
-  placement="right"
+  placement="bottom"
   title="Shuffle hand"
   transitionName="zoom-big-fast"
 >

@@ -14,7 +14,7 @@ const ShuffleButton = (): JSX.Element => {
   );
 
   return (
-    <Tooltip title={tooltipText} placement="right">
+    <Tooltip title={tooltipText} placement="bottom">
       <Button disabled={isDisabled} onClick={shuffleHand}>
         Shuffle hand
       </Button>

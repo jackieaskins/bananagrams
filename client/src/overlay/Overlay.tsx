@@ -1,3 +1,4 @@
+import { Space } from 'antd';
 import { memo, Suspense } from 'react';
 import Draggable from 'react-draggable';
 import { useRecoilCallback } from 'recoil';
@@ -38,26 +39,25 @@ const Overlay = (): JSX.Element => {
       <div
         className="overlay"
         css={{
-          position: 'absolute',
           backgroundColor: 'rgba(173, 216, 230, 0.5)',
           border: '1px solid rgb(173, 216, 230)',
-          width: '70vw',
+          borderRadius: '10px',
           bottom: 0,
           left: 0,
-          right: 0,
           margin: '15px auto',
-          borderRadius: '10px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'space-around',
           padding: '15px',
+          position: 'absolute',
+          right: 0,
           transition: 'width 0.5s, height 0.5s',
+          width: '70vw',
         }}
         onClick={handleClick}
       >
         <Suspense fallback={<LoadingContainer />}>
-          <Hand />
-          <Controls />
+          <Space align="start" size="middle">
+            <Controls />
+            <Hand />
+          </Space>
         </Suspense>
       </div>
     </Draggable>

@@ -1,30 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Overlay /> renders hand and controls 1`] = `
-.emotion-0jv3q9u-Overlay {
-  position: absolute;
+.emotion-09yo750-Overlay {
   background-color: rgba(173, 216, 230, 0.5);
   border: 1px solid rgb(173, 216, 230);
-  width: 70vw;
+  border-radius: 10px;
   bottom: 0;
   left: 0;
-  right: 0;
   margin: 15px auto;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-align-items: space-around;
-  -webkit-box-align: space-around;
-  -ms-flex-align: space-around;
-  align-items: space-around;
   padding: 15px;
+  position: absolute;
+  right: 0;
   -webkit-transition: width 0.5s,height 0.5s;
   transition: width 0.5s,height 0.5s;
+  width: 70vw;
 }
 
 <Draggable
@@ -61,8 +50,13 @@ exports[`<Overlay /> renders hand and controls 1`] = `
     <Suspense
       fallback={<LoadingContainer />}
     >
-      <lazy />
-      <Memo(Controls) />
+      <Space
+        align="start"
+        size="middle"
+      >
+        <Memo(Controls) />
+        <lazy />
+      </Space>
     </Suspense>
   </div>
 </Draggable>
