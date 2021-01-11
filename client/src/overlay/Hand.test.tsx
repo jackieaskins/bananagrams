@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import { useRecoilCallback } from 'recoil';
 
 import { useCurrentHand } from '../game/stateHooks';
+import { moveTile } from '../socket';
 import Hand from './Hand';
 
 const mockUseRecoilCallback = useRecoilCallback as jest.Mock;
@@ -18,6 +19,11 @@ jest.mock('recoil', () => ({
 const mockUseCurrentHand = useCurrentHand as jest.Mock;
 jest.mock('../game/stateHooks', () => ({
   useCurrentHand: jest.fn(),
+}));
+
+const mockMoveTile = moveTile as jest.Mock;
+jest.mock('../socket', () => ({
+  moveTile: jest.fn(),
 }));
 
 const mockSelectedTileState = 'mockSelectedTileState';
@@ -52,7 +58,44 @@ describe('<Hand />', () => {
       });
     };
 
-    it('sets selected tile', async () => {
+    describe('when selected tile is on board', () => {
+      beforeEach(() => {
+        mockSnapshot.getPromise.mockReturnValue({
+          tile: { id: 'B1', letter: 'B' },
+          boardPosition: { row: 0, col: 0 },
+        });
+
+        selectTile();
+      });
+
+      it('swaps tiles', () => {
+        expect(mockMoveTile).toHaveBeenCalledWith({
+          tileId: 'A1',
+          fromPosition: null,
+          toPosition: { row: 0, col: 0 },
+        });
+      });
+
+      it('clears selected tile', () => {
+        expect(mockSet).toHaveBeenCalledWith(mockSelectedTileState, null);
+      });
+    });
+
+    it('sets selected tile if selected tile is in hand', async () => {
+      mockSnapshot.getPromise.mockReturnValue({
+        tile: { id: 'B1', letter: 'B' },
+        boardPosition: null,
+      });
+
+      await selectTile();
+
+      expect(mockSet).toHaveBeenCalledWith(mockSelectedTileState, {
+        tile: { id: 'A1', letter: 'A' },
+        boardPosition: null,
+      });
+    });
+
+    it('sets selected tile if no selected tile', async () => {
       mockSnapshot.getPromise.mockReturnValue(null);
 
       await selectTile();

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useRecoilCallback } from 'recoil';
 
 import { useCurrentHand } from '../game/stateHooks';
+import { moveTile } from '../socket';
 import Tile from '../tile/Tile';
 import { selectedTileState } from '../tile/selectedTileState';
 
@@ -9,8 +10,19 @@ const Hand = (): JSX.Element => {
   const hand = useCurrentHand();
 
   const selectTile = useRecoilCallback(
-    ({ set }) => ({ tile }) => {
-      set(selectedTileState, { tile, boardPosition: null });
+    ({ set, snapshot }) => async ({ tile }) => {
+      const selectedTile = await snapshot.getPromise(selectedTileState);
+
+      if (selectedTile?.boardPosition) {
+        moveTile({
+          tileId: tile.id,
+          fromPosition: null,
+          toPosition: selectedTile.boardPosition,
+        });
+        set(selectedTileState, null);
+      } else {
+        set(selectedTileState, { tile, boardPosition: null });
+      }
     },
     []
   );
