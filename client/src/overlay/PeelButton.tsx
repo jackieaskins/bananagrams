@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'antd';
+import { Button } from 'antd';
 import { memo, useMemo } from 'react';
 
 import { isValidConnectedBoard } from '../boards/validate';
@@ -25,27 +25,13 @@ const PeelButton = (): JSX.Element => {
     players,
   ]);
 
-  const tooltipText = useMemo(() => {
-    if (!canPeel) {
-      return 'You must have a valid connected board to peel';
-    }
-
-    if (peelWinsGame) {
-      return 'Win the game!';
-    }
-
-    return 'Get a new tile and send one to everyone else';
-  }, [canPeel, peelWinsGame]);
-
   return useMemo(
     () => (
-      <Tooltip title={tooltipText} placement="top">
-        <Button type="primary" disabled={!canPeel} onClick={peel} block>
-          {peelWinsGame ? 'Bananas' : 'Peel'}
-        </Button>
-      </Tooltip>
+      <Button type="primary" disabled={!canPeel} onClick={peel} block>
+        {peelWinsGame ? 'Bananas' : 'Peel'}
+      </Button>
     ),
-    [canPeel, peelWinsGame, tooltipText]
+    [canPeel, peelWinsGame]
   );
 };
 

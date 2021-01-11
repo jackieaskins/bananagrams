@@ -1,28 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PeelButton /> renders button 1`] = `
-<Tooltip
-  arrowPointAtCenter={false}
-  autoAdjustOverflow={true}
-  mouseEnterDelay={0.1}
-  mouseLeaveDelay={0.1}
-  placement="top"
-  title="You must have a valid connected board to peel"
-  transitionName="zoom-big-fast"
+<Button
+  block={true}
+  disabled={true}
+  onClick={[MockFunction peel]}
+  type="primary"
 >
-  <Button
-    block={true}
-    disabled={true}
-    onClick={[MockFunction peel]}
-    type="primary"
-  >
-    Bananas
-  </Button>
-</Tooltip>
+  Bananas
+</Button>
 `;
-
-exports[`<PeelButton /> tooltip text shows default message otherwise 1`] = `"Get a new tile and send one to everyone else"`;
-
-exports[`<PeelButton /> tooltip text shows invalid board message if cannot peel 1`] = `"You must have a valid connected board to peel"`;
-
-exports[`<PeelButton /> tooltip text shows win game message if peel wins game 1`] = `"Win the game!"`;

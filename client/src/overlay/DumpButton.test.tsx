@@ -70,30 +70,6 @@ describe('<DumpButton />', () => {
     });
   });
 
-  describe('tooltipText', () => {
-    const getTooltipText = () => renderComponent().props().title;
-
-    it('shows not enough tils if less than exchange count', () => {
-      mockUseGameBunchCount.mockReturnValue(1);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-
-    it('shows no selected tile if no selected tile', () => {
-      mockUseGameBunchCount.mockReturnValue(4);
-      mockUseRecoilState.mockReturnValue([null, mockSetSelectedTile]);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-
-    it('shows explanation tooltip otherwise', () => {
-      mockUseGameBunchCount.mockReturnValue(4);
-      mockUseRecoilState.mockReturnValue([selectedTile, mockSetSelectedTile]);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-  });
-
   describe('button click', () => {
     const clickButton = () => renderComponent().find(Button).simulate('click');
 

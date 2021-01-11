@@ -40,18 +40,4 @@ describe('<ShuffleButton />', () => {
       expect(isButtonDisabled()).toEqual(true);
     });
   });
-
-  describe('tooltip text', () => {
-    const getTooltipText = () => renderComponent().props().title;
-
-    it('shows not enough tiles message if not enough tiles', () => {
-      mockUseCurrentHand.mockReturnValue([]);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-
-    it('shows shuffle hand message by default', () => {
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-  });
 });

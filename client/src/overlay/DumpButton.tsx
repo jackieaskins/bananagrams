@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'antd';
+import { Button } from 'antd';
 import { memo, useCallback, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -17,18 +17,6 @@ const DumpButton = (): JSX.Element => {
     [selectedTile, bunchCount]
   );
 
-  const tooltipText = useMemo(() => {
-    if (bunchCount < EXCHANGE_COUNT) {
-      return 'Not enough tiles remaining in bunch to dump';
-    }
-
-    if (!selectedTile) {
-      return 'A tile must be selected to dump';
-    }
-
-    return `Exchange the selected tile for ${EXCHANGE_COUNT} from the bunch`;
-  }, [bunchCount, selectedTile]);
-
   const handleClick = useCallback(() => {
     if (selectedTile) {
       dump({
@@ -40,11 +28,9 @@ const DumpButton = (): JSX.Element => {
   }, [selectedTile, setSelectedTile]);
 
   return (
-    <Tooltip title={tooltipText} placement="bottom">
-      <Button block disabled={isDisabled} onClick={handleClick}>
-        Dump
-      </Button>
-    </Tooltip>
+    <Button block disabled={isDisabled} onClick={handleClick}>
+      Dump
+    </Button>
   );
 };
 

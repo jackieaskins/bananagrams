@@ -1,27 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<DumpButton /> renders button 1`] = `
-<Tooltip
-  arrowPointAtCenter={false}
-  autoAdjustOverflow={true}
-  mouseEnterDelay={0.1}
-  mouseLeaveDelay={0.1}
-  placement="bottom"
-  title="Not enough tiles remaining in bunch to dump"
-  transitionName="zoom-big-fast"
+<Button
+  block={true}
+  disabled={true}
+  onClick={[Function]}
 >
-  <Button
-    block={true}
-    disabled={true}
-    onClick={[Function]}
-  >
-    Dump
-  </Button>
-</Tooltip>
+  Dump
+</Button>
 `;
-
-exports[`<DumpButton /> tooltipText shows explanation tooltip otherwise 1`] = `"Exchange the selected tile for 3 from the bunch"`;
-
-exports[`<DumpButton /> tooltipText shows no selected tile if no selected tile 1`] = `"A tile must be selected to dump"`;
-
-exports[`<DumpButton /> tooltipText shows not enough tils if less than exchange count 1`] = `"Not enough tiles remaining in bunch to dump"`;

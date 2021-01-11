@@ -86,27 +86,4 @@ describe('<PeelButton />', () => {
       expect(getButtonText()).toEqual('Peel');
     });
   });
-
-  describe('tooltip text', () => {
-    const getTooltipText = () => renderComponent().props().title;
-
-    it('shows invalid board message if cannot peel', () => {
-      mockIsValidConnectedBoard.mockReturnValue(false);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-
-    it('shows win game message if peel wins game', () => {
-      mockIsValidConnectedBoard.mockReturnValue(true);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-
-    it('shows default message otherwise', () => {
-      mockIsValidConnectedBoard.mockReturnValue(true);
-      mockUseGameBunchCount.mockReturnValue(4);
-
-      expect(getTooltipText()).toMatchSnapshot();
-    });
-  });
 });
