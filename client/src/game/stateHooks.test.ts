@@ -1,6 +1,8 @@
-import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { BoardSquare, ValidationStatus } from '../boards/types';
 import { playerFixture } from '../fixtures/player';
+import { GameInfo } from '../games/types';
 import {
   useGameStatus,
   useGameCountdown,
@@ -18,6 +20,7 @@ import {
   useGameBunchCount,
   useCurrentBoard,
   useResetCurrentBoard,
+  useResetGameState,
 } from './stateHooks';
 
 const mockSet = jest.fn();
@@ -25,7 +28,6 @@ const mockReset = jest.fn();
 const mockSnapshot = {
   getPromise: jest.fn(),
 };
-const mockUseRecoilCallback = useRecoilCallback as jest.Mock;
 const mockUseRecoilValue = useRecoilValue as jest.Mock;
 const mockUseSetRecoilState = useSetRecoilState as jest.Mock;
 const mockReturnValue = 'mockReturnValue';
@@ -124,25 +126,16 @@ describe('state hooks', () => {
   });
 
   describe('useSetCurrentBoard', () => {
-    const boardSquare = {
+    const boardSquare: BoardSquare = {
       tile: { id: 'A1', letter: 'A' },
-      validationStatus: 'NOT_VALIDATED',
+      validationStatus: ValidationStatus.NOT_VALIDATED,
     };
     const board = {
       '0,0': boardSquare,
     };
 
     beforeEach(() => {
-      useSetCurrentBoard();
-
-      mockUseRecoilCallback.mock.results[0].value(board);
-    });
-
-    it('returns recoil callback', () => {
-      expect(mockUseRecoilCallback).toHaveBeenCalledWith(
-        expect.any(Function),
-        []
-      );
+      useSetCurrentBoard()(board);
     });
 
     it('sets currentBoardState', () => {
@@ -169,9 +162,7 @@ describe('state hooks', () => {
 
     beforeEach(() => {
       mockSnapshot.getPromise.mockReturnValue(board);
-      useResetCurrentBoard();
-
-      mockUseRecoilCallback.mock.results[0].value();
+      useResetCurrentBoard()();
     });
 
     it('resets current board', () => {
@@ -184,26 +175,35 @@ describe('state hooks', () => {
     });
   });
 
+  it('useResetGameState resets game state through recoil callback', () => {
+    useResetGameState()();
+
+    expect(mockReset).toHaveBeenCalledTimes(7);
+
+    expect(mockReset).toHaveBeenCalledWith('statusState');
+    expect(mockReset).toHaveBeenCalledWith('countdownState');
+    expect(mockReset).toHaveBeenCalledWith('nameState');
+    expect(mockReset).toHaveBeenCalledWith('bunchState');
+    expect(mockReset).toHaveBeenCalledWith('playersState');
+    expect(mockReset).toHaveBeenCalledWith('handsState');
+    expect(mockReset).toHaveBeenCalledWith('boardsState');
+  });
+
   it('useUpdateGameState updates game state through recoil callback', () => {
     const userId = 'userId';
-    const gameInfo = {
+    const gameInfo: GameInfo = {
+      gameId: 'gameId',
       gameName: 'gameName',
       status: 'IN_PROGRESS',
       bunch: [],
       countdown: 3,
       players: [playerFixture({ userId })],
-      boards: { [userId]: [[null]] },
+      boards: { [userId]: {} },
       hands: { [userId]: [] },
+      previousSnapshot: null,
     };
 
-    useUpdateGameState();
-
-    mockUseRecoilCallback.mock.results[0].value(gameInfo);
-
-    expect(mockUseRecoilCallback).toHaveBeenCalledWith(
-      expect.any(Function),
-      []
-    );
+    useUpdateGameState()(gameInfo);
 
     expect(mockSet).toHaveBeenCalledTimes(7);
 

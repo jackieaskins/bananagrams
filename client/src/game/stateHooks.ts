@@ -89,6 +89,20 @@ export const useSetCurrentBoard = (): ((board: Board) => void) =>
     []
   );
 
+export const useResetGameState = (): (() => void) =>
+  useRecoilCallback(
+    ({ reset }) => () => {
+      reset(statusState);
+      reset(countdownState);
+      reset(nameState);
+      reset(bunchState);
+      reset(playersState);
+      reset(handsState);
+      reset(boardsState);
+    },
+    []
+  );
+
 export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
   useRecoilCallback(
     ({ set }) => (gameInfo) => {

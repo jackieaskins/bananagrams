@@ -1,10 +1,11 @@
 import { Card, Col, Tabs } from 'antd';
 import { Row } from 'antd/lib/grid';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import CreateGameForm from './game/CreateGameForm';
 import JoinGameForm from './game/JoinGameForm';
+import { useResetGameState } from './game/stateHooks';
 
 enum TabKey {
   CreateGame = 'createGame',
@@ -12,6 +13,7 @@ enum TabKey {
 }
 
 const Home = (): JSX.Element => {
+  const resetGameState = useResetGameState();
   const { search } = useLocation();
   const { replace } = useHistory();
 
@@ -35,6 +37,10 @@ const Home = (): JSX.Element => {
     },
     [replace, search]
   );
+
+  useEffect(() => {
+    resetGameState();
+  }, [resetGameState]);
 
   return (
     <Row css={{ height: '100vh' }} align="middle" justify="center">

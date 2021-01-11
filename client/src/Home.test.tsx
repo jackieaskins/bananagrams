@@ -9,16 +9,21 @@ import JoinGameForm from './game/JoinGameForm';
 const mockSetActiveTabKey = jest.fn();
 jest.mock('react', () => ({
   ...jest.requireActual<any>('react'),
-  useState: jest.fn().mockImplementation((init) => [init, mockSetActiveTabKey]),
+  useEffect: jest.fn((fn) => fn()),
+  useState: jest.fn((init) => [init, mockSetActiveTabKey]),
 }));
 
 const mockReplace = jest.fn();
+const mockUseLocation = useLocation as jest.Mock;
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({ replace: mockReplace }),
   useLocation: jest.fn(),
 }));
 
-const mockUseLocation = useLocation as jest.Mock;
+const mockResetGameState = jest.fn();
+jest.mock('./game/stateHooks', () => ({
+  useResetGameState: () => mockResetGameState,
+}));
 
 describe('<Home />', () => {
   beforeEach(() => {
@@ -57,6 +62,12 @@ describe('<Home />', () => {
         .find(JoinGameForm)
         .props().gameId
     ).toEqual('gameId');
+  });
+
+  it('resets game state', () => {
+    shallow(<Home />);
+
+    expect(mockResetGameState).toHaveBeenCalledWith();
   });
 
   describe('onTabChange', () => {
