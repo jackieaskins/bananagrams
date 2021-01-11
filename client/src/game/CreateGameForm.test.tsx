@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 
+import { gameInfoFixture } from '../fixtures/game';
 import Form, { FormProps } from '../form/Form';
-import { getEmptyGameInfo } from '../games/GameContext';
 import { createGame } from '../socket';
 import CreateGameForm from './CreateGameForm';
 
@@ -28,9 +28,8 @@ describe('<CreateGameForm />', () => {
   });
 
   describe('handleSubmit', () => {
-    const gameId = 'gameId';
     const values = { gameName: 'gameName', username: 'username' };
-    const gameInfo = getEmptyGameInfo(gameId);
+    const gameInfo = gameInfoFixture();
     const submitCallback = (error: { message: string } | null) =>
       mockCreateGame.mock.calls[0][1](error, gameInfo);
 

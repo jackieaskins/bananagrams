@@ -1,9 +1,16 @@
-import { getEmptyGameInfo } from '../games/GameContext';
 import { GameInfo } from '../games/types';
 
 export const gameInfoFixture = (
   overrides: Partial<GameInfo> = {}
 ): GameInfo => ({
-  ...getEmptyGameInfo('gameId'),
+  gameId: 'gameId',
+  gameName: '',
+  status: 'NOT_STARTED',
+  countdown: 0,
+  bunch: [],
+  players: [],
+  hands: {},
+  boards: {},
+  previousSnapshot: null,
   ...overrides,
 });

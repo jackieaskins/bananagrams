@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 
+import { gameInfoFixture } from '../fixtures/game';
 import Form, { FormProps } from '../form/Form';
-import { getEmptyGameInfo } from '../games/GameContext';
 import { joinGame } from '../socket';
 import JoinGameForm from './JoinGameForm';
 
@@ -33,7 +33,7 @@ describe('<JoinGameForm />', () => {
   describe('handleSubmit', () => {
     const gameId = 'gameId';
     const values = { gameId, username: 'username' };
-    const gameInfo = getEmptyGameInfo(gameId);
+    const gameInfo = gameInfoFixture();
     const submitCallback = (error: { message: string } | null) =>
       mockJoinGame.mock.calls[0][1](error, gameInfo);
 

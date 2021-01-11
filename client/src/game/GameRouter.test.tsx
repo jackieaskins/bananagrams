@@ -2,7 +2,7 @@ import { message } from 'antd';
 import { shallow } from 'enzyme';
 import { useEffect } from 'react';
 
-import { getEmptyGameInfo } from '../games/GameContext';
+import { gameInfoFixture } from '../fixtures/game';
 import { GameInfo } from '../games/types';
 import { addListeners, removeListeners } from '../socket';
 import GameRouter from './GameRouter';
@@ -93,7 +93,7 @@ describe('<GameRouter />', () => {
     });
 
     it('updates game state on gameInfo change', () => {
-      const info = getEmptyGameInfo('id');
+      const info = gameInfoFixture({ gameId: 'id' });
       mockAddListeners.mock.calls[0][1](info);
 
       expect(mockUpdateGameState).toHaveBeenCalledWith(info);
