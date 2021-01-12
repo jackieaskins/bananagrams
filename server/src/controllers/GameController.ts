@@ -365,45 +365,6 @@ export default class GameController {
     GameController.emitGameInfo(io, currentGame);
   }
 
-  moveTileFromHandToBoard(tileId: string, boardPosition: BoardPosition): void {
-    const { io, currentGame, currentHand, currentBoard } = this;
-
-    currentBoard.validateEmptySquare(boardPosition);
-    const tile = currentHand.removeTile(tileId);
-    currentBoard.addTile(boardPosition, tile);
-
-    GameController.emitGameInfo(io, currentGame);
-  }
-
-  moveTileFromBoardToHand(boardPosition: BoardPosition): void {
-    const { io, currentGame, currentHand, currentBoard } = this;
-
-    const tile = currentBoard.removeTile(boardPosition);
-    currentHand.addTiles([tile]);
-
-    GameController.emitGameInfo(io, currentGame);
-  }
-
-  moveTileOnBoard(
-    fromPosition: BoardPosition,
-    toPosition: BoardPosition
-  ): void {
-    const { io, currentGame, currentBoard } = this;
-
-    currentBoard.validateEmptySquare(toPosition);
-    const tile = currentBoard.removeTile(fromPosition);
-    currentBoard.addTile(toPosition, tile);
-
-    GameController.emitGameInfo(io, currentGame);
-  }
-
-  moveAllTilesFromBoardToHand(): void {
-    const { io, currentHand, currentBoard } = this;
-
-    currentHand.addTiles(currentBoard.clear());
-    GameController.emitGameInfo(io, this.currentGame);
-  }
-
   shuffleHand(): void {
     const { io, currentGame, currentHand, currentPlayer } = this;
     currentHand.shuffle();

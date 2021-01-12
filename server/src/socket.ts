@@ -151,66 +151,6 @@ export const configureSocket = (io: Server): void => {
       }
     );
 
-    socket.on(
-      'moveTileFromHandToBoard',
-      (
-        {
-          tileId,
-          boardPosition,
-        }: { tileId: string; boardPosition: BoardPosition },
-        callback?: Callback
-      ) => {
-        handler(() => {
-          validateGameControllerExists();
-          (gameController as GameController).moveTileFromHandToBoard(
-            tileId,
-            boardPosition
-          );
-        }, callback);
-      }
-    );
-
-    socket.on(
-      'moveTileFromBoardToHand',
-      (
-        { boardPosition }: { boardPosition: BoardPosition },
-        callback?: Callback
-      ) => {
-        handler(() => {
-          validateGameControllerExists();
-          (gameController as GameController).moveTileFromBoardToHand(
-            boardPosition
-          );
-        }, callback);
-      }
-    );
-
-    socket.on('moveAllTilesFromBoardToHand', ({}, callback?: Callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).moveAllTilesFromBoardToHand();
-      }, callback);
-    });
-
-    socket.on(
-      'moveTileOnBoard',
-      (
-        {
-          fromPosition,
-          toPosition,
-        }: { fromPosition: BoardPosition; toPosition: BoardPosition },
-        callback?: Callback
-      ) => {
-        handler(() => {
-          validateGameControllerExists();
-          (gameController as GameController).moveTileOnBoard(
-            fromPosition,
-            toPosition
-          );
-        }, callback);
-      }
-    );
-
     socket.on('shuffleHand', ({}, callback?: Callback) => {
       handler(() => {
         validateGameControllerExists();
