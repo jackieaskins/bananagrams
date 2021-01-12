@@ -18,6 +18,13 @@ app.use('/assets', express.static('assets'));
 if (process.env.NODE_ENV === 'development') {
   configureDevServer(app);
 } else {
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    } else {
+      return next();
+    }
+  });
   app.use(express.static(path.join(__dirname, 'public')));
   app.get('*', (_, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
