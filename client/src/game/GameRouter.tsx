@@ -21,7 +21,7 @@ const GameRouter = ({ initialGameInfo }: GameRouterProps): JSX.Element => {
   const gameStatus = useGameStatus();
   const setCurrentBoard = useSetCurrentBoard();
   const setCurrentHand = useSetCurrentHand();
-  const isGameInProgress = gameStatus === 'IN_PROGRESS';
+  const isGameInProgress = ['IN_PROGRESS', 'ENDING'].includes(gameStatus);
 
   useEffect(() => {
     updateGameState(initialGameInfo);

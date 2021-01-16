@@ -350,16 +350,53 @@ describe('GameController', () => {
         gameController.peel();
       });
 
-      it('emits game over notification to losing players', () => {
-        assertEmitsGameNotification(socketEmit, 'Game is over, username won.');
-      });
+      it('ends game immediately if only one player', () => {
+        const controller = GameController.createGame(
+          gameName,
+          username,
+          false,
+          io,
+          socket
+        );
 
-      it('emits game over notification to winning player', () => {
-        assertEmitsGameNotification(ioEmit, 'Game is over, you won!');
-      });
+        const game = controller.getCurrentGame();
 
-      it('ends game', () => {
+        game.setStatus('IN_PROGRESS');
+        controller.peel();
+
         expect(game.getStatus()).toEqual('NOT_STARTED');
+      });
+
+      it('sets game as ending', () => {
+        expect(game.getStatus()).toEqual('ENDING');
+      });
+
+      it('starts countdown', () => {
+        expect(game.getCountdown()).toEqual(3);
+      });
+
+      it('removes the interval once countdown reaches 0', () => {
+        jest.runAllTimers();
+
+        expect(game.getCountdown()).toEqual(0);
+      });
+
+      it('updates current countdown every second', () => {
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(2);
+        assertEmitsGameInfo(ioEmit);
+
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(1);
+        assertEmitsGameInfo(ioEmit);
+
+        ioEmit.mockClear();
+        jest.runOnlyPendingTimers();
+        expect(game.getCountdown()).toEqual(0);
+        expect(game.getStatus()).toEqual('NOT_STARTED');
+        assertEmitsGameInfo(ioEmit);
       });
 
       it('sets each player to not ready', () => {

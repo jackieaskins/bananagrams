@@ -228,19 +228,13 @@ export default class GameController {
     }
 
     if (currentGame.getBunch().getTiles().length < currentPlayers.length) {
-      GameController.emitNotification(
-        socket,
-        currentGame.getId(),
-        `Game is over, ${currentPlayer.getUsername()} won.`
-      );
-
-      GameController.emitNotification(
-        io,
-        currentPlayer.getUserId(),
-        'Game is over, you won!'
-      );
-
-      currentGame.setStatus('NOT_STARTED');
+      // TODO: Go straight to not started if only one player
+      if (currentPlayers.length > 1) {
+        currentGame.setStatus('ENDING');
+        currentGame.setCountdown(3);
+      } else {
+        currentGame.setStatus('NOT_STARTED');
+      }
 
       currentPlayers.forEach((player) => {
         player.setReady(false);
@@ -266,6 +260,20 @@ export default class GameController {
           ])
         ),
       });
+
+      if (currentPlayers.length > 1) {
+        const interval = setInterval(() => {
+          const currentCountdown = currentGame.getCountdown();
+          currentGame.setCountdown(currentCountdown - 1);
+
+          if (currentCountdown === 1) {
+            clearInterval(interval);
+            currentGame.setStatus('NOT_STARTED');
+          }
+
+          GameController.emitGameInfo(io, currentGame);
+        }, 1000);
+      }
     } else {
       GameController.emitNotification(
         socket,

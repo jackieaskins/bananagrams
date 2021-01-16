@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<GameRouter /> renders properly if game is in progress 1`] = `<Game />`;
+exports[`<GameRouter /> renders game if ending 1`] = `<Game />`;
+
+exports[`<GameRouter /> renders game if in progress 1`] = `<Game />`;
 
 exports[`<GameRouter /> renders waiting room is game is not in progress 1`] = `<WaitingRoom />`;

@@ -54,8 +54,14 @@ describe('<GameRouter />', () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  it('renders properly if game is in progress', () => {
+  it('renders game if in progress', () => {
     mockUseGameStatus.mockReturnValue('IN_PROGRESS');
+
+    expect(renderComponent()).toMatchSnapshot();
+  });
+
+  it('renders game if ending', () => {
+    mockUseGameStatus.mockReturnValue('ENDING');
 
     expect(renderComponent()).toMatchSnapshot();
   });
