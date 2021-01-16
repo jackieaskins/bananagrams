@@ -6,6 +6,7 @@ import Game, { GameJSON } from '../models/Game';
 import Hand from '../models/Hand';
 import Player from '../models/Player';
 
+const COUNTDOWN_PLAYER_COUNT = 1;
 const GAME_ID_LENGTH = 10;
 const MAX_PLAYERS = 8;
 const INITIAL_TILE_COUNT = 21;
@@ -228,8 +229,7 @@ export default class GameController {
     }
 
     if (currentGame.getBunch().getTiles().length < currentPlayers.length) {
-      // TODO: Go straight to not started if only one player
-      if (currentPlayers.length > 1) {
+      if (currentPlayers.length > COUNTDOWN_PLAYER_COUNT) {
         currentGame.setStatus('ENDING');
         currentGame.setCountdown(3);
       } else {
@@ -261,7 +261,7 @@ export default class GameController {
         ),
       });
 
-      if (currentPlayers.length > 1) {
+      if (currentPlayers.length > COUNTDOWN_PLAYER_COUNT) {
         const interval = setInterval(() => {
           const currentCountdown = currentGame.getCountdown();
           currentGame.setCountdown(currentCountdown - 1);
@@ -395,11 +395,11 @@ export default class GameController {
 
     const players = currentGame.getPlayers();
 
-    if (players.length === 1) {
-      currentGame.setStatus('IN_PROGRESS');
-    } else {
+    if (players.length > COUNTDOWN_PLAYER_COUNT) {
       currentGame.setStatus('STARTING');
       currentGame.setCountdown(3);
+    } else {
+      currentGame.setStatus('IN_PROGRESS');
     }
 
     players.forEach((player) => {
@@ -408,7 +408,7 @@ export default class GameController {
     });
     GameController.emitGameInfo(io, currentGame);
 
-    if (players.length !== 1) {
+    if (players.length > COUNTDOWN_PLAYER_COUNT) {
       const interval = setInterval(() => {
         const currentCountdown = currentGame.getCountdown();
         currentGame.setCountdown(currentCountdown - 1);
