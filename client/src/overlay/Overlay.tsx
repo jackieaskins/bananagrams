@@ -1,13 +1,12 @@
 import { Space } from 'antd';
-import { memo, Suspense } from 'react';
+import { memo } from 'react';
 import Draggable from 'react-draggable';
 import { useRecoilCallback } from 'recoil';
 
-import LoadingContainer from '../loading/LoadingContainer';
 import { moveTile } from '../socket';
 import { selectedTileState } from '../tile/selectedTileState';
 import Controls from './Controls';
-import Hand from './LazyHand';
+import Hand from './Hand';
 
 const Overlay = (): JSX.Element => {
   const handleClick = useRecoilCallback(
@@ -53,12 +52,10 @@ const Overlay = (): JSX.Element => {
         }}
         onClick={handleClick}
       >
-        <Suspense fallback={<LoadingContainer />}>
-          <Space align="start" size="middle">
-            <Controls />
-            <Hand />
-          </Space>
-        </Suspense>
+        <Space align="start" size="middle">
+          <Controls />
+          <Hand />
+        </Space>
       </div>
     </Draggable>
   );

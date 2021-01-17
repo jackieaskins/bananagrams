@@ -10,15 +10,9 @@ exports[`<Game /> renders board and overlay with move cursor if no tile 1`] = `
 <div
   className="emotion-0"
 >
-  <Suspense
-    fallback={
-      <LoadingContainer
-        size="large"
-      />
-    }
-  >
-    <lazy />
-  </Suspense>
+  <LoadingContainer
+    size="large"
+  />
   <Actions />
   <Memo(Overlay) />
   <SelectedTile />
@@ -42,15 +36,33 @@ exports[`<Game /> renders board and overlay with move cursor if tile 1`] = `
 <div
   className="emotion-0"
 >
-  <Suspense
-    fallback={
-      <LoadingContainer
-        size="large"
-      />
-    }
-  >
-    <lazy />
-  </Suspense>
+  <LoadingContainer
+    size="large"
+  />
+  <Actions />
+  <Memo(Overlay) />
+  <SelectedTile />
+</div>
+`;
+
+exports[`<Game /> renders board once it is loaded 1`] = `
+.emotion-01gtsv1y-Game {
+  cursor: move;
+  width: 100vw;
+  height: 100vh;
+}
+
+.emotion-0zeng4e-Game {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+  width: 100vw;
+  height: 100vh;
+}
+
+<div
+  className="emotion-0"
+>
+  <Memo(BoardWrapper) />
   <Actions />
   <Memo(Overlay) />
   <SelectedTile />

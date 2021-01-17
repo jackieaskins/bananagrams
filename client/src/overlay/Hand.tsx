@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { useRecoilCallback } from 'recoil';
 
 import { useCurrentHand } from '../game/stateHooks';
@@ -55,4 +55,4 @@ const Hand = (): JSX.Element => {
   );
 };
 
-export default Hand;
+export default memo(Hand);

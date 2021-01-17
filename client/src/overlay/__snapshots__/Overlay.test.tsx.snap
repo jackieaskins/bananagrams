@@ -47,17 +47,13 @@ exports[`<Overlay /> renders hand and controls 1`] = `
     className="overlay emotion-0"
     onClick={[Function]}
   >
-    <Suspense
-      fallback={<LoadingContainer />}
+    <Space
+      align="start"
+      size="middle"
     >
-      <Space
-        align="start"
-        size="middle"
-      >
-        <Memo(Controls) />
-        <lazy />
-      </Space>
-    </Suspense>
+      <Memo(Controls) />
+      <Memo(Hand) />
+    </Space>
   </div>
 </Draggable>
 `;
