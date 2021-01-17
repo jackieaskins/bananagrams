@@ -44,7 +44,7 @@ exports[`<Overlay /> renders hand and controls 1`] = `
   transform={null}
 >
   <div
-    className="overlay emotion-0"
+    className="emotion-0"
     onClick={[Function]}
   >
     <Space

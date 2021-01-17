@@ -9,7 +9,7 @@ const ShuffleButton = (): JSX.Element => {
   const isDisabled = useMemo(() => hand.length <= 2, [hand]);
 
   return (
-    <Button disabled={isDisabled} onClick={shuffleHand}>
+    <Button className="no-drop" disabled={isDisabled} onClick={shuffleHand}>
       Shuffle hand
     </Button>
   );

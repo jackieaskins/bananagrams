@@ -17,7 +17,7 @@ exports[`<Hand /> renders tiles 1`] = `
 }
 
 <div
-  className="overlay emotion-0"
+  className="emotion-0"
 >
   <Memo(Tile)
     id="A1"
@@ -51,6 +51,6 @@ exports[`<Hand /> renders when no hand 1`] = `
 }
 
 <div
-  className="overlay emotion-0"
+  className="emotion-0"
 />
 `;

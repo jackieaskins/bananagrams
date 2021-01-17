@@ -28,7 +28,12 @@ const DumpButton = (): JSX.Element => {
   }, [selectedTile, setSelectedTile]);
 
   return (
-    <Button block disabled={isDisabled} onClick={handleClick}>
+    <Button
+      className="no-drop"
+      block
+      disabled={isDisabled}
+      onClick={handleClick}
+    >
       Dump
     </Button>
   );

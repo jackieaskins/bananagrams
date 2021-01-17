@@ -2,6 +2,7 @@
 
 exports[`<ShuffleButton /> renders button 1`] = `
 <Button
+  className="no-drop"
   disabled={false}
   onClick={[MockFunction shuffleHand]}
 >

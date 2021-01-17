@@ -42,8 +42,8 @@ describe('<Overlay />', () => {
       await mockUseRecoilCallback.mock.results[0].value(event);
     };
 
-    it('returns early if non-overlay was clicked', async () => {
-      await handleClick({ target: { className: 'tile' } });
+    it('returns early if no-drop was clicked', async () => {
+      await handleClick({ target: { className: 'no-drop' } });
 
       expect(mockMoveTile).not.toHaveBeenCalled();
     });

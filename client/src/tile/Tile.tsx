@@ -38,7 +38,7 @@ const Tile = ({
 
   return (
     <div
-      className="no-drag tile"
+      className="no-drag no-drop tile"
       css={{
         alignItems: 'center',
         backgroundColor: '#ffffc7',

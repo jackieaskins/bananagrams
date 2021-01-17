@@ -42,7 +42,6 @@ const Hand = (): JSX.Element => {
 
   return (
     <div
-      className="overlay"
       css={{
         display: 'flex',
         gap: '5px',

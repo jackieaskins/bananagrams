@@ -27,7 +27,13 @@ const PeelButton = (): JSX.Element => {
 
   return useMemo(
     () => (
-      <Button type="primary" disabled={!canPeel} onClick={peel} block>
+      <Button
+        className="no-drop"
+        type="primary"
+        disabled={!canPeel}
+        onClick={peel}
+        block
+      >
         {peelWinsGame ? 'Bananas' : 'Peel'}
       </Button>
     ),

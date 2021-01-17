@@ -11,7 +11,7 @@ import Hand from './Hand';
 const Overlay = (): JSX.Element => {
   const handleClick = useRecoilCallback(
     ({ set, snapshot }) => async ({ target }) => {
-      if (!target.className.split(' ').includes('overlay')) {
+      if (target.className.split(' ').includes('no-drop')) {
         return;
       }
 
@@ -36,7 +36,6 @@ const Overlay = (): JSX.Element => {
   return (
     <Draggable cancel=".no-drag">
       <div
-        className="overlay"
         css={{
           backgroundColor: 'rgba(173, 216, 230, 0.5)',
           border: '1px solid rgb(173, 216, 230)',

@@ -54,7 +54,7 @@ exports[`<Tile /> renders at half opacity if tile is selected 1`] = `
 }
 
 <div
-  className="no-drag tile emotion-0"
+  className="no-drag no-drop tile emotion-0"
   onClick={[Function]}
 >
   A
@@ -89,7 +89,7 @@ exports[`<Tile /> renders styled div 1`] = `
 }
 
 <div
-  className="no-drag tile emotion-0"
+  className="no-drag no-drop tile emotion-0"
   onClick={[Function]}
 >
   A

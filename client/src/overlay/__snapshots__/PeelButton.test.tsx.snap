@@ -3,6 +3,7 @@
 exports[`<PeelButton /> renders button 1`] = `
 <Button
   block={true}
+  className="no-drop"
   disabled={true}
   onClick={[MockFunction peel]}
   type="primary"
