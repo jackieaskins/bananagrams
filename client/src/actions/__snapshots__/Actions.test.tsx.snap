@@ -11,6 +11,6 @@ exports[`<Actions /> renders action buttons 1`] = `
 <div
   className="emotion-0"
 >
-  <LeaveGameButton />
+  <Memo(LeaveGameButton) />
 </div>
 `;

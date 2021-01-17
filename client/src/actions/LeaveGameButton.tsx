@@ -1,5 +1,6 @@
 import { ExportOutlined } from '@ant-design/icons';
 import { Popconfirm, Tooltip } from 'antd';
+import { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import FloatingButton from '../button/FloatingButton';
@@ -22,4 +23,4 @@ const LeaveGameButton = (): JSX.Element => {
   );
 };
 
-export default LeaveGameButton;
+export default memo(LeaveGameButton);

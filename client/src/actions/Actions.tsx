@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import LeaveGameButton from './LeaveGameButton';
 
 const Actions = (): JSX.Element => (
@@ -13,4 +15,4 @@ const Actions = (): JSX.Element => (
   </div>
 );
 
-export default Actions;
+export default memo(Actions);

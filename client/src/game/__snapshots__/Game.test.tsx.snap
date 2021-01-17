@@ -13,7 +13,7 @@ exports[`<Game /> renders board and overlay with move cursor if no tile 1`] = `
   <LoadingContainer
     size="large"
   />
-  <Actions />
+  <Memo(Actions) />
   <Memo(Overlay) />
   <SelectedTile />
 </div>
@@ -39,7 +39,7 @@ exports[`<Game /> renders board and overlay with move cursor if tile 1`] = `
   <LoadingContainer
     size="large"
   />
-  <Actions />
+  <Memo(Actions) />
   <Memo(Overlay) />
   <SelectedTile />
 </div>
@@ -63,7 +63,7 @@ exports[`<Game /> renders board once it is loaded 1`] = `
   className="emotion-0"
 >
   <Memo(BoardWrapper) />
-  <Actions />
+  <Memo(Actions) />
   <Memo(Overlay) />
   <SelectedTile />
 </div>
