@@ -1,10 +1,10 @@
 import { memo, useCallback, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { ValidationStatus } from '../boards/types';
-import { Tile as TileType } from '../tiles/types';
+import { ValidationStatus } from '../board/types';
 import { TILE_SIZE } from './constants';
 import { selectedTileState } from './selectedTileState';
+import { Tile as TileType } from './types';
 
 interface TileProps extends TileType {
   onClick?: ({ tile }: { tile: TileType }) => void;

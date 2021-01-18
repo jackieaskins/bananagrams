@@ -1,6 +1,6 @@
 import { useRecoilCallback } from 'recoil';
 
-import { BoardPosition } from '../boards/types';
+import { BoardPosition } from '../board/types';
 import { useCurrentBoardSquare } from '../game/stateHooks';
 import { moveTile } from '../socket';
 import Tile from '../tile/Tile';

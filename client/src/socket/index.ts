@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 
-import { Board, BoardPosition } from '../boards/types';
-import { GameInfo } from '../games/types';
-import { Hand } from '../hands/types';
+import { Board, BoardPosition } from '../board/types';
+import { GameInfo } from '../game/types';
+import { Hand } from '../hand/types';
 
 export type Callback<T> = (error: { message: string } | null, data: T) => void;
 export type Listener<T = void> = (data: T) => void;

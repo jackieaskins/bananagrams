@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Player } from '../players/types';
+import { Player } from '../player/types';
 
 export const playerFixture = (overrides: Partial<Player> = {}): Player => ({
   userId: uuidv4(),

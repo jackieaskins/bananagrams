@@ -1,18 +1,13 @@
 import _ from 'lodash';
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import {
-  Board,
-  BoardPosition,
-  BoardSquare,
-  getSquareId,
-} from '../boards/types';
+import { Board, BoardPosition, BoardSquare, getSquareId } from '../board/types';
 import { initializeState } from '../game/state';
-import { GameInfo, GameStatus } from '../games/types';
-import { Hand } from '../hands/types';
-import { Player } from '../players/types';
+import { Hand } from '../hand/types';
+import { Player } from '../player/types';
 import { SetState } from '../state/types';
-import { Tile } from '../tiles/types';
+import { Tile } from '../tile/types';
+import { GameInfo, GameStatus } from './types';
 
 const {
   statusState,

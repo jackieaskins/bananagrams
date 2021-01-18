@@ -6,12 +6,12 @@ import {
   selector,
 } from 'recoil';
 
-import { Board, BoardSquare } from '../boards/types';
-import { GameStatus } from '../games/types';
-import { Hand } from '../hands/types';
-import { Player } from '../players/types';
+import { Board, BoardSquare } from '../board/types';
+import { Hand } from '../hand/types';
+import { Player } from '../player/types';
 import { getUserId } from '../socket';
-import { Tile } from '../tiles/types';
+import { Tile } from '../tile/types';
+import { GameStatus } from './types';
 
 export type GameState = {
   statusState: RecoilState<GameStatus>;

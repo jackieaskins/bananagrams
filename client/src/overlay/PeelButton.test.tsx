@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { shallow } from 'enzyme';
 
-import { isValidConnectedBoard } from '../boards/validate';
+import { isValidConnectedBoard } from '../board/validate';
 import { playerFixture } from '../fixtures/player';
 import {
   useCurrentBoard,
@@ -12,7 +12,7 @@ import {
 import PeelButton from './PeelButton';
 
 const mockIsValidConnectedBoard = isValidConnectedBoard as jest.Mock;
-jest.mock('../boards/validate', () => ({
+jest.mock('../board/validate', () => ({
   isValidConnectedBoard: jest.fn(),
 }));
 

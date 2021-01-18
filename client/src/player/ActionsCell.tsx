@@ -2,8 +2,8 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
 import { useCurrentPlayer } from '../game/stateHooks';
-import { Player } from '../players/types';
 import { kickPlayer } from '../socket';
+import { Player } from './types';
 
 type ActionsCellProps = {
   player: Player;

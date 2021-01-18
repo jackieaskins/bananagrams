@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import Form, { SubmitFormFn } from '../form/Form';
 import { useFocusRef } from '../form/inputRef';
-import { GameLocationState } from '../games/types';
 import { createGame } from '../socket';
+import { GameLocationState } from './types';
 
 const FormItem = AntForm.Item;
 

@@ -1,9 +1,9 @@
 import { Button, Select } from 'antd';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Board } from '../boards/types';
-import { Hand } from '../hands/types';
-import { Player } from '../players/types';
+import { Board } from '../board/types';
+import { Hand } from '../hand/types';
+import { Player } from '../player/types';
 import Preview from './Preview';
 
 type PreviewCarouselProps = {

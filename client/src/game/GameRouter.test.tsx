@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { useEffect } from 'react';
 
 import { gameInfoFixture } from '../fixtures/game';
-import { GameInfo } from '../games/types';
+import { GameInfo } from '../game/types';
 import { addListeners, removeListeners } from '../socket';
 import GameRouter from './GameRouter';
 import { useGameStatus } from './stateHooks';

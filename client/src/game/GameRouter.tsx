@@ -1,7 +1,6 @@
 import { message } from 'antd';
 import { useEffect } from 'react';
 
-import { GameInfo } from '../games/types';
 import { addListeners, removeListeners } from '../socket';
 import Game from './Game';
 import WaitingRoom from './WaitingRoom';
@@ -11,6 +10,7 @@ import {
   useSetCurrentHand,
   useUpdateGameState,
 } from './stateHooks';
+import { GameInfo } from './types';
 
 type GameRouterProps = {
   initialGameInfo: GameInfo;

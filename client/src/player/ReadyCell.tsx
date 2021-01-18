@@ -1,8 +1,8 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 
-import { Player } from '../players/types';
 import { getUserId, setReady } from '../socket';
+import { Player } from './types';
 
 type ReadyCellProps = {
   player: Player;

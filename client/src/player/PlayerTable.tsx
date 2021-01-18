@@ -2,10 +2,10 @@ import { Table, Typography } from 'antd';
 import { ColumnType } from 'antd/lib/table';
 
 import { useCurrentPlayer, useGamePlayers } from '../game/stateHooks';
-import { Player } from '../players/types';
 import ActionsCell from './ActionsCell';
 import NameCell from './NameCell';
 import ReadyCell from './ReadyCell';
+import { Player } from './types';
 
 const COLUMN_ALIGN = 'center';
 const MAX_PLAYERS = 8;

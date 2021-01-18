@@ -1,8 +1,8 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { BoardSquare, ValidationStatus } from '../boards/types';
+import { BoardSquare, ValidationStatus } from '../board/types';
 import { playerFixture } from '../fixtures/player';
-import { GameInfo } from '../games/types';
+import { GameInfo } from '../game/types';
 import {
   useGameStatus,
   useGameCountdown,

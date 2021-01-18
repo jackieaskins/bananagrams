@@ -1,7 +1,7 @@
 import { CrownOutlined, KeyOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 
-import { Player } from '../players/types';
+import { Player } from './types';
 
 type NameCellProps = {
   player: Player;

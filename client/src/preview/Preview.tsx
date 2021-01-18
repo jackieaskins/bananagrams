@@ -1,5 +1,5 @@
-import { Board } from '../boards/types';
-import { Hand } from '../hands/types';
+import { Board } from '../board/types';
+import { Hand } from '../hand/types';
 import PreviewBoard from './PreviewBoard';
 import PreviewHand from './PreviewHand';
 

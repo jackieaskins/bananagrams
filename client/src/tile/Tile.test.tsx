@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import { useRecoilValue } from 'recoil';
 
-import { ValidationStatus } from '../boards/types';
+import { ValidationStatus } from '../board/types';
 import Tile from './Tile';
 
 const mockUseRecoilValue = useRecoilValue as jest.Mock;

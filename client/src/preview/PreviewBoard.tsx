@@ -1,5 +1,5 @@
-import { Board, getSquareId } from '../boards/types';
-import { getBoardBoundaries } from '../boards/validate';
+import { Board, getSquareId } from '../board/types';
+import { getBoardBoundaries } from '../board/validate';
 import TransparentCard from '../card/TransparentCard';
 import PreviewTile from './PreviewTile';
 import { TILE_SIZE } from './constants';

@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-import { BoardPosition } from '../boards/types';
-import { Tile } from '../tiles/types';
+import { BoardPosition } from '../board/types';
+import { Tile } from './types';
 
 export type SelectedTileType = {
   tile: Tile;

@@ -1,4 +1,4 @@
-import { Tile } from '../tiles/types';
+import { Tile } from '../tile/types';
 
 export enum Direction {
   ACROSS = 'ACROSS',

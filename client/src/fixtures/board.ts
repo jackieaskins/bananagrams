@@ -1,4 +1,4 @@
-import { BoardSquare, ValidationStatus } from '../boards/types';
+import { BoardSquare, ValidationStatus } from '../board/types';
 
 export const boardSquareFixture = (
   overrides: Partial<BoardSquare> = {}

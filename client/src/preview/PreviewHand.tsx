@@ -1,5 +1,5 @@
 import TransparentCard from '../card/TransparentCard';
-import { Hand } from '../hands/types';
+import { Hand } from '../hand/types';
 import PreviewTile from './PreviewTile';
 
 type PreviewHandProps = {

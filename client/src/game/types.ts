@@ -1,7 +1,7 @@
-import { Board } from '../boards/types';
-import { Hand } from '../hands/types';
-import { Player } from '../players/types';
-import { Tile } from '../tiles/types';
+import { Board } from '../board/types';
+import { Hand } from '../hand/types';
+import { Player } from '../player/types';
+import { Tile } from '../tile/types';
 
 export type GameStatus = 'NOT_STARTED' | 'STARTING' | 'IN_PROGRESS' | 'ENDING';
 export type Snapshot = {

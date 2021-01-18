@@ -1,4 +1,4 @@
-import { GameInfo } from '../games/types';
+import { GameInfo } from '../game/types';
 
 export const gameInfoFixture = (
   overrides: Partial<GameInfo> = {}

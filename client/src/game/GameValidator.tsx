@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { GameLocationState } from '../games/types';
 import { leaveGame } from '../socket';
 import CountdownModal from './CountdownModal';
 import GameRouter from './GameRouter';
+import { GameLocationState } from './types';
 
 const GameValidator = (): JSX.Element => {
   const { replace } = useHistory();

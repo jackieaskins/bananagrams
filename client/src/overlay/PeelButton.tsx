@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { memo, useMemo } from 'react';
 
-import { isValidConnectedBoard } from '../boards/validate';
+import { isValidConnectedBoard } from '../board/validate';
 import {
   useCurrentBoard,
   useCurrentHand,
