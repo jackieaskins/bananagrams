@@ -1,8 +1,8 @@
 import { Space } from 'antd';
 import { memo } from 'react';
-import Draggable from 'react-draggable';
 import { useRecoilCallback } from 'recoil';
 
+import DraggableCard from '../card/DraggableCard';
 import { moveTile } from '../socket';
 import { selectedTileState } from '../tile/selectedTileState';
 import Controls from './Controls';
@@ -34,29 +34,24 @@ const Overlay = (): JSX.Element => {
   );
 
   return (
-    <Draggable cancel=".no-drag">
-      <div
-        css={{
-          backgroundColor: 'rgba(173, 216, 230, 0.5)',
-          border: '1px solid rgb(173, 216, 230)',
-          borderRadius: '10px',
-          bottom: 0,
-          left: 0,
-          margin: '15px auto',
-          padding: '15px',
-          position: 'absolute',
-          right: 0,
-          transition: 'width 0.5s, height 0.5s',
-          width: '70vw',
-        }}
-        onClick={handleClick}
-      >
-        <Space align="start" size="middle">
-          <Controls />
-          <Hand />
-        </Space>
-      </div>
-    </Draggable>
+    <DraggableCard
+      cardCSS={{
+        bottom: 0,
+        left: 0,
+        margin: '15px auto',
+        padding: '15px',
+        position: 'absolute',
+        right: 0,
+        maxWidth: '750px',
+        width: '95vw',
+      }}
+      onClick={handleClick}
+    >
+      <Space align="start" size="middle">
+        <Controls />
+        <Hand />
+      </Space>
+    </DraggableCard>
   );
 };
 

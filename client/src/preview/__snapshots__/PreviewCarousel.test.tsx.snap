@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PreviewCarousel /> renders carousel with first user selected 1`] = `
+.emotion-0vj82fd-PreviewCarousel {
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-01wj9bod-PreviewCarousel {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+<div
+  className="emotion-0"
+>
+  <div
+    className="emotion-0"
+  >
+    <Button
+      disabled={true}
+      onClick={[Function]}
+      size="small"
+      type="text"
+    >
+      &lt;
+    </Button>
+    <ForwardRef(InternalSelect)
+      bordered={false}
+      disabled={true}
+      onChange={[MockFunction mockSetSelectedUserId]}
+      options={
+        Array [
+          Object {
+            "label": "username",
+            "value": "p1",
+          },
+          Object {
+            "label": "username",
+            "value": "p2",
+          },
+        ]
+      }
+      size="small"
+      value="p1"
+    />
+    <Button
+      disabled={true}
+      onClick={[Function]}
+      size="small"
+      type="text"
+    >
+      &gt;
+    </Button>
+  </div>
+  <Preview
+    board={
+      Object {
+        "0,0": Object {
+          "tile": Object {
+            "id": "A1",
+            "letter": "A",
+          },
+          "validationStatus": "VALID",
+        },
+      }
+    }
+    hand={
+      Array [
+        Object {
+          "id": "B1",
+          "letter": "B",
+        },
+      ]
+    }
+  />
+</div>
+`;
+
+exports[`<PreviewCarousel /> renders if no players, hands, or boards 1`] = `
+.emotion-0vj82fd-PreviewCarousel {
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-01wj9bod-PreviewCarousel {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+<div
+  className="emotion-0"
+>
+  <div
+    className="emotion-0"
+  >
+    <Button
+      disabled={false}
+      onClick={[Function]}
+      size="small"
+      type="text"
+    >
+      &lt;
+    </Button>
+    <ForwardRef(InternalSelect)
+      bordered={false}
+      disabled={false}
+      onChange={
+        [MockFunction mockSetSelectedUserId] {
+          "calls": Array [
+            Array [
+              undefined,
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      options={Array []}
+      size="small"
+    />
+    <Button
+      disabled={false}
+      onClick={[Function]}
+      size="small"
+      type="text"
+    >
+      &gt;
+    </Button>
+  </div>
+  <Preview
+    board={Object {}}
+    hand={Array []}
+  />
+</div>
+`;

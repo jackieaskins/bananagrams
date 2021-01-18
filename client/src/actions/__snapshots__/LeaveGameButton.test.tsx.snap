@@ -22,9 +22,8 @@ exports[`<LeaveGameButton /> renders floating button with confirmation and toolt
     transitionName="zoom-big"
     trigger="click"
   >
-    <FloatingButton
+    <ActionButton
       icon={<ForwardRef(ExportOutlined) />}
-      shape="circle"
     />
   </ForwardRef>
 </Tooltip>

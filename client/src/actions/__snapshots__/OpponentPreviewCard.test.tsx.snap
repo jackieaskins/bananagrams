@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OpponentPreviewCard /> does not render if not visible 1`] = `""`;
+
+exports[`<OpponentPreviewCard /> renders draggable card with preview carousel if visible 1`] = `
+<DraggableCard
+  bodyStyle={
+    Object {
+      "height": "100%",
+    }
+  }
+  cardCSS={
+    Object {
+      "height": "300px",
+      "marginTop": "5px",
+      "width": "300px",
+    }
+  }
+>
+  <Memo(PreviewCarousel)
+    boards={
+      Object {
+        "currentPlayer": Object {},
+        "opponent": Object {},
+      }
+    }
+    hands={
+      Object {
+        "currentPlayer": Array [],
+        "opponent": Array [],
+      }
+    }
+    players={
+      Array [
+        Object {
+          "gamesWon": 0,
+          "isAdmin": false,
+          "isReady": false,
+          "isTopBanana": false,
+          "userId": "opponent",
+          "username": "username",
+        },
+      ]
+    }
+  />
+</DraggableCard>
+`;

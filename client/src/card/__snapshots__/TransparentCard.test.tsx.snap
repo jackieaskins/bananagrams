@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TransparentCard /> card with transparent background 1`] = `
+.emotion-01lbzn79-TransparentCard {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+<Card
+  className="emotion-0"
+/>
+`;

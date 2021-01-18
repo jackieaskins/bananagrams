@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
@@ -105,14 +106,24 @@ export const useResetGameState = (): (() => void) =>
 
 export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
   useRecoilCallback(
-    ({ set }) => (gameInfo) => {
-      set(statusState, gameInfo.status);
-      set(countdownState, gameInfo.countdown);
-      set(nameState, gameInfo.gameName);
-      set(bunchState, gameInfo.bunch);
-      set(playersState, gameInfo.players);
-      set(handsState, gameInfo.hands);
-      set(boardsState, gameInfo.boards);
+    ({ set }) => ({
+      status,
+      countdown,
+      gameName,
+      bunch,
+      players,
+      hands,
+      boards,
+    }) => {
+      set(statusState, status);
+      set(countdownState, countdown);
+      set(nameState, gameName);
+      set(bunchState, bunch);
+      set(playersState, (currentPlayers) =>
+        _.isEqual(currentPlayers, players) ? currentPlayers : players
+      );
+      set(handsState, hands);
+      set(boardsState, boards);
     },
     []
   );

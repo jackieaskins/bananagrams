@@ -189,7 +189,8 @@ describe('state hooks', () => {
     expect(mockReset).toHaveBeenCalledWith('boardsState');
   });
 
-  it('useUpdateGameState updates game state through recoil callback', () => {
+  describe('useUpdateGameState', () => {
+    const setPlayersIndex = 4;
     const userId = 'userId';
     const gameInfo: GameInfo = {
       gameId: 'gameId',
@@ -203,16 +204,41 @@ describe('state hooks', () => {
       previousSnapshot: null,
     };
 
-    useUpdateGameState()(gameInfo);
+    beforeEach(() => {
+      useUpdateGameState()(gameInfo);
+    });
 
-    expect(mockSet).toHaveBeenCalledTimes(7);
+    it('sets 7 pieces of state', () => {
+      expect(mockSet).toHaveBeenCalledTimes(7);
+    });
 
-    expect(mockSet).toHaveBeenCalledWith('statusState', gameInfo.status);
-    expect(mockSet).toHaveBeenCalledWith('countdownState', gameInfo.countdown);
-    expect(mockSet).toHaveBeenCalledWith('nameState', gameInfo.gameName);
-    expect(mockSet).toHaveBeenCalledWith('bunchState', gameInfo.bunch);
-    expect(mockSet).toHaveBeenCalledWith('playersState', gameInfo.players);
-    expect(mockSet).toHaveBeenCalledWith('handsState', gameInfo.hands);
-    expect(mockSet).toHaveBeenCalledWith('boardsState', gameInfo.boards);
+    it.each([
+      ['statusState', gameInfo.status],
+      ['countdownState', gameInfo.countdown],
+      ['nameState', gameInfo.gameName],
+      ['bunchState', gameInfo.bunch],
+      ['handsState', gameInfo.hands],
+      ['boardsState', gameInfo.boards],
+    ])('sets %s', (stateKey, value) => {
+      expect(mockSet).toHaveBeenCalledWith(stateKey, value);
+    });
+
+    describe('playersState', () => {
+      it('does not update players if same by deep equality', () => {
+        const currentPlayers = [...gameInfo.players];
+
+        expect(mockSet.mock.calls[setPlayersIndex][1](currentPlayers)).toBe(
+          currentPlayers
+        );
+      });
+
+      it('updates players if changed', () => {
+        const currentPlayers = [playerFixture()];
+
+        expect(mockSet.mock.calls[setPlayersIndex][1](currentPlayers)).toEqual(
+          gameInfo.players
+        );
+      });
+    });
   });
 });

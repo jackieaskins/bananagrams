@@ -3,7 +3,7 @@ import { Popconfirm, Tooltip } from 'antd';
 import { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import FloatingButton from '../button/FloatingButton';
+import ActionButton from './ActionButton';
 
 const LeaveGameButton = (): JSX.Element => {
   const { push } = useHistory();
@@ -17,7 +17,7 @@ const LeaveGameButton = (): JSX.Element => {
         placement="topLeft"
         title="Are you sure you want to leave the game?"
       >
-        <FloatingButton icon={<ExportOutlined />} shape="circle" />
+        <ActionButton icon={<ExportOutlined />} />
       </Popconfirm>
     </Tooltip>
   );

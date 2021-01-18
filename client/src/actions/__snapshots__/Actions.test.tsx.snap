@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Actions /> does not render opponent preview components if only one player 1`] = `
+.emotion-01r8kp4j-Actions {
+  margin: 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+<div
+  className="emotion-0"
+>
+  <Space
+    align="start"
+  >
+    <Space
+      direction="vertical"
+    >
+      <Memo(LeaveGameButton) />
+    </Space>
+  </Space>
+</div>
+`;
+
 exports[`<Actions /> renders action buttons 1`] = `
 .emotion-01r8kp4j-Actions {
   margin: 10px;
@@ -11,6 +34,21 @@ exports[`<Actions /> renders action buttons 1`] = `
 <div
   className="emotion-0"
 >
-  <Memo(LeaveGameButton) />
+  <Space
+    align="start"
+  >
+    <OpponentPreviewCard
+      visible={false}
+    />
+    <Space
+      direction="vertical"
+    >
+      <OpponentViewButton
+        onClick={[Function]}
+        previewVisible={false}
+      />
+      <Memo(LeaveGameButton) />
+    </Space>
+  </Space>
 </div>
 `;

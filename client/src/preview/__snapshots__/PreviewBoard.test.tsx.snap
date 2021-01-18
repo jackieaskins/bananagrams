@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PreviewBoard /> renders card with board squares 1`] = `
+.emotion-0ldh0kc-PreviewBoard {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-0tnk7cs-PreviewBoard {
+  height: 15px;
+  width: 15px;
+}
+
+<TransparentCard
+  bodyStyle={
+    Object {
+      "padding": 0,
+    }
+  }
+  cardCSS={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "margin": "5px 0",
+      "width": "100%",
+    }
+  }
+>
+  <div>
+    <div
+      className="emotion-0"
+      key="0"
+    >
+      <Memo(PreviewTile)
+        id="A1"
+        key="A1"
+        letter="A"
+      />
+      <div
+        className="emotion-0"
+        key="0,1"
+      />
+    </div>
+    <div
+      className="emotion-0"
+      key="1"
+    >
+      <div
+        className="emotion-0"
+        key="1,0"
+      />
+      <Memo(PreviewTile)
+        id="A1"
+        key="A1"
+        letter="A"
+      />
+    </div>
+  </div>
+</TransparentCard>
+`;
+
+exports[`<PreviewBoard /> renders empty card if no squares in board 1`] = `
+<TransparentCard
+  bodyStyle={
+    Object {
+      "padding": 0,
+    }
+  }
+  cardCSS={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "margin": "5px 0",
+      "width": "100%",
+    }
+  }
+>
+  <div />
+</TransparentCard>
+`;

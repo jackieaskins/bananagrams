@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DraggableCard /> renders card with opacity 1`] = `
+.emotion-0p7hc0u-DraggableCard {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+<Draggable
+  allowAnyClick={false}
+  axis="both"
+  bounds={false}
+  cancel=".no-drag"
+  defaultClassName="react-draggable"
+  defaultClassNameDragged="react-draggable-dragged"
+  defaultClassNameDragging="react-draggable-dragging"
+  defaultPosition={
+    Object {
+      "x": 0,
+      "y": 0,
+    }
+  }
+  disabled={false}
+  enableUserSelectHack={true}
+  grid={null}
+  handle={null}
+  offsetParent={null}
+  onDrag={[Function]}
+  onMouseDown={[Function]}
+  onStart={[Function]}
+  onStop={[Function]}
+  position={null}
+  scale={1}
+  transform={null}
+>
+  <Card
+    className="emotion-0"
+    size="small"
+  />
+</Draggable>
+`;

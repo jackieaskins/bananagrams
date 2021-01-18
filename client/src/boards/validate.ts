@@ -7,15 +7,18 @@ type BoardBoundaries = {
   colEnd: number | null;
 };
 
-const getBoardBoundaries = (board: Board): BoardBoundaries => {
+export const getBoardBoundaries = (board: Board): BoardBoundaries => {
   let rowStart: number | null = null;
   let rowEnd: number | null = null;
   let colStart: number | null = null;
   let colEnd: number | null = null;
 
-  Object.keys(board).forEach((id) => {
-    const [r, c] = id.split(',');
+  Object.entries(board).forEach(([id, square]) => {
+    if (square == null) {
+      return;
+    }
 
+    const [r, c] = id.split(',');
     const row = parseInt(r);
     const col = parseInt(c);
 

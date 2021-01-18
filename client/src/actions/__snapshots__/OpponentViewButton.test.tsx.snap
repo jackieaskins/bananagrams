@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OpponentViewButton /> renders button with hide tooltip when visible 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="left"
+  title="Hide opponent boards"
+  transitionName="zoom-big-fast"
+>
+  <ActionButton
+    icon={<ForwardRef(EyeInvisibleOutlined) />}
+    onClick={[MockFunction onClick]}
+  />
+</Tooltip>
+`;
+
+exports[`<OpponentViewButton /> renders button with show tooltip when not visible 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="left"
+  title="Show opponent boards"
+  transitionName="zoom-big-fast"
+>
+  <ActionButton
+    icon={<ForwardRef(EyeOutlined) />}
+    onClick={[MockFunction onClick]}
+  />
+</Tooltip>
+`;
