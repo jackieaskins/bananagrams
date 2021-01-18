@@ -11,7 +11,7 @@ import { Hand } from '../hand/types';
 import { Player } from '../player/types';
 import { getUserId } from '../socket';
 import { Tile } from '../tile/types';
-import { GameStatus } from './types';
+import { GameStatus, Snapshot } from './types';
 
 export type GameState = {
   statusState: RecoilState<GameStatus>;
@@ -26,6 +26,7 @@ export type GameState = {
   boardsState: RecoilState<Record<string, Board>>;
   currentBoardState: RecoilState<Board>;
   currentBoardSquaresState: (param: string) => RecoilState<BoardSquare | null>;
+  previousSnapshotState: RecoilState<Snapshot | null>;
 };
 
 export const initializeState = (): GameState => {
@@ -87,6 +88,11 @@ export const initializeState = (): GameState => {
     default: null,
   });
 
+  const previousSnapshotState = atom<Snapshot | null>({
+    key: 'gamePreviousSnapshot',
+    default: null,
+  });
+
   return {
     statusState,
     countdownState,
@@ -100,5 +106,6 @@ export const initializeState = (): GameState => {
     boardsState,
     currentBoardState,
     currentBoardSquaresState,
+    previousSnapshotState,
   };
 };

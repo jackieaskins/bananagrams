@@ -1,11 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<WaitingRoom /> renders properly 1`] = `
-.emotion-01r87dl5-WaitingRoom {
+exports[`<WaitingRoom /> renders carousel when there is a previous snapshot 1`] = `
+.emotion-01p3eh6y-WaitingRoom {
   margin-top: 25px;
-}
-
-.emotion-016tm0n-WaitingRoom {
   width: 100%;
 }
 
@@ -13,43 +10,135 @@ exports[`<WaitingRoom /> renders properly 1`] = `
   text-align: center;
 }
 
-<undefined
+.emotion-01tcydcz-WaitingRoom {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-01qumib3-WaitingRoom {
+  height: 300px;
+  background-color: #fafafa;
+}
+
+<Space
   className="emotion-0"
-  justify="center"
+  direction="vertical"
+  size="large"
 >
-  <Col
-    lg={10}
-    md={12}
-    sm={14}
-    xs={20}
+  <div
+    className="emotion-0"
   >
-    <Space
-      className="emotion-0"
-      direction="vertical"
-      size="large"
+    <h1>
+      gameName
+    </h1>
+    <Text
+      type="secondary"
     >
-      <div
-        className="emotion-0"
-      >
-        <h1>
-          gameName
-        </h1>
-        <Text
-          type="secondary"
-        >
-          Invite others to game: 
-        </Text>
-        <br />
-        <Text
-          code={true}
-          copyable={true}
-          type="secondary"
-        >
-          http://localhost?gameId=gameId&tabKey=joinGame
-        </Text>
-      </div>
+      Invite others to game: 
+    </Text>
+    <br />
+    <Text
+      code={true}
+      copyable={true}
+      type="secondary"
+    >
+      http://localhost?gameId=gameId&tabKey=joinGame
+    </Text>
+  </div>
+  <undefined
+    className="emotion-0"
+    gutter={12}
+  >
+    <Col
+      lg={10}
+      md={12}
+      sm={14}
+      xs={20}
+    >
       <PlayerTable />
-    </Space>
-  </Col>
-</undefined>
+    </Col>
+    <Col
+      lg={10}
+      md={12}
+      sm={14}
+      xs={20}
+    >
+      <Card
+        bodyStyle={
+          Object {
+            "height": "100%",
+          }
+        }
+        className="emotion-0"
+        size="small"
+      >
+        <Memo(PreviewCarousel)
+          boards={Object {}}
+          hands={Object {}}
+          players={Array []}
+        />
+      </Card>
+    </Col>
+  </undefined>
+</Space>
+`;
+
+exports[`<WaitingRoom /> renders properly 1`] = `
+.emotion-01p3eh6y-WaitingRoom {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.emotion-0iqsi0g-WaitingRoom {
+  text-align: center;
+}
+
+.emotion-01tcydcz-WaitingRoom {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+<Space
+  className="emotion-0"
+  direction="vertical"
+  size="large"
+>
+  <div
+    className="emotion-0"
+  >
+    <h1>
+      gameName
+    </h1>
+    <Text
+      type="secondary"
+    >
+      Invite others to game: 
+    </Text>
+    <br />
+    <Text
+      code={true}
+      copyable={true}
+      type="secondary"
+    >
+      http://localhost?gameId=gameId&tabKey=joinGame
+    </Text>
+  </div>
+  <undefined
+    className="emotion-0"
+    gutter={12}
+  >
+    <Col
+      lg={10}
+      md={12}
+      sm={14}
+      xs={20}
+    >
+      <PlayerTable />
+    </Col>
+  </undefined>
+</Space>
 `;

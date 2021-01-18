@@ -19,6 +19,7 @@ import {
   useGameBunch,
   useGameBunchCount,
   useCurrentBoard,
+  usePreviousSnapshot,
   useResetCurrentBoard,
   useResetGameState,
 } from './stateHooks';
@@ -54,6 +55,7 @@ jest.mock('./state', () => ({
     boardsState: 'boardsState',
     currentBoardState: 'currentBoardState',
     currentBoardSquaresState: jest.fn((id) => `currentBoardSquaresState-${id}`),
+    previousSnapshotState: 'previousSnapshotState',
   }),
 }));
 
@@ -125,6 +127,11 @@ describe('state hooks', () => {
     );
   });
 
+  it('usePreviousSnapshot returns recoil value', () => {
+    expect(usePreviousSnapshot()).toEqual(mockReturnValue);
+    expect(mockUseRecoilValue).toHaveBeenCalledWith('previousSnapshotState');
+  });
+
   describe('useSetCurrentBoard', () => {
     const boardSquare: BoardSquare = {
       tile: { id: 'A1', letter: 'A' },
@@ -178,7 +185,7 @@ describe('state hooks', () => {
   it('useResetGameState resets game state through recoil callback', () => {
     useResetGameState()();
 
-    expect(mockReset).toHaveBeenCalledTimes(7);
+    expect(mockReset).toHaveBeenCalledTimes(8);
 
     expect(mockReset).toHaveBeenCalledWith('statusState');
     expect(mockReset).toHaveBeenCalledWith('countdownState');
@@ -187,6 +194,7 @@ describe('state hooks', () => {
     expect(mockReset).toHaveBeenCalledWith('playersState');
     expect(mockReset).toHaveBeenCalledWith('handsState');
     expect(mockReset).toHaveBeenCalledWith('boardsState');
+    expect(mockReset).toHaveBeenCalledWith('previousSnapshotState');
   });
 
   describe('useUpdateGameState', () => {
@@ -208,8 +216,8 @@ describe('state hooks', () => {
       useUpdateGameState()(gameInfo);
     });
 
-    it('sets 7 pieces of state', () => {
-      expect(mockSet).toHaveBeenCalledTimes(7);
+    it('sets 8 pieces of state', () => {
+      expect(mockSet).toHaveBeenCalledTimes(8);
     });
 
     it.each([
@@ -219,6 +227,7 @@ describe('state hooks', () => {
       ['bunchState', gameInfo.bunch],
       ['handsState', gameInfo.hands],
       ['boardsState', gameInfo.boards],
+      ['previousSnapshotState', gameInfo.previousSnapshot],
     ])('sets %s', (stateKey, value) => {
       expect(mockSet).toHaveBeenCalledWith(stateKey, value);
     });

@@ -26,6 +26,11 @@ describe('game state', () => {
   ];
   const bunch = [tile];
   const board = { '1,1': null };
+  const previousSnapshot = {
+    players,
+    boards: { 1: board },
+    hands: { 1: [tile] },
+  };
   const atomCalls: Array<[keyof GameState, string, any, any]> = [
     ['statusState', 'gameStatus', 'NOT_STARTED', 'STARTING'],
     ['countdownState', 'gameCountdown', 0, 3],
@@ -36,6 +41,7 @@ describe('game state', () => {
     ['currentHandState', 'gameCurrentHand', [], [tile]],
     ['boardsState', 'gameBoards', {}, { 1: board }],
     ['currentBoardState', 'gameCurrentBoard', {}, board],
+    ['previousSnapshotState', 'gamePreviousSnapshot', null, previousSnapshot],
   ];
   const atomFamilyCalls: Array<[keyof GameState, string, any, any]> = [
     ['currentBoardSquaresState', 'gameCurrentBoardSquares', null, board],

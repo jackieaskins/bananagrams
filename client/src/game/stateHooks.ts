@@ -7,7 +7,7 @@ import { Hand } from '../hand/types';
 import { Player } from '../player/types';
 import { SetState } from '../state/types';
 import { Tile } from '../tile/types';
-import { GameInfo, GameStatus } from './types';
+import { GameInfo, GameStatus, Snapshot } from './types';
 
 const {
   statusState,
@@ -22,6 +22,7 @@ const {
   boardsState,
   currentBoardState,
   currentBoardSquaresState,
+  previousSnapshotState,
 } = initializeState();
 
 export const useGameStatus = (): GameStatus => useRecoilValue(statusState);
@@ -85,6 +86,9 @@ export const useSetCurrentBoard = (): ((board: Board) => void) =>
     []
   );
 
+export const usePreviousSnapshot = (): Snapshot | null =>
+  useRecoilValue(previousSnapshotState);
+
 export const useResetGameState = (): (() => void) =>
   useRecoilCallback(
     ({ reset }) => () => {
@@ -95,6 +99,7 @@ export const useResetGameState = (): (() => void) =>
       reset(playersState);
       reset(handsState);
       reset(boardsState);
+      reset(previousSnapshotState);
     },
     []
   );
@@ -109,6 +114,7 @@ export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
       players,
       hands,
       boards,
+      previousSnapshot,
     }) => {
       set(statusState, status);
       set(countdownState, countdown);
@@ -119,6 +125,7 @@ export const useUpdateGameState = (): ((gameInfo: GameInfo) => void) =>
       );
       set(handsState, hands);
       set(boardsState, boards);
+      set(previousSnapshotState, previousSnapshot);
     },
     []
   );
