@@ -10,9 +10,5 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2019"
-  },
-  "exclude" : [
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ]
+  }
 }

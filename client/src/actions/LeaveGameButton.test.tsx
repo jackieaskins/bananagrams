@@ -19,7 +19,7 @@ describe('<LeaveGameButton />', () => {
   });
 
   it('confirms redirect to homepage', () => {
-    renderComponent().find(Popconfirm).props().onConfirm();
+    renderComponent().find(Popconfirm).props().onConfirm?.();
 
     expect(mockPush).toHaveBeenCalledWith('/');
   });
