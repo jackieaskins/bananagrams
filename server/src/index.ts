@@ -7,6 +7,7 @@ import { configureDevServer } from './devServer';
 import Dictionary from './dictionary/Dictionary';
 import { configureSocket } from './socket';
 
+const LOCALHOSTS = ['127.0.0.1', 'localhost'];
 const PORT = process.env.PORT || 5000;
 Dictionary.initialize();
 
@@ -18,9 +19,14 @@ app.use('/assets', express.static('assets'));
 if (process.env.NODE_ENV === 'development') {
   configureDevServer(app);
 } else {
-  app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(`https://${req.headers.host}${req.url}`);
+  app.use(({ headers, url }, res, next) => {
+    const { host } = headers;
+
+    if (
+      headers['x-forwarded-proto'] !== 'https' &&
+      !LOCALHOSTS.some((localhost) => host?.includes(localhost))
+    ) {
+      return res.redirect(`https://${host}${url}`);
     } else {
       return next();
     }
