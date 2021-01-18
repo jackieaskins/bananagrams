@@ -33,7 +33,7 @@ exports[`<PreviewCarousel /> renders carousel with first user selected 1`] = `
     className="emotion-0"
   >
     <Button
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
       size="small"
       type="text"
@@ -42,7 +42,7 @@ exports[`<PreviewCarousel /> renders carousel with first user selected 1`] = `
     </Button>
     <ForwardRef(InternalSelect)
       bordered={false}
-      disabled={true}
+      disabled={false}
       onChange={[MockFunction mockSetSelectedUserId]}
       options={
         Array [
@@ -60,7 +60,7 @@ exports[`<PreviewCarousel /> renders carousel with first user selected 1`] = `
       value="p1"
     />
     <Button
-      disabled={true}
+      disabled={false}
       onClick={[Function]}
       size="small"
       type="text"
@@ -125,7 +125,7 @@ exports[`<PreviewCarousel /> renders if no players, hands, or boards 1`] = `
     className="emotion-0"
   >
     <Button
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       size="small"
       type="text"
@@ -134,7 +134,7 @@ exports[`<PreviewCarousel /> renders if no players, hands, or boards 1`] = `
     </Button>
     <ForwardRef(InternalSelect)
       bordered={false}
-      disabled={false}
+      disabled={true}
       onChange={
         [MockFunction mockSetSelectedUserId] {
           "calls": Array [
@@ -154,7 +154,7 @@ exports[`<PreviewCarousel /> renders if no players, hands, or boards 1`] = `
       size="small"
     />
     <Button
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       size="small"
       type="text"

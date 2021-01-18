@@ -70,7 +70,7 @@ const PreviewCarousel = ({
     );
   }, [updateSelectedPlayer]);
 
-  const updateDisabled = useMemo(() => players.length > 1, [players]);
+  const updateDisabled = useMemo(() => players.length <= 1, [players]);
 
   return (
     <div css={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
