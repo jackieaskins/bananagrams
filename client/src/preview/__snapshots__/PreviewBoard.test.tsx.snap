@@ -17,13 +17,14 @@ exports[`<PreviewBoard /> renders card with board squares 1`] = `
   bodyStyle={
     Object {
       "padding": 0,
+      "width": "100%",
     }
   }
   cardCSS={
     Object {
       "alignItems": "center",
       "display": "flex",
-      "flexGrow": 1,
+      "height": "100%",
       "justifyContent": "center",
       "margin": "5px 0",
       "width": "100%",
@@ -68,13 +69,14 @@ exports[`<PreviewBoard /> renders empty card if no squares in board 1`] = `
   bodyStyle={
     Object {
       "padding": 0,
+      "width": "100%",
     }
   }
   cardCSS={
     Object {
       "alignItems": "center",
       "display": "flex",
-      "flexGrow": 1,
+      "height": "100%",
       "justifyContent": "center",
       "margin": "5px 0",
       "width": "100%",

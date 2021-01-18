@@ -53,13 +53,13 @@ const PreviewBoard = ({ board }: PreviewBoardProps): JSX.Element => {
 
   return (
     <TransparentCard
-      bodyStyle={{ padding: 0 }}
+      bodyStyle={{ padding: 0, width: '100%' }}
       cardCSS={{
         width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexGrow: 1,
+        height: '100%',
         margin: '5px 0',
       }}
     >

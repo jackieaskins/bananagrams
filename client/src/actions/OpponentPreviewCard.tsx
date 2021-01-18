@@ -30,10 +30,8 @@ const OpponentPreviewCard = ({
     <DraggableCard
       cardCSS={{
         width: '300px',
-        height: '300px',
         marginTop: '5px',
       }}
-      bodyStyle={{ height: '100%' }}
     >
       <PreviewCarousel players={opponents} boards={boards} hands={hands} />
     </DraggableCard>

@@ -45,7 +45,7 @@ const WaitingRoom = (): JSX.Element => {
           <Col xs={20} sm={14} md={12} lg={10}>
             <Card
               bodyStyle={{ height: '100%' }}
-              css={{ height: '300px', backgroundColor: '#fafafa' }}
+              css={{ backgroundColor: '#fafafa' }}
               size="small"
             >
               <PreviewCarousel

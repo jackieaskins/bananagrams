@@ -17,8 +17,7 @@ exports[`<WaitingRoom /> renders carousel when there is a previous snapshot 1`] 
   justify-content: center;
 }
 
-.emotion-01qumib3-WaitingRoom {
-  height: 300px;
+.emotion-01jpu3o3-WaitingRoom {
   background-color: #fafafa;
 }
 
