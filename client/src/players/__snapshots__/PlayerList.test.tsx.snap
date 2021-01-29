@@ -17,7 +17,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
         Current player count: 
         3
         /
-        8
+        16
          max
       </div>
     </caption>
@@ -85,7 +85,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           align="center"
           padding="default"
         >
-          <CloseIcon
+          <Memo([object Object])
             style={
               Object {
                 "color": "red",
@@ -106,7 +106,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
             onClick={[Function]}
             size="small"
           >
-            <DeleteOutlineIcon />
+            <Memo([object Object]) />
           </WithStyles(ForwardRef(IconButton))>
         </WithStyles(ForwardRef(TableCell))>
       </WithStyles(ForwardRef(TableRow))>
@@ -122,7 +122,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           align="center"
           padding="default"
         >
-          <CheckIcon
+          <Memo([object Object])
             style={
               Object {
                 "color": "green",
@@ -144,7 +144,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
             onClick={[Function]}
             size="small"
           >
-            <DeleteOutlineIcon />
+            <Memo([object Object]) />
           </WithStyles(ForwardRef(IconButton))>
         </WithStyles(ForwardRef(TableCell))>
       </WithStyles(ForwardRef(TableRow))>
@@ -170,7 +170,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
         Current player count: 
         3
         /
-        8
+        16
          max
       </div>
     </caption>
@@ -235,7 +235,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           align="center"
           padding="default"
         >
-          <CloseIcon
+          <Memo([object Object])
             style={
               Object {
                 "color": "red",
@@ -264,7 +264,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           align="center"
           padding="default"
         >
-          <CheckIcon
+          <Memo([object Object])
             style={
               Object {
                 "color": "green",
@@ -304,7 +304,7 @@ exports[`<PlayerList /> renders properly without gameInfo 1`] = `
         Current player count: 
         0
         /
-        8
+        16
          max
       </div>
     </caption>

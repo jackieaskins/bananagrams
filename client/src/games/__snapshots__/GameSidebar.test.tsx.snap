@@ -19,7 +19,7 @@ exports[`<GameSidebar /> renders properly 1`] = `
       onClick={[MockFunction showLeaveGameDialog]}
     >
       <WithStyles(ForwardRef(ListItemIcon))>
-        <ExitToAppIcon />
+        <Memo([object Object]) />
       </WithStyles(ForwardRef(ListItemIcon))>
     </WithStyles(ForwardRef(ListItem))>
   </WithStyles(ForwardRef(List))>

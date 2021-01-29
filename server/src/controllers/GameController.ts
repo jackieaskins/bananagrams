@@ -5,7 +5,7 @@ import Game, { GameJSON } from '../models/Game';
 import Player from '../models/Player';
 import { BoardLocation } from '../models/Board';
 
-const MAX_PLAYERS = 8;
+const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;
 const INITIAL_SHORTENED_GAME_TILE_COUNT = 2;
 

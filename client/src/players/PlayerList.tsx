@@ -14,7 +14,7 @@ import { Check, Close, DeleteOutline } from '@material-ui/icons';
 import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
 
-const MAX_PLAYERS = 8;
+const MAX_PLAYERS = 16;
 
 const PlayerList: React.FC = () => {
   const { socket } = useSocket();

@@ -114,7 +114,7 @@ describe('GameController', () => {
     });
 
     test('throws an error if game is full', () => {
-      Array(8)
+      Array(16)
         .fill(null)
         .forEach((_, i) => {
           game.addPlayer(new Player(`p${i}`, 'p'));
