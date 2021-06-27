@@ -15,7 +15,7 @@ exports[`<Hand /> renders properly 1`] = `
         }
       }
     >
-      <Memo([object Object])
+      <Memo(ForwardRef(ShuffleIcon))
         color="action"
         fontSize="small"
       />
@@ -49,7 +49,7 @@ exports[`<Hand /> renders properly with player 1`] = `
         }
       }
     >
-      <Memo([object Object])
+      <Memo(ForwardRef(ShuffleIcon))
         color="action"
         fontSize="small"
       />

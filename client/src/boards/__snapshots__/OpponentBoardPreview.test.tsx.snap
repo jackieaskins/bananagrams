@@ -49,7 +49,7 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         onClick={[MockFunction handleLeftClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -72,7 +72,7 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         onClick={[MockFunction handleRightClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -608,7 +608,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         onClick={[MockFunction handleLeftClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -631,7 +631,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         onClick={[MockFunction handleRightClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -687,7 +687,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         onClick={[MockFunction handleLeftClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -716,7 +716,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         onClick={[MockFunction handleRightClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -772,7 +772,7 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         onClick={[MockFunction handleLeftClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>
@@ -795,7 +795,7 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         onClick={[MockFunction handleRightClick]}
         size="small"
       >
-        <Memo([object Object])
+        <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
       </WithStyles(ForwardRef(IconButton))>

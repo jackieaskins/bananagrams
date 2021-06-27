@@ -85,7 +85,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           align="center"
           padding="default"
         >
-          <Memo([object Object])
+          <Memo(ForwardRef(CloseIcon))
             style={
               Object {
                 "color": "red",
@@ -106,7 +106,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
             onClick={[Function]}
             size="small"
           >
-            <Memo([object Object]) />
+            <Memo(ForwardRef(DeleteOutlineIcon)) />
           </WithStyles(ForwardRef(IconButton))>
         </WithStyles(ForwardRef(TableCell))>
       </WithStyles(ForwardRef(TableRow))>
@@ -122,7 +122,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           align="center"
           padding="default"
         >
-          <Memo([object Object])
+          <Memo(ForwardRef(CheckIcon))
             style={
               Object {
                 "color": "green",
@@ -144,7 +144,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
             onClick={[Function]}
             size="small"
           >
-            <Memo([object Object]) />
+            <Memo(ForwardRef(DeleteOutlineIcon)) />
           </WithStyles(ForwardRef(IconButton))>
         </WithStyles(ForwardRef(TableCell))>
       </WithStyles(ForwardRef(TableRow))>
@@ -235,7 +235,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           align="center"
           padding="default"
         >
-          <Memo([object Object])
+          <Memo(ForwardRef(CloseIcon))
             style={
               Object {
                 "color": "red",
@@ -264,7 +264,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           align="center"
           padding="default"
         >
-          <Memo([object Object])
+          <Memo(ForwardRef(CheckIcon))
             style={
               Object {
                 "color": "green",
