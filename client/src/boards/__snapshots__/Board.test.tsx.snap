@@ -94,6 +94,7 @@ exports[`<Board /> renders properly 1`] = `
         "px": [Function],
         "py": [Function],
         "right": [Function],
+        "sx": [Function],
         "textAlign": [Function],
         "textOverflow": [Function],
         "top": [Function],

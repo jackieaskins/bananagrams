@@ -12,7 +12,7 @@ export const handler = (
     const returnValue = fn() || null;
     callback?.(null, returnValue);
   } catch ({ message }) {
-    callback?.({ message }, null);
+    callback?.({ message: message as string }, null);
   }
 };
 
