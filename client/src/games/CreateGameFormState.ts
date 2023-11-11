@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
 import { SetState } from '../state/types';
@@ -20,7 +20,7 @@ export const useCreateGameForm = (): CreateGameFormState => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [isCreatingGame, setIsCreatingGame] = useState(false);
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const { search } = useLocation();
   const isShortenedGame = new URLSearchParams(search).has('isShortenedGame');
 
@@ -44,7 +44,7 @@ export const useCreateGameForm = (): CreateGameFormState => {
             gameInfo,
           };
 
-          push(`/game/${gameInfo.gameId}`, locationState);
+          navigate(`/game/${gameInfo.gameId}`, { state: locationState });
         }
       }
     );

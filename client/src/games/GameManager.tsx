@@ -1,4 +1,4 @@
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import StartGame from './StartGame';
@@ -13,7 +13,7 @@ const GameManager: React.FC = () => {
   } = useGame();
 
   if (!isInGame) {
-    return <Redirect to={`/game/${gameId}/join`} />;
+    return <Navigate to={`/game/${gameId}/join`} replace />;
   }
 
   return (

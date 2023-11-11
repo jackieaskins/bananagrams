@@ -27,7 +27,8 @@ exports[`<GameManager /> renders StartGame when not in game 1`] = `
 `;
 
 exports[`<GameManager /> renders redirect when not in game 1`] = `
-<Redirect
+<Navigate
+  replace={true}
   to="/game/gameId/join"
 />
 `;

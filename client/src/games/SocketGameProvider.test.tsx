@@ -1,6 +1,7 @@
+import { shallow } from 'enzyme';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { shallow } from 'enzyme';
+
 import { gameInfoFixture } from '../fixtures/game';
 import SocketGameProvider from './SocketGameProvider';
 
@@ -10,11 +11,9 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
-const mockReplace = jest.fn();
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
-  useHistory: () => ({
-    replace: mockReplace,
-  }),
+  useNavigate: () => mockNavigate,
   useLocation: jest.fn().mockReturnValue({
     pathname: '/pathname',
   }),
@@ -127,7 +126,9 @@ describe('<SocketGameProvider />', () => {
 
       test('removes router state', () => {
         callComponentMount();
-        expect(mockReplace).toHaveBeenCalledWith('/pathname');
+        expect(mockNavigate).toHaveBeenCalledWith('/pathname', {
+          replace: true,
+        });
       });
 
       test('emits leave game event on dismount', () => {

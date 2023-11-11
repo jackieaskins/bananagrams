@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
 
@@ -12,7 +12,7 @@ export const useServerDisconnectionDialog =
   (): ServerDisconnectionDialogState => {
     const [shouldShowDialog, setShouldShowDialog] = useState(false);
     const { socket } = useSocket();
-    const { push } = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
       socket.on('disconnect', () => {
@@ -21,7 +21,7 @@ export const useServerDisconnectionDialog =
     }, [socket]);
 
     const hideDialog = (): void => {
-      push('/');
+      navigate('/');
       setShouldShowDialog(false);
     };
 

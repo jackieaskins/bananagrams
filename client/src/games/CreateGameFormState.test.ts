@@ -6,12 +6,10 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
-const mockPush = jest.fn();
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn(),
-  useHistory: () => ({
-    push: mockPush,
-  }),
+  useNavigate: () => mockNavigate,
 }));
 
 const mockEmit = jest.fn();
@@ -110,9 +108,8 @@ describe('useCreateGameForm', () => {
         });
 
         test('redirects to game with state', () => {
-          expect(mockPush).toHaveBeenCalledWith('/game/gameId', {
-            isInGame: true,
-            gameInfo,
+          expect(mockNavigate).toHaveBeenCalledWith('/game/gameId', {
+            state: { isInGame: true, gameInfo },
           });
         });
       });

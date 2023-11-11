@@ -1,12 +1,12 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { SnackbarProvider } from 'notistack';
-
-import Routes from './Routes';
-import { SocketProvider } from './socket/SocketContext';
-import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
 import { CssBaseline, useMediaQuery } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { SnackbarProvider } from 'notistack';
 import { useMemo } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import Routes from './AppRoutes';
+import ServerDisconnectionDialog from './dialogs/ServerDisconnectionDialog';
+import { SocketProvider } from './socket/SocketContext';
 
 const App: React.FC = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -26,10 +26,10 @@ const App: React.FC = () => {
       <CssBaseline />
       <SnackbarProvider>
         <SocketProvider>
-          <Router>
+          <BrowserRouter>
             <ServerDisconnectionDialog />
             <Routes />
-          </Router>
+          </BrowserRouter>
         </SocketProvider>
       </SnackbarProvider>
     </ThemeProvider>

@@ -68,13 +68,6 @@ exports[`<JoinGameForm /> renders properly 1`] = `
         component={
           {
             "$$typeof": Symbol(react.forward_ref),
-            "propTypes": {
-              "innerRef": [Function],
-              "onClick": [Function],
-              "replace": [Function],
-              "target": [Function],
-              "to": [Function],
-            },
             "render": [Function],
           }
         }

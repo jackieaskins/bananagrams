@@ -1,14 +1,12 @@
 import React from 'react';
 import { useJoinGameForm } from './JoinGameFormState';
 
-const mockPush = jest.fn();
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   useParams: () => ({
     gameId: 'gameId',
   }),
-  useHistory: () => ({
-    push: mockPush,
-  }),
+  useNavigate: () => mockNavigate,
 }));
 
 const mockEmit = jest.fn();
@@ -86,9 +84,8 @@ describe('useJoinGameForm', () => {
         });
 
         test('redirects to game with state', () => {
-          expect(mockPush).toHaveBeenCalledWith('/game/gameId', {
-            isInGame: true,
-            gameInfo,
+          expect(mockNavigate).toHaveBeenCalledWith('/game/gameId', {
+            state: { isInGame: true, gameInfo },
           });
         });
       });

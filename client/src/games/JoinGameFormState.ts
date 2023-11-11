@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useSocket } from '../socket/SocketContext';
 import { GameInfo, GameLocationState } from './types';
@@ -19,8 +19,8 @@ type JoinGameFormState = {
 
 export const useJoinGameForm = (): JoinGameFormState => {
   const { socket } = useSocket();
-  const { push } = useHistory();
-  const { gameId } = useParams<JoinGameParams>();
+  const navigate = useNavigate();
+  const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
 
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
@@ -44,7 +44,7 @@ export const useJoinGameForm = (): JoinGameFormState => {
             gameInfo,
           };
 
-          push(`/game/${gameId}`, locationState);
+          navigate(`/game/${gameId}`, { state: locationState });
         }
       }
     );

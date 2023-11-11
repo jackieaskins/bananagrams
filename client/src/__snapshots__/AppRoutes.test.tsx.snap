@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppRoutes /> renders correct routes 1`] = `
+<Routes>
+  <Route
+    element={<Home />}
+    path="/"
+  />
+  <Route
+    element={
+      <SocketGameProvider>
+        <GameManager />
+      </SocketGameProvider>
+    }
+    path="/game/:gameId"
+  />
+  <Route
+    element={<JoinGame />}
+    path="/game/:gameId/join"
+  />
+  <Route
+    element={<NotFound />}
+    path="*"
+  />
+</Routes>
+`;

@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import {
+  useNavigate,
+  useLocation,
+  useParams,
+  Location,
+} from 'react-router-dom';
 
 import { GameInfo, GameLocationState } from './types';
 import { useSocket } from '../socket/SocketContext';
@@ -15,9 +20,9 @@ const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { socket } = useSocket();
-  const { replace } = useHistory();
-  const { pathname, state } = useLocation<GameLocationState>();
-  const { gameId } = useParams<GameParams>();
+  const navigate = useNavigate();
+  const { pathname, state } = useLocation() as Location<GameLocationState>;
+  const { gameId } = useParams<GameParams>() as GameParams;
 
   const [gameInfo, setGameInfo] = useState<GameInfo>(
     state?.gameInfo ?? getEmptyGameInfo(gameId)
@@ -53,7 +58,7 @@ const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (isInGame) {
-      replace(pathname);
+      navigate(pathname, { replace: true });
 
       return (): void => {
         socket.emit('leaveGame', { gameId });
@@ -61,7 +66,7 @@ const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     return;
-  }, [gameId, isInGame, pathname, replace, socket]);
+  }, [gameId, isInGame, navigate, pathname, socket]);
 
   useEffect(() => {
     socket.on('gameInfo', (gameInfo: GameInfo) => {

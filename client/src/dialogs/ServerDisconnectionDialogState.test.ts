@@ -11,9 +11,9 @@ jest.mock('react', () => ({
     ]),
 }));
 
-const mockPush = jest.fn();
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
-  useHistory: () => ({ push: mockPush }),
+  useNavigate: () => mockNavigate,
 }));
 
 const mockOn = jest.fn();
@@ -42,7 +42,7 @@ describe('useServerDisconnectionDialog', () => {
     });
 
     test('redirects to homepage', () => {
-      expect(mockPush).toHaveBeenCalledWith('/');
+      expect(mockNavigate).toHaveBeenCalledWith('/');
     });
 
     test('hides dialog', () => {
