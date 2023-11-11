@@ -1,6 +1,6 @@
-import Bunch, { BunchJSON } from './Bunch';
-import Player, { PlayerJSON } from './Player';
-import BaseModel from './BaseModel';
+import Bunch, { BunchJSON } from "./Bunch";
+import Player, { PlayerJSON } from "./Player";
+import BaseModel from "./BaseModel";
 
 export type Snapshot = PlayerJSON[] | null;
 export type GameJSON = {
@@ -94,7 +94,7 @@ export default class Game implements BaseModel<GameJSON> {
 
   removePlayer(userId: string): void {
     this.players = this.players.filter(
-      (player) => player.getUserId() !== userId
+      (player) => player.getUserId() !== userId,
     );
   }
 }

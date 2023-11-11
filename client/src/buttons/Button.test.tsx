@@ -1,21 +1,21 @@
-import { shallow } from 'enzyme';
-import Button from './Button';
+import { shallow } from "enzyme";
+import Button from "./Button";
 
-describe('<Button />', () => {
+describe("<Button />", () => {
   const renderButton = (propOverrides = {}) =>
     shallow(
-      <Button onClick={jest.fn().mockName('onClick')} {...propOverrides}>
+      <Button onClick={jest.fn().mockName("onClick")} {...propOverrides}>
         Button
-      </Button>
+      </Button>,
     );
 
-  test('renders properly while loading', () => {
+  test("renders properly while loading", () => {
     expect(
-      renderButton({ loadingText: 'Loading', loading: true })
+      renderButton({ loadingText: "Loading", loading: true }),
     ).toMatchSnapshot();
   });
 
-  test('renders properly when disabled', () => {
+  test("renders properly when disabled", () => {
     expect(renderButton({ disabled: true })).toMatchSnapshot();
   });
 });

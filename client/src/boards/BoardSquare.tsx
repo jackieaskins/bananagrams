@@ -1,11 +1,11 @@
-import { Box } from '@mui/material';
-import { useDrop } from 'react-dnd';
+import { Box } from "@mui/material";
+import { useDrop } from "react-dnd";
 
-import { useGame } from '../games/GameContext';
-import { validDropSx } from '../styles';
-import Tile from '../tiles/Tile';
-import { TileItem } from '../tiles/types';
-import { BoardSquare, Direction, ValidationStatus, WordInfo } from './types';
+import { useGame } from "../games/GameContext";
+import { validDropSx } from "../styles";
+import Tile from "../tiles/Tile";
+import { TileItem } from "../tiles/types";
+import { BoardSquare, Direction, ValidationStatus, WordInfo } from "./types";
 
 type BoardSquareProps = {
   boardSquare: BoardSquare | null;
@@ -16,7 +16,7 @@ type BoardSquareProps = {
 type CheckValidation = (wordInfo: WordInfo) => boolean;
 
 const getColor = (
-  wordInfo: Record<Direction, WordInfo>
+  wordInfo: Record<Direction, WordInfo>,
 ): string | undefined => {
   const isValid: CheckValidation = ({ validation }) =>
     validation === ValidationStatus.VALID;
@@ -25,9 +25,9 @@ const getColor = (
 
   const validations = Object.values(wordInfo).filter(isValidated);
 
-  if (validations.length === 0) return 'black';
-  if (validations.every(isValid)) return 'green';
-  return 'red';
+  if (validations.length === 0) return "black";
+  if (validations.every(isValid)) return "green";
+  return "red";
 };
 
 const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
@@ -35,7 +35,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
   const { tile, wordInfo } = boardSquare ?? {};
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
-    accept: 'TILE',
+    accept: "TILE",
     canDrop: (_, monitor) => monitor.isOver() && !tile,
     drop: ({ id, boardLocation }: TileItem) => {
       if (!!boardLocation) {
@@ -60,7 +60,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
       {tile && wordInfo ? (
         <Tile tile={tile} color={getColor(wordInfo)} boardLocation={{ x, y }} />
       ) : (
-        ''
+        ""
       )}
     </Box>
   );

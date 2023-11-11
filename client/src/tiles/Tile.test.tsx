@@ -1,85 +1,85 @@
-import { shallow, ShallowWrapper } from 'enzyme';
-import { useDrag } from 'react-dnd';
-import Tile from './Tile';
+import { shallow, ShallowWrapper } from "enzyme";
+import { useDrag } from "react-dnd";
+import Tile from "./Tile";
 
-jest.mock('react-dnd', () => ({
+jest.mock("react-dnd", () => ({
   useDrag: jest.fn().mockReturnValue([{ isDragging: false }, jest.fn()]),
 }));
 
 const DEFAULT_BOARD_LOCATION = { x: 0, y: 0 };
-const DEFAULT_ID = 'A1';
+const DEFAULT_ID = "A1";
 
-describe('<Tile />', () => {
+describe("<Tile />", () => {
   const renderComponent = (propOverrides = {}): ShallowWrapper =>
     shallow(
       <Tile
         boardLocation={DEFAULT_BOARD_LOCATION}
-        tile={{ id: DEFAULT_ID, letter: 'A' }}
+        tile={{ id: DEFAULT_ID, letter: "A" }}
         {...propOverrides}
-      />
+      />,
     );
 
-  test('renders properly', () => {
+  test("renders properly", () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  describe('useDrag', () => {
+  describe("useDrag", () => {
     beforeEach(() => {
       renderComponent();
     });
 
-    test('is called with correct params', () => {
+    test("is called with correct params", () => {
       expect(useDrag).toHaveBeenCalledWith({
         item: {
           id: DEFAULT_ID,
           boardLocation: DEFAULT_BOARD_LOCATION,
-          type: 'TILE',
+          type: "TILE",
         },
         collect: expect.any(Function),
       });
     });
 
-    test('collect retrieves isDragging from monitor', () => {
+    test("collect retrieves isDragging from monitor", () => {
       const monitor = {
-        isDragging: jest.fn().mockReturnValue('isDragging'),
+        isDragging: jest.fn().mockReturnValue("isDragging"),
       };
 
-      expect(useDrag.mock.calls[0][0]['collect'](monitor)).toEqual({
-        isDragging: 'isDragging',
+      expect(useDrag.mock.calls[0][0]["collect"](monitor)).toEqual({
+        isDragging: "isDragging",
       });
     });
   });
 
-  describe('margin', () => {
-    test('is set to 0 when on board', () => {
-      expect(renderComponent().props().sx.margin).toBe('0');
+  describe("margin", () => {
+    test("is set to 0 when on board", () => {
+      expect(renderComponent().props().sx.margin).toBe("0");
     });
 
-    test('is set when not on board', () => {
+    test("is set when not on board", () => {
       expect(renderComponent({ boardLocation: null }).props().sx.margin).toBe(
-        '5px'
+        "5px",
       );
     });
   });
 
-  describe('opacity', () => {
-    test('is set to 1 when not dragging', () => {
+  describe("opacity", () => {
+    test("is set to 1 when not dragging", () => {
       expect(renderComponent().props().sx.opacity).toBe(1);
     });
 
-    test('is dimmed while dragging', () => {
+    test("is dimmed while dragging", () => {
       useDrag.mockReturnValue([{ isDragging: true }, jest.fn()]);
       expect(renderComponent().props().sx.opacity).toBe(0.5);
     });
   });
 
-  describe('color', () => {
-    test('is set to black by default', () => {
-      expect(renderComponent().props().sx.color).toBe('black');
+  describe("color", () => {
+    test("is set to black by default", () => {
+      expect(renderComponent().props().sx.color).toBe("black");
     });
 
-    test('is set to passed in color', () => {
-      const color = 'red';
+    test("is set to passed in color", () => {
+      const color = "red";
       expect(renderComponent({ color }).props().sx.color).toEqual(color);
     });
   });

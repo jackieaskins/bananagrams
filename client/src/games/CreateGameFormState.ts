@@ -1,9 +1,9 @@
-import { useState, MouseEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, MouseEvent } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import { useSocket } from '../socket/SocketContext';
-import { SetState } from '../state/types';
-import { GameInfo, GameLocationState } from './types';
+import { useSocket } from "../socket/SocketContext";
+import { SetState } from "../state/types";
+import { GameInfo, GameLocationState } from "./types";
 
 export type CreateGameFormState = {
   error: string;
@@ -16,13 +16,13 @@ export type CreateGameFormState = {
 };
 
 export const useCreateGameForm = (): CreateGameFormState => {
-  const [gameName, setGameName] = useState('');
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const [gameName, setGameName] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const navigate = useNavigate();
   const { search } = useLocation();
-  const isShortenedGame = new URLSearchParams(search).has('isShortenedGame');
+  const isShortenedGame = new URLSearchParams(search).has("isShortenedGame");
 
   const { socket } = useSocket();
 
@@ -32,7 +32,7 @@ export const useCreateGameForm = (): CreateGameFormState => {
     setIsCreatingGame(true);
 
     socket.emit(
-      'createGame',
+      "createGame",
       { gameName, username, isShortenedGame },
       (error: Error, gameInfo: GameInfo) => {
         if (error) {
@@ -46,7 +46,7 @@ export const useCreateGameForm = (): CreateGameFormState => {
 
           navigate(`/game/${gameInfo.gameId}`, { state: locationState });
         }
-      }
+      },
     );
   };
 

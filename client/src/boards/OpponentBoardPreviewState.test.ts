@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { playerFixture } from '../fixtures/player';
-import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
+import { useEffect } from "react";
+import { playerFixture } from "../fixtures/player";
+import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 
 const mockSetSelectedUserId = jest.fn();
-jest.mock('react', () => ({
+jest.mock("react", () => ({
   useEffect: jest.fn(),
   useState: jest
     .fn()
@@ -13,15 +13,15 @@ jest.mock('react', () => ({
     ]),
 }));
 
-describe('useOpponentBoardPreview', () => {
-  test('returns correct default state', () => {
+describe("useOpponentBoardPreview", () => {
+  test("returns correct default state", () => {
     expect(
-      useOpponentBoardPreview([playerFixture({ userId: '123' })], 0)
+      useOpponentBoardPreview([playerFixture({ userId: "123" })], 0),
     ).toMatchSnapshot();
   });
 
-  describe('use effect', () => {
-    test('is called whenever opponents or selected user id changes', () => {
+  describe("use effect", () => {
+    test("is called whenever opponents or selected user id changes", () => {
       const opponents = [playerFixture()];
       useOpponentBoardPreview(opponents, 0);
 
@@ -31,7 +31,7 @@ describe('useOpponentBoardPreview', () => {
       ]);
     });
 
-    test('updates the selected user id if the current selected user does not exist', () => {
+    test("updates the selected user id if the current selected user does not exist", () => {
       const opponents = [playerFixture()];
       useOpponentBoardPreview(opponents, 1);
 
@@ -40,7 +40,7 @@ describe('useOpponentBoardPreview', () => {
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(opponents[0].userId);
     });
 
-    test('does not update the selected user id if the current selected user exists', () => {
+    test("does not update the selected user id if the current selected user exists", () => {
       const opponents = [playerFixture()];
       useOpponentBoardPreview(opponents, 0);
 
@@ -49,7 +49,7 @@ describe('useOpponentBoardPreview', () => {
       expect(mockSetSelectedUserId).not.toHaveBeenCalled();
     });
 
-    test('handles no opponents', () => {
+    test("handles no opponents", () => {
       useOpponentBoardPreview([], 0);
 
       useEffect.mock.calls[0][0]();
@@ -58,51 +58,51 @@ describe('useOpponentBoardPreview', () => {
     });
   });
 
-  describe('handleLeftClick', () => {
+  describe("handleLeftClick", () => {
     const opponents = [playerFixture(), playerFixture()];
 
-    test('decrements the selected index by 1 if possible', () => {
+    test("decrements the selected index by 1 if possible", () => {
       useOpponentBoardPreview(opponents, 1).handleLeftClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(opponents[0].userId);
     });
 
-    test('moves to end of opponents list if at start', () => {
+    test("moves to end of opponents list if at start", () => {
       useOpponentBoardPreview(opponents, 0).handleLeftClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(opponents[1].userId);
     });
 
-    test('handles no opponents', () => {
+    test("handles no opponents", () => {
       useOpponentBoardPreview([], 0).handleLeftClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(undefined);
     });
   });
 
-  describe('handleRightClick', () => {
+  describe("handleRightClick", () => {
     const opponents = [playerFixture(), playerFixture()];
 
-    test('increments the selected index by 1 if possible', () => {
+    test("increments the selected index by 1 if possible", () => {
       useOpponentBoardPreview(opponents, 0).handleRightClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(opponents[1].userId);
     });
 
-    test('moves to start of opponents list if at end', () => {
+    test("moves to start of opponents list if at end", () => {
       useOpponentBoardPreview(opponents, 1).handleRightClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(opponents[0].userId);
     });
 
-    test('handles no opponents', () => {
+    test("handles no opponents", () => {
       useOpponentBoardPreview([], 0).handleRightClick();
 
       expect(mockSetSelectedUserId).toHaveBeenCalledWith(undefined);
     });
   });
 
-  test('handleSelectedPlayerChange sets selected user id', () => {
+  test("handleSelectedPlayerChange sets selected user id", () => {
     const opponents = [playerFixture(), playerFixture()];
     const id = opponents[1].userId;
 

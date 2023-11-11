@@ -1,10 +1,10 @@
-import { Grid, Link as MUILink, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Grid, Link as MUILink, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
-import Button from '../buttons/Button';
-import ErrorAlert from '../alerts/ErrorAlert';
-import TextField from '../forms/TextField';
-import { useJoinGameForm } from './JoinGameFormState';
+import Button from "../buttons/Button";
+import ErrorAlert from "../alerts/ErrorAlert";
+import TextField from "../forms/TextField";
+import { useJoinGameForm } from "./JoinGameFormState";
 
 const JoinGameForm: React.FC = () => {
   const { error, isJoiningGame, onSubmit, setUsername, username } =
@@ -12,10 +12,10 @@ const JoinGameForm: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3" sx={{ marginBottom: '5px' }}>
+      <Typography variant="h3" sx={{ marginBottom: "5px" }}>
         Join game
       </Typography>
-      <ErrorAlert visible={!!error} sx={{ marginBottom: '5px' }}>
+      <ErrorAlert visible={!!error} sx={{ marginBottom: "5px" }}>
         {error}
       </ErrorAlert>
       <Grid
@@ -49,7 +49,7 @@ const JoinGameForm: React.FC = () => {
           </Button>
         </Grid>
 
-        <Grid item style={{ margin: '0 auto' }}>
+        <Grid item style={{ margin: "0 auto" }}>
           <MUILink component={Link} to="/" variant="body1" align="center">
             Go home
           </MUILink>

@@ -1,22 +1,22 @@
 /* eslint-disable jest/expect-expect */
-import { configureSocket, handler } from './socket';
-import GameController from './controllers/GameController';
+import { configureSocket, handler } from "./socket";
+import GameController from "./controllers/GameController";
 
-describe('socket', () => {
-  describe('handler', () => {
-    test('handles error thrown with no callback', () => {
+describe("socket", () => {
+  describe("handler", () => {
+    test("handles error thrown with no callback", () => {
       const fn = jest.fn().mockImplementation(() => {
-        throw new Error('error');
+        throw new Error("error");
       });
 
       expect(() => handler(fn)).not.toThrow();
     });
   });
 
-  describe('configureSocket', () => {
+  describe("configureSocket", () => {
     const callback = jest.fn();
     const socket: any = {
-      id: 'userId',
+      id: "userId",
       on: jest.fn(),
     };
     const io: any = {
@@ -24,10 +24,10 @@ describe('socket', () => {
         fn(socket);
       }),
     };
-    const gameId = 'gameId';
-    const gameName = 'gameName';
-    const username = 'username';
-    const gameJSON = 'gameJSON';
+    const gameId = "gameId";
+    const gameName = "gameName";
+    const username = "username";
+    const gameJSON = "gameJSON";
     let gameToJSON: any;
     let gameController: any;
 
@@ -58,43 +58,43 @@ describe('socket', () => {
       };
 
       jest
-        .spyOn(GameController, 'createGame')
+        .spyOn(GameController, "createGame")
         .mockImplementation((): any => gameController);
       jest
-        .spyOn(GameController, 'joinGame')
+        .spyOn(GameController, "joinGame")
         .mockImplementation((): any => gameController);
     });
 
     const createGame = (callback?: () => void): void => {
       socketCalls.createGame(
         { gameName, username, isShortenedGame: false },
-        callback
+        callback,
       );
     };
 
-    test('configures connection', () => {
-      expect(io.on).toHaveBeenCalledWith('connection', expect.any(Function));
+    test("configures connection", () => {
+      expect(io.on).toHaveBeenCalledWith("connection", expect.any(Function));
     });
 
-    describe('createGame', () => {
+    describe("createGame", () => {
       beforeEach(() => {
         createGame(callback);
       });
 
-      test('calls GameController createGame', () => {
+      test("calls GameController createGame", () => {
         expect(GameController.createGame).toHaveBeenCalledWith(
           gameName,
           username,
           false,
           io,
-          socket
+          socket,
         );
       });
 
-      test('passes isShortenedGame to controller', () => {
+      test("passes isShortenedGame to controller", () => {
         socketCalls.createGame(
           { gameName, username, isShortenedGame: true },
-          callback
+          callback,
         );
 
         expect(GameController.createGame).toHaveBeenCalledWith(
@@ -102,28 +102,28 @@ describe('socket', () => {
           username,
           true,
           io,
-          socket
+          socket,
         );
       });
 
-      test('calls callback with game json', () => {
+      test("calls callback with game json", () => {
         expect(callback).toHaveBeenCalledWith(null, gameJSON);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         expect(() => createGame()).not.toThrow();
       });
 
-      test('calls callback with error when game get JSON fails', () => {
+      test("calls callback with error when game get JSON fails", () => {
         gameToJSON.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('joinGame', () => {
+    describe("joinGame", () => {
       const joinGame = (callback?: () => void): void => {
         socketCalls.joinGame({ gameId, username }, callback);
       };
@@ -132,347 +132,347 @@ describe('socket', () => {
         joinGame(callback);
       });
 
-      test('calls GameController joinGame', () => {
+      test("calls GameController joinGame", () => {
         expect(GameController.joinGame).toHaveBeenCalledWith(
           gameId,
           username,
           io,
-          socket
+          socket,
         );
       });
 
-      test('calls callback with game json', () => {
+      test("calls callback with game json", () => {
         expect(callback).toHaveBeenCalledWith(null, gameJSON);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         expect(() => joinGame()).not.toThrow();
       });
 
-      test('calls callback with error when game to JSON fails', () => {
+      test("calls callback with error when game to JSON fails", () => {
         gameToJSON.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         joinGame(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('kickPlayer', () => {
+    describe("kickPlayer", () => {
       const kickPlayer = (callback?: () => void): void => {
-        socketCalls.kickPlayer({ userId: 'userId' }, callback);
+        socketCalls.kickPlayer({ userId: "userId" }, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         kickPlayer(callback);
         assertThrowsNoGameError();
       });
 
-      test('kicks player', () => {
+      test("kicks player", () => {
         createGame();
         kickPlayer(callback);
-        expect(gameController.kickPlayer).toHaveBeenCalledWith('userId');
+        expect(gameController.kickPlayer).toHaveBeenCalledWith("userId");
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         kickPlayer(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => kickPlayer()).not.toThrow();
       });
 
-      test('calls callback with error when kick player fails', () => {
+      test("calls callback with error when kick player fails", () => {
         gameController.kickPlayer.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         kickPlayer(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('leaveGame', () => {
+    describe("leaveGame", () => {
       const leaveGame = (callback?: () => void): void => {
         socketCalls.leaveGame({}, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         leaveGame(callback);
         assertThrowsNoGameError();
       });
 
-      test('leaves game', () => {
+      test("leaves game", () => {
         createGame();
         leaveGame(callback);
         expect(gameController.leaveGame).toHaveBeenCalledWith();
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         leaveGame(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => leaveGame()).not.toThrow();
       });
 
-      test('calls callback with error when leave game fails', () => {
+      test("calls callback with error when leave game fails", () => {
         gameController.leaveGame.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         leaveGame(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('ready', () => {
+    describe("ready", () => {
       const ready = (isReady: boolean, callback?: () => void): void => {
         socketCalls.ready({ isReady }, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         ready(true, callback);
         assertThrowsNoGameError();
       });
 
-      test('sets player as ready', () => {
+      test("sets player as ready", () => {
         createGame();
         ready(true, callback);
         expect(gameController.setReady).toHaveBeenCalledWith(true);
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         ready(false, callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => ready(true)).not.toThrow();
       });
 
-      test('calls callback with error when set ready fails', () => {
+      test("calls callback with error when set ready fails", () => {
         gameController.setReady.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         ready(false, callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('peel', () => {
+    describe("peel", () => {
       const peel = (callback?: () => void): void => {
         socketCalls.peel({}, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         peel(callback);
         assertThrowsNoGameError();
       });
 
-      test('peels game', () => {
+      test("peels game", () => {
         createGame();
         peel(callback);
         expect(gameController.peel).toHaveBeenCalledWith();
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         peel(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => peel()).not.toThrow();
       });
 
-      test('calls callback with error when peel fails', () => {
+      test("calls callback with error when peel fails", () => {
         gameController.peel.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         peel(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('dump', () => {
-      const tileId = 'tileId';
+    describe("dump", () => {
+      const tileId = "tileId";
       const boardLocation = { x: 0, y: 0 };
 
       const dump = (callback?: () => void): void => {
         socketCalls.dump({ tileId, boardLocation }, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         dump(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls dump on game', () => {
+      test("calls dump on game", () => {
         createGame();
         dump(callback);
         expect(gameController.dump).toHaveBeenCalledWith(tileId, boardLocation);
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         dump(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => dump()).not.toThrow();
       });
 
-      test('calls callback with error when dump fails', () => {
+      test("calls callback with error when dump fails", () => {
         gameController.dump.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         dump(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('moveTileFromHandToBoard', () => {
-      const tileId = 'tileId';
+    describe("moveTileFromHandToBoard", () => {
+      const tileId = "tileId";
       const boardLocation = { x: 0, y: 0 };
 
       const moveTileFromHandToBoard = (callback?: () => void): void => {
         socketCalls.moveTileFromHandToBoard(
           { tileId, boardLocation },
-          callback
+          callback,
         );
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         moveTileFromHandToBoard(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls move tile from hand to board on game', () => {
+      test("calls move tile from hand to board on game", () => {
         createGame();
         moveTileFromHandToBoard(callback);
         expect(gameController.moveTileFromHandToBoard).toHaveBeenCalledWith(
           tileId,
-          boardLocation
+          boardLocation,
         );
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         moveTileFromHandToBoard(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => moveTileFromHandToBoard()).not.toThrow();
       });
 
-      test('calls callback with error when move tile fails', () => {
+      test("calls callback with error when move tile fails", () => {
         gameController.moveTileFromHandToBoard.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         moveTileFromHandToBoard(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('moveTileFromBoardToHand', () => {
+    describe("moveTileFromBoardToHand", () => {
       const boardLocation = { x: 0, y: 0 };
 
       const moveTileFromBoardToHand = (callback?: () => void): void => {
         socketCalls.moveTileFromBoardToHand({ boardLocation }, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         moveTileFromBoardToHand(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls move tile from hand to board on game', () => {
+      test("calls move tile from hand to board on game", () => {
         createGame();
         moveTileFromBoardToHand(callback);
         expect(gameController.moveTileFromBoardToHand).toHaveBeenCalledWith(
-          boardLocation
+          boardLocation,
         );
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         moveTileFromBoardToHand(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => moveTileFromBoardToHand()).not.toThrow();
       });
 
-      test('calls callback with error when move tile fails', () => {
+      test("calls callback with error when move tile fails", () => {
         gameController.moveTileFromBoardToHand.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         moveTileFromBoardToHand(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('moveAllTilesFromBoardToHand', () => {
+    describe("moveAllTilesFromBoardToHand", () => {
       const moveAllTilesFromBoardToHand = (callback?: () => void): void => {
         socketCalls.moveAllTilesFromBoardToHand({}, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         moveAllTilesFromBoardToHand(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls move all tiles from board to hand on game', () => {
+      test("calls move all tiles from board to hand on game", () => {
         createGame();
         moveAllTilesFromBoardToHand(callback);
         expect(
-          gameController.moveAllTilesFromBoardToHand
+          gameController.moveAllTilesFromBoardToHand,
         ).toHaveBeenCalledWith();
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         moveAllTilesFromBoardToHand(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => moveAllTilesFromBoardToHand()).not.toThrow();
       });
 
-      test('calls callback with error when move tiles fails', () => {
+      test("calls callback with error when move tiles fails", () => {
         gameController.moveAllTilesFromBoardToHand.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         moveAllTilesFromBoardToHand(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('moveTileOnBoard', () => {
+    describe("moveTileOnBoard", () => {
       const fromLocation = { x: 0, y: 0 };
       const toLocation = { x: 1, y: 0 };
 
@@ -480,92 +480,92 @@ describe('socket', () => {
         socketCalls.moveTileOnBoard({ fromLocation, toLocation }, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         moveTileOnBoard(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls move tile from hand to board on game', () => {
+      test("calls move tile from hand to board on game", () => {
         createGame();
         moveTileOnBoard(callback);
         expect(gameController.moveTileOnBoard).toHaveBeenCalledWith(
           fromLocation,
-          toLocation
+          toLocation,
         );
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         moveTileOnBoard(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => moveTileOnBoard()).not.toThrow();
       });
 
-      test('calls callback with error when move tile fails', () => {
+      test("calls callback with error when move tile fails", () => {
         gameController.moveTileOnBoard.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         moveTileOnBoard(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('shuffleHand', () => {
+    describe("shuffleHand", () => {
       const shuffleHand = (callback?: () => void): void => {
         socketCalls.shuffleHand({}, callback);
       };
 
-      test('throws an error when not in a game', () => {
+      test("throws an error when not in a game", () => {
         shuffleHand(callback);
         assertThrowsNoGameError();
       });
 
-      test('calls shuffle hand', () => {
+      test("calls shuffle hand", () => {
         createGame();
         shuffleHand(callback);
         expect(gameController.shuffleHand).toHaveBeenCalledWith();
       });
 
-      test('calls callback with null', () => {
+      test("calls callback with null", () => {
         createGame();
         shuffleHand(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
-      test('works without callback', () => {
+      test("works without callback", () => {
         createGame();
         expect(() => shuffleHand()).not.toThrow();
       });
 
-      test('calls callback with error when shuffle hand fails', () => {
+      test("calls callback with error when shuffle hand fails", () => {
         gameController.shuffleHand.mockImplementation(() => {
-          throw new Error('Error');
+          throw new Error("Error");
         });
         createGame();
         shuffleHand(callback);
-        expect(callback).toHaveBeenCalledWith({ message: 'Error' }, null);
+        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe('disconnect', () => {
-      test('handles game not existing', () => {
+    describe("disconnect", () => {
+      test("handles game not existing", () => {
         expect(() => socketCalls.disconnect()).not.toThrow();
       });
 
-      test('calls leave game', () => {
+      test("calls leave game", () => {
         createGame();
-        socketCalls['disconnect']();
+        socketCalls["disconnect"]();
         expect(gameController.leaveGame).toHaveBeenCalledWith();
       });
     });
 
     const assertThrowsNoGameError = (): void => {
-      expect(callback).toHaveBeenCalledWith({ message: 'Not in a game' }, null);
+      expect(callback).toHaveBeenCalledWith({ message: "Not in a game" }, null);
     };
   });
 });

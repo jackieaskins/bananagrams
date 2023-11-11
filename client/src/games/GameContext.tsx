@@ -1,5 +1,5 @@
-import { createContext, useContext } from 'react';
-import { GameState, GameInfo } from './types';
+import { createContext, useContext } from "react";
+import { GameState, GameInfo } from "./types";
 
 type GameProviderProps = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type GameProviderProps = {
 
 export const getEmptyGameInfo = (gameId: string): GameInfo => ({
   gameId,
-  gameName: '',
+  gameName: "",
   isInProgress: false,
   bunch: [],
   players: [],
@@ -27,7 +27,7 @@ export const getEmptyGameState = (gameId: string): GameState => ({
   walkthroughEnabled: false,
 });
 
-export const GameContext = createContext<GameState>(getEmptyGameState(''));
+export const GameContext = createContext<GameState>(getEmptyGameState(""));
 
 export const GameProvider: React.FC<GameProviderProps> = ({
   children,

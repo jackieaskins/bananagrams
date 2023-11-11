@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useSocket } from '../socket/SocketContext';
+import { useSocket } from "../socket/SocketContext";
 
 export type ServerDisconnectionDialogState = {
   shouldShowDialog: boolean;
@@ -15,13 +15,13 @@ export const useServerDisconnectionDialog =
     const navigate = useNavigate();
 
     useEffect(() => {
-      socket.on('disconnect', () => {
+      socket.on("disconnect", () => {
         setShouldShowDialog(true);
       });
     }, [socket]);
 
     const hideDialog = (): void => {
-      navigate('/');
+      navigate("/");
       setShouldShowDialog(false);
     };
 

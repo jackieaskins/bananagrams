@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect } from 'react';
-import { useSnackbar } from 'notistack';
+import { createContext, useContext, useEffect } from "react";
+import { useSnackbar } from "notistack";
 
-import socket from './index';
-import { Socket } from 'socket.io-client';
+import socket from "./index";
+import { Socket } from "socket.io-client";
 
 export type Callback<T> = (error: Error | null, data: T) => void;
 
@@ -20,12 +20,12 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    socket.on('notification', ({ message }: { message: string }) => {
+    socket.on("notification", ({ message }: { message: string }) => {
       enqueueSnackbar(message);
     });
 
     return (): void => {
-      socket.emit('disconnect');
+      socket.emit("disconnect");
     };
   }, [enqueueSnackbar]);
 
@@ -35,6 +35,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     </SocketContext.Provider>
   );
 };
-SocketProvider.displayName = 'SocketProvider';
+SocketProvider.displayName = "SocketProvider";
 
 export const useSocket = (): SocketState => useContext(SocketContext);

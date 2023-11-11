@@ -1,9 +1,9 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from "@mui/material";
 
-import Button from '../buttons/Button';
-import ErrorAlert from '../alerts/ErrorAlert';
-import TextField from '../forms/TextField';
-import { useCreateGameForm } from './CreateGameFormState';
+import Button from "../buttons/Button";
+import ErrorAlert from "../alerts/ErrorAlert";
+import TextField from "../forms/TextField";
+import { useCreateGameForm } from "./CreateGameFormState";
 
 const CreateGameForm: React.FC = () => {
   const {
@@ -18,10 +18,10 @@ const CreateGameForm: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3" sx={{ marginBottom: '5px' }}>
+      <Typography variant="h3" sx={{ marginBottom: "5px" }}>
         Start a new game
       </Typography>
-      <ErrorAlert visible={!!error} sx={{ marginBottom: '5px' }}>
+      <ErrorAlert visible={!!error} sx={{ marginBottom: "5px" }}>
         {error}
       </ErrorAlert>
       <Grid

@@ -1,19 +1,19 @@
-import Tile, { TileJSON } from './Tile';
-import BaseModel from './BaseModel';
-import { validateAddTile, validateRemoveTile } from '../boardValidation';
+import Tile, { TileJSON } from "./Tile";
+import BaseModel from "./BaseModel";
+import { validateAddTile, validateRemoveTile } from "../boardValidation";
 
 export type BoardLocation = {
   x: number;
   y: number;
 };
 export enum Direction {
-  ACROSS = 'ACROSS',
-  DOWN = 'DOWN',
+  ACROSS = "ACROSS",
+  DOWN = "DOWN",
 }
 export enum ValidationStatus {
-  NOT_VALIDATED = 'NOT_VALIDATED',
-  VALID = 'VALID',
-  INVALID = 'INVALID',
+  NOT_VALIDATED = "NOT_VALIDATED",
+  VALID = "VALID",
+  INVALID = "INVALID",
 }
 export type WordInfo = {
   start: BoardLocation;
@@ -42,7 +42,7 @@ export default class Board implements BaseModel<BoardJSON> {
 
   getSquares(): BoardSquares {
     return this.squares.map((row) =>
-      row.map((square) => (!!square ? { ...square } : null))
+      row.map((square) => (!!square ? { ...square } : null)),
     );
   }
 
@@ -51,8 +51,8 @@ export default class Board implements BaseModel<BoardJSON> {
       row.reduce(
         (tiles: Tile[], square: BoardSquare | null): Tile[] =>
           !!square ? [...tiles, square.tile] : tiles,
-        []
-      )
+        [],
+      ),
     );
   }
 
@@ -70,7 +70,7 @@ export default class Board implements BaseModel<BoardJSON> {
         }
 
         return null;
-      })
+      }),
     );
 
     return clearedTiles;
@@ -90,7 +90,7 @@ export default class Board implements BaseModel<BoardJSON> {
         }
 
         return { tile: square.tile.toJSON(), wordInfo: square.wordInfo };
-      })
+      }),
     );
   }
 

@@ -1,29 +1,29 @@
-import { shallow } from 'enzyme';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { shallow } from "enzyme";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-import { gameInfoFixture } from '../fixtures/game';
-import SocketGameProvider from './SocketGameProvider';
+import { gameInfoFixture } from "../fixtures/game";
+import SocketGameProvider from "./SocketGameProvider";
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
   useEffect: jest.fn(),
   useState: jest.fn(),
 }));
 
 const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
+jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
   useLocation: jest.fn().mockReturnValue({
-    pathname: '/pathname',
+    pathname: "/pathname",
   }),
-  useParams: () => ({ gameId: 'gameId' }),
+  useParams: () => ({ gameId: "gameId" }),
 }));
 
 const mockEmit = jest.fn();
 const mockOn = jest.fn();
 const mockOff = jest.fn();
-jest.mock('../socket/SocketContext', () => ({
+jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
     socket: {
       emit: mockEmit,
@@ -33,7 +33,7 @@ jest.mock('../socket/SocketContext', () => ({
   }),
 }));
 
-describe('<SocketGameProvider />', () => {
+describe("<SocketGameProvider />", () => {
   const mockSetGameInfo = jest.fn();
   const mockSetIsInGame = jest.fn();
 
@@ -49,74 +49,74 @@ describe('<SocketGameProvider />', () => {
       ]);
   });
 
-  test('renders properly', () => {
+  test("renders properly", () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  describe('handle methods', () => {
+  describe("handle methods", () => {
     const boardLocation = { x: 0, y: 0 };
-    const id = 'id';
+    const id = "id";
 
     const getGameState = () => renderComponent().props().gameState;
 
-    test('handleDump', () => {
+    test("handleDump", () => {
       getGameState().handleDump({ boardLocation, id });
 
-      expect(mockEmit).toHaveBeenCalledWith('dump', {
+      expect(mockEmit).toHaveBeenCalledWith("dump", {
         boardLocation,
         tileId: id,
       });
     });
 
-    test('handleMoveTileFromHandToBoard', () => {
+    test("handleMoveTileFromHandToBoard", () => {
       getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
 
-      expect(mockEmit).toHaveBeenCalledWith('moveTileFromHandToBoard', {
+      expect(mockEmit).toHaveBeenCalledWith("moveTileFromHandToBoard", {
         tileId: id,
         boardLocation,
       });
     });
 
-    test('handleMoveTileFromBoardToHand', () => {
+    test("handleMoveTileFromBoardToHand", () => {
       getGameState().handleMoveTileFromBoardToHand(boardLocation);
 
-      expect(mockEmit).toHaveBeenCalledWith('moveTileFromBoardToHand', {
+      expect(mockEmit).toHaveBeenCalledWith("moveTileFromBoardToHand", {
         boardLocation,
       });
     });
 
-    test('handleMoveAllTilesFromBoardToHand', () => {
+    test("handleMoveAllTilesFromBoardToHand", () => {
       getGameState().handleMoveAllTilesFromBoardToHand();
 
-      expect(mockEmit).toHaveBeenCalledWith('moveAllTilesFromBoardToHand', {});
+      expect(mockEmit).toHaveBeenCalledWith("moveAllTilesFromBoardToHand", {});
     });
 
-    test('handleMoveTileOnBoard', () => {
+    test("handleMoveTileOnBoard", () => {
       getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
 
-      expect(mockEmit).toHaveBeenCalledWith('moveTileOnBoard', {
+      expect(mockEmit).toHaveBeenCalledWith("moveTileOnBoard", {
         fromLocation: boardLocation,
         toLocation: boardLocation,
       });
     });
 
-    test('handlePeel', () => {
+    test("handlePeel", () => {
       getGameState().handlePeel();
 
-      expect(mockEmit).toHaveBeenCalledWith('peel', {});
+      expect(mockEmit).toHaveBeenCalledWith("peel", {});
     });
   });
 
-  describe('mount/unmount game management', () => {
+  describe("mount/unmount game management", () => {
     const callComponentMount = () => {
       renderComponent();
       return useEffect.mock.calls[0][0]();
     };
 
-    describe('if in game', () => {
+    describe("if in game", () => {
       beforeEach(() => {
         useLocation.mockReturnValue({
-          pathname: '/pathname',
+          pathname: "/pathname",
           state: {
             gameInfo: gameInfoFixture(),
             isInGame: true,
@@ -124,42 +124,42 @@ describe('<SocketGameProvider />', () => {
         });
       });
 
-      test('removes router state', () => {
+      test("removes router state", () => {
         callComponentMount();
-        expect(mockNavigate).toHaveBeenCalledWith('/pathname', {
+        expect(mockNavigate).toHaveBeenCalledWith("/pathname", {
           replace: true,
         });
       });
 
-      test('emits leave game event on dismount', () => {
+      test("emits leave game event on dismount", () => {
         callComponentMount()();
 
-        expect(mockEmit).toHaveBeenCalledWith('leaveGame', {
-          gameId: 'gameId',
+        expect(mockEmit).toHaveBeenCalledWith("leaveGame", {
+          gameId: "gameId",
         });
       });
     });
 
-    test('if not in game does not do any dismount actions', () => {
-      useLocation.mockReturnValue({ pathname: '/pathname' });
+    test("if not in game does not do any dismount actions", () => {
+      useLocation.mockReturnValue({ pathname: "/pathname" });
 
       expect(callComponentMount()).toBeUndefined();
     });
   });
 
-  describe('mount/unmount game info management', () => {
+  describe("mount/unmount game info management", () => {
     const callComponentMount = () => {
       renderComponent();
       return useEffect.mock.calls[1][0]();
     };
 
-    test('listens on game info events', () => {
+    test("listens on game info events", () => {
       callComponentMount();
 
-      expect(mockOn).toHaveBeenCalledWith('gameInfo', expect.any(Function));
+      expect(mockOn).toHaveBeenCalledWith("gameInfo", expect.any(Function));
     });
 
-    test('sets game info on change', () => {
+    test("sets game info on change", () => {
       const gameInfo = gameInfoFixture();
 
       callComponentMount();
@@ -168,10 +168,10 @@ describe('<SocketGameProvider />', () => {
       expect(mockSetGameInfo).toHaveBeenCalledWith(gameInfo);
     });
 
-    test('stops listening for game info on dismount', () => {
+    test("stops listening for game info on dismount", () => {
       callComponentMount()();
 
-      expect(mockOff).toHaveBeenCalledWith('gameInfo');
+      expect(mockOff).toHaveBeenCalledWith("gameInfo");
     });
   });
 });

@@ -1,21 +1,21 @@
-const baseConfig = require('../jest.config.base');
+const baseConfig = require("../jest.config.base");
 
 module.exports = {
   ...baseConfig,
-  name: 'client',
-  displayName: 'CLIENT',
+  name: "client",
+  displayName: "CLIENT",
   moduleNameMapper: {
-    '\\.(css)$': '<rootDir>/src/__mocks__/styleMock.ts',
+    "\\.(css)$": "<rootDir>/src/__mocks__/styleMock.ts",
   },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
-  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
+  testEnvironment: "jsdom",
   transform: {
-    '^.+\\.tsx?$': [
-      'ts-jest',
+    "^.+\\.tsx?$": [
+      "ts-jest",
       {
         diagnostics: false,
-        tsconfig: 'client/tsconfig.json',
+        tsconfig: "client/tsconfig.json",
       },
     ],
   },

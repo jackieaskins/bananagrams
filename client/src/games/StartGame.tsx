@@ -1,9 +1,9 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from "@mui/material";
 
-import { useGame } from './GameContext';
-import PlayerList from '../players/PlayerList';
-import OpponentBoardPreview from '../boards/OpponentBoardPreview';
-import CopyToClipboard from '../buttons/CopyToClipboard';
+import { useGame } from "./GameContext";
+import PlayerList from "../players/PlayerList";
+import OpponentBoardPreview from "../boards/OpponentBoardPreview";
+import CopyToClipboard from "../buttons/CopyToClipboard";
 
 const StartGame: React.FC = () => {
   const {
@@ -41,7 +41,7 @@ const StartGame: React.FC = () => {
 
               <OpponentBoardPreview
                 initialPlayerIndex={previousSnapshot.findIndex(
-                  (player) => player.isTopBanana
+                  (player) => player.isTopBanana,
                 )}
                 players={previousSnapshot}
                 includeCurrentPlayer

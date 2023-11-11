@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Player } from '../players/types';
+import { useEffect, useState } from "react";
+import { Player } from "../players/types";
 
 type OpponentBoardPreviewState = {
   handleLeftClick: () => void;
@@ -11,14 +11,14 @@ type OpponentBoardPreviewState = {
 
 export const useOpponentBoardPreview = (
   opponents: Player[],
-  initialPlayerIndex: number
+  initialPlayerIndex: number,
 ): OpponentBoardPreviewState => {
   const [selectedUserId, setSelectedUserId] = useState<string | undefined>(
-    opponents[initialPlayerIndex]?.userId
+    opponents[initialPlayerIndex]?.userId,
   );
 
   const foundIndex = opponents.findIndex(
-    ({ userId }) => userId === selectedUserId
+    ({ userId }) => userId === selectedUserId,
   );
   const selectedPlayerIndex = foundIndex < 0 ? 0 : foundIndex;
 
@@ -41,7 +41,7 @@ export const useOpponentBoardPreview = (
   };
 
   const handleSelectedPlayerChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     setSelectedUserId(e.target.value);
   };

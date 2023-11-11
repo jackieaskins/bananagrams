@@ -1,9 +1,9 @@
-import { useState, MouseEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, MouseEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useSocket } from '../socket/SocketContext';
-import { GameInfo, GameLocationState } from './types';
-import { SetState } from '../state/types';
+import { useSocket } from "../socket/SocketContext";
+import { GameInfo, GameLocationState } from "./types";
+import { SetState } from "../state/types";
 
 type JoinGameParams = {
   gameId: string;
@@ -22,8 +22,8 @@ export const useJoinGameForm = (): JoinGameFormState => {
   const navigate = useNavigate();
   const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
 
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
   const [isJoiningGame, setIsJoiningGame] = useState(false);
 
   const onSubmit = (event: MouseEvent<HTMLElement>): void => {
@@ -32,7 +32,7 @@ export const useJoinGameForm = (): JoinGameFormState => {
     setIsJoiningGame(true);
 
     socket.emit(
-      'joinGame',
+      "joinGame",
       { gameId, username },
       (error: Error, gameInfo: GameInfo) => {
         if (error) {
@@ -46,7 +46,7 @@ export const useJoinGameForm = (): JoinGameFormState => {
 
           navigate(`/game/${gameId}`, { state: locationState });
         }
-      }
+      },
     );
   };
 

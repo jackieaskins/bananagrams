@@ -1,21 +1,21 @@
-import { shallow } from 'enzyme';
-import TextField from './TextField';
+import { shallow } from "enzyme";
+import TextField from "./TextField";
 
-describe('<TextField />', () => {
+describe("<TextField />", () => {
   const mockSetValue = jest.fn();
 
   const renderComponent = () =>
     shallow(<TextField setValue={mockSetValue} value="value" />);
 
-  test('renders properly', () => {
+  test("renders properly", () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('onChange calls setValue', () => {
+  test("onChange calls setValue", () => {
     renderComponent()
       .props()
-      .onChange({ target: { value: 'newValue' } });
+      .onChange({ target: { value: "newValue" } });
 
-    expect(mockSetValue).toHaveBeenCalledWith('newValue');
+    expect(mockSetValue).toHaveBeenCalledWith("newValue");
   });
 });

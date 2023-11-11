@@ -1,3 +1,3 @@
-import { Tile } from '../tiles/types';
+import { Tile } from "../tiles/types";
 
 export type Hand = Tile[];

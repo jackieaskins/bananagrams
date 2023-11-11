@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
-import { Grid, Typography } from '@mui/material';
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+import { Grid, Typography } from "@mui/material";
 
-import OpponentBoardPreview from '../boards/OpponentBoardPreview';
-import Board from '../boards/Board';
-import Dump from '../hands/Dump';
-import Hand from '../hands/Hand';
-import PeelButton from './PeelButton';
-import { Player } from '../players/types';
-import { useGame } from './GameContext';
-import { useSocket } from '../socket/SocketContext';
-import { isValidConnectedBoard } from '../boards/validate';
+import OpponentBoardPreview from "../boards/OpponentBoardPreview";
+import Board from "../boards/Board";
+import Dump from "../hands/Dump";
+import Hand from "../hands/Hand";
+import PeelButton from "./PeelButton";
+import { Player } from "../players/types";
+import { useGame } from "./GameContext";
+import { useSocket } from "../socket/SocketContext";
+import { isValidConnectedBoard } from "../boards/validate";
 
-import './Game.css';
+import "./Game.css";
 
 const Game: React.FC = () => {
   const { socket } = useSocket();
@@ -23,7 +23,7 @@ const Game: React.FC = () => {
   } = useGame();
 
   const { board, hand } = players.find(
-    (player) => player.userId === socket.id
+    (player) => player.userId === socket.id,
   ) as Player;
 
   const canPeel = hand.length === 0 && isValidConnectedBoard(board);
@@ -36,7 +36,7 @@ const Game: React.FC = () => {
         container
         spacing={2}
         justifyContent="center"
-        sx={{ marginTop: '1px' }}
+        sx={{ marginTop: "1px" }}
       >
         <Grid item>
           <Typography align="center" variant="body2" gutterBottom>
@@ -62,7 +62,7 @@ const Game: React.FC = () => {
               </Typography>
             </Grid>
 
-            <Grid item style={{ width: '100%' }}>
+            <Grid item style={{ width: "100%" }}>
               <PeelButton
                 canPeel={canPeel}
                 handlePeel={handlePeel}
@@ -70,7 +70,7 @@ const Game: React.FC = () => {
               />
             </Grid>
 
-            <Grid item style={{ width: '100%' }}>
+            <Grid item style={{ width: "100%" }}>
               <Dump />
             </Grid>
             <Grid item>

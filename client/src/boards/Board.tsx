@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 
-import BoardSquare from './BoardSquare';
-import { Board as BoardType } from '../boards/types';
-import TransparentPaper from '../paper/TransparentPaper';
+import BoardSquare from "./BoardSquare";
+import { Board as BoardType } from "../boards/types";
+import TransparentPaper from "../paper/TransparentPaper";
 
 type BoardProps = {
   board: BoardType;

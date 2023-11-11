@@ -1,37 +1,37 @@
-import { shallow } from 'enzyme';
-import { playerFixture } from '../fixtures/player';
-import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
-import OpponentBoardPreview from './OpponentBoardPreview';
+import { shallow } from "enzyme";
+import { playerFixture } from "../fixtures/player";
+import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
+import OpponentBoardPreview from "./OpponentBoardPreview";
 
-jest.mock('../socket/SocketContext', () => ({
+jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
-    socket: { id: 'playerId' },
+    socket: { id: "playerId" },
   }),
 }));
 
-jest.mock('./OpponentBoardPreviewState', () => ({
+jest.mock("./OpponentBoardPreviewState", () => ({
   useOpponentBoardPreview: jest.fn(),
 }));
 
-describe('<OpponentBoardPreview />', () => {
+describe("<OpponentBoardPreview />", () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(
       <OpponentBoardPreview
-        players={[playerFixture({ userId: 'playerId' })]}
+        players={[playerFixture({ userId: "playerId" })]}
         {...propOverrides}
-      />
+      />,
     );
 
   const mockOpponentBoardPreviewState = (
     selectedPlayerIndex = 0,
-    selectedUserId = 'opponent'
+    selectedUserId = "opponent",
   ) => {
     useOpponentBoardPreview.mockReturnValue({
-      handleLeftClick: jest.fn().mockName('handleLeftClick'),
-      handleRightClick: jest.fn().mockName('handleRightClick'),
+      handleLeftClick: jest.fn().mockName("handleLeftClick"),
+      handleRightClick: jest.fn().mockName("handleRightClick"),
       handleSelectedPlayerChange: jest
         .fn()
-        .mockName('handleSelectedPlayerChange'),
+        .mockName("handleSelectedPlayerChange"),
       selectedPlayerIndex,
       selectedUserId,
     });
@@ -41,43 +41,43 @@ describe('<OpponentBoardPreview />', () => {
     mockOpponentBoardPreviewState();
   });
 
-  test('does not render if no opponents', () => {
+  test("does not render if no opponents", () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders current player if includeCurrentPlayer', () => {
+  test("renders current player if includeCurrentPlayer", () => {
     expect(
       renderComponent({
         includeCurrentPlayer: true,
-        players: [playerFixture({ userId: 'playerId' })],
-      })
+        players: [playerFixture({ userId: "playerId" })],
+      }),
     ).toMatchSnapshot();
   });
 
-  test('renders properly with one opponent', () => {
+  test("renders properly with one opponent", () => {
     expect(
-      renderComponent({ players: [playerFixture({ userId: 'opponent' })] })
+      renderComponent({ players: [playerFixture({ userId: "opponent" })] }),
     ).toMatchSnapshot();
   });
 
-  test('renders properly with multiple opponents', () => {
+  test("renders properly with multiple opponents", () => {
     expect(
       renderComponent({
         players: [
-          playerFixture({ userId: 'opponent' }),
-          playerFixture({ userId: 'opponent2' }),
+          playerFixture({ userId: "opponent" }),
+          playerFixture({ userId: "opponent2" }),
         ],
-      })
+      }),
     ).toMatchSnapshot();
   });
 
-  test('renders empty board and hand when selectedIndex is out of bounds', () => {
+  test("renders empty board and hand when selectedIndex is out of bounds", () => {
     mockOpponentBoardPreviewState(5);
 
     expect(
       renderComponent({
-        players: [playerFixture({ userId: 'opponent' })],
-      })
+        players: [playerFixture({ userId: "opponent" })],
+      }),
     ).toMatchSnapshot();
   });
 });

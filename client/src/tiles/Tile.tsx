@@ -1,7 +1,7 @@
-import { Typography, Box } from '@mui/material';
-import { useDrag } from 'react-dnd';
+import { Typography, Box } from "@mui/material";
+import { useDrag } from "react-dnd";
 
-import { Tile as TileType } from './types';
+import { Tile as TileType } from "./types";
 
 type TileProps = {
   boardLocation: { x: number; y: number } | null;
@@ -12,16 +12,16 @@ type TileProps = {
 const Tile: React.FC<TileProps> = ({
   boardLocation,
   tile: { id, letter },
-  color = 'black',
+  color = "black",
 }) => {
   const [{ isDragging }, dragRef] = useDrag({
-    item: { type: 'TILE', id, boardLocation },
+    item: { type: "TILE", id, boardLocation },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const margin = !!boardLocation ? '0' : '5px';
+  const margin = !!boardLocation ? "0" : "5px";
 
   return (
     <Box
@@ -33,12 +33,12 @@ const Tile: React.FC<TileProps> = ({
       borderRadius={1}
       sx={{
         color: color,
-        backgroundColor: '#ffffc7',
-        cursor: 'move',
-        height: '25px',
+        backgroundColor: "#ffffc7",
+        cursor: "move",
+        height: "25px",
         margin,
         opacity: isDragging ? 0.5 : 1,
-        width: '25px',
+        width: "25px",
       }}
     >
       <Typography variant="body2">{letter}</Typography>

@@ -1,9 +1,9 @@
-import { shallow } from 'enzyme';
-import { boardSquareFixture } from '../fixtures/board';
-import Board from './Board';
+import { shallow } from "enzyme";
+import { boardSquareFixture } from "../fixtures/board";
+import Board from "./Board";
 
-describe('<Board />', () => {
-  test('renders properly', () => {
+describe("<Board />", () => {
+  test("renders properly", () => {
     const board = [
       [boardSquareFixture(), null],
       [null, null],

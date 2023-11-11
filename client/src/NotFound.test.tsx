@@ -1,8 +1,8 @@
-import { shallow } from 'enzyme';
-import NotFound from './NotFound';
+import { shallow } from "enzyme";
+import NotFound from "./NotFound";
 
-describe('<NotFound />', () => {
-  test('renders not found header', () => {
+describe("<NotFound />", () => {
+  test("renders not found header", () => {
     expect(shallow(<NotFound />)).toMatchSnapshot();
   });
 });

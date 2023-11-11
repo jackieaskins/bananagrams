@@ -4,17 +4,17 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     // Both
-    'src/**/*.{ts,tsx}',
-    '!src/index.{ts,tsx}',
+    "src/**/*.{ts,tsx}",
+    "!src/index.{ts,tsx}",
 
     // Server
-    '!src/dictionary/words.ts',
-    '!src/devServer.ts',
+    "!src/dictionary/words.ts",
+    "!src/devServer.ts",
 
     // Client
-    '!src/socket/index.ts',
-    '!src/**/*.stories.tsx',
-    '!src/fixtures/**/*.{ts,tsx}',
+    "!src/socket/index.ts",
+    "!src/**/*.stories.tsx",
+    "!src/fixtures/**/*.{ts,tsx}",
   ],
-  preset: 'ts-jest',
+  preset: "ts-jest",
 };

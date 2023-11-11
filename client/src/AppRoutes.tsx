@@ -1,10 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import Home from './Home';
-import NotFound from './NotFound';
-import GameManager from './games/GameManager';
-import JoinGame from './games/JoinGame';
-import SocketGameProvider from './games/SocketGameProvider';
+import Home from "./Home";
+import NotFound from "./NotFound";
+import GameManager from "./games/GameManager";
+import JoinGame from "./games/JoinGame";
+import SocketGameProvider from "./games/SocketGameProvider";
 
 const AppRoutes: React.FC = () => (
   <Routes>

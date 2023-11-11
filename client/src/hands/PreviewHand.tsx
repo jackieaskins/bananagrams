@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 
-import TransparentPaper from '../paper/TransparentPaper';
-import { Hand } from './types';
+import TransparentPaper from "../paper/TransparentPaper";
+import { Hand } from "./types";
 
 type PreviewHandProps = {
   hand: Hand;

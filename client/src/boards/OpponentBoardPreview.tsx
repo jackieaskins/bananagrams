@@ -1,10 +1,10 @@
-import PreviewBoard from './PreviewBoard';
-import { useSocket } from '../socket/SocketContext';
-import { Box, Grid, IconButton, MenuItem, TextField } from '@mui/material';
-import { NavigateBefore, NavigateNext } from '@mui/icons-material';
-import PreviewHand from '../hands/PreviewHand';
-import { Player } from '../players/types';
-import { useOpponentBoardPreview } from './OpponentBoardPreviewState';
+import PreviewBoard from "./PreviewBoard";
+import { useSocket } from "../socket/SocketContext";
+import { Box, Grid, IconButton, MenuItem, TextField } from "@mui/material";
+import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import PreviewHand from "../hands/PreviewHand";
+import { Player } from "../players/types";
+import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 
 type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;
@@ -54,7 +54,7 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
         </Box>
       </Grid>
 
-      <Grid item sx={{ width: '100%' }}>
+      <Grid item sx={{ width: "100%" }}>
         <Box display="flex" justifyContent="space-between">
           <IconButton
             size="small"

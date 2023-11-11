@@ -4,9 +4,9 @@ import {
   Direction,
   BoardSquare,
   ValidationStatus,
-} from './models/Board';
-import Tile from './models/Tile';
-import Dictionary from './dictionary/Dictionary';
+} from "./models/Board";
+import Tile from "./models/Tile";
+import Dictionary from "./dictionary/Dictionary";
 
 type ValidateLocation = {
   start: BoardLocation;
@@ -26,7 +26,7 @@ const iterateWordFromStart = (
   board: BoardSquares,
   start: BoardLocation,
   direction: Direction,
-  loopFn: (square: BoardSquare) => boolean | void
+  loopFn: (square: BoardSquare) => boolean | void,
 ): void => {
   const delta = getDelta(direction);
   let { x: nextX, y: nextY } = start;
@@ -42,7 +42,7 @@ const iterateWordFromStart = (
 
 const validateWordsAtLocations = (
   board: BoardSquares,
-  locationsToValidate: ValidateLocation[]
+  locationsToValidate: ValidateLocation[],
 ): void => {
   const locationsWithWords = locationsToValidate.map(({ start, direction }) => {
     const word: string[] = [];
@@ -51,7 +51,7 @@ const validateWordsAtLocations = (
       word.push(square.tile.getLetter());
     });
 
-    return { start, direction, word: word.join('') };
+    return { start, direction, word: word.join("") };
   });
 
   locationsWithWords.forEach(({ start, direction, word }) => {
@@ -74,10 +74,10 @@ const validateWordsAtLocations = (
 export const validateAddTile = (
   board: BoardSquares,
   location: BoardLocation,
-  tile: Tile
+  tile: Tile,
 ): BoardSquares => {
   const directions: Direction[] = Object.keys(Direction).map(
-    (direction) => Direction[direction as keyof typeof Direction]
+    (direction) => Direction[direction as keyof typeof Direction],
   );
   const { x, y } = location;
 
@@ -100,7 +100,7 @@ export const validateAddTile = (
         direction,
         (square) => {
           square.wordInfo[direction].start = start;
-        }
+        },
       );
     }
 
@@ -121,10 +121,10 @@ export const validateAddTile = (
 
 export const validateRemoveTile = (
   board: BoardSquares,
-  location: BoardLocation
+  location: BoardLocation,
 ): BoardSquares => {
   const directions: Direction[] = Object.keys(Direction).map(
-    (direction) => Direction[direction as keyof typeof Direction]
+    (direction) => Direction[direction as keyof typeof Direction],
   );
   const { x, y } = location;
 

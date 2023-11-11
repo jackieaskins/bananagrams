@@ -1,9 +1,9 @@
-import { shallow } from 'enzyme';
-import { boardSquareFixture } from '../fixtures/board';
-import PreviewBoard from './PreviewBoard';
+import { shallow } from "enzyme";
+import { boardSquareFixture } from "../fixtures/board";
+import PreviewBoard from "./PreviewBoard";
 
-describe('<PreviewBoard />', () => {
-  test('renders properly', () => {
+describe("<PreviewBoard />", () => {
+  test("renders properly", () => {
     expect(
       shallow(
         <PreviewBoard
@@ -12,8 +12,8 @@ describe('<PreviewBoard />', () => {
             [null, null],
           ]}
           tileSize={23}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 });

@@ -3,10 +3,10 @@ import {
   ValidationStatus,
   Direction,
   WordInfo,
-} from '../boards/types';
+} from "../boards/types";
 
 export const wordInfoFixture = (
-  overrides: Partial<WordInfo> = {}
+  overrides: Partial<WordInfo> = {},
 ): WordInfo => ({
   start: { x: 0, y: 0 },
   validation: ValidationStatus.VALID,
@@ -14,9 +14,9 @@ export const wordInfoFixture = (
 });
 
 export const boardSquareFixture = (
-  overrides: Partial<BoardSquare> = {}
+  overrides: Partial<BoardSquare> = {},
 ): BoardSquare => ({
-  tile: { id: 'A1', letter: 'A' },
+  tile: { id: "A1", letter: "A" },
   wordInfo: {
     [Direction.ACROSS]: {
       start: { x: 0, y: 0 },

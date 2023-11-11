@@ -1,4 +1,4 @@
-import { Board, BoardLocation, ValidationStatus, BoardSquare } from './types';
+import { Board, BoardLocation, ValidationStatus, BoardSquare } from "./types";
 
 export const isValidConnectedBoard = (board: Board): boolean => {
   const width = board.length;
@@ -32,7 +32,7 @@ export const isValidConnectedBoard = (board: Board): boolean => {
 
           if (
             Object.values((board[x][y] as BoardSquare).wordInfo).some(
-              ({ validation }) => validation === ValidationStatus.INVALID
+              ({ validation }) => validation === ValidationStatus.INVALID,
             )
           ) {
             return false;

@@ -1,12 +1,12 @@
-import { Server, Socket } from 'socket.io';
-import GameController from './controllers/GameController';
+import { Server, Socket } from "socket.io";
+import GameController from "./controllers/GameController";
 
 export const handler = (
   fn: () => Record<string, any> | void,
   callback?: (
     error: { message: string } | null,
-    data: Record<string, any> | null
-  ) => void
+    data: Record<string, any> | null,
+  ) => void,
 ): void => {
   try {
     const returnValue = fn() || null;
@@ -18,7 +18,7 @@ export const handler = (
 };
 
 export const configureSocket = (io: Server): void => {
-  io.on('connection', (socket: Socket) => {
+  io.on("connection", (socket: Socket) => {
     const { id: userId } = socket;
 
     console.log(`New connection: ${userId}`);
@@ -27,12 +27,12 @@ export const configureSocket = (io: Server): void => {
 
     const validateGameControllerExists = (): void => {
       if (!gameController) {
-        throw new Error('Not in a game');
+        throw new Error("Not in a game");
       }
     };
 
     socket.on(
-      'createGame',
+      "createGame",
       ({ gameName, username, isShortenedGame }, callback) => {
         handler(() => {
           gameController = GameController.createGame(
@@ -40,28 +40,28 @@ export const configureSocket = (io: Server): void => {
             username,
             isShortenedGame,
             io,
-            socket
+            socket,
           );
           return gameController.getCurrentGame().toJSON();
         }, callback);
-      }
+      },
     );
 
-    socket.on('joinGame', ({ gameId, username }, callback) => {
+    socket.on("joinGame", ({ gameId, username }, callback) => {
       handler(() => {
         gameController = GameController.joinGame(gameId, username, io, socket);
         return gameController.getCurrentGame().toJSON();
       }, callback);
     });
 
-    socket.on('kickPlayer', ({ userId }, callback) => {
+    socket.on("kickPlayer", ({ userId }, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).kickPlayer(userId);
       }, callback);
     });
 
-    socket.on('leaveGame', ({}, callback) => {
+    socket.on("leaveGame", ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).leaveGame();
@@ -69,21 +69,21 @@ export const configureSocket = (io: Server): void => {
       }, callback);
     });
 
-    socket.on('ready', ({ isReady }, callback) => {
+    socket.on("ready", ({ isReady }, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).setReady(isReady);
       }, callback);
     });
 
-    socket.on('peel', ({}, callback) => {
+    socket.on("peel", ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).peel();
       }, callback);
     });
 
-    socket.on('dump', ({ tileId, boardLocation }, callback) => {
+    socket.on("dump", ({ tileId, boardLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).dump(tileId, boardLocation);
@@ -91,52 +91,52 @@ export const configureSocket = (io: Server): void => {
     });
 
     socket.on(
-      'moveTileFromHandToBoard',
+      "moveTileFromHandToBoard",
       ({ tileId, boardLocation }, callback) => {
         handler(() => {
           validateGameControllerExists();
           (gameController as GameController).moveTileFromHandToBoard(
             tileId,
-            boardLocation
+            boardLocation,
           );
         }, callback);
-      }
+      },
     );
 
-    socket.on('moveTileFromBoardToHand', ({ boardLocation }, callback) => {
+    socket.on("moveTileFromBoardToHand", ({ boardLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).moveTileFromBoardToHand(
-          boardLocation
+          boardLocation,
         );
       }, callback);
     });
 
-    socket.on('moveAllTilesFromBoardToHand', ({}, callback) => {
+    socket.on("moveAllTilesFromBoardToHand", ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).moveAllTilesFromBoardToHand();
       }, callback);
     });
 
-    socket.on('moveTileOnBoard', ({ fromLocation, toLocation }, callback) => {
+    socket.on("moveTileOnBoard", ({ fromLocation, toLocation }, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).moveTileOnBoard(
           fromLocation,
-          toLocation
+          toLocation,
         );
       }, callback);
     });
 
-    socket.on('shuffleHand', ({}, callback) => {
+    socket.on("shuffleHand", ({}, callback) => {
       handler(() => {
         validateGameControllerExists();
         (gameController as GameController).shuffleHand();
       }, callback);
     });
 
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       gameController?.leaveGame();
       gameController = undefined;
       console.log(`${userId} disconnected`);

@@ -1,14 +1,14 @@
-import { shallow } from 'enzyme';
-import JoinGame from './JoinGame';
+import { shallow } from "enzyme";
+import JoinGame from "./JoinGame";
 
-jest.mock('react-router-dom', () => ({
+jest.mock("react-router-dom", () => ({
   useParams: () => ({
-    gameId: 'gameId',
+    gameId: "gameId",
   }),
 }));
 
-describe('<JoinGame />', () => {
-  test('renders properly', () => {
+describe("<JoinGame />", () => {
+  test("renders properly", () => {
     expect(shallow(<JoinGame />)).toMatchSnapshot();
   });
 });

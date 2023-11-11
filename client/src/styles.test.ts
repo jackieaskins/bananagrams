@@ -1,6 +1,6 @@
-import { useStyles } from './styles';
+import { useStyles } from "./styles";
 
-jest.mock('@mui/material/styles', () => ({
+jest.mock("@mui/material/styles", () => ({
   createStyles: (values: any): any => values,
   makeStyles: (fn: any): any =>
     fn({
@@ -13,20 +13,20 @@ jest.mock('@mui/material/styles', () => ({
       },
       palette: {
         error: {
-          main: '#error-main',
-          contrastText: '#error-contrast-text',
+          main: "#error-main",
+          contrastText: "#error-contrast-text",
         },
         success: {
-          main: '#success-main',
-          contrastText: '#success-contrast-text',
+          main: "#success-main",
+          contrastText: "#success-contrast-text",
         },
       },
     }),
 }));
 
-describe('styles', () => {
-  describe('useStyles', () => {
-    test('contains expected values', () => {
+describe("styles", () => {
+  describe("useStyles", () => {
+    test("contains expected values", () => {
       expect(useStyles).toMatchSnapshot();
     });
   });

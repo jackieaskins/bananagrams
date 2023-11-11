@@ -1,7 +1,7 @@
-import { useServerDisconnectionDialog } from './ServerDisconnectionDialogState';
+import { useServerDisconnectionDialog } from "./ServerDisconnectionDialogState";
 
 const mockSetShouldShowDialog = jest.fn();
-jest.mock('react', () => ({
+jest.mock("react", () => ({
   useEffect: jest.fn().mockImplementation((f) => f()),
   useState: jest
     .fn()
@@ -12,40 +12,40 @@ jest.mock('react', () => ({
 }));
 
 const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
+jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 
 const mockOn = jest.fn();
-jest.mock('../socket/SocketContext', () => ({
+jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
     socket: { on: mockOn },
   }),
 }));
 
-describe('useServerDisconnectionDialog', () => {
-  test('listens for socket disconnect event', () => {
+describe("useServerDisconnectionDialog", () => {
+  test("listens for socket disconnect event", () => {
     useServerDisconnectionDialog();
-    expect(mockOn).toHaveBeenCalledWith('disconnect', expect.any(Function));
+    expect(mockOn).toHaveBeenCalledWith("disconnect", expect.any(Function));
   });
 
-  test('on disconnect shows dialog', () => {
+  test("on disconnect shows dialog", () => {
     useServerDisconnectionDialog();
     mockOn.mock.calls[0][1]();
 
     expect(mockSetShouldShowDialog).toHaveBeenCalledWith(true);
   });
 
-  describe('hideDialog', () => {
+  describe("hideDialog", () => {
     beforeEach(() => {
       useServerDisconnectionDialog().hideDialog();
     });
 
-    test('redirects to homepage', () => {
-      expect(mockNavigate).toHaveBeenCalledWith('/');
+    test("redirects to homepage", () => {
+      expect(mockNavigate).toHaveBeenCalledWith("/");
     });
 
-    test('hides dialog', () => {
+    test("hides dialog", () => {
       expect(mockSetShouldShowDialog).toHaveBeenCalledWith(false);
     });
   });

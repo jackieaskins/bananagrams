@@ -1,10 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography } from "@mui/material";
 
-import TransparentPaper from '../paper/TransparentPaper';
-import { useDrop } from 'react-dnd';
-import { TileItem } from '../tiles/types';
-import { useGame } from '../games/GameContext';
-import { invalidDropSx, validDropSx } from '../styles';
+import TransparentPaper from "../paper/TransparentPaper";
+import { useDrop } from "react-dnd";
+import { TileItem } from "../tiles/types";
+import { useGame } from "../games/GameContext";
+import { invalidDropSx, validDropSx } from "../styles";
 
 const EXCHANGE_COUNT = 3;
 
@@ -15,7 +15,7 @@ const Dump: React.FC = () => {
   } = useGame();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
-    accept: 'TILE',
+    accept: "TILE",
     canDrop: () => bunch.length >= EXCHANGE_COUNT,
     drop: (tileItem: TileItem) => {
       handleDump(tileItem);
@@ -27,7 +27,7 @@ const Dump: React.FC = () => {
   });
 
   return (
-    <TransparentPaper sx={{ width: '100%' }}>
+    <TransparentPaper sx={{ width: "100%" }}>
       <Box
         ref={dropRef}
         display="flex"

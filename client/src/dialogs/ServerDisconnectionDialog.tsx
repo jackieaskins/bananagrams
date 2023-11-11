@@ -4,9 +4,9 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-} from '@mui/material';
+} from "@mui/material";
 
-import { useServerDisconnectionDialog } from './ServerDisconnectionDialogState';
+import { useServerDisconnectionDialog } from "./ServerDisconnectionDialogState";
 
 const ServerDisconnectionDialog: React.FC = () => {
   const { shouldShowDialog, hideDialog } = useServerDisconnectionDialog();

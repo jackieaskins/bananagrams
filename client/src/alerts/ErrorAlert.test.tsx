@@ -1,14 +1,14 @@
-import { shallow } from 'enzyme';
-import ErrorAlert from './ErrorAlert';
+import { shallow } from "enzyme";
+import ErrorAlert from "./ErrorAlert";
 
-describe('<ErrorAlert />', () => {
-  test('renders Alert when visible', () => {
+describe("<ErrorAlert />", () => {
+  test("renders Alert when visible", () => {
     expect(
-      shallow(<ErrorAlert visible>Children</ErrorAlert>)
+      shallow(<ErrorAlert visible>Children</ErrorAlert>),
     ).toMatchSnapshot();
   });
 
-  test('returns null when not visible', () => {
+  test("returns null when not visible", () => {
     expect(shallow(<ErrorAlert visible={false} />)).toMatchSnapshot();
   });
 });

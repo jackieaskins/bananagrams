@@ -1,17 +1,17 @@
-import { Tile } from '../tiles/types';
+import { Tile } from "../tiles/types";
 
 export enum Direction {
-  ACROSS = 'ACROSS',
-  DOWN = 'DOWN',
+  ACROSS = "ACROSS",
+  DOWN = "DOWN",
 }
 export type BoardLocation = {
   x: number;
   y: number;
 };
 export enum ValidationStatus {
-  NOT_VALIDATED = 'NOT_VALIDATED',
-  VALID = 'VALID',
-  INVALID = 'INVALID',
+  NOT_VALIDATED = "NOT_VALIDATED",
+  VALID = "VALID",
+  INVALID = "INVALID",
 }
 export type WordInfo = {
   start: BoardLocation;

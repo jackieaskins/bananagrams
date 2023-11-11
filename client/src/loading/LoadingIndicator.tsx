@@ -1,11 +1,11 @@
-import { CircularProgress, CircularProgressProps } from '@mui/material';
+import { CircularProgress, CircularProgressProps } from "@mui/material";
 
 interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;
 }
 
 const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
-  color = 'inherit',
+  color = "inherit",
   loadingText,
   ...rest
 }) => (

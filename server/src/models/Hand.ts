@@ -1,5 +1,5 @@
-import Tile, { TileJSON } from './Tile';
-import BaseModel from './BaseModel';
+import Tile, { TileJSON } from "./Tile";
+import BaseModel from "./BaseModel";
 
 export type HandJSON = TileJSON[];
 

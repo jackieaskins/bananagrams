@@ -1,4 +1,4 @@
-import { DragObjectWithType } from 'react-dnd';
+import { DragObjectWithType } from "react-dnd";
 
 export type Tile = {
   id: string;

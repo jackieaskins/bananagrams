@@ -1,4 +1,4 @@
-import { SxProps, Theme } from '@mui/material/styles';
+import { SxProps, Theme } from "@mui/material/styles";
 
 export const invalidDropSx: SxProps<Theme> = {
   backgroundColor: (theme: Theme) => theme.palette.error.main,
@@ -7,7 +7,7 @@ export const invalidDropSx: SxProps<Theme> = {
 };
 
 export const transparentPaperSx: SxProps<Theme> = {
-  backgroundColor: 'transparent',
+  backgroundColor: "transparent",
 };
 
 export const validDropSx: SxProps<Theme> = {

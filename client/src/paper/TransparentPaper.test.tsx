@@ -1,14 +1,14 @@
-import { shallow } from 'enzyme';
-import TransparentPaper from './TransparentPaper';
+import { shallow } from "enzyme";
+import TransparentPaper from "./TransparentPaper";
 
-jest.mock('../styles', () => ({
+jest.mock("../styles", () => ({
   useStyles: () => ({
-    transparentPaper: 'transparentPaper',
+    transparentPaper: "transparentPaper",
   }),
 }));
 
-describe('<TransparentPaper />', () => {
-  test('renders properly', () => {
+describe("<TransparentPaper />", () => {
+  test("renders properly", () => {
     expect(shallow(<TransparentPaper />)).toMatchSnapshot();
   });
 });

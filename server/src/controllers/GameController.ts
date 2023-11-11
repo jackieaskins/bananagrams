@@ -1,9 +1,9 @@
-import { Server, Socket } from 'socket.io';
-import { v4 as uuidv4 } from 'uuid';
+import { Server, Socket } from "socket.io";
+import { v4 as uuidv4 } from "uuid";
 
-import Game, { GameJSON } from '../models/Game';
-import Player from '../models/Player';
-import { BoardLocation } from '../models/Board';
+import Game, { GameJSON } from "../models/Game";
+import Player from "../models/Player";
+import { BoardLocation } from "../models/Board";
 
 const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;
@@ -21,7 +21,7 @@ export default class GameController {
     io: Server,
     socket: Socket,
     currentGame: Game,
-    currentPlayer: Player
+    currentPlayer: Player,
   ) {
     this.io = io;
     this.socket = socket;
@@ -34,14 +34,14 @@ export default class GameController {
   private static emitNotification(
     from: Server | Socket,
     to: string,
-    message: string
+    message: string,
   ): void {
-    from.to(to).emit('notification', { message });
+    from.to(to).emit("notification", { message });
   }
 
   private static emitGameInfo(from: Server | Socket, game: Game): GameJSON {
     const gameInfo = game.toJSON();
-    from.to(game.getId()).emit('gameInfo', gameInfo);
+    from.to(game.getId()).emit("gameInfo", gameInfo);
     return gameInfo;
   }
 
@@ -54,7 +54,7 @@ export default class GameController {
     username: string,
     isShortenedGame: boolean,
     io: Server,
-    socket: Socket
+    socket: Socket,
   ): GameController {
     let gameId: string;
 
@@ -75,26 +75,26 @@ export default class GameController {
     gameId: string,
     username: string,
     io: Server,
-    socket: Socket
+    socket: Socket,
   ): GameController {
     const game = this.games[gameId];
 
     if (!game) {
-      throw new Error('Game does not exist');
+      throw new Error("Game does not exist");
     }
 
     if (game.isShortenedGame() && game.getPlayers().length > 0) {
       throw new Error(
-        'This game was created for test purposes and cannot be joined.'
+        "This game was created for test purposes and cannot be joined.",
       );
     }
 
     if (game.getPlayers().length >= MAX_PLAYERS) {
-      throw new Error('Game is full');
+      throw new Error("Game is full");
     }
 
     if (game.isInProgress()) {
-      throw new Error('Game is already in progress');
+      throw new Error("Game is already in progress");
     }
 
     const isAdmin = game.getPlayers().length === 0;
@@ -118,7 +118,7 @@ export default class GameController {
 
   kickPlayer(userId: string): void {
     if (!this.currentPlayer.isAdmin()) {
-      throw new Error('Only game admins can kick players from the game');
+      throw new Error("Only game admins can kick players from the game");
     }
 
     this.io.sockets.sockets.get(userId)?.disconnect(true);
@@ -144,7 +144,7 @@ export default class GameController {
     GameController.emitNotification(
       socket,
       gameId,
-      `${currentPlayer.getUsername()} has left the game.`
+      `${currentPlayer.getUsername()} has left the game.`,
     );
 
     const everyoneElseIsReady = currentGame
@@ -193,13 +193,13 @@ export default class GameController {
       GameController.emitNotification(
         socket,
         currentGame.getId(),
-        `Game is over, ${currentPlayer.getUsername()} won.`
+        `Game is over, ${currentPlayer.getUsername()} won.`,
       );
 
       GameController.emitNotification(
         io,
         currentPlayer.getUserId(),
-        'Game is over, you won!'
+        "Game is over, you won!",
       );
 
       currentGame.setInProgress(false);
@@ -214,13 +214,13 @@ export default class GameController {
       });
 
       currentGame.setSnapshot(
-        currentGame.getPlayers().map((player) => player.toJSON())
+        currentGame.getPlayers().map((player) => player.toJSON()),
       );
     } else {
       GameController.emitNotification(
         socket,
         currentGame.getId(),
-        `${currentPlayer.getUsername()} peeled.`
+        `${currentPlayer.getUsername()} peeled.`,
       );
 
       currentPlayers.forEach((player) => {
@@ -237,7 +237,7 @@ export default class GameController {
     GameController.emitNotification(
       socket,
       currentGame.getId(),
-      `${currentPlayer.getUsername()} dumped a tile.`
+      `${currentPlayer.getUsername()} dumped a tile.`,
     );
 
     const dumpedTile = !!boardLocation
@@ -264,7 +264,7 @@ export default class GameController {
 
   moveTileOnBoard(
     fromLocation: BoardLocation,
-    toLocation: BoardLocation
+    toLocation: BoardLocation,
   ): void {
     const { io, currentGame, currentPlayer } = this;
     currentPlayer.moveTileOnBoard(fromLocation, toLocation);
@@ -290,7 +290,7 @@ export default class GameController {
     GameController.emitNotification(
       io,
       gameId,
-      'Everyone is ready, the game will start soon!'
+      "Everyone is ready, the game will start soon!",
     );
 
     const currentPlayers = currentGame.getPlayers();
@@ -300,7 +300,7 @@ export default class GameController {
       player
         .getHand()
         .addTiles(
-          currentGame.getBunch().removeTiles(this.getInitialTileCount())
+          currentGame.getBunch().removeTiles(this.getInitialTileCount()),
         );
     });
     currentGame.setInProgress(true);

@@ -7,11 +7,11 @@ import {
   SpeedDial,
   SpeedDialAction,
   SpeedDialIcon,
-} from '@mui/material';
-import { ExitToApp } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+} from "@mui/material";
+import { ExitToApp } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-import { useGameSpeedDial } from './GameSpeedDialState';
+import { useGameSpeedDial } from "./GameSpeedDialState";
 
 const GameSpeedDial: React.FC = () => {
   const { leaveGameDialogOpen, showLeaveGameDialog, handleLeaveGameCancel } =
@@ -21,7 +21,7 @@ const GameSpeedDial: React.FC = () => {
     <>
       <SpeedDial
         ariaLabel="Leave game speed dial"
-        sx={{ position: 'absolute', bottom: 10, right: 10 }}
+        sx={{ position: "absolute", bottom: 10, right: 10 }}
         icon={<SpeedDialIcon />}
       >
         <SpeedDialAction

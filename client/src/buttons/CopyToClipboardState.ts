@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useSnackbar } from 'notistack';
+import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
 
 export type CopyToClipboardState = {
   shouldShow: boolean;
@@ -13,10 +13,10 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
   useEffect(() => {
     const checkIfClipboardWriteSupported = async (): Promise<void> => {
       const { state } = await navigator.permissions.query({
-        name: 'clipboard-write',
+        name: "clipboard-write",
       } as any);
 
-      if (state === 'granted' || state === 'prompt') {
+      if (state === "granted" || state === "prompt") {
         setShouldShow(true);
       } else {
         setShouldShow(false);
@@ -29,9 +29,9 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
   const copyToClipboard = async (copyText: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(copyText);
-      enqueueSnackbar('Successfully copied to clipboard.');
+      enqueueSnackbar("Successfully copied to clipboard.");
     } catch (err) {
-      enqueueSnackbar('Unable to copy to clipboard.');
+      enqueueSnackbar("Unable to copy to clipboard.");
     }
   };
 

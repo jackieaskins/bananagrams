@@ -1,30 +1,30 @@
-import { shallow } from 'enzyme';
-import { useCopyToClipboard } from './CopyToClipboardState';
-import CopyToClipboard from './CopyToClipboard';
-import { IconButton } from '@mui/material';
+import { shallow } from "enzyme";
+import { useCopyToClipboard } from "./CopyToClipboardState";
+import CopyToClipboard from "./CopyToClipboard";
+import { IconButton } from "@mui/material";
 
-jest.mock('./CopyToClipboardState', () => ({
+jest.mock("./CopyToClipboardState", () => ({
   useCopyToClipboard: jest.fn().mockReturnValue({
     shouldShow: true,
     copyToClipboard: jest.fn(),
   }),
 }));
 
-describe('<CopyToClipboard />', () => {
+describe("<CopyToClipboard />", () => {
   const renderComponent = () =>
     shallow(<CopyToClipboard copyText="copyText" />);
 
-  test('renders properly when should show', () => {
+  test("renders properly when should show", () => {
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('renders properly when should not show', () => {
+  test("renders properly when should not show", () => {
     useCopyToClipboard.mockReturnValue({ shouldShow: false });
 
     expect(renderComponent()).toMatchSnapshot();
   });
 
-  test('onClick calls copyToClipboard', () => {
+  test("onClick calls copyToClipboard", () => {
     const mockCopyToClipboard = jest.fn();
     useCopyToClipboard.mockReturnValue({
       shouldShow: true,
@@ -33,6 +33,6 @@ describe('<CopyToClipboard />', () => {
 
     renderComponent().find(IconButton).props().onClick();
 
-    expect(mockCopyToClipboard).toHaveBeenCalledWith('copyText');
+    expect(mockCopyToClipboard).toHaveBeenCalledWith("copyText");
   });
 });

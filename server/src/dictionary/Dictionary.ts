@@ -1,5 +1,5 @@
-import Trie from './Trie';
-import words from './words';
+import Trie from "./Trie";
+import words from "./words";
 
 export default class Dictionary {
   static trie: Trie;

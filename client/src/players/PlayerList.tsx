@@ -7,11 +7,11 @@ import {
   TableHead,
   TableRow,
   IconButton,
-} from '@mui/material';
-import { Check, Close, DeleteOutline } from '@mui/icons-material';
+} from "@mui/material";
+import { Check, Close, DeleteOutline } from "@mui/icons-material";
 
-import { useSocket } from '../socket/SocketContext';
-import { useGame } from '../games/GameContext';
+import { useSocket } from "../socket/SocketContext";
+import { useGame } from "../games/GameContext";
 
 const MAX_PLAYERS = 16;
 
@@ -26,7 +26,7 @@ const PlayerList: React.FC = () => {
   return (
     <TableContainer>
       <Table>
-        <caption style={{ textAlign: 'center' }}>
+        <caption style={{ textAlign: "center" }}>
           <div>The game will start once all players are ready</div>
           <div>
             Current player count: {players.length}/{MAX_PLAYERS} max
@@ -47,19 +47,19 @@ const PlayerList: React.FC = () => {
             ({ gamesWon, isReady, isTopBanana, isAdmin, userId, username }) => {
               const isCurrentUser = userId === socket.id;
               const ReadyIcon = isReady ? Check : Close;
-              const readyColor = isReady ? 'green' : 'red';
+              const readyColor = isReady ? "green" : "red";
 
               return (
                 <TableRow
                   key={userId}
                   style={{
                     backgroundColor: isCurrentUser
-                      ? 'rgba(0, 0, 0, 0.08)'
-                      : 'inherit',
+                      ? "rgba(0, 0, 0, 0.08)"
+                      : "inherit",
                   }}
                 >
                   <TableCell
-                    padding={isCurrentUser ? 'checkbox' : undefined}
+                    padding={isCurrentUser ? "checkbox" : undefined}
                     align="center"
                   >
                     {isCurrentUser ? (
@@ -67,7 +67,7 @@ const PlayerList: React.FC = () => {
                         style={{ color: readyColor }}
                         checked={isReady}
                         onChange={({ target: { checked } }): void => {
-                          socket.emit('ready', { isReady: checked });
+                          socket.emit("ready", { isReady: checked });
                         }}
                       />
                     ) : (
@@ -77,8 +77,8 @@ const PlayerList: React.FC = () => {
 
                   <TableCell>
                     {username}
-                    {isAdmin ? ' - Admin' : ''}
-                    {isTopBanana ? ' - Winner' : ''}
+                    {isAdmin ? " - Admin" : ""}
+                    {isTopBanana ? " - Winner" : ""}
                   </TableCell>
 
                   <TableCell align="right">{gamesWon}</TableCell>
@@ -89,7 +89,7 @@ const PlayerList: React.FC = () => {
                         <IconButton
                           size="small"
                           onClick={(): void => {
-                            socket.emit('kickPlayer', { userId });
+                            socket.emit("kickPlayer", { userId });
                           }}
                         >
                           <DeleteOutline />
@@ -99,7 +99,7 @@ const PlayerList: React.FC = () => {
                   )}
                 </TableRow>
               );
-            }
+            },
           )}
         </TableBody>
       </Table>

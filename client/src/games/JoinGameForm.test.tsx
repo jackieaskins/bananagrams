@@ -1,18 +1,18 @@
-import { shallow } from 'enzyme';
-import JoinGameForm from './JoinGameForm';
+import { shallow } from "enzyme";
+import JoinGameForm from "./JoinGameForm";
 
-jest.mock('./JoinGameFormState', () => ({
+jest.mock("./JoinGameFormState", () => ({
   useJoinGameForm: () => ({
-    error: 'error',
+    error: "error",
     isJoiningGame: true,
-    onSubmit: jest.fn().mockName('onSubmit'),
-    setUsername: jest.fn().mockName('setUsername'),
-    username: 'username',
+    onSubmit: jest.fn().mockName("onSubmit"),
+    setUsername: jest.fn().mockName("setUsername"),
+    username: "username",
   }),
 }));
 
-describe('<JoinGameForm />', () => {
-  test('renders properly', () => {
+describe("<JoinGameForm />", () => {
+  test("renders properly", () => {
     expect(shallow(<JoinGameForm />)).toMatchSnapshot();
   });
 });
