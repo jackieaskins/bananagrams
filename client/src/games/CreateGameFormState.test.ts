@@ -1,6 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCreateGameForm } from './CreateGameFormState';
+
+jest.mock('react', () => ({
+  useState: jest.fn(),
+}));
 
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -29,8 +33,7 @@ describe('useCreateGameForm', () => {
     useLocation.mockReturnValue({
       search: '',
     });
-    jest
-      .spyOn(React, 'useState')
+    useState
       .mockImplementationOnce((initialValue) => [initialValue, mockSetGameName])
       .mockImplementationOnce((initialValue) => [initialValue, mockSetUsername])
       .mockImplementationOnce((initialValue) => [initialValue, mockSetError])

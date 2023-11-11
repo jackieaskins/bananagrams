@@ -2,7 +2,6 @@
 
 exports[`<WalkthroughDialog /> renders properly 1`] = `
 <WithStyles(ForwardRef(Dialog))
-  disableBackdropClick={true}
   onClose={[MockFunction handleClose]}
   open={true}
 >

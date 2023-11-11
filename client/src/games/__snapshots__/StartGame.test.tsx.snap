@@ -30,7 +30,7 @@ exports[`<StartGame /> does not render board when no snapshot 1`] = `
   </WithStyles(ForwardRef(Typography))>
   <WithStyles(ForwardRef(Grid))
     container={true}
-    justify="center"
+    justifyContent="center"
     spacing={3}
   >
     <WithStyles(ForwardRef(Grid))
@@ -73,7 +73,7 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
   </WithStyles(ForwardRef(Typography))>
   <WithStyles(ForwardRef(Grid))
     container={true}
-    justify="center"
+    justifyContent="center"
     spacing={3}
   >
     <WithStyles(ForwardRef(Grid))

@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import { useDrag } from 'react-dnd';
 import Tile from './Tile';
@@ -32,10 +31,10 @@ describe('<Tile />', () => {
     test('is called with correct params', () => {
       expect(useDrag).toHaveBeenCalledWith({
         item: {
-          type: 'TILE',
           id: DEFAULT_ID,
           boardLocation: DEFAULT_BOARD_LOCATION,
         },
+        type: 'TILE',
         collect: expect.any(Function),
       });
     });

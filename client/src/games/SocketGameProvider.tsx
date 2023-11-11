@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { GameInfo, GameLocationState } from './types';
@@ -11,7 +11,9 @@ type GameParams = {
   gameId: string;
 };
 
-const SocketGameProvider: React.FC = ({ children }) => {
+const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { socket } = useSocket();
   const { replace } = useHistory();
   const { pathname, state } = useLocation<GameLocationState>();
@@ -59,7 +61,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     }
 
     return;
-  }, []);
+  }, [gameId, isInGame, pathname, replace, socket]);
 
   useEffect(() => {
     socket.on('gameInfo', (gameInfo: GameInfo) => {
@@ -69,7 +71,7 @@ const SocketGameProvider: React.FC = ({ children }) => {
     return (): void => {
       socket.off('gameInfo');
     };
-  }, []);
+  }, [socket]);
 
   return (
     <GameProvider

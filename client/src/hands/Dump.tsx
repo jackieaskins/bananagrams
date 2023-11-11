@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 
 import TransparentPaper from '../paper/TransparentPaper';

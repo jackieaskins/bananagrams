@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Link as MUILink, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -8,13 +7,8 @@ import TextField from '../forms/TextField';
 import { useJoinGameForm } from './JoinGameFormState';
 
 const JoinGameForm: React.FC = () => {
-  const {
-    error,
-    isJoiningGame,
-    onSubmit,
-    setUsername,
-    username,
-  } = useJoinGameForm();
+  const { error, isJoiningGame, onSubmit, setUsername, username } =
+    useJoinGameForm();
 
   return (
     <>

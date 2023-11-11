@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { FileCopyOutlined } from '@material-ui/icons';
 

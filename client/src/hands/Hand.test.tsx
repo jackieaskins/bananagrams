@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import Hand from './Hand';
 import { useDrop } from 'react-dnd';

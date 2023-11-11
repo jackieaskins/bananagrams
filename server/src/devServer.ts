@@ -6,7 +6,7 @@ export const configureDevServer = (app: core.Express): void => {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
-  const webpackConfig = require('../../webpack.dev.config');
+  const webpackConfig = require('../../webpack.config');
   /* eslint-enable @typescript-eslint/no-var-requires */
   const compiler = webpack(webpackConfig);
 

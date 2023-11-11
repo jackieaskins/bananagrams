@@ -4,7 +4,7 @@ exports[`<CeneteredLayout /> renders properly with default width 1`] = `
 <WithStyles(ForwardRef(Grid))
   alignContent="center"
   container={true}
-  justify="center"
+  justifyContent="center"
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
@@ -19,7 +19,7 @@ exports[`<CeneteredLayout /> renders properly with passed in width 1`] = `
 <WithStyles(ForwardRef(Grid))
   alignContent="center"
   container={true}
-  justify="center"
+  justifyContent="center"
 >
   <WithStyles(ForwardRef(Grid))
     item={true}

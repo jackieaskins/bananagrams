@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CreateGameForm from './games/CreateGameForm';
 import CenteredLayout from './layouts/CenteredLayout';
 

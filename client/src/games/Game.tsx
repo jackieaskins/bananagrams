@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { Grid, Typography } from '@material-ui/core';
@@ -30,8 +30,14 @@ const Game: React.FC = () => {
   const peelWinsGame = bunch.length < players.length;
 
   return (
+    // @ts-ignore
     <DndProvider backend={HTML5Backend}>
-      <Grid container spacing={2} justify="center" style={{ marginTop: '1px' }}>
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center"
+        style={{ marginTop: '1px' }}
+      >
         <Grid item>
           <Typography align="center" variant="body2" gutterBottom>
             Your board and hand:

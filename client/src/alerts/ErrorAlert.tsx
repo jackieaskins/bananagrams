@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, AlertProps } from '@material-ui/lab';
 
 interface ErrorAlertProps extends AlertProps {

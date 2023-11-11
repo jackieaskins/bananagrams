@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 
 import socket from './index';
@@ -13,7 +13,9 @@ export const SocketContext = createContext<SocketState>({
   socket,
 });
 
-export const SocketProvider: React.FC = ({ children }) => {
+export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const SocketProvider: React.FC = ({ children }) => {
     return (): void => {
       socket.emit('disconnect');
     };
-  }, []);
+  }, [enqueueSnackbar]);
 
   return (
     <SocketContext.Provider value={{ socket }}>

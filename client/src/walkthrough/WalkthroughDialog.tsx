@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Checkbox,
@@ -19,19 +18,11 @@ type WalkthroughDialogProps = {
 const WalkthroughDialog: React.FC<WalkthroughDialogProps> = ({
   showWalkthrough,
 }) => {
-  const {
-    askAgain,
-    handleClose,
-    setAskAgain,
-    shouldShowWalkthroughDialog,
-  } = useWalkthroughDialog();
+  const { askAgain, handleClose, setAskAgain, shouldShowWalkthroughDialog } =
+    useWalkthroughDialog();
 
   return (
-    <Dialog
-      open={shouldShowWalkthroughDialog}
-      disableBackdropClick
-      onClose={handleClose}
-    >
+    <Dialog open={shouldShowWalkthroughDialog} onClose={handleClose}>
       <DialogTitle>Want to play with the interactive tutorial?</DialogTitle>
       <DialogContent>
         <DialogContentText>

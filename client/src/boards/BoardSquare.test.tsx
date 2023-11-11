@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import { useDrop } from 'react-dnd';
 import { boardSquareFixture, wordInfoFixture } from '../fixtures/board';

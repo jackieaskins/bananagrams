@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box } from '@material-ui/core';
 
 import { Board } from './types';

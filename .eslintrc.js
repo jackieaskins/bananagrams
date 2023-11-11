@@ -4,6 +4,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'prettier',
     'prettier/@typescript-eslint',
@@ -12,9 +13,9 @@ module.exports = {
     {
       files: ['*.test.ts', '*.test.tsx'],
       rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off'
-      }
-    }
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

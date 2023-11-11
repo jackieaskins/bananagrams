@@ -1,3 +1,4 @@
+/** @type {import('jest').Config} */
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
@@ -14,7 +15,7 @@ module.exports = {
     '!src/socket/index.ts',
     '!src/**/*.stories.tsx',
     '!src/testUtils.tsx',
-    '!src/fixtures/**/*.{ts,tsx}'
+    '!src/fixtures/**/*.{ts,tsx}',
   ],
   preset: 'ts-jest',
-}
+};

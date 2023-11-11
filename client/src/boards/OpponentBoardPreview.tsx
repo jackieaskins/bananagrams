@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PreviewBoard from './PreviewBoard';
 import { useSocket } from '../socket/SocketContext';
 import { Box, Grid, IconButton, MenuItem, TextField } from '@material-ui/core';

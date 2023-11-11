@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Typography, Box } from '@material-ui/core';
 import { useDrag } from 'react-dnd';
 

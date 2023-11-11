@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import { playerFixture } from '../fixtures/player';
 import { useOpponentBoardPreview } from './OpponentBoardPreviewState';

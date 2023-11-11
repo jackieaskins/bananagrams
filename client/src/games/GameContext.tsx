@@ -1,7 +1,8 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { GameState, GameInfo } from './types';
 
 type GameProviderProps = {
+  children: React.ReactNode;
   gameState: GameState;
 };
 

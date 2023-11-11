@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
 import { Box, Button, Divider, Tooltip } from '@material-ui/core';
 import { useDrop } from 'react-dnd';
 

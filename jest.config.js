@@ -4,11 +4,8 @@ module.exports = {
   ...baseConfig,
   globals: {
     'ts-jest': {
-      diagnostics: false
-    }
+      diagnostics: false,
+    },
   },
-  projects: [
-    '<rootDir>/client',
-    '<rootDir>/server'
-  ],
+  projects: ['<rootDir>/client', '<rootDir>/server'],
 };

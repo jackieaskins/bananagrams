@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Dialog,
@@ -18,11 +17,8 @@ import { useGameSidebar } from './GameSidebarState';
 
 const GameSidebar: React.FC = () => {
   const classes = useStyles();
-  const {
-    leaveGameDialogOpen,
-    showLeaveGameDialog,
-    handleLeaveGameCancel,
-  } = useGameSidebar();
+  const { leaveGameDialogOpen, showLeaveGameDialog, handleLeaveGameCancel } =
+    useGameSidebar();
 
   return (
     <Drawer

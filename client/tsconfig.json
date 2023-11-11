@@ -2,7 +2,7 @@
   "extends": "../tsconfig-base.json",
   "compilerOptions": {
     "baseUrl": "./src",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "es6",
     "outDir": "../dist/public",
     "rootDir": "./src"

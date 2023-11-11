@@ -8,21 +8,22 @@ export type ServerDisconnectionDialogState = {
   hideDialog: () => void;
 };
 
-export const useServerDisconnectionDialog = (): ServerDisconnectionDialogState => {
-  const [shouldShowDialog, setShouldShowDialog] = useState(false);
-  const { socket } = useSocket();
-  const { push } = useHistory();
+export const useServerDisconnectionDialog =
+  (): ServerDisconnectionDialogState => {
+    const [shouldShowDialog, setShouldShowDialog] = useState(false);
+    const { socket } = useSocket();
+    const { push } = useHistory();
 
-  useEffect(() => {
-    socket.on('disconnect', () => {
-      setShouldShowDialog(true);
-    });
-  }, []);
+    useEffect(() => {
+      socket.on('disconnect', () => {
+        setShouldShowDialog(true);
+      });
+    }, [socket]);
 
-  const hideDialog = (): void => {
-    push('/');
-    setShouldShowDialog(false);
+    const hideDialog = (): void => {
+      push('/');
+      setShouldShowDialog(false);
+    };
+
+    return { shouldShowDialog, hideDialog };
   };
-
-  return { shouldShowDialog, hideDialog };
-};

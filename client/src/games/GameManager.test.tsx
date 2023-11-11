@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import { useGame } from './GameContext';
 import GameManager from './GameManager';

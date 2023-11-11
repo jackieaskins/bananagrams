@@ -5,7 +5,6 @@ exports[`<PreviewBoard /> renders properly 1`] = `
   component={
     Object {
       "$$typeof": Symbol(react.forward_ref),
-      "displayName": "Styled(MuiBox)",
       "propTypes": Object {
         "alignContent": [Function],
         "alignItems": [Function],
