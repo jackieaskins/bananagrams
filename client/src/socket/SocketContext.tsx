@@ -2,11 +2,12 @@ import { createContext, useContext, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 
 import socket from './index';
+import { Socket } from 'socket.io-client';
 
 export type Callback<T> = (error: Error | null, data: T) => void;
 
 type SocketState = {
-  socket: SocketIOClient.Socket;
+  socket: Socket;
 };
 
 export const SocketContext = createContext<SocketState>({

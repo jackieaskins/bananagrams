@@ -1,4 +1,4 @@
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import GameController from './controllers/GameController';
 
 export const handler = (
@@ -18,7 +18,7 @@ export const handler = (
 };
 
 export const configureSocket = (io: Server): void => {
-  io.on('connection', (socket) => {
+  io.on('connection', (socket: Socket) => {
     const { id: userId } = socket;
 
     console.log(`New connection: ${userId}`);
