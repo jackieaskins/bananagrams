@@ -7,7 +7,7 @@ import { configureDevServer } from './devServer';
 import { configureSocket } from './socket';
 import Dictionary from './dictionary/Dictionary';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 Dictionary.initialize();
 
 const app = express();
