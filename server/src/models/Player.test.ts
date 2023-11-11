@@ -27,53 +27,53 @@ describe('Player Model', () => {
 
   describe('set/isReady', () => {
     test('returns false by default', () => {
-      expect(player.isReady()).toEqual(false);
+      expect(player.isReady()).toBe(false);
     });
 
     test('sets ready', () => {
       player.setReady(true);
 
-      expect(player.isReady()).toEqual(true);
+      expect(player.isReady()).toBe(true);
     });
   });
 
   describe('set/isTopBanana', () => {
     test('returns false by default', () => {
-      expect(player.isTopBanana()).toEqual(false);
+      expect(player.isTopBanana()).toBe(false);
     });
 
     test('sets isTopBanana', () => {
       player.setTopBanana(true);
 
-      expect(player.isTopBanana()).toEqual(true);
+      expect(player.isTopBanana()).toBe(true);
     });
   });
 
   describe('set/isAdmin', () => {
     test('returns false by default', () => {
-      expect(player.isReady()).toEqual(false);
+      expect(player.isReady()).toBe(false);
     });
 
     test('returns true for admin user', () => {
-      expect(new Player(userId, username, true).isAdmin()).toEqual(true);
+      expect(new Player(userId, username, true).isAdmin()).toBe(true);
     });
 
     test('sets isAdmin', () => {
       player.setAdmin(true);
 
-      expect(player.isAdmin()).toEqual(true);
+      expect(player.isAdmin()).toBe(true);
     });
   });
 
   describe('get/incrementGamesWon', () => {
     test('returns 0 by default', () => {
-      expect(player.getGamesWon()).toEqual(0);
+      expect(player.getGamesWon()).toBe(0);
     });
 
     test('increments games won', () => {
       player.incrementGamesWon();
 
-      expect(player.getGamesWon()).toEqual(1);
+      expect(player.getGamesWon()).toBe(1);
     });
   });
 

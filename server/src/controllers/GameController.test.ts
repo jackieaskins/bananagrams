@@ -77,7 +77,7 @@ describe('GameController', () => {
     test('can create a shortened game', () => {
       const controller = createShortenedGame();
 
-      expect(controller.getCurrentGame().isShortenedGame()).toEqual(true);
+      expect(controller.getCurrentGame().isShortenedGame()).toBe(true);
     });
 
     test('adds game to list of games', () => {
@@ -230,7 +230,7 @@ describe('GameController', () => {
 
       gameController.leaveGame();
 
-      expect(otherPlayer.isAdmin()).toEqual(true);
+      expect(otherPlayer.isAdmin()).toBe(true);
     });
 
     test('does not set another player as admin if leaving player is not admin', () => {
@@ -242,7 +242,7 @@ describe('GameController', () => {
 
       gameController.leaveGame();
 
-      expect(otherPlayer.isAdmin()).toEqual(false);
+      expect(otherPlayer.isAdmin()).toBe(false);
     });
 
     test('removes game from list of games if all players are gone', () => {
@@ -276,11 +276,11 @@ describe('GameController', () => {
 
   describe('setReady', () => {
     test('sets the current player ready status', () => {
-      expect(player.isReady()).toEqual(false);
+      expect(player.isReady()).toBe(false);
 
       gameController.setReady(true);
 
-      expect(player.isReady()).toEqual(true);
+      expect(player.isReady()).toBe(true);
     });
 
     test('calls split if all players are ready', () => {
@@ -335,22 +335,22 @@ describe('GameController', () => {
       });
 
       test('ends game', () => {
-        expect(game.isInProgress()).toEqual(false);
+        expect(game.isInProgress()).toBe(false);
       });
 
       test('sets each player to not ready', () => {
-        expect(player.isReady()).toEqual(false);
-        expect(otherPlayer.isReady()).toEqual(false);
+        expect(player.isReady()).toBe(false);
+        expect(otherPlayer.isReady()).toBe(false);
       });
 
       test('updates only winner to be top banana', () => {
-        expect(player.isTopBanana()).toEqual(true);
-        expect(otherPlayer.isTopBanana()).toEqual(false);
+        expect(player.isTopBanana()).toBe(true);
+        expect(otherPlayer.isTopBanana()).toBe(false);
       });
 
       test('increments only winning player games won', () => {
-        expect(player.getGamesWon()).toEqual(1);
-        expect(otherPlayer.getGamesWon()).toEqual(0);
+        expect(player.getGamesWon()).toBe(1);
+        expect(otherPlayer.getGamesWon()).toBe(0);
       });
 
       test('updates game snapshot', () => {
@@ -607,7 +607,7 @@ describe('GameController', () => {
     });
 
     test('sets game in progress', () => {
-      expect(game.isInProgress()).toEqual(true);
+      expect(game.isInProgress()).toBe(true);
     });
 
     test('emits game info', () => {

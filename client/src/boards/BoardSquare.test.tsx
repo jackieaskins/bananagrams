@@ -104,25 +104,25 @@ describe('<BoardSquare />', () => {
       test('returns true if monitor is over and no tile exists', () => {
         renderComponent();
 
-        expect(callCanDrop({ isOver: () => true })).toEqual(true);
+        expect(callCanDrop({ isOver: () => true })).toBe(true);
       });
 
       test('returns false if monitor is not over but no tile exists', () => {
         renderComponent();
 
-        expect(callCanDrop({ isOver: () => false })).toEqual(false);
+        expect(callCanDrop({ isOver: () => false })).toBe(false);
       });
 
       test('returns false if monitor is over and a tile exists', () => {
         renderComponent({ boardSquare: boardSquareFixture() });
 
-        expect(callCanDrop({ isOver: () => true })).toEqual(false);
+        expect(callCanDrop({ isOver: () => true })).toBe(false);
       });
 
       test('returns false if monitor is not over and a tile exists', () => {
         renderComponent({ boardSquare: boardSquareFixture() });
 
-        expect(callCanDrop({ isOver: () => false })).toEqual(false);
+        expect(callCanDrop({ isOver: () => false })).toBe(false);
       });
     });
 

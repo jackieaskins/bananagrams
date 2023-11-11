@@ -4,11 +4,11 @@ describe('Tile Model', () => {
   const tile = new Tile('A1', 'A');
 
   test('getId returns id', () => {
-    expect(tile.getId()).toEqual('A1');
+    expect(tile.getId()).toBe('A1');
   });
 
   test('getLetter returns letter', () => {
-    expect(tile.getLetter()).toEqual('A');
+    expect(tile.getLetter()).toBe('A');
   });
 
   test('toJSON converts to json blob', () => {

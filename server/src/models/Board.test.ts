@@ -20,13 +20,13 @@ describe('Board Model', () => {
 
     test('initializes a 21 x 21 2-D array', () => {
       expect(squares).toHaveLength(21);
-      expect(squares.every((row) => row.length === 21)).toEqual(true);
+      expect(squares.every((row) => row.length === 21)).toBe(true);
     });
 
     test('makes all squares null by default', () => {
       expect(
         squares.every((row) => row.every((square) => square === null))
-      ).toEqual(true);
+      ).toBe(true);
     });
   });
 

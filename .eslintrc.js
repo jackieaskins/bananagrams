@@ -7,7 +7,6 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   overrides: [
     {

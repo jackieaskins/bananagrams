@@ -27,6 +27,5 @@ export default class Tile implements BaseModel<TileJSON> {
     return { id, letter };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   reset(): void {}
 }

@@ -12,7 +12,7 @@ jest.mock('react', () => ({
 
 describe('useGameSpeedDial', () => {
   test('starts dialog as closed', () => {
-    expect(useGameSpeedDial().leaveGameDialogOpen).toEqual(false);
+    expect(useGameSpeedDial().leaveGameDialogOpen).toBe(false);
   });
 
   test('opens dialog on showLeaveGameDialog', () => {

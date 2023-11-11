@@ -11,8 +11,9 @@ export const handler = (
   try {
     const returnValue = fn() || null;
     callback?.(null, returnValue);
-  } catch ({ message }) {
-    callback?.({ message: message as string }, null);
+  } catch (e) {
+    const { message } = e as Error;
+    callback?.({ message }, null);
   }
 };
 

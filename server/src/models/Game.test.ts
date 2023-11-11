@@ -26,19 +26,19 @@ describe('Game Model', () => {
 
   describe('set/isInProgress', () => {
     test('returns false by default', () => {
-      expect(game.isInProgress()).toEqual(false);
+      expect(game.isInProgress()).toBe(false);
     });
 
     test('returns whether or not game is in progress', () => {
       game.setInProgress(true);
-      expect(game.isInProgress()).toEqual(true);
+      expect(game.isInProgress()).toBe(true);
     });
   });
 
   describe('isShortenedGame', () => {
     test('returns whether or not game is shortened', () => {
       game = new Game(id, name, true);
-      expect(game.isShortenedGame()).toEqual(true);
+      expect(game.isShortenedGame()).toBe(true);
     });
   });
 

@@ -7,6 +7,6 @@ describe('tileBreakdown', () => {
 
   test('has 144 total tiles', () => {
     const count = tileBreakdown.reduce((sum, { count }) => sum + count, 0);
-    expect(count).toEqual(144);
+    expect(count).toBe(144);
   });
 });

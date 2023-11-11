@@ -53,7 +53,7 @@ describe('<Dump />', () => {
     describe('canDrop', () => {
       test('returns true if there are at least 3 tiles remaining', () => {
         renderComponent();
-        expect(getUseDropCall().canDrop()).toEqual(true);
+        expect(getUseDropCall().canDrop()).toBe(true);
       });
 
       test('returns false if there are less than 3 tiles remaining', () => {
@@ -65,7 +65,7 @@ describe('<Dump />', () => {
 
         renderComponent();
 
-        expect(getUseDropCall().canDrop()).toEqual(false);
+        expect(getUseDropCall().canDrop()).toBe(false);
       });
     });
 

@@ -9,7 +9,7 @@ describe('isValidConnectedBoard', () => {
         [null, null],
         [null, null],
       ])
-    ).toEqual(false);
+    ).toBe(false);
   });
 
   test('returns false if everything is valid but multiple islands', () => {
@@ -25,7 +25,7 @@ describe('isValidConnectedBoard', () => {
       [null, null, boardSquareFixture({ wordInfo: validWordInfo })],
     ];
 
-    expect(isValidConnectedBoard(board)).toEqual(false);
+    expect(isValidConnectedBoard(board)).toBe(false);
   });
 
   test('returns false if one island but invalid', () => {
@@ -42,7 +42,7 @@ describe('isValidConnectedBoard', () => {
       [boardSquareFixture({ wordInfo: invalidWordInfo }), boardSquareFixture()],
     ];
 
-    expect(isValidConnectedBoard(board)).toEqual(false);
+    expect(isValidConnectedBoard(board)).toBe(false);
   });
 
   test('returns true if nothing is invalid and board is one connected component', () => {
@@ -64,6 +64,6 @@ describe('isValidConnectedBoard', () => {
       [getSquare(), null, getSquare()],
     ];
 
-    expect(isValidConnectedBoard(board)).toEqual(true);
+    expect(isValidConnectedBoard(board)).toBe(true);
   });
 });
