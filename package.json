@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && tsc --project server/tsconfig.json && webpack --mode production",
+    "build": "rimraf dist && tsc --project server/tsconfig.json && NODE_OPTIONS=--openssl-legacy-provider webpack --mode production",
     "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig.json",
     "dev": "NODE_OPTIONS=--openssl-legacy-provider nodemon",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
@@ -16,6 +16,9 @@
     "test:server:watch": "jest --projects server --watch",
     "test:client": "jest --projects client",
     "test:client:watch": "jest --projects client --watch"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
