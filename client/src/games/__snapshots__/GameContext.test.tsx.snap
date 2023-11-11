@@ -3,13 +3,13 @@
 exports[`GameContext GameProvider renders properly 1`] = `
 <ContextProvider
   value={
-    Object {
-      "gameInfo": Object {
-        "bunch": Array [],
+    {
+      "gameInfo": {
+        "bunch": [],
         "gameId": "gameId",
         "gameName": "",
         "isInProgress": false,
-        "players": Array [],
+        "players": [],
         "previousSnapshot": null,
       },
       "handleDump": [MockFunction handleDump],
@@ -28,13 +28,13 @@ exports[`GameContext GameProvider renders properly 1`] = `
 `;
 
 exports[`GameContext getEmptyGameState generates default empty state 1`] = `
-Object {
-  "gameInfo": Object {
-    "bunch": Array [],
+{
+  "gameInfo": {
+    "bunch": [],
     "gameId": "gameId",
     "gameName": "",
     "isInProgress": false,
-    "players": Array [],
+    "players": [],
     "previousSnapshot": null,
   },
   "handleDump": [Function],

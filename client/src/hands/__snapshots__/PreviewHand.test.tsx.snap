@@ -3,9 +3,9 @@
 exports[`<PreviewHand /> renders properly 1`] = `
 <TransparentPaper
   component={
-    Object {
+    {
       "$$typeof": Symbol(react.forward_ref),
-      "propTypes": Object {
+      "propTypes": {
         "children": [Function],
         "component": [Function],
         "sx": [Function],

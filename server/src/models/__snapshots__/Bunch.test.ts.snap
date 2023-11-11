@@ -5,16 +5,16 @@ exports[`Bunch Model removeTiles throws an error if there are less than number o
 exports[`Bunch Model removeTiles throws an error if there is less than 1 requested tile 1`] = `"The bunch has less than 1 tile"`;
 
 exports[`Bunch Model reset creates bunch with 3 tiles if shortened game 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "A1",
     "letter": "A",
   },
-  Object {
+  {
     "id": "E1",
     "letter": "E",
   },
-  Object {
+  {
     "id": "T1",
     "letter": "T",
   },
@@ -22,32 +22,32 @@ Array [
 `;
 
 exports[`Bunch Model reset generates tiles with multiplier of 1 when <= 4 players 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "A0",
     "letter": "A",
   },
-  Object {
+  {
     "id": "A1",
     "letter": "A",
   },
-  Object {
+  {
     "id": "B0",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B1",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B2",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B3",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B4",
     "letter": "B",
   },
@@ -55,60 +55,60 @@ Array [
 `;
 
 exports[`Bunch Model reset generates tiles with multiplier of 2 when > 4 players 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "A0",
     "letter": "A",
   },
-  Object {
+  {
     "id": "A1",
     "letter": "A",
   },
-  Object {
+  {
     "id": "A2",
     "letter": "A",
   },
-  Object {
+  {
     "id": "A3",
     "letter": "A",
   },
-  Object {
+  {
     "id": "B0",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B1",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B2",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B3",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B4",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B5",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B6",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B7",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B8",
     "letter": "B",
   },
-  Object {
+  {
     "id": "B9",
     "letter": "B",
   },
@@ -116,8 +116,8 @@ Array [
 `;
 
 exports[`Bunch Model toJSON returns fields converted to JSON 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "A1",
     "letter": "A",
   },

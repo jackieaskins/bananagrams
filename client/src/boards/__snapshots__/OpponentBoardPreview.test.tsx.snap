@@ -18,8 +18,8 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
     >
       <PreviewBoard
         board={
-          Array [
-            Array [
+          [
+            [
               null,
             ],
           ]
@@ -27,7 +27,7 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         tileSize={15}
       />
       <PreviewHand
-        hand={Array []}
+        hand={[]}
         tileSize={15}
       />
     </ForwardRef(Box)>
@@ -35,7 +35,7 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
   <ForwardRef(Grid)
     item={true}
     sx={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -97,8 +97,8 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
     >
       <PreviewBoard
         board={
-          Array [
-            Array [
+          [
+            [
               null,
               null,
               null,
@@ -121,7 +121,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -144,7 +144,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -167,7 +167,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -190,7 +190,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -213,7 +213,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -236,7 +236,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -259,7 +259,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -282,7 +282,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -305,7 +305,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -328,7 +328,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -351,7 +351,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -374,7 +374,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -397,7 +397,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -420,7 +420,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -443,7 +443,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -466,7 +466,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -489,7 +489,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -512,7 +512,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -535,7 +535,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -558,7 +558,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
               null,
               null,
             ],
-            Array [
+            [
               null,
               null,
               null,
@@ -586,7 +586,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         tileSize={15}
       />
       <PreviewHand
-        hand={Array []}
+        hand={[]}
         tileSize={15}
       />
     </ForwardRef(Box)>
@@ -594,7 +594,7 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
   <ForwardRef(Grid)
     item={true}
     sx={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -656,8 +656,8 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
     >
       <PreviewBoard
         board={
-          Array [
-            Array [
+          [
+            [
               null,
             ],
           ]
@@ -665,7 +665,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         tileSize={15}
       />
       <PreviewHand
-        hand={Array []}
+        hand={[]}
         tileSize={15}
       />
     </ForwardRef(Box)>
@@ -673,7 +673,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
   <ForwardRef(Grid)
     item={true}
     sx={
-      Object {
+      {
         "width": "100%",
       }
     }
@@ -741,8 +741,8 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
     >
       <PreviewBoard
         board={
-          Array [
-            Array [
+          [
+            [
               null,
             ],
           ]
@@ -750,7 +750,7 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         tileSize={15}
       />
       <PreviewHand
-        hand={Array []}
+        hand={[]}
         tileSize={15}
       />
     </ForwardRef(Box)>
@@ -758,7 +758,7 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
   <ForwardRef(Grid)
     item={true}
     sx={
-      Object {
+      {
         "width": "100%",
       }
     }

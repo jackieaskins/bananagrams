@@ -10,7 +10,7 @@ exports[`<Hand /> renders properly 1`] = `
       onClick={[Function]}
       size="small"
       sx={
-        Object {
+        {
           "width": "100%",
         }
       }
@@ -43,7 +43,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       onClick={[Function]}
       size="small"
       sx={
-        Object {
+        {
           "width": "100%",
         }
       }
@@ -67,7 +67,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       boardLocation={null}
       key="A1"
       tile={
-        Object {
+        {
           "id": "A1",
           "letter": "A",
         }
@@ -77,7 +77,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       boardLocation={null}
       key="B1"
       tile={
-        Object {
+        {
           "id": "B1",
           "letter": "B",
         }
@@ -87,7 +87,7 @@ exports[`<Hand /> renders properly with player 1`] = `
       boardLocation={null}
       key="C1"
       tile={
-        Object {
+        {
           "id": "C1",
           "letter": "C",
         }

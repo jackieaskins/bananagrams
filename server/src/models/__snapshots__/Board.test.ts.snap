@@ -5,10 +5,10 @@ exports[`Board Model addTile throws error if square is not empty 1`] = `"Board a
 exports[`Board Model removeTile throws an error if there is no tile at location 1`] = `"Board does not have a tile at location 0, 0"`;
 
 exports[`Board Model toJSON turns fields into JSON 1`] = `
-Array [
-  Array [
-    Object {
-      "tile": Object {
+[
+  [
+    {
+      "tile": {
         "id": "A1",
         "letter": "A",
       },
@@ -35,7 +35,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -58,7 +58,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -81,7 +81,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -104,7 +104,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -127,7 +127,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -150,7 +150,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -173,7 +173,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -196,7 +196,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -219,7 +219,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -242,7 +242,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -265,7 +265,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -288,7 +288,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -311,7 +311,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -334,7 +334,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -357,7 +357,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -380,7 +380,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -403,7 +403,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -426,7 +426,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -449,7 +449,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,
@@ -472,7 +472,7 @@ Array [
     null,
     null,
   ],
-  Array [
+  [
     null,
     null,
     null,

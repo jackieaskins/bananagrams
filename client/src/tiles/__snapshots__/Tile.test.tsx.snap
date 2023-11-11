@@ -8,7 +8,7 @@ exports[`<Tile /> renders properly 1`] = `
   display="inline-flex"
   justifyContent="center"
   sx={
-    Object {
+    {
       "backgroundColor": "#ffffc7",
       "color": "black",
       "cursor": "move",

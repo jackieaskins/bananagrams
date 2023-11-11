@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Game Model toJSON converts fields into JSON 1`] = `
-Object {
-  "bunch": Array [],
+{
+  "bunch": [],
   "gameId": "id",
   "gameName": "name",
   "isInProgress": false,
-  "players": Array [
-    Object {
-      "board": Array [
-        Array [
+  "players": [
+    {
+      "board": [
+        [
           null,
           null,
           null,
@@ -32,7 +32,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -55,7 +55,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -78,7 +78,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -101,7 +101,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -124,7 +124,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -147,7 +147,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -170,7 +170,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -193,7 +193,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -216,7 +216,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -239,7 +239,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -262,7 +262,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -285,7 +285,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -308,7 +308,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -331,7 +331,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -354,7 +354,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -377,7 +377,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -400,7 +400,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -423,7 +423,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -446,7 +446,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -469,7 +469,7 @@ Object {
           null,
           null,
         ],
-        Array [
+        [
           null,
           null,
           null,
@@ -494,7 +494,7 @@ Object {
         ],
       ],
       "gamesWon": 0,
-      "hand": Array [],
+      "hand": [],
       "isAdmin": false,
       "isReady": false,
       "isTopBanana": false,

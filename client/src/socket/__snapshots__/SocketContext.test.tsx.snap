@@ -3,18 +3,18 @@
 exports[`SocketContext <SocketProvider /> renders provider properly 1`] = `
 <ContextProvider
   value={
-    Object {
-      "socket": Object {
+    {
+      "socket": {
         "emit": [MockFunction],
         "on": [MockFunction] {
-          "calls": Array [
-            Array [
+          "calls": [
+            [
               "notification",
               [Function],
             ],
           ],
-          "results": Array [
-            Object {
+          "results": [
+            {
               "type": "return",
               "value": undefined,
             },

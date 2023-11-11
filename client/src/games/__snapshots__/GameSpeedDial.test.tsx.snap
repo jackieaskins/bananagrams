@@ -6,7 +6,7 @@ exports[`<GameSpeedDial /> renders properly 1`] = `
     ariaLabel="Leave game speed dial"
     icon={<ForwardRef(SpeedDialIcon) />}
     sx={
-      Object {
+      {
         "bottom": 10,
         "position": "absolute",
         "right": 10,
@@ -37,9 +37,9 @@ exports[`<GameSpeedDial /> renders properly 1`] = `
       <ForwardRef(Button)
         color="primary"
         component={
-          Object {
+          {
             "$$typeof": Symbol(react.forward_ref),
-            "propTypes": Object {
+            "propTypes": {
               "innerRef": [Function],
               "onClick": [Function],
               "replace": [Function],

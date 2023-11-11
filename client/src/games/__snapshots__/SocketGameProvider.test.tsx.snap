@@ -3,13 +3,13 @@
 exports[`<SocketGameProvider /> renders properly 1`] = `
 <GameProvider
   gameState={
-    Object {
-      "gameInfo": Object {
-        "bunch": Array [],
+    {
+      "gameInfo": {
+        "bunch": [],
         "gameId": "gameId",
         "gameName": "",
         "isInProgress": false,
-        "players": Array [],
+        "players": [],
         "previousSnapshot": null,
       },
       "handleDump": [Function],

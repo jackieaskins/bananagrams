@@ -5,7 +5,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
   <ForwardRef(Table)>
     <caption
       style={
-        Object {
+        {
           "textAlign": "center",
         }
       }
@@ -43,7 +43,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
       <ForwardRef(TableRow)
         key="1"
         style={
-          Object {
+          {
             "backgroundColor": "rgba(0, 0, 0, 0.08)",
           }
         }
@@ -56,7 +56,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
             checked={false}
             onChange={[Function]}
             style={
-              Object {
+              {
                 "color": "red",
               }
             }
@@ -76,7 +76,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
       <ForwardRef(TableRow)
         key="2"
         style={
-          Object {
+          {
             "backgroundColor": "inherit",
           }
         }
@@ -86,7 +86,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
         >
           <Memo(ForwardRef(CloseIcon))
             style={
-              Object {
+              {
                 "color": "red",
               }
             }
@@ -112,7 +112,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
       <ForwardRef(TableRow)
         key="3"
         style={
-          Object {
+          {
             "backgroundColor": "inherit",
           }
         }
@@ -122,7 +122,7 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
         >
           <Memo(ForwardRef(CheckIcon))
             style={
-              Object {
+              {
                 "color": "green",
               }
             }
@@ -156,7 +156,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
   <ForwardRef(Table)>
     <caption
       style={
-        Object {
+        {
           "textAlign": "center",
         }
       }
@@ -193,7 +193,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
       <ForwardRef(TableRow)
         key="1"
         style={
-          Object {
+          {
             "backgroundColor": "rgba(0, 0, 0, 0.08)",
           }
         }
@@ -206,7 +206,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
             checked={false}
             onChange={[Function]}
             style={
-              Object {
+              {
                 "color": "red",
               }
             }
@@ -224,7 +224,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
       <ForwardRef(TableRow)
         key="2"
         style={
-          Object {
+          {
             "backgroundColor": "inherit",
           }
         }
@@ -234,7 +234,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
         >
           <Memo(ForwardRef(CloseIcon))
             style={
-              Object {
+              {
                 "color": "red",
               }
             }
@@ -252,7 +252,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
       <ForwardRef(TableRow)
         key="3"
         style={
-          Object {
+          {
             "backgroundColor": "inherit",
           }
         }
@@ -262,7 +262,7 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
         >
           <Memo(ForwardRef(CheckIcon))
             style={
-              Object {
+              {
                 "color": "green",
               }
             }
@@ -288,7 +288,7 @@ exports[`<PlayerList /> renders properly without gameInfo 1`] = `
   <ForwardRef(Table)>
     <caption
       style={
-        Object {
+        {
           "textAlign": "center",
         }
       }

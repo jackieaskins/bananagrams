@@ -78,16 +78,8 @@ export default class Player implements BaseModel<PlayerJSON> {
   }
 
   toJSON(): PlayerJSON {
-    const {
-      userId,
-      username,
-      ready,
-      topBanana,
-      admin,
-      gamesWon,
-      board,
-      hand,
-    } = this;
+    const { userId, username, ready, topBanana, admin, gamesWon, board, hand } =
+      this;
 
     return {
       userId,

@@ -4,10 +4,13 @@ module.exports = {
   ...baseConfig,
   name: 'server',
   displayName: 'SERVER',
-  globals: {
-    'ts-jest': {
-      diagnostics: false,
-      tsconfig: 'server/tsconfig.json',
-    },
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        diagnostics: false,
+        tsconfig: 'server/tsconfig.json',
+      },
+    ],
   },
 };

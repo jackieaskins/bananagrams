@@ -1,4 +1,5 @@
 import { useCopyToClipboard } from './CopyToClipboardState';
+import { setImmediate } from 'timers';
 
 const mockSetShouldShow = jest.fn();
 jest.mock('react', () => ({

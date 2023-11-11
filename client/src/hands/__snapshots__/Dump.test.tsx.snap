@@ -5,7 +5,7 @@ exports[`<Dump /> drag text renders when can drop 1`] = `null`;
 exports[`<Dump /> renders properly 1`] = `
 <TransparentPaper
   sx={
-    Object {
+    {
       "width": "100%",
     }
   }

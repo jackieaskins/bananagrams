@@ -4,7 +4,7 @@ exports[`<JoinGameForm /> renders properly 1`] = `
 <Fragment>
   <ForwardRef(Typography)
     sx={
-      Object {
+      {
         "marginBottom": "5px",
       }
     }
@@ -14,7 +14,7 @@ exports[`<JoinGameForm /> renders properly 1`] = `
   </ForwardRef(Typography)>
   <ErrorAlert
     sx={
-      Object {
+      {
         "marginBottom": "5px",
       }
     }
@@ -58,7 +58,7 @@ exports[`<JoinGameForm /> renders properly 1`] = `
     <ForwardRef(Grid)
       item={true}
       style={
-        Object {
+        {
           "margin": "0 auto",
         }
       }
@@ -66,9 +66,9 @@ exports[`<JoinGameForm /> renders properly 1`] = `
       <ForwardRef(Link)
         align="center"
         component={
-          Object {
+          {
             "$$typeof": Symbol(react.forward_ref),
-            "propTypes": Object {
+            "propTypes": {
               "innerRef": [Function],
               "onClick": [Function],
               "replace": [Function],

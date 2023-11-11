@@ -4,7 +4,7 @@ exports[`<CreateGameForm /> renders properly 1`] = `
 <Fragment>
   <ForwardRef(Typography)
     sx={
-      Object {
+      {
         "marginBottom": "5px",
       }
     }
@@ -14,7 +14,7 @@ exports[`<CreateGameForm /> renders properly 1`] = `
   </ForwardRef(Typography)>
   <ErrorAlert
     sx={
-      Object {
+      {
         "marginBottom": "5px",
       }
     }
