@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Typography, Box } from '@material-ui/core';
+import { Typography, Box } from '@mui/material';
 import { useDrag } from 'react-dnd';
 
 import { Tile as TileType } from './types';
@@ -26,21 +25,20 @@ const Tile: React.FC<TileProps> = ({
 
   return (
     <Box
-      // @ts-ignore
       ref={dragRef}
       display="inline-flex"
       justifyContent="center"
       alignItems="center"
       border={1}
-      borderRadius="borderRadius"
-      style={{
+      borderRadius={1}
+      sx={{
         color: color,
         backgroundColor: '#ffffc7',
         cursor: 'move',
-        height: '23px',
+        height: '25px',
         margin,
         opacity: isDragging ? 0.5 : 1,
-        width: '23px',
+        width: '25px',
       }}
     >
       <Typography variant="body2">{letter}</Typography>

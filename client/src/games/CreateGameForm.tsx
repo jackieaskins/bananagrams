@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 
 import Button from '../buttons/Button';
 import ErrorAlert from '../alerts/ErrorAlert';
@@ -18,10 +18,10 @@ const CreateGameForm: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3" style={{ marginBottom: '5px' }}>
+      <Typography variant="h3" sx={{ marginBottom: '5px' }}>
         Start a new game
       </Typography>
-      <ErrorAlert visible={!!error} style={{ marginBottom: '5px' }}>
+      <ErrorAlert visible={!!error} sx={{ marginBottom: '5px' }}>
         {error}
       </ErrorAlert>
       <Grid

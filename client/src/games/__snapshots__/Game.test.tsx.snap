@@ -4,32 +4,32 @@ exports[`<Game /> renders properly 1`] = `
 <DndProvider
   backend={[Function]}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     container={true}
-    justify="center"
+    justifyContent="center"
     spacing={2}
-    style={
+    sx={
       Object {
         "marginTop": "1px",
       }
     }
   >
-    <WithStyles(ForwardRef(Grid))
+    <ForwardRef(Grid)
       item={true}
     >
-      <WithStyles(ForwardRef(Typography))
+      <ForwardRef(Typography)
         align="center"
         gutterBottom={true}
         variant="body2"
       >
         Your board and hand:
-      </WithStyles(ForwardRef(Typography))>
-      <WithStyles(ForwardRef(Grid))
+      </ForwardRef(Typography)>
+      <ForwardRef(Grid)
         alignItems="center"
         container={true}
         spacing={1}
       >
-        <WithStyles(ForwardRef(Grid))
+        <ForwardRef(Grid)
           item={true}
         >
           <Board
@@ -41,36 +41,36 @@ exports[`<Game /> renders properly 1`] = `
               ]
             }
           />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
         >
           <Hand
             hand={Array []}
           />
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </WithStyles(ForwardRef(Grid))>
-    <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+      </ForwardRef(Grid)>
+    </ForwardRef(Grid)>
+    <ForwardRef(Grid)
       item={true}
     >
-      <WithStyles(ForwardRef(Grid))
+      <ForwardRef(Grid)
         alignItems="center"
         container={true}
         direction="column"
         spacing={1}
       >
-        <WithStyles(ForwardRef(Grid))
+        <ForwardRef(Grid)
           item={true}
         >
-          <WithStyles(ForwardRef(Typography))
+          <ForwardRef(Typography)
             variant="body2"
           >
             Tiles remaining in bunch: 
             0
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+          </ForwardRef(Typography)>
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
           style={
             Object {
@@ -83,8 +83,8 @@ exports[`<Game /> renders properly 1`] = `
             handlePeel={[MockFunction handlePeel]}
             peelWinsGame={true}
           />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
           style={
             Object {
@@ -93,8 +93,8 @@ exports[`<Game /> renders properly 1`] = `
           }
         >
           <Dump />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
         >
           <OpponentBoardPreview
@@ -117,10 +117,10 @@ exports[`<Game /> renders properly 1`] = `
               ]
             }
           />
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </WithStyles(ForwardRef(Grid))>
-  </WithStyles(ForwardRef(Grid))>
+        </ForwardRef(Grid)>
+      </ForwardRef(Grid)>
+    </ForwardRef(Grid)>
+  </ForwardRef(Grid)>
 </DndProvider>
 `;
 
@@ -128,32 +128,32 @@ exports[`<Game /> renders properly with more than one player 1`] = `
 <DndProvider
   backend={[Function]}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     container={true}
-    justify="center"
+    justifyContent="center"
     spacing={2}
-    style={
+    sx={
       Object {
         "marginTop": "1px",
       }
     }
   >
-    <WithStyles(ForwardRef(Grid))
+    <ForwardRef(Grid)
       item={true}
     >
-      <WithStyles(ForwardRef(Typography))
+      <ForwardRef(Typography)
         align="center"
         gutterBottom={true}
         variant="body2"
       >
         Your board and hand:
-      </WithStyles(ForwardRef(Typography))>
-      <WithStyles(ForwardRef(Grid))
+      </ForwardRef(Typography)>
+      <ForwardRef(Grid)
         alignItems="center"
         container={true}
         spacing={1}
       >
-        <WithStyles(ForwardRef(Grid))
+        <ForwardRef(Grid)
           item={true}
         >
           <Board
@@ -165,36 +165,36 @@ exports[`<Game /> renders properly with more than one player 1`] = `
               ]
             }
           />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
         >
           <Hand
             hand={Array []}
           />
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </WithStyles(ForwardRef(Grid))>
-    <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+      </ForwardRef(Grid)>
+    </ForwardRef(Grid)>
+    <ForwardRef(Grid)
       item={true}
     >
-      <WithStyles(ForwardRef(Grid))
+      <ForwardRef(Grid)
         alignItems="center"
         container={true}
         direction="column"
         spacing={1}
       >
-        <WithStyles(ForwardRef(Grid))
+        <ForwardRef(Grid)
           item={true}
         >
-          <WithStyles(ForwardRef(Typography))
+          <ForwardRef(Typography)
             variant="body2"
           >
             Tiles remaining in bunch: 
             0
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+          </ForwardRef(Typography)>
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
           style={
             Object {
@@ -207,8 +207,8 @@ exports[`<Game /> renders properly with more than one player 1`] = `
             handlePeel={[MockFunction handlePeel]}
             peelWinsGame={true}
           />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
           style={
             Object {
@@ -217,16 +217,16 @@ exports[`<Game /> renders properly with more than one player 1`] = `
           }
         >
           <Dump />
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
+        </ForwardRef(Grid)>
+        <ForwardRef(Grid)
           item={true}
         >
-          <WithStyles(ForwardRef(Typography))
+          <ForwardRef(Typography)
             align="center"
             variant="body2"
           >
             Opponent board(s):
-          </WithStyles(ForwardRef(Typography))>
+          </ForwardRef(Typography)>
           <OpponentBoardPreview
             players={
               Array [
@@ -261,9 +261,9 @@ exports[`<Game /> renders properly with more than one player 1`] = `
               ]
             }
           />
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </WithStyles(ForwardRef(Grid))>
-  </WithStyles(ForwardRef(Grid))>
+        </ForwardRef(Grid)>
+      </ForwardRef(Grid)>
+    </ForwardRef(Grid)>
+  </ForwardRef(Grid)>
 </DndProvider>
 `;

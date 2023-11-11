@@ -6,101 +6,9 @@ exports[`<PreviewBoard /> renders properly 1`] = `
     Object {
       "$$typeof": Symbol(react.forward_ref),
       "propTypes": Object {
-        "alignContent": [Function],
-        "alignItems": [Function],
-        "alignSelf": [Function],
-        "bgcolor": [Function],
-        "border": [Function],
-        "borderBottom": [Function],
-        "borderColor": [Function],
-        "borderLeft": [Function],
-        "borderRadius": [Function],
-        "borderRight": [Function],
-        "borderTop": [Function],
-        "bottom": [Function],
-        "boxShadow": [Function],
-        "boxSizing": [Function],
         "children": [Function],
-        "className": [Function],
-        "clone": [Function],
-        "color": [Function],
         "component": [Function],
-        "css": [Function],
-        "display": [Function],
-        "displayPrint": [Function],
-        "flex": [Function],
-        "flexBasis": [Function],
-        "flexDirection": [Function],
-        "flexGrow": [Function],
-        "flexShrink": [Function],
-        "flexWrap": [Function],
-        "fontFamily": [Function],
-        "fontSize": [Function],
-        "fontStyle": [Function],
-        "fontWeight": [Function],
-        "gridArea": [Function],
-        "gridAutoColumns": [Function],
-        "gridAutoFlow": [Function],
-        "gridAutoRows": [Function],
-        "gridColumn": [Function],
-        "gridColumnGap": [Function],
-        "gridGap": [Function],
-        "gridRow": [Function],
-        "gridRowGap": [Function],
-        "gridTemplateAreas": [Function],
-        "gridTemplateColumns": [Function],
-        "gridTemplateRows": [Function],
-        "height": [Function],
-        "justifyContent": [Function],
-        "justifyItems": [Function],
-        "justifySelf": [Function],
-        "left": [Function],
-        "letterSpacing": [Function],
-        "lineHeight": [Function],
-        "m": [Function],
-        "margin": [Function],
-        "marginBottom": [Function],
-        "marginLeft": [Function],
-        "marginRight": [Function],
-        "marginTop": [Function],
-        "marginX": [Function],
-        "marginY": [Function],
-        "maxHeight": [Function],
-        "maxWidth": [Function],
-        "mb": [Function],
-        "minHeight": [Function],
-        "minWidth": [Function],
-        "ml": [Function],
-        "mr": [Function],
-        "mt": [Function],
-        "mx": [Function],
-        "my": [Function],
-        "order": [Function],
-        "overflow": [Function],
-        "p": [Function],
-        "padding": [Function],
-        "paddingBottom": [Function],
-        "paddingLeft": [Function],
-        "paddingRight": [Function],
-        "paddingTop": [Function],
-        "paddingX": [Function],
-        "paddingY": [Function],
-        "pb": [Function],
-        "pl": [Function],
-        "position": [Function],
-        "pr": [Function],
-        "pt": [Function],
-        "px": [Function],
-        "py": [Function],
-        "right": [Function],
         "sx": [Function],
-        "textAlign": [Function],
-        "textOverflow": [Function],
-        "top": [Function],
-        "visibility": [Function],
-        "whiteSpace": [Function],
-        "width": [Function],
-        "zIndex": [Function],
       },
       "render": [Function],
     }
@@ -108,7 +16,7 @@ exports[`<PreviewBoard /> renders properly 1`] = `
   display="inline-flex"
   flexDirection="column"
 >
-  <Styled(MuiBox)
+  <ForwardRef(Box)
     display="flex"
     key="0"
   >
@@ -119,26 +27,26 @@ exports[`<PreviewBoard /> renders properly 1`] = `
       src="/assets/images/A.png"
       width="23px"
     />
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       height="23px"
       key="1"
       width="23px"
     />
-  </Styled(MuiBox)>
-  <Styled(MuiBox)
+  </ForwardRef(Box)>
+  <ForwardRef(Box)
     display="flex"
     key="1"
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       height="23px"
       key="0"
       width="23px"
     />
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       height="23px"
       key="1"
       width="23px"
     />
-  </Styled(MuiBox)>
+  </ForwardRef(Box)>
 </TransparentPaper>
 `;

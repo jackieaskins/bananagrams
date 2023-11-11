@@ -3,16 +3,16 @@
 exports[`<OpponentBoardPreview /> does not render if no opponents 1`] = `""`;
 
 exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer 1`] = `
-<WithStyles(ForwardRef(Grid))
+<ForwardRef(Grid)
   alignItems="center"
   container={true}
   direction="column"
   spacing={1}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     item={true}
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       flexDirection="column"
       width="317px"
     >
@@ -30,21 +30,21 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         hand={Array []}
         tileSize={15}
       />
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-  <WithStyles(ForwardRef(Grid))
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+  <ForwardRef(Grid)
     item={true}
-    style={
+    sx={
       Object {
         "width": "100%",
       }
     }
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       display="flex"
       justifyContent="space-between"
     >
-      <WithStyles(ForwardRef(IconButton))
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleLeftClick]}
         size="small"
@@ -52,22 +52,22 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-      <WithStyles(ForwardRef(TextField))
+      </ForwardRef(IconButton)>
+      <ForwardRef(TextField)
         disabled={true}
         onChange={[MockFunction handleSelectedPlayerChange]}
         select={true}
         size="small"
         value="opponent"
       >
-        <WithStyles(ForwardRef(MenuItem))
+        <ForwardRef(MenuItem)
           key="playerId"
           value="playerId"
         >
           username
-        </WithStyles(ForwardRef(MenuItem))>
-      </WithStyles(ForwardRef(TextField))>
-      <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(MenuItem)>
+      </ForwardRef(TextField)>
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleRightClick]}
         size="small"
@@ -75,23 +75,23 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
         <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-</WithStyles(ForwardRef(Grid))>
+      </ForwardRef(IconButton)>
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+</ForwardRef(Grid)>
 `;
 
 exports[`<OpponentBoardPreview /> renders empty board and hand when selectedIndex is out of bounds 1`] = `
-<WithStyles(ForwardRef(Grid))
+<ForwardRef(Grid)
   alignItems="center"
   container={true}
   direction="column"
   spacing={1}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     item={true}
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       flexDirection="column"
       width="317px"
     >
@@ -589,21 +589,21 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         hand={Array []}
         tileSize={15}
       />
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-  <WithStyles(ForwardRef(Grid))
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+  <ForwardRef(Grid)
     item={true}
-    style={
+    sx={
       Object {
         "width": "100%",
       }
     }
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       display="flex"
       justifyContent="space-between"
     >
-      <WithStyles(ForwardRef(IconButton))
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleLeftClick]}
         size="small"
@@ -611,22 +611,22 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-      <WithStyles(ForwardRef(TextField))
+      </ForwardRef(IconButton)>
+      <ForwardRef(TextField)
         disabled={true}
         onChange={[MockFunction handleSelectedPlayerChange]}
         select={true}
         size="small"
         value="opponent"
       >
-        <WithStyles(ForwardRef(MenuItem))
+        <ForwardRef(MenuItem)
           key="opponent"
           value="opponent"
         >
           username
-        </WithStyles(ForwardRef(MenuItem))>
-      </WithStyles(ForwardRef(TextField))>
-      <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(MenuItem)>
+      </ForwardRef(TextField)>
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleRightClick]}
         size="small"
@@ -634,23 +634,23 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
         <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-</WithStyles(ForwardRef(Grid))>
+      </ForwardRef(IconButton)>
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+</ForwardRef(Grid)>
 `;
 
 exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] = `
-<WithStyles(ForwardRef(Grid))
+<ForwardRef(Grid)
   alignItems="center"
   container={true}
   direction="column"
   spacing={1}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     item={true}
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       flexDirection="column"
       width="317px"
     >
@@ -668,21 +668,21 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         hand={Array []}
         tileSize={15}
       />
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-  <WithStyles(ForwardRef(Grid))
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+  <ForwardRef(Grid)
     item={true}
-    style={
+    sx={
       Object {
         "width": "100%",
       }
     }
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       display="flex"
       justifyContent="space-between"
     >
-      <WithStyles(ForwardRef(IconButton))
+      <ForwardRef(IconButton)
         disabled={false}
         onClick={[MockFunction handleLeftClick]}
         size="small"
@@ -690,28 +690,28 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-      <WithStyles(ForwardRef(TextField))
+      </ForwardRef(IconButton)>
+      <ForwardRef(TextField)
         disabled={false}
         onChange={[MockFunction handleSelectedPlayerChange]}
         select={true}
         size="small"
         value="opponent"
       >
-        <WithStyles(ForwardRef(MenuItem))
+        <ForwardRef(MenuItem)
           key="opponent"
           value="opponent"
         >
           username
-        </WithStyles(ForwardRef(MenuItem))>
-        <WithStyles(ForwardRef(MenuItem))
+        </ForwardRef(MenuItem)>
+        <ForwardRef(MenuItem)
           key="opponent2"
           value="opponent2"
         >
           username
-        </WithStyles(ForwardRef(MenuItem))>
-      </WithStyles(ForwardRef(TextField))>
-      <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(MenuItem)>
+      </ForwardRef(TextField)>
+      <ForwardRef(IconButton)
         disabled={false}
         onClick={[MockFunction handleRightClick]}
         size="small"
@@ -719,23 +719,23 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
         <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-</WithStyles(ForwardRef(Grid))>
+      </ForwardRef(IconButton)>
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+</ForwardRef(Grid)>
 `;
 
 exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
-<WithStyles(ForwardRef(Grid))
+<ForwardRef(Grid)
   alignItems="center"
   container={true}
   direction="column"
   spacing={1}
 >
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     item={true}
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       flexDirection="column"
       width="317px"
     >
@@ -753,21 +753,21 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         hand={Array []}
         tileSize={15}
       />
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-  <WithStyles(ForwardRef(Grid))
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+  <ForwardRef(Grid)
     item={true}
-    style={
+    sx={
       Object {
         "width": "100%",
       }
     }
   >
-    <Styled(MuiBox)
+    <ForwardRef(Box)
       display="flex"
       justifyContent="space-between"
     >
-      <WithStyles(ForwardRef(IconButton))
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleLeftClick]}
         size="small"
@@ -775,22 +775,22 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         <Memo(ForwardRef(NavigateBeforeIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-      <WithStyles(ForwardRef(TextField))
+      </ForwardRef(IconButton)>
+      <ForwardRef(TextField)
         disabled={true}
         onChange={[MockFunction handleSelectedPlayerChange]}
         select={true}
         size="small"
         value="opponent"
       >
-        <WithStyles(ForwardRef(MenuItem))
+        <ForwardRef(MenuItem)
           key="opponent"
           value="opponent"
         >
           username
-        </WithStyles(ForwardRef(MenuItem))>
-      </WithStyles(ForwardRef(TextField))>
-      <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(MenuItem)>
+      </ForwardRef(TextField)>
+      <ForwardRef(IconButton)
         disabled={true}
         onClick={[MockFunction handleRightClick]}
         size="small"
@@ -798,8 +798,8 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
         <Memo(ForwardRef(NavigateNextIcon))
           fontSize="small"
         />
-      </WithStyles(ForwardRef(IconButton))>
-    </Styled(MuiBox)>
-  </WithStyles(ForwardRef(Grid))>
-</WithStyles(ForwardRef(Grid))>
+      </ForwardRef(IconButton)>
+    </ForwardRef(Box)>
+  </ForwardRef(Grid)>
+</ForwardRef(Grid)>
 `;

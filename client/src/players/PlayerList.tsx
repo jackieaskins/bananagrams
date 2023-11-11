@@ -7,8 +7,8 @@ import {
   TableHead,
   TableRow,
   IconButton,
-} from '@material-ui/core';
-import { Check, Close, DeleteOutline } from '@material-ui/icons';
+} from '@mui/material';
+import { Check, Close, DeleteOutline } from '@mui/icons-material';
 
 import { useSocket } from '../socket/SocketContext';
 import { useGame } from '../games/GameContext';
@@ -59,7 +59,7 @@ const PlayerList: React.FC = () => {
                   }}
                 >
                   <TableCell
-                    padding={isCurrentUser ? 'checkbox' : 'default'}
+                    padding={isCurrentUser ? 'checkbox' : undefined}
                     align="center"
                   >
                     {isCurrentUser ? (
@@ -83,7 +83,7 @@ const PlayerList: React.FC = () => {
 
                   <TableCell align="right">{gamesWon}</TableCell>
 
-                  {isCurrentPlayerAdmin && (
+                  {isCurrentPlayerAdmin && players.length > 1 && (
                     <TableCell>
                       {!isCurrentUser && (
                         <IconButton

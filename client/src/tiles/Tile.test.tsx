@@ -33,8 +33,8 @@ describe('<Tile />', () => {
         item: {
           id: DEFAULT_ID,
           boardLocation: DEFAULT_BOARD_LOCATION,
+          type: 'TILE',
         },
-        type: 'TILE',
         collect: expect.any(Function),
       });
     });
@@ -52,35 +52,35 @@ describe('<Tile />', () => {
 
   describe('margin', () => {
     test('is set to 0 when on board', () => {
-      expect(renderComponent().props().style.margin).toEqual('0');
+      expect(renderComponent().props().sx.margin).toEqual('0');
     });
 
     test('is set when not on board', () => {
       expect(
-        renderComponent({ boardLocation: null }).props().style.margin
+        renderComponent({ boardLocation: null }).props().sx.margin
       ).toEqual('5px');
     });
   });
 
   describe('opacity', () => {
     test('is set to 1 when not dragging', () => {
-      expect(renderComponent().props().style.opacity).toEqual(1);
+      expect(renderComponent().props().sx.opacity).toEqual(1);
     });
 
     test('is dimmed while dragging', () => {
       useDrag.mockReturnValue([{ isDragging: true }, jest.fn()]);
-      expect(renderComponent().props().style.opacity).toEqual(0.5);
+      expect(renderComponent().props().sx.opacity).toEqual(0.5);
     });
   });
 
   describe('color', () => {
     test('is set to black by default', () => {
-      expect(renderComponent().props().style.color).toEqual('black');
+      expect(renderComponent().props().sx.color).toEqual('black');
     });
 
     test('is set to passed in color', () => {
       const color = 'red';
-      expect(renderComponent({ color }).props().style.color).toEqual(color);
+      expect(renderComponent({ color }).props().sx.color).toEqual(color);
     });
   });
 });

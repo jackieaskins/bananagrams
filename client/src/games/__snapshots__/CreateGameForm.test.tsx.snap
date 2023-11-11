@@ -2,8 +2,8 @@
 
 exports[`<CreateGameForm /> renders properly 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(Typography))
-    style={
+  <ForwardRef(Typography)
+    sx={
       Object {
         "marginBottom": "5px",
       }
@@ -11,9 +11,9 @@ exports[`<CreateGameForm /> renders properly 1`] = `
     variant="h3"
   >
     Start a new game
-  </WithStyles(ForwardRef(Typography))>
+  </ForwardRef(Typography)>
   <ErrorAlert
-    style={
+    sx={
       Object {
         "marginBottom": "5px",
       }
@@ -22,14 +22,14 @@ exports[`<CreateGameForm /> renders properly 1`] = `
   >
     error
   </ErrorAlert>
-  <WithStyles(ForwardRef(Grid))
+  <ForwardRef(Grid)
     autoComplete="off"
     component="form"
     container={true}
     direction="column"
     spacing={3}
   >
-    <WithStyles(ForwardRef(Grid))
+    <ForwardRef(Grid)
       item={true}
     >
       <TextField
@@ -48,8 +48,8 @@ exports[`<CreateGameForm /> renders properly 1`] = `
         setValue={[MockFunction setUsername]}
         value="username"
       />
-    </WithStyles(ForwardRef(Grid))>
-    <WithStyles(ForwardRef(Grid))
+    </ForwardRef(Grid)>
+    <ForwardRef(Grid)
       item={true}
     >
       <Button
@@ -63,7 +63,7 @@ exports[`<CreateGameForm /> renders properly 1`] = `
       >
         Create game
       </Button>
-    </WithStyles(ForwardRef(Grid))>
-  </WithStyles(ForwardRef(Grid))>
+    </ForwardRef(Grid)>
+  </ForwardRef(Grid)>
 </Fragment>
 `;

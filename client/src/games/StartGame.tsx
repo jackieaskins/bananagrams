@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@mui/material';
 
 import { useGame } from './GameContext';
 import PlayerList from '../players/PlayerList';

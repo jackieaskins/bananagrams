@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import GameSidebar from './GameSidebar';
+import GameSpeedDial from './GameSpeedDial';
 
 jest.mock('../styles', () => ({
   useStyles: () => ({
@@ -7,16 +7,16 @@ jest.mock('../styles', () => ({
   }),
 }));
 
-jest.mock('./GameSidebarState', () => ({
-  useGameSidebar: () => ({
+jest.mock('./GameSpeedDialState', () => ({
+  useGameSpeedDial: () => ({
     leaveGameDialogOpen: true,
     showLeaveGameDialog: jest.fn().mockName('showLeaveGameDialog'),
     handleLeaveGameCancel: jest.fn().mockName('handleLeaveGameCancel'),
   }),
 }));
 
-describe('<GameSidebar />', () => {
+describe('<GameSpeedDial />', () => {
   test('renders properly', () => {
-    expect(shallow(<GameSidebar />)).toMatchSnapshot();
+    expect(shallow(<GameSpeedDial />)).toMatchSnapshot();
   });
 });

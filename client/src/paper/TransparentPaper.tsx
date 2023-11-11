@@ -1,11 +1,8 @@
-import { Paper, PaperProps } from '@material-ui/core';
+import { Paper, PaperProps } from '@mui/material';
+import { transparentPaperSx } from '../styles';
 
-import { useStyles } from '../styles';
-
-const TransparentPaper: React.FC<PaperProps> = (props) => {
-  const { transparentPaper } = useStyles();
-
-  return <Paper className={transparentPaper} variant="outlined" {...props} />;
-};
+const TransparentPaper: React.FC<PaperProps> = (props) => (
+  <Paper sx={transparentPaperSx} variant="outlined" {...props} />
+);
 
 export default TransparentPaper;

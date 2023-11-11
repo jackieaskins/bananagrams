@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useServerDisconnectionDialog } from './ServerDisconnectionDialogState';
 

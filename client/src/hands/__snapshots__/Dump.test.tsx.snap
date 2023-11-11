@@ -4,34 +4,33 @@ exports[`<Dump /> drag text renders when can drop 1`] = `null`;
 
 exports[`<Dump /> renders properly 1`] = `
 <TransparentPaper
-  style={
+  sx={
     Object {
       "width": "100%",
     }
   }
 >
-  <Styled(MuiBox)
+  <ForwardRef(Box)
     alignItems="center"
-    className=""
     display="flex"
     flexDirection="column"
     justifyContent="center"
     p={2}
   >
-    <WithStyles(ForwardRef(Typography))
+    <ForwardRef(Typography)
       color="textSecondary"
       variant="button"
     >
       Dump!
-    </WithStyles(ForwardRef(Typography))>
-    <WithStyles(ForwardRef(Typography))
+    </ForwardRef(Typography)>
+    <ForwardRef(Typography)
       color="textSecondary"
       variant="caption"
     >
       Drag a tile here to exchange it for 
       3
        from the bunch
-    </WithStyles(ForwardRef(Typography))>
-  </Styled(MuiBox)>
+    </ForwardRef(Typography)>
+  </ForwardRef(Box)>
 </TransparentPaper>
 `;

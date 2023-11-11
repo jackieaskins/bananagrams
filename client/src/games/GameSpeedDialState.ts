@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-type GameSidebarState = {
+type GameSpeedDialState = {
   leaveGameDialogOpen: boolean;
   showLeaveGameDialog: () => void;
   handleLeaveGameCancel: () => void;
 };
 
-export const useGameSidebar = (): GameSidebarState => {
+export const useGameSpeedDial = (): GameSpeedDialState => {
   const [leaveGameDialogOpen, setLeaveGameDialogOpen] = useState(false);
 
   const showLeaveGameDialog = (): void => {

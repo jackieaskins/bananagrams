@@ -2,14 +2,14 @@
 
 exports[`<Hand /> renders properly 1`] = `
 <TransparentPaper>
-  <WithStyles(ForwardRef(Tooltip))
+  <ForwardRef(Tooltip)
     title="Shuffle hand"
   >
-    <WithStyles(ForwardRef(Button))
+    <ForwardRef(Button)
       disabled={true}
       onClick={[Function]}
       size="small"
-      style={
+      sx={
         Object {
           "width": "100%",
         }
@@ -19,31 +19,30 @@ exports[`<Hand /> renders properly 1`] = `
         color="action"
         fontSize="small"
       />
-    </WithStyles(ForwardRef(Button))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <WithStyles(ForwardRef(Divider)) />
-  <Styled(MuiBox)
-    className=""
+    </ForwardRef(Button)>
+  </ForwardRef(Tooltip)>
+  <ForwardRef(Divider) />
+  <ForwardRef(Box)
     display="flex"
     flexDirection="column"
     flexWrap="wrap"
-    height="480px"
+    height="497px"
     p={1}
-    width="70px"
+    sx={null}
   />
 </TransparentPaper>
 `;
 
 exports[`<Hand /> renders properly with player 1`] = `
 <TransparentPaper>
-  <WithStyles(ForwardRef(Tooltip))
+  <ForwardRef(Tooltip)
     title="Shuffle hand"
   >
-    <WithStyles(ForwardRef(Button))
+    <ForwardRef(Button)
       disabled={false}
       onClick={[Function]}
       size="small"
-      style={
+      sx={
         Object {
           "width": "100%",
         }
@@ -53,17 +52,16 @@ exports[`<Hand /> renders properly with player 1`] = `
         color="action"
         fontSize="small"
       />
-    </WithStyles(ForwardRef(Button))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <WithStyles(ForwardRef(Divider)) />
-  <Styled(MuiBox)
-    className=""
+    </ForwardRef(Button)>
+  </ForwardRef(Tooltip)>
+  <ForwardRef(Divider) />
+  <ForwardRef(Box)
     display="flex"
     flexDirection="column"
     flexWrap="wrap"
-    height="0px"
+    height="-3px"
     p={1}
-    width="70px"
+    sx={null}
   >
     <Tile
       boardLocation={null}
@@ -95,6 +93,6 @@ exports[`<Hand /> renders properly with player 1`] = `
         }
       }
     />
-  </Styled(MuiBox)>
+  </ForwardRef(Box)>
 </TransparentPaper>
 `;

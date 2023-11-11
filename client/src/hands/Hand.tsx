@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box, Button, Divider, Tooltip } from '@material-ui/core';
+import { Shuffle } from '@mui/icons-material';
+import { Box, Button, Divider, Tooltip } from '@mui/material';
 import { useDrop } from 'react-dnd';
 
-import { Hand as HandType } from './types';
+import { useGame } from '../games/GameContext';
+import TransparentPaper from '../paper/TransparentPaper';
 import { useSocket } from '../socket/SocketContext';
+import { validDropSx } from '../styles';
 import Tile from '../tiles/Tile';
 import { TileItem } from '../tiles/types';
-import { useStyles } from '../styles';
-import TransparentPaper from '../paper/TransparentPaper';
-import { useGame } from '../games/GameContext';
-import { Shuffle } from '@material-ui/icons';
+import { Hand as HandType } from './types';
 
 type HandProps = {
   hand: HandType;
@@ -18,7 +17,6 @@ type HandProps = {
 const DEFAULT_BOARD_LENGTH = 21;
 
 const Hand: React.FC<HandProps> = ({ hand }) => {
-  const classes = useStyles();
   const { socket } = useSocket();
   const {
     gameInfo: { players },
@@ -45,9 +43,7 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
     <TransparentPaper>
       <Tooltip title="Shuffle hand">
         <Button
-          style={{
-            width: '100%',
-          }}
+          sx={{ width: '100%' }}
           disabled={hand.length <= 1}
           size="small"
           onClick={(): void => {
@@ -61,15 +57,13 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
       <Divider />
 
       <Box
-        // @ts-ignore
         ref={dropRef}
         display="flex"
         flexWrap="wrap"
         flexDirection="column"
-        width={`${Math.max(Math.ceil(hand.length / 13), 2) * 35}px`}
-        height={`${24 * boardLength + 2 - 26}px`}
+        height={`${25 * boardLength - 28}px`}
         p={1}
-        className={isOver && canDrop ? classes.validDrop : ''}
+        sx={isOver && canDrop ? validDropSx : null}
       >
         {hand.map((tile) => (
           <Tile key={tile.id} tile={tile} boardLocation={null} />

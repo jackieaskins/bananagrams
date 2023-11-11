@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PlayerList /> renders admin user properly 1`] = `
-<WithStyles(ForwardRef(TableContainer))>
-  <WithStyles(ForwardRef(Table))>
+<ForwardRef(TableContainer)>
+  <ForwardRef(Table)>
     <caption
       style={
         Object {
@@ -21,26 +21,26 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
          max
       </div>
     </caption>
-    <WithStyles(ForwardRef(TableHead))>
-      <WithStyles(ForwardRef(TableRow))>
-        <WithStyles(ForwardRef(TableCell))
+    <ForwardRef(TableHead)>
+      <ForwardRef(TableRow)>
+        <ForwardRef(TableCell)
           align="center"
         >
           Ready?
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           Player
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           Games Won
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell)) />
-      </WithStyles(ForwardRef(TableRow))>
-    </WithStyles(ForwardRef(TableHead))>
-    <WithStyles(ForwardRef(TableBody))>
-      <WithStyles(ForwardRef(TableRow))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell) />
+      </ForwardRef(TableRow)>
+    </ForwardRef(TableHead)>
+    <ForwardRef(TableBody)>
+      <ForwardRef(TableRow)
         key="1"
         style={
           Object {
@@ -48,11 +48,11 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
           padding="checkbox"
         >
-          <WithStyles(ForwardRef(Checkbox))
+          <ForwardRef(Checkbox)
             checked={false}
             onChange={[Function]}
             style={
@@ -61,19 +61,19 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
            - Admin
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           0
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell)) />
-      </WithStyles(ForwardRef(TableRow))>
-      <WithStyles(ForwardRef(TableRow))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell) />
+      </ForwardRef(TableRow)>
+      <ForwardRef(TableRow)
         key="2"
         style={
           Object {
@@ -81,9 +81,8 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
-          padding="default"
         >
           <Memo(ForwardRef(CloseIcon))
             style={
@@ -92,25 +91,25 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           0
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
+          <ForwardRef(IconButton)
             onClick={[Function]}
             size="small"
           >
             <Memo(ForwardRef(DeleteOutlineIcon)) />
-          </WithStyles(ForwardRef(IconButton))>
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-      <WithStyles(ForwardRef(TableRow))
+          </ForwardRef(IconButton)>
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+      <ForwardRef(TableRow)
         key="3"
         style={
           Object {
@@ -118,9 +117,8 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
-          padding="default"
         >
           <Memo(ForwardRef(CheckIcon))
             style={
@@ -129,33 +127,33 @@ exports[`<PlayerList /> renders admin user properly 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
            - Winner
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           3
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(IconButton))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
+          <ForwardRef(IconButton)
             onClick={[Function]}
             size="small"
           >
             <Memo(ForwardRef(DeleteOutlineIcon)) />
-          </WithStyles(ForwardRef(IconButton))>
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-    </WithStyles(ForwardRef(TableBody))>
-  </WithStyles(ForwardRef(Table))>
-</WithStyles(ForwardRef(TableContainer))>
+          </ForwardRef(IconButton)>
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+    </ForwardRef(TableBody)>
+  </ForwardRef(Table)>
+</ForwardRef(TableContainer)>
 `;
 
 exports[`<PlayerList /> renders properly with 3 players 1`] = `
-<WithStyles(ForwardRef(TableContainer))>
-  <WithStyles(ForwardRef(Table))>
+<ForwardRef(TableContainer)>
+  <ForwardRef(Table)>
     <caption
       style={
         Object {
@@ -174,25 +172,25 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
          max
       </div>
     </caption>
-    <WithStyles(ForwardRef(TableHead))>
-      <WithStyles(ForwardRef(TableRow))>
-        <WithStyles(ForwardRef(TableCell))
+    <ForwardRef(TableHead)>
+      <ForwardRef(TableRow)>
+        <ForwardRef(TableCell)
           align="center"
         >
           Ready?
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           Player
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           Games Won
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-    </WithStyles(ForwardRef(TableHead))>
-    <WithStyles(ForwardRef(TableBody))>
-      <WithStyles(ForwardRef(TableRow))
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+    </ForwardRef(TableHead)>
+    <ForwardRef(TableBody)>
+      <ForwardRef(TableRow)
         key="1"
         style={
           Object {
@@ -200,11 +198,11 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
           padding="checkbox"
         >
-          <WithStyles(ForwardRef(Checkbox))
+          <ForwardRef(Checkbox)
             checked={false}
             onChange={[Function]}
             style={
@@ -213,17 +211,17 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           0
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-      <WithStyles(ForwardRef(TableRow))
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+      <ForwardRef(TableRow)
         key="2"
         style={
           Object {
@@ -231,9 +229,8 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
-          padding="default"
         >
           <Memo(ForwardRef(CloseIcon))
             style={
@@ -242,17 +239,17 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           0
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-      <WithStyles(ForwardRef(TableRow))
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+      <ForwardRef(TableRow)
         key="3"
         style={
           Object {
@@ -260,9 +257,8 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
           }
         }
       >
-        <WithStyles(ForwardRef(TableCell))
+        <ForwardRef(TableCell)
           align="center"
-          padding="default"
         >
           <Memo(ForwardRef(CheckIcon))
             style={
@@ -271,25 +267,25 @@ exports[`<PlayerList /> renders properly with 3 players 1`] = `
               }
             }
           />
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           username
            - Winner
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           3
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-    </WithStyles(ForwardRef(TableBody))>
-  </WithStyles(ForwardRef(Table))>
-</WithStyles(ForwardRef(TableContainer))>
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+    </ForwardRef(TableBody)>
+  </ForwardRef(Table)>
+</ForwardRef(TableContainer)>
 `;
 
 exports[`<PlayerList /> renders properly without gameInfo 1`] = `
-<WithStyles(ForwardRef(TableContainer))>
-  <WithStyles(ForwardRef(Table))>
+<ForwardRef(TableContainer)>
+  <ForwardRef(Table)>
     <caption
       style={
         Object {
@@ -308,24 +304,24 @@ exports[`<PlayerList /> renders properly without gameInfo 1`] = `
          max
       </div>
     </caption>
-    <WithStyles(ForwardRef(TableHead))>
-      <WithStyles(ForwardRef(TableRow))>
-        <WithStyles(ForwardRef(TableCell))
+    <ForwardRef(TableHead)>
+      <ForwardRef(TableRow)>
+        <ForwardRef(TableCell)
           align="center"
         >
           Ready?
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))>
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)>
           Player
-        </WithStyles(ForwardRef(TableCell))>
-        <WithStyles(ForwardRef(TableCell))
+        </ForwardRef(TableCell)>
+        <ForwardRef(TableCell)
           align="right"
         >
           Games Won
-        </WithStyles(ForwardRef(TableCell))>
-      </WithStyles(ForwardRef(TableRow))>
-    </WithStyles(ForwardRef(TableHead))>
-    <WithStyles(ForwardRef(TableBody)) />
-  </WithStyles(ForwardRef(Table))>
-</WithStyles(ForwardRef(TableContainer))>
+        </ForwardRef(TableCell)>
+      </ForwardRef(TableRow)>
+    </ForwardRef(TableHead)>
+    <ForwardRef(TableBody) />
+  </ForwardRef(Table)>
+</ForwardRef(TableContainer)>
 `;

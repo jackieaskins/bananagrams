@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 
 import BoardSquare from './BoardSquare';
 import { Board as BoardType } from '../boards/types';

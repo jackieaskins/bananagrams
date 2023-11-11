@@ -1,4 +1,4 @@
-import { Alert, AlertProps } from '@material-ui/lab';
+import { Alert, AlertProps } from '@mui/material';
 
 interface ErrorAlertProps extends AlertProps {
   visible: boolean;

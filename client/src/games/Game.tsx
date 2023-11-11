@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 
 import OpponentBoardPreview from '../boards/OpponentBoardPreview';
 import Board from '../boards/Board';
@@ -36,7 +36,7 @@ const Game: React.FC = () => {
         container
         spacing={2}
         justifyContent="center"
-        style={{ marginTop: '1px' }}
+        sx={{ marginTop: '1px' }}
       >
         <Grid item>
           <Typography align="center" variant="body2" gutterBottom>

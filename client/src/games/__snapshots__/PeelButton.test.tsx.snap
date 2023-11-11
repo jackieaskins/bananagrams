@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PeelButton /> renders properly 1`] = `
-<WithStyles(ForwardRef(Tooltip))
+<ForwardRef(Tooltip)
   title="Get a new tile and send one to everyone else"
 >
   <span>
@@ -14,5 +14,5 @@ exports[`<PeelButton /> renders properly 1`] = `
       Peel!
     </Button>
   </span>
-</WithStyles(ForwardRef(Tooltip))>
+</ForwardRef(Tooltip)>
 `;

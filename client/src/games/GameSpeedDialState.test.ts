@@ -1,4 +1,4 @@
-import { useGameSidebar } from './GameSidebarState';
+import { useGameSpeedDial } from './GameSpeedDialState';
 
 const mockSetLeaveGameDialogOpen = jest.fn();
 jest.mock('react', () => ({
@@ -10,19 +10,19 @@ jest.mock('react', () => ({
     ]),
 }));
 
-describe('useGameSidebar', () => {
+describe('useGameSpeedDial', () => {
   test('starts dialog as closed', () => {
-    expect(useGameSidebar().leaveGameDialogOpen).toEqual(false);
+    expect(useGameSpeedDial().leaveGameDialogOpen).toEqual(false);
   });
 
   test('opens dialog on showLeaveGameDialog', () => {
-    useGameSidebar().showLeaveGameDialog();
+    useGameSpeedDial().showLeaveGameDialog();
 
     expect(mockSetLeaveGameDialogOpen).toHaveBeenCalledWith(true);
   });
 
   test('hides dialog on handleLeaveGameCancel', () => {
-    useGameSidebar().handleLeaveGameCancel();
+    useGameSpeedDial().handleLeaveGameCancel();
 
     expect(mockSetLeaveGameDialogOpen).toHaveBeenCalledWith(false);
   });

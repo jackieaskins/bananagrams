@@ -1,8 +1,8 @@
 import { Redirect } from 'react-router-dom';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 
 import StartGame from './StartGame';
-import GameSidebar from './GameSidebar';
+import GameSpeedDial from './GameSpeedDial';
 import { useGame } from './GameContext';
 import Game from './Game';
 
@@ -18,7 +18,7 @@ const GameManager: React.FC = () => {
 
   return (
     <Box display="flex">
-      <GameSidebar />
+      <GameSpeedDial />
       <Box width="100%">{isInProgress ? <Game /> : <StartGame />}</Box>
     </Box>
   );

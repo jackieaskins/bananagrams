@@ -3,7 +3,8 @@ import Hand from './Hand';
 import { useDrop } from 'react-dnd';
 import { useGame } from '../games/GameContext';
 import { playerFixture } from '../fixtures/player';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button } from '@mui/material';
+import { validDropSx } from '../styles';
 
 const mockEmit = jest.fn();
 jest.mock('../socket/SocketContext', () => ({
@@ -13,9 +14,7 @@ jest.mock('../socket/SocketContext', () => ({
 }));
 
 jest.mock('../styles', () => ({
-  useStyles: () => ({
-    validDrop: 'validDrop',
-  }),
+  validDropSx: { color: 'green' },
 }));
 
 jest.mock('../games/GameContext', () => ({
@@ -136,16 +135,14 @@ describe('<Hand />', () => {
   });
 
   describe('className', () => {
-    test('ha validDrop class name when is over and can drop', () => {
+    test('has validDrop sx when is over and can drop', () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]),
-        expect(renderComponent().find(Box).props().className).toEqual(
-          'validDrop'
-        );
+        expect(renderComponent().find(Box).props().sx).toEqual(validDropSx);
     });
 
-    test('has no class name when is not over or cannot drop', () => {
+    test('has no sx when is not over or cannot drop', () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]),
-        expect(renderComponent().find(Box).props().className).toEqual('');
+        expect(renderComponent().find(Box).props().sx).toBeNull();
     });
   });
 });

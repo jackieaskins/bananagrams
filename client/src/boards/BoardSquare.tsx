@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import { useDrop } from 'react-dnd';
 
 import { useGame } from '../games/GameContext';
-import { useStyles } from '../styles';
-import { TileItem } from '../tiles/types';
+import { validDropSx } from '../styles';
 import Tile from '../tiles/Tile';
-import { BoardSquare, Direction, WordInfo, ValidationStatus } from './types';
+import { TileItem } from '../tiles/types';
+import { BoardSquare, Direction, ValidationStatus, WordInfo } from './types';
 
 type BoardSquareProps = {
   boardSquare: BoardSquare | null;
@@ -32,7 +31,6 @@ const getColor = (
 };
 
 const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
-  const classes = useStyles();
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};
 
@@ -54,10 +52,9 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
 
   return (
     <Box
-      className={isOver && canDrop ? classes.validDrop : ''}
+      sx={isOver && canDrop ? validDropSx : null}
       height="25px"
       width="25px"
-      // @ts-ignore
       ref={dropRef}
     >
       {tile && wordInfo ? (

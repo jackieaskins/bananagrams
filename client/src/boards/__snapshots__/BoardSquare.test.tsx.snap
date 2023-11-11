@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BoardSquare /> renders black tile when not validated in any direction 1`] = `
-<Styled(MuiBox)
-  className=""
+<ForwardRef(Box)
   height="25px"
+  sx={null}
   width="25px"
 >
   <Tile
@@ -21,13 +21,13 @@ exports[`<BoardSquare /> renders black tile when not validated in any direction 
       }
     }
   />
-</Styled(MuiBox)>
+</ForwardRef(Box)>
 `;
 
 exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = `
-<Styled(MuiBox)
-  className=""
+<ForwardRef(Box)
   height="25px"
+  sx={null}
   width="25px"
 >
   <Tile
@@ -45,29 +45,28 @@ exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = 
       }
     }
   />
-</Styled(MuiBox)>
+</ForwardRef(Box)>
 `;
 
 exports[`<BoardSquare /> renders properly when is over and can drop 1`] = `
-<Styled(MuiBox)
-  className="validDrop"
+<ForwardRef(Box)
   height="25px"
   width="25px"
 />
 `;
 
 exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
-<Styled(MuiBox)
-  className=""
+<ForwardRef(Box)
   height="25px"
+  sx={null}
   width="25px"
 />
 `;
 
 exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
-<Styled(MuiBox)
-  className=""
+<ForwardRef(Box)
   height="25px"
+  sx={null}
   width="25px"
 >
   <Tile
@@ -85,5 +84,5 @@ exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
       }
     }
   />
-</Styled(MuiBox)>
+</ForwardRef(Box)>
 `;

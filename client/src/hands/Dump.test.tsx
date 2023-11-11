@@ -2,13 +2,12 @@ import { shallow } from 'enzyme';
 import Dump from './Dump';
 import { useDrop } from 'react-dnd';
 import { useGame } from '../games/GameContext';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { invalidDropSx, validDropSx } from '../styles';
 
 jest.mock('../styles', () => ({
-  useStyles: () => ({
-    validDrop: 'validDrop',
-    invalidDrop: 'invalidDrop',
-  }),
+  validDropSx: { color: 'green' },
+  invalidDropSx: { color: 'red' },
 }));
 
 jest.mock('react-dnd', () => ({
@@ -103,23 +102,23 @@ describe('<Dump />', () => {
     });
   });
 
-  describe('className', () => {
-    const getClassName = () => renderComponent().find(Box).props().className;
+  describe('sx', () => {
+    const getSx = () => renderComponent().find(Box).props().sx;
 
     test('is empty when is not over', () => {
-      expect(getClassName()).toEqual('');
+      expect(getSx()).toBeUndefined();
     });
 
     test('is validDrop when is over and can be dropped', () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]);
 
-      expect(getClassName()).toEqual('validDrop');
+      expect(getSx()).toEqual(validDropSx);
     });
 
     test('is invalidDrop when is over but cannot be dropped', () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]);
 
-      expect(getClassName()).toEqual('invalidDrop');
+      expect(getSx()).toEqual(invalidDropSx);
     });
   });
 

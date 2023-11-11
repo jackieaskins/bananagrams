@@ -3,7 +3,7 @@
 exports[`<CopyToClipboard /> renders properly when should not show 1`] = `<span />`;
 
 exports[`<CopyToClipboard /> renders properly when should show 1`] = `
-<WithStyles(ForwardRef(IconButton))
+<ForwardRef(IconButton)
   color="inherit"
   onClick={[Function]}
   size="small"
@@ -11,5 +11,5 @@ exports[`<CopyToClipboard /> renders properly when should show 1`] = `
   <Memo(ForwardRef(FileCopyOutlinedIcon))
     fontSize="small"
   />
-</WithStyles(ForwardRef(IconButton))>
+</ForwardRef(IconButton)>
 `;

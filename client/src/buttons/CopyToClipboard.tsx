@@ -1,5 +1,5 @@
-import { IconButton } from '@material-ui/core';
-import { FileCopyOutlined } from '@material-ui/icons';
+import { IconButton } from '@mui/material';
+import { FileCopyOutlined } from '@mui/icons-material';
 
 import { useCopyToClipboard } from './CopyToClipboardState';
 

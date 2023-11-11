@@ -1,4 +1,4 @@
-import { CircularProgress, CircularProgressProps } from '@material-ui/core';
+import { CircularProgress, CircularProgressProps } from '@mui/material';
 
 interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;

@@ -1,4 +1,4 @@
-import { Grid, Link as MUILink, Typography } from '@material-ui/core';
+import { Grid, Link as MUILink, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import Button from '../buttons/Button';
@@ -12,10 +12,10 @@ const JoinGameForm: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3" style={{ marginBottom: '5px' }}>
+      <Typography variant="h3" sx={{ marginBottom: '5px' }}>
         Join game
       </Typography>
-      <ErrorAlert visible={!!error} style={{ marginBottom: '5px' }}>
+      <ErrorAlert visible={!!error} sx={{ marginBottom: '5px' }}>
         {error}
       </ErrorAlert>
       <Grid
@@ -49,7 +49,7 @@ const JoinGameForm: React.FC = () => {
           </Button>
         </Grid>
 
-        <Grid item style={{ margin: '0 auto', padding: '0' }}>
+        <Grid item style={{ margin: '0 auto' }}>
           <MUILink component={Link} to="/" variant="body1" align="center">
             Go home
           </MUILink>

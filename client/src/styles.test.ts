@@ -1,6 +1,6 @@
 import { useStyles } from './styles';
 
-jest.mock('@material-ui/core/styles', () => ({
+jest.mock('@mui/material/styles', () => ({
   createStyles: (values: any): any => values,
   makeStyles: (fn: any): any =>
     fn({

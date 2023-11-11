@@ -2,7 +2,7 @@
 
 exports[`<LoadingIndicator /> renders properly with loading text 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(CircularProgress))
+  <ForwardRef(CircularProgress)
     color="inherit"
   />
    
@@ -12,7 +12,7 @@ exports[`<LoadingIndicator /> renders properly with loading text 1`] = `
 
 exports[`<LoadingIndicator /> renders properly without loading text 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(CircularProgress))
+  <ForwardRef(CircularProgress)
     color="inherit"
   />
 </Fragment>

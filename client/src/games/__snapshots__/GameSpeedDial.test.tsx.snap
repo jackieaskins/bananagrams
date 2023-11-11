@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GameSpeedDial /> renders properly 1`] = `
+<Fragment>
+  <ForwardRef(SpeedDial)
+    ariaLabel="Leave game speed dial"
+    icon={<ForwardRef(SpeedDialIcon) />}
+    sx={
+      Object {
+        "bottom": 10,
+        "position": "absolute",
+        "right": 10,
+      }
+    }
+  >
+    <ForwardRef(SpeedDialAction)
+      icon={<Memo />}
+      onClick={[MockFunction showLeaveGameDialog]}
+      tooltipTitle="Leave game"
+    />
+  </ForwardRef(SpeedDial)>
+  <ForwardRef(Dialog)
+    onClose={[MockFunction handleLeaveGameCancel]}
+    open={true}
+  >
+    <ForwardRef(DialogContent)>
+      <ForwardRef(DialogContentText)>
+        Are you sure you want to leave the game?
+      </ForwardRef(DialogContentText)>
+    </ForwardRef(DialogContent)>
+    <ForwardRef(DialogActions)>
+      <ForwardRef(Button)
+        onClick={[MockFunction handleLeaveGameCancel]}
+      >
+        No
+      </ForwardRef(Button)>
+      <ForwardRef(Button)
+        color="primary"
+        component={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "innerRef": [Function],
+              "onClick": [Function],
+              "replace": [Function],
+              "target": [Function],
+              "to": [Function],
+            },
+            "render": [Function],
+          }
+        }
+        to="/"
+      >
+        Yes
+      </ForwardRef(Button)>
+    </ForwardRef(DialogActions)>
+  </ForwardRef(Dialog)>
+</Fragment>
+`;
