@@ -22,9 +22,6 @@ module.exports = {
       },
     ],
   },
-  node: {
-    fs: 'empty',
-  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist', 'public'),
@@ -36,5 +33,6 @@ module.exports = {
       'react-dom': '@hot-loader/react-dom',
     },
     extensions: ['.ts', '.tsx', '.js'],
+    fallback: { fs: false },
   },
 };
