@@ -21,7 +21,7 @@ export const configureDevServer = (app: core.Express): void => {
     const filename = path.resolve(compiler.outputPath, "index.html");
     compiler.outputFileSystem.readFile(filename, (err: any, result: any) => {
       if (err) {
-        return next(err);
+        return next?.(err);
       }
 
       res.set("content-type", "text/html");

@@ -1,3 +1,4 @@
+import Dictionary from "./dictionary/Dictionary";
 import {
   BoardSquares,
   BoardLocation,
@@ -6,7 +7,6 @@ import {
   ValidationStatus,
 } from "./models/Board";
 import Tile from "./models/Tile";
-import Dictionary from "./dictionary/Dictionary";
 
 type ValidateLocation = {
   start: BoardLocation;
@@ -89,11 +89,11 @@ export const validateAddTile = (
     const beforeSquare = board[x - delta.x]?.[y - delta.y];
     const afterSquare = board[x + delta.x]?.[y + delta.y];
 
-    const start = !!beforeSquare
+    const start = beforeSquare
       ? beforeSquare.wordInfo[direction].start
       : location;
 
-    if (!!afterSquare) {
+    if (afterSquare) {
       iterateWordFromStart(
         board,
         { x: x + delta.x, y: y + delta.y },
@@ -135,14 +135,14 @@ export const validateRemoveTile = (
     const beforeSquare = board[x - delta.x]?.[y - delta.y];
     const afterSquare = board[x + delta.x]?.[y + delta.y];
 
-    if (!!beforeSquare) {
+    if (beforeSquare) {
       locationsToValidate.push({
         start: beforeSquare.wordInfo[direction].start,
         direction,
       });
     }
 
-    if (!!afterSquare) {
+    if (afterSquare) {
       const newStart = { x: x + delta.x, y: y + delta.y };
       iterateWordFromStart(board, newStart, direction, (square) => {
         square.wordInfo[direction].start = newStart;

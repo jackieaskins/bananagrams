@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useJoinGameForm } from "./JoinGameFormState";
 
 const mockNavigate = jest.fn();
@@ -18,14 +18,17 @@ jest.mock("../socket/SocketContext", () => ({
   }),
 }));
 
+jest.mock("react", () => ({
+  useState: jest.fn(),
+}));
+
 describe("useJoinGameForm", () => {
   const mockSetUsername = jest.fn().mockName("setUsername");
   const mockSetError = jest.fn().mockName("setError");
   const mockSetIsJoiningGame = jest.fn().mockName("setIsJoiningGame");
 
   beforeEach(() => {
-    jest
-      .spyOn(React, "useState")
+    useState
       .mockImplementationOnce((initialValue) => [initialValue, mockSetUsername])
       .mockImplementationOnce((initialValue) => [initialValue, mockSetError])
       .mockImplementationOnce((initialValue) => [

@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
-
 import { useGame } from "../games/GameContext";
 import { validDropSx } from "../styles";
 import Tile from "../tiles/Tile";
@@ -38,7 +37,7 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
     accept: "TILE",
     canDrop: (_, monitor) => monitor.isOver() && !tile,
     drop: ({ id, boardLocation }: TileItem) => {
-      if (!!boardLocation) {
+      if (boardLocation) {
         handleMoveTileOnBoard(boardLocation, { x, y });
       } else {
         handleMoveTileFromHandToBoard(id, { x, y });

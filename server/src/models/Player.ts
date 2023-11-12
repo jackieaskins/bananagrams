@@ -1,6 +1,6 @@
-import Hand, { HandJSON } from "./Hand";
-import Board, { BoardLocation, BoardJSON } from "./Board";
 import BaseModel from "./BaseModel";
+import Board, { BoardLocation, BoardJSON } from "./Board";
+import Hand, { HandJSON } from "./Hand";
 
 export type PlayerJSON = {
   userId: string;

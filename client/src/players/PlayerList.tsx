@@ -1,3 +1,4 @@
+import { Check, Close, DeleteOutline } from "@mui/icons-material";
 import {
   Checkbox,
   Table,
@@ -8,10 +9,8 @@ import {
   TableRow,
   IconButton,
 } from "@mui/material";
-import { Check, Close, DeleteOutline } from "@mui/icons-material";
-
-import { useSocket } from "../socket/SocketContext";
 import { useGame } from "../games/GameContext";
+import { useSocket } from "../socket/SocketContext";
 
 const MAX_PLAYERS = 16;
 

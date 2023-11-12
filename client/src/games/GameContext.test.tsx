@@ -1,5 +1,5 @@
-import { useContext } from "react";
 import { shallow } from "enzyme";
+import { useContext } from "react";
 import {
   GameContext,
   GameProvider,

@@ -1,7 +1,6 @@
 import { Shuffle } from "@mui/icons-material";
 import { Box, Button, Divider, Tooltip } from "@mui/material";
 import { useDrop } from "react-dnd";
-
 import { useGame } from "../games/GameContext";
 import TransparentPaper from "../paper/TransparentPaper";
 import { useSocket } from "../socket/SocketContext";

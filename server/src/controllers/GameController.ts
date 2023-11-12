@@ -1,9 +1,8 @@
 import { Server, Socket } from "socket.io";
 import { v4 as uuidv4 } from "uuid";
-
+import { BoardLocation } from "../models/Board";
 import Game, { GameJSON } from "../models/Game";
 import Player from "../models/Player";
-import { BoardLocation } from "../models/Board";
 
 const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;
@@ -240,7 +239,7 @@ export default class GameController {
       `${currentPlayer.getUsername()} dumped a tile.`,
     );
 
-    const dumpedTile = !!boardLocation
+    const dumpedTile = boardLocation
       ? currentPlayer.getBoard().removeTile(boardLocation)
       : currentPlayer.getHand().removeTile(tileId);
 

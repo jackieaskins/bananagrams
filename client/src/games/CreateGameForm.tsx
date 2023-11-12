@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-
-import Button from "../buttons/Button";
 import ErrorAlert from "../alerts/ErrorAlert";
+import Button from "../buttons/Button";
 import TextField from "../forms/TextField";
 import { useCreateGameForm } from "./CreateGameFormState";
 

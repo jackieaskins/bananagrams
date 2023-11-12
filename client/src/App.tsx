@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import { useMemo } from "react";
 import { BrowserRouter } from "react-router-dom";
-
 import Routes from "./AppRoutes";
 import ServerDisconnectionDialog from "./dialogs/ServerDisconnectionDialog";
 import { SocketProvider } from "./socket/SocketContext";

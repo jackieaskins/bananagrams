@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
 import { Grid, Typography } from "@mui/material";
-
-import OpponentBoardPreview from "../boards/OpponentBoardPreview";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import Board from "../boards/Board";
+import OpponentBoardPreview from "../boards/OpponentBoardPreview";
+import { isValidConnectedBoard } from "../boards/validate";
 import Dump from "../hands/Dump";
 import Hand from "../hands/Hand";
-import PeelButton from "./PeelButton";
 import { Player } from "../players/types";
-import { useGame } from "./GameContext";
 import { useSocket } from "../socket/SocketContext";
-import { isValidConnectedBoard } from "../boards/validate";
+import { useGame } from "./GameContext";
+import PeelButton from "./PeelButton";
 
 import "./Game.css";
 
@@ -30,7 +28,7 @@ const Game: React.FC = () => {
   const peelWinsGame = bunch.length < players.length;
 
   return (
-    // @ts-ignore
+    // @ts-expect-error DndProvider doesn't work well with React.FC change
     <DndProvider backend={HTML5Backend}>
       <Grid
         container

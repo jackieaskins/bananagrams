@@ -1,5 +1,4 @@
 import { shallow, ShallowWrapper } from "enzyme";
-
 import AppRoutes from "./AppRoutes";
 
 describe("<AppRoutes />", () => {

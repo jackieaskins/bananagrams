@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
-
-import TransparentPaper from "../paper/TransparentPaper";
 import { useDrop } from "react-dnd";
-import { TileItem } from "../tiles/types";
 import { useGame } from "../games/GameContext";
+import TransparentPaper from "../paper/TransparentPaper";
 import { invalidDropSx, validDropSx } from "../styles";
+import { TileItem } from "../tiles/types";
 
 const EXCHANGE_COUNT = 3;
 

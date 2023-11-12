@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import { playerFixture } from "../fixtures/player";
-import { useGame } from "./GameContext";
 import Game from "./Game";
+import { useGame } from "./GameContext";
 
 jest.mock("./GameContext", () => ({
   useGame: jest.fn(),

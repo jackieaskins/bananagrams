@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from "@mui/material";
-
 import TransparentPaper from "../paper/TransparentPaper";
 import { Hand } from "./types";
 
@@ -15,7 +13,7 @@ const PreviewHand: React.FC<PreviewHandProps> = ({ hand, tileSize }) => {
   return (
     <TransparentPaper
       component={Box}
-      // @ts-ignore
+      // @ts-expect-error These are accepted since the component is a Box
       display="inline-flex"
       flexWrap="wrap"
       width="100%"

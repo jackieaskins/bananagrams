@@ -1,10 +1,9 @@
-import { Navigate } from "react-router-dom";
 import { Box } from "@mui/material";
-
-import StartGame from "./StartGame";
-import GameSpeedDial from "./GameSpeedDial";
-import { useGame } from "./GameContext";
+import { Navigate } from "react-router-dom";
 import Game from "./Game";
+import { useGame } from "./GameContext";
+import GameSpeedDial from "./GameSpeedDial";
+import StartGame from "./StartGame";
 
 const GameManager: React.FC = () => {
   const {

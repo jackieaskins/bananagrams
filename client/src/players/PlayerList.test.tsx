@@ -1,9 +1,9 @@
+import { Checkbox, IconButton } from "@mui/material";
 import { shallow } from "enzyme";
 import { playerFixture } from "../fixtures/player";
-import { useSocket } from "../socket/SocketContext";
 import { useGame } from "../games/GameContext";
 import PlayerList from "../players/PlayerList";
-import { Checkbox, IconButton } from "@mui/material";
+import { useSocket } from "../socket/SocketContext";
 
 jest.mock("../socket/SocketContext", () => ({
   useSocket: jest.fn(),

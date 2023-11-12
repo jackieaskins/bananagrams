@@ -1,6 +1,5 @@
 import { Typography, Box } from "@mui/material";
 import { useDrag } from "react-dnd";
-
 import { Tile as TileType } from "./types";
 
 type TileProps = {
@@ -21,7 +20,7 @@ const Tile: React.FC<TileProps> = ({
     }),
   });
 
-  const margin = !!boardLocation ? "0" : "5px";
+  const margin = boardLocation ? "0" : "5px";
 
   return (
     <Box
@@ -32,7 +31,7 @@ const Tile: React.FC<TileProps> = ({
       border={1}
       borderRadius={1}
       sx={{
-        color: color,
+        color,
         backgroundColor: "#ffffc7",
         cursor: "move",
         height: "25px",

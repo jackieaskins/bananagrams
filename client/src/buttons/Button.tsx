@@ -2,7 +2,6 @@ import {
   Button as MaterialUIButton,
   ButtonProps as MaterialUIButtonProps,
 } from "@mui/material";
-
 import LoadingIndicator from "../loading/LoadingIndicator";
 
 interface ButtonProps extends MaterialUIButtonProps {

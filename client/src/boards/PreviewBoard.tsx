@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box } from "@mui/material";
-
-import { Board } from "./types";
 import TransparentPaper from "../paper/TransparentPaper";
+import { Board } from "./types";
 
 type PreviewBoardProps = {
   board: Board;
@@ -15,7 +13,7 @@ const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
   return (
     <TransparentPaper
       component={Box}
-      // @ts-ignore
+      // @ts-expect-error These are accepted since the component is a Box
       display="inline-flex"
       flexDirection="column"
     >

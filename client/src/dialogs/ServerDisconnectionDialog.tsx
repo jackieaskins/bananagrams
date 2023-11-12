@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogContentText,
 } from "@mui/material";
-
 import { useServerDisconnectionDialog } from "./ServerDisconnectionDialogState";
 
 const ServerDisconnectionDialog: React.FC = () => {

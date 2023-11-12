@@ -1,9 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
-
-import { useGame } from "./GameContext";
-import PlayerList from "../players/PlayerList";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import CopyToClipboard from "../buttons/CopyToClipboard";
+import PlayerList from "../players/PlayerList";
+import { useGame } from "./GameContext";
 
 const StartGame: React.FC = () => {
   const {

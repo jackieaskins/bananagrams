@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
 
 export type CopyToClipboardState = {
   shouldShow: boolean;

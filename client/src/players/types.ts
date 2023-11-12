@@ -1,5 +1,5 @@
-import { Hand } from "../hands/types";
 import { Board } from "../boards/types";
+import { Hand } from "../hands/types";
 
 export type Player = {
   userId: string;

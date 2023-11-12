@@ -1,9 +1,9 @@
+import { Box } from "@mui/material";
 import { shallow } from "enzyme";
-import Dump from "./Dump";
 import { useDrop } from "react-dnd";
 import { useGame } from "../games/GameContext";
-import { Box } from "@mui/material";
 import { invalidDropSx, validDropSx } from "../styles";
+import Dump from "./Dump";
 
 jest.mock("../styles", () => ({
   validDropSx: { color: "green" },

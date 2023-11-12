@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useContext } from "react";
-import { shallow, ShallowWrapper } from "enzyme";
-import { SocketProvider, useSocket, SocketContext } from "./SocketContext";
+import { ShallowWrapper, shallow } from "enzyme";
+import { useContext, useEffect } from "react";
+import { SocketContext, SocketProvider, useSocket } from "./SocketContext";
 import socket from ".";
 
 jest.mock("react", () => ({
@@ -40,14 +39,12 @@ describe("SocketContext", () => {
     test("enqueues message to snackbar on message received", () => {
       const message = "Message";
 
-      // @ts-ignore
       socket.on.mock.calls[0][1]({ message });
 
       expect(mockEnqueueSnackbar).toHaveBeenCalledWith(message);
     });
 
     test("disconnects from socket on dismount", () => {
-      // @ts-ignore
       useEffect.mock.calls[0][0]()();
 
       expect(socket.emit).toHaveBeenCalledWith("disconnect");

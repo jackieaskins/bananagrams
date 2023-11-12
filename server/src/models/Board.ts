@@ -1,6 +1,6 @@
-import Tile, { TileJSON } from "./Tile";
-import BaseModel from "./BaseModel";
 import { validateAddTile, validateRemoveTile } from "../boardValidation";
+import BaseModel from "./BaseModel";
+import Tile, { TileJSON } from "./Tile";
 
 export type BoardLocation = {
   x: number;
@@ -42,7 +42,7 @@ export default class Board implements BaseModel<BoardJSON> {
 
   getSquares(): BoardSquares {
     return this.squares.map((row) =>
-      row.map((square) => (!!square ? { ...square } : null)),
+      row.map((square) => (square ? { ...square } : null)),
     );
   }
 
@@ -50,7 +50,7 @@ export default class Board implements BaseModel<BoardJSON> {
     return this.squares.flatMap((row: BoardRow): Tile[] =>
       row.reduce(
         (tiles: Tile[], square: BoardSquare | null): Tile[] =>
-          !!square ? [...tiles, square.tile] : tiles,
+          square ? [...tiles, square.tile] : tiles,
         [],
       ),
     );

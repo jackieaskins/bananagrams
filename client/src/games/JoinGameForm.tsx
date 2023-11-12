@@ -1,8 +1,7 @@
 import { Grid, Link as MUILink, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
-import Button from "../buttons/Button";
 import ErrorAlert from "../alerts/ErrorAlert";
+import Button from "../buttons/Button";
 import TextField from "../forms/TextField";
 import { useJoinGameForm } from "./JoinGameFormState";
 

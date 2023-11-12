@@ -1,5 +1,5 @@
-import Board, { BoardSquares } from "./Board";
 import { validateAddTile, validateRemoveTile } from "../boardValidation";
+import Board, { BoardSquares } from "./Board";
 import Tile from "./Tile";
 
 jest.mock("../boardValidation");

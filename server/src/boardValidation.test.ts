@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import { validateAddTile, validateRemoveTile } from "./boardValidation";
-import Tile from "./models/Tile";
 import { Direction, ValidationStatus, WordInfo } from "./models/Board";
+import Tile from "./models/Tile";
 
 // I'm pretty sure I mixed up x & y so flip this:
 //     0 1 2 3 4

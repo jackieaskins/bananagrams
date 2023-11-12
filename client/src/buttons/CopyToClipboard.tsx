@@ -1,6 +1,5 @@
-import { IconButton } from "@mui/material";
 import { FileCopyOutlined } from "@mui/icons-material";
-
+import { IconButton } from "@mui/material";
 import { useCopyToClipboard } from "./CopyToClipboardState";
 
 type CopyToClipboardProps = {

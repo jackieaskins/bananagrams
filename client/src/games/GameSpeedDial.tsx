@@ -1,3 +1,4 @@
+import { ExitToApp } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -8,9 +9,7 @@ import {
   SpeedDialAction,
   SpeedDialIcon,
 } from "@mui/material";
-import { ExitToApp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-
 import { useGameSpeedDial } from "./GameSpeedDialState";
 
 const GameSpeedDial: React.FC = () => {

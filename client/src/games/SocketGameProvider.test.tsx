@@ -1,7 +1,6 @@
 import { shallow } from "enzyme";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
 import { gameInfoFixture } from "../fixtures/game";
 import SocketGameProvider from "./SocketGameProvider";
 

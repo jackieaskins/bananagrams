@@ -1,6 +1,5 @@
 import { useState, MouseEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import { useSocket } from "../socket/SocketContext";
 import { SetState } from "../state/types";
 import { GameInfo, GameLocationState } from "./types";
