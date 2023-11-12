@@ -7,7 +7,10 @@ type PreviewHandProps = {
   tileSize: number;
 };
 
-const PreviewHand: React.FC<PreviewHandProps> = ({ hand, tileSize }) => {
+export default function PreviewHand({
+  hand,
+  tileSize,
+}: PreviewHandProps): JSX.Element {
   const tilePixels = `${tileSize}px`;
 
   return (
@@ -29,6 +32,4 @@ const PreviewHand: React.FC<PreviewHandProps> = ({ hand, tileSize }) => {
       ))}
     </TransparentPaper>
   );
-};
-
-export default PreviewHand;
+}

@@ -8,11 +8,11 @@ type TileProps = {
   color?: string;
 };
 
-const Tile: React.FC<TileProps> = ({
+export default function Tile({
   boardLocation,
   tile: { id, letter },
   color = "black",
-}) => {
+}: TileProps): JSX.Element {
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: "TILE", id, boardLocation },
     collect: (monitor) => ({
@@ -43,6 +43,4 @@ const Tile: React.FC<TileProps> = ({
       <Typography variant="body2">{letter}</Typography>
     </Box>
   );
-};
-
-export default Tile;
+}

@@ -4,7 +4,7 @@ import Button from "../buttons/Button";
 import TextField from "../forms/TextField";
 import { useCreateGameForm } from "./CreateGameFormState";
 
-const CreateGameForm: React.FC = () => {
+export default function CreateGameForm(): JSX.Element {
   const {
     error,
     gameName,
@@ -66,6 +66,4 @@ const CreateGameForm: React.FC = () => {
       </Grid>
     </>
   );
-};
-
-export default CreateGameForm;
+}

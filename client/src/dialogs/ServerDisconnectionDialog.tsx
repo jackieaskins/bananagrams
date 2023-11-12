@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useServerDisconnectionDialog } from "./ServerDisconnectionDialogState";
 
-const ServerDisconnectionDialog: React.FC = () => {
+export default function ServerDisconnectionDialog(): JSX.Element {
   const { shouldShowDialog, hideDialog } = useServerDisconnectionDialog();
 
   return (
@@ -25,6 +25,4 @@ const ServerDisconnectionDialog: React.FC = () => {
       </DialogActions>
     </Dialog>
   );
-};
-
-export default ServerDisconnectionDialog;
+}

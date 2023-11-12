@@ -8,18 +8,18 @@ export interface TextFieldProps extends MaterialUITextFieldProps {
   value: string;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+export default function TextField({
   fullWidth = true,
   setValue,
   ...rest
-}) => (
-  <MaterialUITextField
-    fullWidth={fullWidth}
-    {...rest}
-    onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-      setValue(event.target.value)
-    }
-  />
-);
-
-export default TextField;
+}: TextFieldProps): JSX.Element {
+  return (
+    <MaterialUITextField
+      fullWidth={fullWidth}
+      {...rest}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
+        setValue(event.target.value)
+      }
+    />
+  );
+}

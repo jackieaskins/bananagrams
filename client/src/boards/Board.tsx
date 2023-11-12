@@ -7,21 +7,21 @@ type BoardProps = {
   board: BoardType;
 };
 
-const Board: React.FC<BoardProps> = ({ board }) => (
-  <TransparentPaper
-    component={Box}
-    // @ts-expect-error These are accepted since the component is a Box
-    display="inline-flex"
-    flexDirection="column"
-  >
-    {board.map((row, x) => (
-      <Box key={x} display="flex">
-        {row.map((boardSquare, y) => (
-          <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
-        ))}
-      </Box>
-    ))}
-  </TransparentPaper>
-);
-
-export default Board;
+export default function Board({ board }: BoardProps): JSX.Element {
+  return (
+    <TransparentPaper
+      component={Box}
+      // @ts-expect-error These are accepted since the component is a Box
+      display="inline-flex"
+      flexDirection="column"
+    >
+      {board.map((row, x) => (
+        <Box key={x} display="flex">
+          {row.map((boardSquare, y) => (
+            <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
+          ))}
+        </Box>
+      ))}
+    </TransparentPaper>
+  );
+}

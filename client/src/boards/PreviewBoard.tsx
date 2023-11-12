@@ -7,7 +7,10 @@ type PreviewBoardProps = {
   tileSize: number;
 };
 
-const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
+export default function PreviewBoard({
+  board,
+  tileSize,
+}: PreviewBoardProps): JSX.Element {
   const tilePixels = `${tileSize}px`;
 
   return (
@@ -40,6 +43,4 @@ const PreviewBoard: React.FC<PreviewBoardProps> = ({ board, tileSize }) => {
       ))}
     </TransparentPaper>
   );
-};
-
-export default PreviewBoard;
+}

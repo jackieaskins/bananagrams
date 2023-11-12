@@ -14,7 +14,7 @@ export type CreateGameFormState = {
   username: string;
 };
 
-export const useCreateGameForm = (): CreateGameFormState => {
+export function useCreateGameForm(): CreateGameFormState {
   const [gameName, setGameName] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
@@ -58,4 +58,4 @@ export const useCreateGameForm = (): CreateGameFormState => {
     setUsername,
     username,
   };
-};
+}

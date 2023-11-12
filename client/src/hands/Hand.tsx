@@ -15,7 +15,7 @@ type HandProps = {
 
 const DEFAULT_BOARD_LENGTH = 21;
 
-const Hand: React.FC<HandProps> = ({ hand }) => {
+export default function Hand({ hand }: HandProps): JSX.Element {
   const { socket } = useSocket();
   const {
     gameInfo: { players },
@@ -70,6 +70,4 @@ const Hand: React.FC<HandProps> = ({ hand }) => {
       </Box>
     </TransparentPaper>
   );
-};
-
-export default Hand;
+}

@@ -15,12 +15,12 @@ type OpponentBoardPreviewProps = {
 
 const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
 
-const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
+export default function OpponentBoardPreview({
   initialPlayerIndex = 0,
   players,
   tileSize = 15,
   includeCurrentPlayer = false,
-}) => {
+}: OpponentBoardPreviewProps): JSX.Element | null {
   const {
     socket: { id: userId },
   } = useSocket();
@@ -89,6 +89,4 @@ const OpponentBoardPreview: React.FC<OpponentBoardPreviewProps> = ({
       </Grid>
     </Grid>
   );
-};
-
-export default OpponentBoardPreview;
+}

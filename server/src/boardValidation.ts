@@ -13,21 +13,21 @@ type ValidateLocation = {
   direction: Direction;
 };
 
-const getDelta = (direction: Direction): BoardLocation => {
+function getDelta(direction: Direction): BoardLocation {
   switch (direction) {
     case Direction.DOWN:
       return { x: 1, y: 0 };
     case Direction.ACROSS:
       return { x: 0, y: 1 };
   }
-};
+}
 
-const iterateWordFromStart = (
+function iterateWordFromStart(
   board: BoardSquares,
   start: BoardLocation,
   direction: Direction,
   loopFn: (square: BoardSquare) => boolean | void,
-): void => {
+): void {
   const delta = getDelta(direction);
   let { x: nextX, y: nextY } = start;
 
@@ -38,12 +38,12 @@ const iterateWordFromStart = (
     nextX += delta.x;
     nextY += delta.y;
   }
-};
+}
 
-const validateWordsAtLocations = (
+function validateWordsAtLocations(
   board: BoardSquares,
   locationsToValidate: ValidateLocation[],
-): void => {
+): void {
   const locationsWithWords = locationsToValidate.map(({ start, direction }) => {
     const word: string[] = [];
 
@@ -69,13 +69,13 @@ const validateWordsAtLocations = (
       square.wordInfo[direction].validation = validationStatus;
     });
   });
-};
+}
 
-export const validateAddTile = (
+export function validateAddTile(
   board: BoardSquares,
   location: BoardLocation,
   tile: Tile,
-): BoardSquares => {
+): BoardSquares {
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction],
   );
@@ -117,12 +117,12 @@ export const validateAddTile = (
   validateWordsAtLocations(board, locationsToValidate);
 
   return board;
-};
+}
 
-export const validateRemoveTile = (
+export function validateRemoveTile(
   board: BoardSquares,
   location: BoardLocation,
-): BoardSquares => {
+): BoardSquares {
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction],
   );
@@ -157,4 +157,4 @@ export const validateRemoveTile = (
   validateWordsAtLocations(board, locationsToValidate);
 
   return board;
-};
+}

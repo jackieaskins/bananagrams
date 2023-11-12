@@ -15,9 +15,11 @@ type GameParams = {
   gameId: string;
 };
 
-const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
+export default function SocketGameProvider({
   children,
-}) => {
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const { socket } = useSocket();
   const navigate = useNavigate();
   const { pathname, state } = useLocation() as Location<GameLocationState>;
@@ -94,6 +96,4 @@ const SocketGameProvider: React.FC<{ children: React.ReactNode }> = ({
       {children}
     </GameProvider>
   );
-};
-
-export default SocketGameProvider;
+}

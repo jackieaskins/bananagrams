@@ -4,7 +4,7 @@ import CopyToClipboard from "../buttons/CopyToClipboard";
 import PlayerList from "../players/PlayerList";
 import { useGame } from "./GameContext";
 
-const StartGame: React.FC = () => {
+export default function StartGame(): JSX.Element {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();
@@ -51,6 +51,4 @@ const StartGame: React.FC = () => {
       </Grid>
     </Box>
   );
-};
-
-export default StartGame;
+}

@@ -13,7 +13,7 @@ import PeelButton from "./PeelButton";
 
 import "./Game.css";
 
-const Game: React.FC = () => {
+export default function Game(): JSX.Element {
   const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },
@@ -85,6 +85,4 @@ const Game: React.FC = () => {
       </Grid>
     </DndProvider>
   );
-};
-
-export default Game;
+}

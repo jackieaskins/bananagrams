@@ -7,7 +7,7 @@ import Routes from "./AppRoutes";
 import ServerDisconnectionDialog from "./dialogs/ServerDisconnectionDialog";
 import { SocketProvider } from "./socket/SocketContext";
 
-const App: React.FC = () => {
+export default function App(): JSX.Element {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = useMemo(
@@ -33,6 +33,4 @@ const App: React.FC = () => {
       </SnackbarProvider>
     </ThemeProvider>
   );
-};
-
-export default App;
+}

@@ -9,10 +9,10 @@ type OpponentBoardPreviewState = {
   selectedUserId?: string;
 };
 
-export const useOpponentBoardPreview = (
+export function useOpponentBoardPreview(
   opponents: Player[],
   initialPlayerIndex: number,
-): OpponentBoardPreviewState => {
+): OpponentBoardPreviewState {
   const [selectedUserId, setSelectedUserId] = useState<string | undefined>(
     opponents[initialPlayerIndex]?.userId,
   );
@@ -53,4 +53,4 @@ export const useOpponentBoardPreview = (
     selectedPlayerIndex,
     selectedUserId,
   };
-};
+}

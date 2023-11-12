@@ -4,7 +4,9 @@ interface ErrorAlertProps extends AlertProps {
   visible: boolean;
 }
 
-const ErrorAlert: React.FC<ErrorAlertProps> = ({ visible, ...rest }) =>
-  visible ? <Alert {...rest} severity="error" /> : null;
-
-export default ErrorAlert;
+export default function ErrorAlert({
+  visible,
+  ...rest
+}: ErrorAlertProps): JSX.Element | null {
+  return visible ? <Alert {...rest} severity="error" /> : null;
+}

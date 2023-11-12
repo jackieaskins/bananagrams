@@ -1,10 +1,10 @@
 import CenteredLayout from "../layouts/CenteredLayout";
 import JoinGameForm from "./JoinGameForm";
 
-const JoinGame: React.FC = () => (
-  <CenteredLayout>
-    <JoinGameForm />
-  </CenteredLayout>
-);
-
-export default JoinGame;
+export default function JoinGame(): JSX.Element {
+  return (
+    <CenteredLayout>
+      <JoinGameForm />
+    </CenteredLayout>
+  );
+}

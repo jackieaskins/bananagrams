@@ -10,7 +10,7 @@ interface ButtonProps extends MaterialUIButtonProps {
   loadingText?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+export default function Button({
   children,
   color = "primary",
   disabled,
@@ -18,16 +18,16 @@ const Button: React.FC<ButtonProps> = ({
   loadingText,
   variant = "contained",
   ...rest
-}) => (
-  <MaterialUIButton
-    disabled={disabled || loading}
-    color={color}
-    variant={variant}
-    startIcon={loading && <LoadingIndicator size={15} />}
-    {...rest}
-  >
-    {loading ? loadingText : children}
-  </MaterialUIButton>
-);
-
-export default Button;
+}: ButtonProps): JSX.Element {
+  return (
+    <MaterialUIButton
+      disabled={disabled || loading}
+      color={color}
+      variant={variant}
+      startIcon={loading && <LoadingIndicator size={15} />}
+      {...rest}
+    >
+      {loading ? loadingText : children}
+    </MaterialUIButton>
+  );
+}

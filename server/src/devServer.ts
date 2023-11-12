@@ -1,7 +1,7 @@
 import core from "express-serve-static-core";
 import path from "path";
 
-export const configureDevServer = (app: core.Express): void => {
+export function configureDevServer(app: core.Express): void {
   /* eslint-disable @typescript-eslint/no-var-requires */
   const webpack = require("webpack");
   const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -29,4 +29,4 @@ export const configureDevServer = (app: core.Express): void => {
       res.end();
     });
   });
-};
+}

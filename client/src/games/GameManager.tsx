@@ -5,7 +5,7 @@ import { useGame } from "./GameContext";
 import GameSpeedDial from "./GameSpeedDial";
 import StartGame from "./StartGame";
 
-const GameManager: React.FC = () => {
+export default function GameManager(): JSX.Element {
   const {
     gameInfo: { gameId, isInProgress },
     isInGame,
@@ -21,6 +21,4 @@ const GameManager: React.FC = () => {
       <Box width="100%">{isInProgress ? <Game /> : <StartGame />}</Box>
     </Box>
   );
-};
-
-export default GameManager;
+}

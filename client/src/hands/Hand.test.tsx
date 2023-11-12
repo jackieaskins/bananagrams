@@ -82,26 +82,46 @@ describe("<Hand />", () => {
 
       test("returns true if is over and tile is on board", () => {
         expect(
-          canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => true }),
+          canDrop(
+            { boardLocation: { x: 0, y: 0 } },
+            {
+              isOver: () => true,
+            },
+          ),
         ).toBe(true);
       });
 
       test("returns false if is over but not on board", () => {
-        expect(canDrop({ boardLocation: null }, { isOver: () => true })).toBe(
-          false,
-        );
+        expect(
+          canDrop(
+            { boardLocation: null },
+            {
+              isOver: () => true,
+            },
+          ),
+        ).toBe(false);
       });
 
       test("returns false if is not over but is on board", () => {
         expect(
-          canDrop({ boardLocation: { x: 0, y: 0 } }, { isOver: () => false }),
+          canDrop(
+            { boardLocation: { x: 0, y: 0 } },
+            {
+              isOver: () => false,
+            },
+          ),
         ).toBe(false);
       });
 
       test("returns false if is not over and is not on board", () => {
-        expect(canDrop({ boardLocation: null }, { isOver: () => false })).toBe(
-          false,
-        );
+        expect(
+          canDrop(
+            { boardLocation: null },
+            {
+              isOver: () => false,
+            },
+          ),
+        ).toBe(false);
       });
     });
 

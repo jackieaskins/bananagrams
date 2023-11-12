@@ -7,7 +7,7 @@ import { TileItem } from "../tiles/types";
 
 const EXCHANGE_COUNT = 3;
 
-const Dump: React.FC = () => {
+export default function Dump(): JSX.Element {
   const {
     gameInfo: { bunch },
     handleDump,
@@ -47,6 +47,4 @@ const Dump: React.FC = () => {
       </Box>
     </TransparentPaper>
   );
-};
-
-export default Dump;
+}

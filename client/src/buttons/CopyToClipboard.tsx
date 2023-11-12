@@ -6,7 +6,9 @@ type CopyToClipboardProps = {
   copyText: string;
 };
 
-const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ copyText }) => {
+export default function CopyToClipboard({
+  copyText,
+}: CopyToClipboardProps): JSX.Element {
   const { shouldShow, copyToClipboard } = useCopyToClipboard();
 
   return shouldShow ? (
@@ -20,6 +22,4 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ copyText }) => {
   ) : (
     <span />
   );
-};
-
-export default CopyToClipboard;
+}

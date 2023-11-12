@@ -5,7 +5,7 @@ import Button from "../buttons/Button";
 import TextField from "../forms/TextField";
 import { useJoinGameForm } from "./JoinGameFormState";
 
-const JoinGameForm: React.FC = () => {
+export default function JoinGameForm(): JSX.Element {
   const { error, isJoiningGame, onSubmit, setUsername, username } =
     useJoinGameForm();
 
@@ -56,6 +56,4 @@ const JoinGameForm: React.FC = () => {
       </Grid>
     </>
   );
-};
-
-export default JoinGameForm;
+}

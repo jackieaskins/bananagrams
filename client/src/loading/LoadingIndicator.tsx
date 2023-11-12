@@ -4,15 +4,15 @@ interface LoadingIndicatorProps extends CircularProgressProps {
   loadingText?: string;
 }
 
-const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+export default function LoadingIndicator({
   color = "inherit",
   loadingText,
   ...rest
-}) => (
-  <>
-    <CircularProgress color={color} {...rest} />
-    {loadingText ? <> {loadingText}</> : null}
-  </>
-);
-
-export default LoadingIndicator;
+}: LoadingIndicatorProps): JSX.Element {
+  return (
+    <>
+      <CircularProgress color={color} {...rest} />
+      {loadingText ? <> {loadingText}</> : null}
+    </>
+  );
+}

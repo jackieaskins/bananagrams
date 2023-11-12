@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { useGameSpeedDial } from "./GameSpeedDialState";
 
-const GameSpeedDial: React.FC = () => {
+export default function GameSpeedDial(): JSX.Element {
   const { leaveGameDialogOpen, showLeaveGameDialog, handleLeaveGameCancel } =
     useGameSpeedDial();
 
@@ -45,6 +45,4 @@ const GameSpeedDial: React.FC = () => {
       </Dialog>
     </>
   );
-};
-
-export default GameSpeedDial;
+}

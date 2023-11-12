@@ -14,9 +14,7 @@ type BoardSquareProps = {
 
 type CheckValidation = (wordInfo: WordInfo) => boolean;
 
-const getColor = (
-  wordInfo: Record<Direction, WordInfo>,
-): string | undefined => {
+function getColor(wordInfo: Record<Direction, WordInfo>): string | undefined {
   const isValid: CheckValidation = ({ validation }) =>
     validation === ValidationStatus.VALID;
   const isValidated: CheckValidation = ({ validation }) =>
@@ -27,9 +25,13 @@ const getColor = (
   if (validations.length === 0) return "black";
   if (validations.every(isValid)) return "green";
   return "red";
-};
+}
 
-const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
+export default function BoardSquare({
+  boardSquare,
+  x,
+  y,
+}: BoardSquareProps): JSX.Element {
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};
 
@@ -63,6 +65,4 @@ const BoardSquare: React.FC<BoardSquareProps> = ({ boardSquare, x, y }) => {
       )}
     </Box>
   );
-};
-
-export default BoardSquare;
+}

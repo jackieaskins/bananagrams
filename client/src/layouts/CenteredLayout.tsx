@@ -5,15 +5,15 @@ type CenteredLayoutProps = {
   width?: GridSize;
 };
 
-const CenteredLayout: React.FC<CenteredLayoutProps> = ({
+export default function CenteredLayout({
   children,
   width = 6,
-}) => (
-  <Grid container justifyContent="center" alignContent="center">
-    <Grid item xs={width}>
-      {children}
+}: CenteredLayoutProps): JSX.Element {
+  return (
+    <Grid container justifyContent="center" alignContent="center">
+      <Grid item xs={width}>
+        {children}
+      </Grid>
     </Grid>
-  </Grid>
-);
-
-export default CenteredLayout;
+  );
+}

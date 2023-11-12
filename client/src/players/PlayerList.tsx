@@ -14,7 +14,7 @@ import { useSocket } from "../socket/SocketContext";
 
 const MAX_PLAYERS = 16;
 
-const PlayerList: React.FC = () => {
+export default function PlayerList(): JSX.Element {
   const { socket } = useSocket();
   const { gameInfo } = useGame();
 
@@ -104,6 +104,4 @@ const PlayerList: React.FC = () => {
       </Table>
     </TableContainer>
   );
-};
-
-export default PlayerList;
+}

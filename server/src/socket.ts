@@ -1,13 +1,13 @@
 import { Server, Socket } from "socket.io";
 import GameController from "./controllers/GameController";
 
-export const handler = (
+export function handler(
   fn: () => Record<string, any> | void,
   callback?: (
     error: { message: string } | null,
     data: Record<string, any> | null,
   ) => void,
-): void => {
+): void {
   try {
     const returnValue = fn() || null;
     callback?.(null, returnValue);
@@ -15,9 +15,9 @@ export const handler = (
     const { message } = e as Error;
     callback?.({ message }, null);
   }
-};
+}
 
-export const configureSocket = (io: Server): void => {
+export function configureSocket(io: Server): void {
   io.on("connection", (socket: Socket) => {
     const { id: userId } = socket;
 
@@ -142,4 +142,4 @@ export const configureSocket = (io: Server): void => {
       console.log(`${userId} disconnected`);
     });
   });
-};
+}

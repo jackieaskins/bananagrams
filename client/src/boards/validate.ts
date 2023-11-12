@@ -1,6 +1,6 @@
 import { Board, BoardLocation, ValidationStatus, BoardSquare } from "./types";
 
-export const isValidConnectedBoard = (board: Board): boolean => {
+export function isValidConnectedBoard(board: Board): boolean {
   const width = board.length;
   const height = board[0].length;
 
@@ -47,4 +47,4 @@ export const isValidConnectedBoard = (board: Board): boolean => {
   }
 
   return connectedComponents === 1;
-};
+}

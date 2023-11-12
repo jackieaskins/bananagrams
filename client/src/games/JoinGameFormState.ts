@@ -16,7 +16,7 @@ type JoinGameFormState = {
   username: string;
 };
 
-export const useJoinGameForm = (): JoinGameFormState => {
+export function useJoinGameForm(): JoinGameFormState {
   const { socket } = useSocket();
   const navigate = useNavigate();
   const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
@@ -56,4 +56,4 @@ export const useJoinGameForm = (): JoinGameFormState => {
     setUsername,
     username,
   };
-};
+}

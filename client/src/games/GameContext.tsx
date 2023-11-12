@@ -6,32 +6,42 @@ type GameProviderProps = {
   gameState: GameState;
 };
 
-export const getEmptyGameInfo = (gameId: string): GameInfo => ({
-  gameId,
-  gameName: "",
-  isInProgress: false,
-  bunch: [],
-  players: [],
-  previousSnapshot: null,
-});
+export function getEmptyGameInfo(gameId: string): GameInfo {
+  return {
+    gameId,
+    gameName: "",
+    isInProgress: false,
+    bunch: [],
+    players: [],
+    previousSnapshot: null,
+  };
+}
 
-export const getEmptyGameState = (gameId: string): GameState => ({
-  gameInfo: getEmptyGameInfo(gameId),
-  handleDump: (): void => undefined,
-  handleMoveTileFromHandToBoard: (): void => undefined,
-  handleMoveTileFromBoardToHand: (): void => undefined,
-  handleMoveAllTilesFromBoardToHand: (): void => undefined,
-  handleMoveTileOnBoard: (): void => undefined,
-  handlePeel: (): void => undefined,
-  isInGame: false,
-  walkthroughEnabled: false,
-});
+export function getEmptyGameState(gameId: string): GameState {
+  return {
+    gameInfo: getEmptyGameInfo(gameId),
+    handleDump: (): void => undefined,
+    handleMoveTileFromHandToBoard: (): void => undefined,
+    handleMoveTileFromBoardToHand: (): void => undefined,
+    handleMoveAllTilesFromBoardToHand: (): void => undefined,
+    handleMoveTileOnBoard: (): void => undefined,
+    handlePeel: (): void => undefined,
+    isInGame: false,
+    walkthroughEnabled: false,
+  };
+}
 
 export const GameContext = createContext<GameState>(getEmptyGameState(""));
 
-export const GameProvider: React.FC<GameProviderProps> = ({
+export function GameProvider({
   children,
   gameState,
-}) => <GameContext.Provider value={gameState}>{children}</GameContext.Provider>;
+}: GameProviderProps): JSX.Element {
+  return (
+    <GameContext.Provider value={gameState}>{children}</GameContext.Provider>
+  );
+}
 
-export const useGame = (): GameState => useContext(GameContext);
+export function useGame(): GameState {
+  return useContext(GameContext);
+}

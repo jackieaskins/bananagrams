@@ -13,9 +13,11 @@ export const SocketContext = createContext<SocketState>({
   socket,
 });
 
-export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
+export function SocketProvider({
   children,
-}) => {
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -33,7 +35,9 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
       {children}
     </SocketContext.Provider>
   );
-};
+}
 SocketProvider.displayName = "SocketProvider";
 
-export const useSocket = (): SocketState => useContext(SocketContext);
+export function useSocket(): SocketState {
+  return useContext(SocketContext);
+}

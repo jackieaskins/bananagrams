@@ -34,8 +34,9 @@ export type BoardJSON = ({
 } | null)[][];
 
 export const BOARD_SIZE = 21;
-const initializeBoard = (): BoardSquares =>
-  [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
+function initializeBoard(): BoardSquares {
+  return [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
+}
 
 export default class Board implements BaseModel<BoardJSON> {
   private squares = initializeBoard();

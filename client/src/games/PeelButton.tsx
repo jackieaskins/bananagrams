@@ -7,11 +7,11 @@ type PeelButtonProps = {
   peelWinsGame: boolean;
 };
 
-const PeelButton: React.FC<PeelButtonProps> = ({
+export default function PeelButton({
   canPeel,
   handlePeel,
   peelWinsGame,
-}) => {
+}: PeelButtonProps): JSX.Element {
   const getPeelButtonHint = (): string => {
     if (!canPeel) {
       return "You must have a valid connected board to peel";
@@ -33,6 +33,4 @@ const PeelButton: React.FC<PeelButtonProps> = ({
       </span>
     </Tooltip>
   );
-};
-
-export default PeelButton;
+}
