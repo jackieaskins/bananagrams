@@ -3,34 +3,23 @@
 exports[`<Dump /> drag text renders when can drop 1`] = `null`;
 
 exports[`<Dump /> renders properly 1`] = `
-<TransparentPaper
-  sx={
-    {
-      "width": "100%",
-    }
-  }
+<ForwardRef(Card2)
+  variant="outline"
 >
-  <ForwardRef(Box)
-    alignItems="center"
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    p={2}
+  <ForwardRef(CardBody2)
+    color="gray.500"
+    textAlign="center"
   >
-    <ForwardRef(Typography)
-      color="textSecondary"
-      variant="button"
-    >
+    <Text>
       Dump!
-    </ForwardRef(Typography)>
-    <ForwardRef(Typography)
-      color="textSecondary"
-      variant="caption"
+    </Text>
+    <Text
+      fontSize="xs"
     >
       Drag a tile here to exchange it for 
       3
        from the bunch
-    </ForwardRef(Typography)>
-  </ForwardRef(Box)>
-</TransparentPaper>
+    </Text>
+  </ForwardRef(CardBody2)>
+</ForwardRef(Card2)>
 `;

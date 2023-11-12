@@ -1,14 +1,24 @@
-import { Check, Close, DeleteOutline } from "@mui/icons-material";
 import {
   Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  HStack,
+  Icon,
   IconButton,
-} from "@mui/material";
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import {
+  FaCheck,
+  FaCrown,
+  FaKey,
+  FaRegTrashCan,
+  FaXmark,
+} from "react-icons/fa6";
 import { useGame } from "../games/GameContext";
 import { useSocket } from "../socket/SocketContext";
 
@@ -24,83 +34,72 @@ export default function PlayerList(): JSX.Element {
 
   return (
     <TableContainer>
-      <Table>
-        <caption style={{ textAlign: "center" }}>
-          <div>The game will start once all players are ready</div>
-          <div>
-            Current player count: {players.length}/{MAX_PLAYERS} max
-          </div>
-        </caption>
+      <Table variant="simple">
+        <TableCaption>
+          Current player count: {players.length}/{MAX_PLAYERS} max
+        </TableCaption>
 
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Ready?</TableCell>
-            <TableCell>Player</TableCell>
-            <TableCell align="right">Games Won</TableCell>
-            {isCurrentPlayerAdmin && players.length > 1 && <TableCell />}
-          </TableRow>
-        </TableHead>
+        <Thead>
+          <Tr>
+            <Th>Ready?</Th>
+            <Th>Player</Th>
+            <Th isNumeric>Games won</Th>
+            {isCurrentPlayerAdmin && players.length > 1 && <Th />}
+          </Tr>
+        </Thead>
 
-        <TableBody>
+        <Tbody>
           {players.map(
             ({ gamesWon, isReady, isTopBanana, isAdmin, userId, username }) => {
               const isCurrentUser = userId === socket.id;
-              const ReadyIcon = isReady ? Check : Close;
-              const readyColor = isReady ? "green" : "red";
+              const ReadyIcon = isReady ? FaCheck : FaXmark;
+              const readyColor = isReady ? "green.400" : "red.500";
 
               return (
-                <TableRow
-                  key={userId}
-                  style={{
-                    backgroundColor: isCurrentUser
-                      ? "rgba(0, 0, 0, 0.08)"
-                      : "inherit",
-                  }}
-                >
-                  <TableCell
-                    padding={isCurrentUser ? "checkbox" : undefined}
-                    align="center"
-                  >
+                <Tr key={userId}>
+                  <Td textAlign="center">
                     {isCurrentUser ? (
                       <Checkbox
-                        style={{ color: readyColor }}
+                        colorScheme="green"
                         checked={isReady}
-                        onChange={({ target: { checked } }): void => {
+                        onChange={({ target: { checked } }) => {
                           socket.emit("ready", { isReady: checked });
                         }}
                       />
                     ) : (
-                      <ReadyIcon style={{ color: readyColor }} />
+                      <Icon as={ReadyIcon} color={readyColor} />
                     )}
-                  </TableCell>
+                  </Td>
 
-                  <TableCell>
-                    {username}
-                    {isAdmin ? " - Admin" : ""}
-                    {isTopBanana ? " - Winner" : ""}
-                  </TableCell>
+                  <Td>
+                    <HStack>
+                      <span>{username}</span>
+                      {isAdmin && <Icon as={FaKey} boxSize={3} />}
+                      {isTopBanana && <Icon as={FaCrown} boxSize={3} />}
+                    </HStack>
+                  </Td>
 
-                  <TableCell align="right">{gamesWon}</TableCell>
+                  <Td isNumeric>{gamesWon}</Td>
 
                   {isCurrentPlayerAdmin && players.length > 1 && (
-                    <TableCell>
+                    <Td>
                       {!isCurrentUser && (
                         <IconButton
+                          aria-label={`Kick ${username} from the game`}
+                          icon={<FaRegTrashCan />}
                           size="small"
                           onClick={(): void => {
                             socket.emit("kickPlayer", { userId });
                           }}
-                        >
-                          <DeleteOutline />
-                        </IconButton>
+                        />
                       )}
-                    </TableCell>
+                    </Td>
                   )}
-                </TableRow>
+                </Tr>
               );
             },
           )}
-        </TableBody>
+        </Tbody>
       </Table>
     </TableContainer>
   );

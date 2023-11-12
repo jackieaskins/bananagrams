@@ -1,69 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CreateGameForm /> renders properly 1`] = `
-<Fragment>
-  <ForwardRef(Typography)
-    sx={
-      {
-        "marginBottom": "5px",
-      }
-    }
-    variant="h3"
+<Box
+  as="form"
+  autoComplete="off"
+  onSubmit={[MockFunction onSubmit]}
+  width="40vw"
+>
+  <Stack
+    spacing={6}
   >
-    Start a new game
-  </ForwardRef(Typography)>
-  <ErrorAlert
-    sx={
-      {
-        "marginBottom": "5px",
-      }
-    }
-    visible={true}
-  >
-    error
-  </ErrorAlert>
-  <ForwardRef(Grid)
-    autoComplete="off"
-    component="form"
-    container={true}
-    direction="column"
-    spacing={3}
-  >
-    <ForwardRef(Grid)
-      item={true}
+    <Heading
+      as="h1"
+      textAlign="center"
     >
+      Start a new game
+    </Heading>
+    <Stack>
+      <ErrorAlert
+        visible={true}
+      >
+        error
+      </ErrorAlert>
       <TextField
+        isRequired={true}
         label="Game name"
-        margin="dense"
         name="gameName"
-        required={true}
         setValue={[MockFunction setGameName]}
         value="gameName"
       />
       <TextField
+        isRequired={true}
         label="Username"
-        margin="dense"
         name="username"
-        required={true}
         setValue={[MockFunction setUsername]}
         value="username"
       />
-    </ForwardRef(Grid)>
-    <ForwardRef(Grid)
-      item={true}
+    </Stack>
+    <Button
+      colorScheme="blue"
+      isLoading={true}
+      loadingText="Creating game"
+      type="submit"
     >
-      <Button
-        disabled={false}
-        fullWidth={true}
-        loading={true}
-        loadingText="Creating game"
-        onClick={[MockFunction onSubmit]}
-        size="large"
-        type="submit"
-      >
-        Create game
-      </Button>
-    </ForwardRef(Grid)>
-  </ForwardRef(Grid)>
-</Fragment>
+      Create game
+    </Button>
+  </Stack>
+</Box>
 `;

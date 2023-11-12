@@ -1,23 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Board /> renders properly 1`] = `
-<TransparentPaper
-  component={
-    {
-      "$$typeof": Symbol(react.forward_ref),
-      "propTypes": {
-        "children": [Function],
-        "component": [Function],
-        "sx": [Function],
-      },
-      "render": [Function],
-    }
-  }
+<ForwardRef(Card2)
   display="inline-flex"
   flexDirection="column"
+  variant="outline"
 >
-  <ForwardRef(Box)
-    display="flex"
+  <Flex
     key="0"
   >
     <BoardSquare
@@ -55,9 +44,8 @@ exports[`<Board /> renders properly 1`] = `
       x={0}
       y={1}
     />
-  </ForwardRef(Box)>
-  <ForwardRef(Box)
-    display="flex"
+  </Flex>
+  <Flex
     key="1"
   >
     <BoardSquare
@@ -72,6 +60,6 @@ exports[`<Board /> renders properly 1`] = `
       x={1}
       y={1}
     />
-  </ForwardRef(Box)>
-</TransparentPaper>
+  </Flex>
+</ForwardRef(Card2)>
 `;

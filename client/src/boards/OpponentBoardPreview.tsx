@@ -1,5 +1,12 @@
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { Box, Grid, IconButton, MenuItem, TextField } from "@mui/material";
+import {
+  Flex,
+  HStack,
+  IconButton,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import PreviewHand from "../hands/PreviewHand";
 import { Player } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
@@ -46,47 +53,46 @@ export default function OpponentBoardPreview({
   const hasOneOpponent = opponents.length === 1;
 
   return (
-    <Grid container direction="column" alignItems="center" spacing={1}>
-      <Grid item>
-        <Box flexDirection="column" width="317px">
-          <PreviewBoard board={selectedBoard} tileSize={tileSize} />
-          <PreviewHand hand={selectedHand} tileSize={tileSize} />
-        </Box>
-      </Grid>
+    <Stack>
+      <Flex direction="column">
+        <PreviewBoard board={selectedBoard} tileSize={tileSize} />
+        <PreviewHand hand={selectedHand} tileSize={tileSize} />
+      </Flex>
 
-      <Grid item sx={{ width: "100%" }}>
-        <Box display="flex" justifyContent="space-between">
-          <IconButton
-            size="small"
-            disabled={hasOneOpponent}
-            onClick={handleLeftClick}
-          >
-            <NavigateBefore fontSize="small" />
-          </IconButton>
+      <HStack spacing={4}>
+        {hasOneOpponent ? (
+          <Text textAlign="center" width="100%">
+            {opponents[0].username}
+          </Text>
+        ) : (
+          <>
+            <IconButton
+              aria-label="See previous opponent's board"
+              icon={<FaChevronLeft />}
+              onClick={handleLeftClick}
+              variant="outline"
+            />
 
-          <TextField
-            select
-            size="small"
-            value={selectedUserId}
-            onChange={handleSelectedPlayerChange}
-            disabled={hasOneOpponent}
-          >
-            {opponents.map(({ userId, username }) => (
-              <MenuItem value={userId} key={userId}>
-                {username}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Select
+              value={selectedUserId}
+              onChange={handleSelectedPlayerChange}
+            >
+              {opponents.map(({ userId, username }) => (
+                <option value={userId} key={userId}>
+                  {username}
+                </option>
+              ))}
+            </Select>
 
-          <IconButton
-            size="small"
-            disabled={hasOneOpponent}
-            onClick={handleRightClick}
-          >
-            <NavigateNext fontSize="small" />
-          </IconButton>
-        </Box>
-      </Grid>
-    </Grid>
+            <IconButton
+              aria-label="See next opponent's board"
+              icon={<FaChevronRight />}
+              onClick={handleRightClick}
+              variant="outline"
+            />
+          </>
+        )}
+      </HStack>
+    </Stack>
   );
 }

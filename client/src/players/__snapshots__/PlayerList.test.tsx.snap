@@ -1,327 +1,275 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PlayerList /> renders admin user properly 1`] = `
-<ForwardRef(TableContainer)>
-  <ForwardRef(Table)>
-    <caption
-      style={
-        {
-          "textAlign": "center",
-        }
-      }
-    >
-      <div>
-        The game will start once all players are ready
-      </div>
-      <div>
-        Current player count: 
-        3
-        /
-        16
-         max
-      </div>
-    </caption>
-    <ForwardRef(TableHead)>
-      <ForwardRef(TableRow)>
-        <ForwardRef(TableCell)
-          align="center"
-        >
+<ForwardRef>
+  <Table
+    variant="simple"
+  >
+    <TableCaption>
+      Current player count: 
+      3
+      /
+      16
+       max
+    </TableCaption>
+    <ForwardRef>
+      <ForwardRef>
+        <ForwardRef>
           Ready?
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
+        </ForwardRef>
+        <ForwardRef>
           Player
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
-          Games Won
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell) />
-      </ForwardRef(TableRow)>
-    </ForwardRef(TableHead)>
-    <ForwardRef(TableBody)>
-      <ForwardRef(TableRow)
+          Games won
+        </ForwardRef>
+        <ForwardRef />
+      </ForwardRef>
+    </ForwardRef>
+    <ForwardRef>
+      <ForwardRef
         key="1"
-        style={
-          {
-            "backgroundColor": "rgba(0, 0, 0, 0.08)",
-          }
-        }
       >
-        <ForwardRef(TableCell)
-          align="center"
-          padding="checkbox"
+        <ForwardRef
+          textAlign="center"
         >
-          <ForwardRef(Checkbox)
+          <Checkbox
             checked={false}
+            colorScheme="green"
             onChange={[Function]}
-            style={
-              {
-                "color": "red",
-              }
-            }
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-           - Admin
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+            <Icon
+              as={[Function]}
+              boxSize={3}
+            />
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           0
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell) />
-      </ForwardRef(TableRow)>
-      <ForwardRef(TableRow)
+        </ForwardRef>
+        <ForwardRef />
+      </ForwardRef>
+      <ForwardRef
         key="2"
-        style={
-          {
-            "backgroundColor": "inherit",
-          }
-        }
       >
-        <ForwardRef(TableCell)
-          align="center"
+        <ForwardRef
+          textAlign="center"
         >
-          <Memo(ForwardRef(CloseIcon))
-            style={
-              {
-                "color": "red",
-              }
-            }
+          <Icon
+            as={[Function]}
+            color="red.500"
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           0
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          <ForwardRef(IconButton)
+        </ForwardRef>
+        <ForwardRef>
+          <IconButton
+            aria-label="Kick username from the game"
+            icon={<FaRegTrashCan />}
             onClick={[Function]}
             size="small"
-          >
-            <Memo(ForwardRef(DeleteOutlineIcon)) />
-          </ForwardRef(IconButton)>
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-      <ForwardRef(TableRow)
-        key="3"
-        style={
-          {
-            "backgroundColor": "inherit",
-          }
-        }
-      >
-        <ForwardRef(TableCell)
-          align="center"
-        >
-          <Memo(ForwardRef(CheckIcon))
-            style={
-              {
-                "color": "green",
-              }
-            }
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-           - Winner
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+      </ForwardRef>
+      <ForwardRef
+        key="3"
+      >
+        <ForwardRef
+          textAlign="center"
+        >
+          <Icon
+            as={[Function]}
+            color="green.400"
+          />
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+            <Icon
+              as={[Function]}
+              boxSize={3}
+            />
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           3
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          <ForwardRef(IconButton)
+        </ForwardRef>
+        <ForwardRef>
+          <IconButton
+            aria-label="Kick username from the game"
+            icon={<FaRegTrashCan />}
             onClick={[Function]}
             size="small"
-          >
-            <Memo(ForwardRef(DeleteOutlineIcon)) />
-          </ForwardRef(IconButton)>
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-    </ForwardRef(TableBody)>
-  </ForwardRef(Table)>
-</ForwardRef(TableContainer)>
+          />
+        </ForwardRef>
+      </ForwardRef>
+    </ForwardRef>
+  </Table>
+</ForwardRef>
 `;
 
 exports[`<PlayerList /> renders properly with 3 players 1`] = `
-<ForwardRef(TableContainer)>
-  <ForwardRef(Table)>
-    <caption
-      style={
-        {
-          "textAlign": "center",
-        }
-      }
-    >
-      <div>
-        The game will start once all players are ready
-      </div>
-      <div>
-        Current player count: 
-        3
-        /
-        16
-         max
-      </div>
-    </caption>
-    <ForwardRef(TableHead)>
-      <ForwardRef(TableRow)>
-        <ForwardRef(TableCell)
-          align="center"
-        >
+<ForwardRef>
+  <Table
+    variant="simple"
+  >
+    <TableCaption>
+      Current player count: 
+      3
+      /
+      16
+       max
+    </TableCaption>
+    <ForwardRef>
+      <ForwardRef>
+        <ForwardRef>
           Ready?
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
+        </ForwardRef>
+        <ForwardRef>
           Player
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
-          Games Won
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-    </ForwardRef(TableHead)>
-    <ForwardRef(TableBody)>
-      <ForwardRef(TableRow)
+          Games won
+        </ForwardRef>
+      </ForwardRef>
+    </ForwardRef>
+    <ForwardRef>
+      <ForwardRef
         key="1"
-        style={
-          {
-            "backgroundColor": "rgba(0, 0, 0, 0.08)",
-          }
-        }
       >
-        <ForwardRef(TableCell)
-          align="center"
-          padding="checkbox"
+        <ForwardRef
+          textAlign="center"
         >
-          <ForwardRef(Checkbox)
+          <Checkbox
             checked={false}
+            colorScheme="green"
             onChange={[Function]}
-            style={
-              {
-                "color": "red",
-              }
-            }
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           0
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-      <ForwardRef(TableRow)
+        </ForwardRef>
+      </ForwardRef>
+      <ForwardRef
         key="2"
-        style={
-          {
-            "backgroundColor": "inherit",
-          }
-        }
       >
-        <ForwardRef(TableCell)
-          align="center"
+        <ForwardRef
+          textAlign="center"
         >
-          <Memo(ForwardRef(CloseIcon))
-            style={
-              {
-                "color": "red",
-              }
-            }
+          <Icon
+            as={[Function]}
+            color="red.500"
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           0
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-      <ForwardRef(TableRow)
+        </ForwardRef>
+      </ForwardRef>
+      <ForwardRef
         key="3"
-        style={
-          {
-            "backgroundColor": "inherit",
-          }
-        }
       >
-        <ForwardRef(TableCell)
-          align="center"
+        <ForwardRef
+          textAlign="center"
         >
-          <Memo(ForwardRef(CheckIcon))
-            style={
-              {
-                "color": "green",
-              }
-            }
+          <Icon
+            as={[Function]}
+            color="green.400"
           />
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
-          username
-           - Winner
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef>
+          <HStack>
+            <span>
+              username
+            </span>
+            <Icon
+              as={[Function]}
+              boxSize={3}
+            />
+          </HStack>
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
           3
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-    </ForwardRef(TableBody)>
-  </ForwardRef(Table)>
-</ForwardRef(TableContainer)>
+        </ForwardRef>
+      </ForwardRef>
+    </ForwardRef>
+  </Table>
+</ForwardRef>
 `;
 
 exports[`<PlayerList /> renders properly without gameInfo 1`] = `
-<ForwardRef(TableContainer)>
-  <ForwardRef(Table)>
-    <caption
-      style={
-        {
-          "textAlign": "center",
-        }
-      }
-    >
-      <div>
-        The game will start once all players are ready
-      </div>
-      <div>
-        Current player count: 
-        0
-        /
-        16
-         max
-      </div>
-    </caption>
-    <ForwardRef(TableHead)>
-      <ForwardRef(TableRow)>
-        <ForwardRef(TableCell)
-          align="center"
-        >
+<ForwardRef>
+  <Table
+    variant="simple"
+  >
+    <TableCaption>
+      Current player count: 
+      0
+      /
+      16
+       max
+    </TableCaption>
+    <ForwardRef>
+      <ForwardRef>
+        <ForwardRef>
           Ready?
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)>
+        </ForwardRef>
+        <ForwardRef>
           Player
-        </ForwardRef(TableCell)>
-        <ForwardRef(TableCell)
-          align="right"
+        </ForwardRef>
+        <ForwardRef
+          isNumeric={true}
         >
-          Games Won
-        </ForwardRef(TableCell)>
-      </ForwardRef(TableRow)>
-    </ForwardRef(TableHead)>
-    <ForwardRef(TableBody) />
-  </ForwardRef(Table)>
-</ForwardRef(TableContainer)>
+          Games won
+        </ForwardRef>
+      </ForwardRef>
+    </ForwardRef>
+    <ForwardRef />
+  </Table>
+</ForwardRef>
 `;

@@ -1,6 +1,7 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Button, HStack, Heading, Stack, Text } from "@chakra-ui/react";
+import { FaRegCopy } from "react-icons/fa6";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import CopyToClipboard from "../buttons/CopyToClipboard";
+import { useCopyToClipboard } from "../helpers/copyToClipboard";
 import PlayerList from "../players/PlayerList";
 import { useGame } from "./GameContext";
 
@@ -8,47 +9,46 @@ export default function StartGame(): JSX.Element {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();
+  const { canCopy, copyToClipboard } = useCopyToClipboard();
   const joinUrl = `${window.location.href}/join`;
 
   return (
-    <Box>
-      <Typography variant="h3" align="center" gutterBottom>
-        {gameName}
-      </Typography>
-      <Typography variant="body1" align="center" color="textSecondary">
-        Invite others to game:
-      </Typography>
-      <Typography
-        variant="body2"
-        align="center"
-        color="textSecondary"
-        gutterBottom
-      >
-        {joinUrl} <CopyToClipboard copyText={joinUrl} />
-      </Typography>
+    <Stack marginTop="50px" alignItems="center" spacing={8}>
+      <Stack>
+        <Heading as="h1" textAlign="center">
+          {gameName}
+        </Heading>
 
-      <Grid container justifyContent="center" spacing={3}>
-        <Grid item md={5}>
-          <PlayerList />
-        </Grid>
-        {previousSnapshot && (
-          <Grid item>
-            <Box display="flex" flexDirection="column">
-              <Typography variant="body1" align="center" gutterBottom>
-                Here are the boards from that round:
-              </Typography>
-
-              <OpponentBoardPreview
-                initialPlayerIndex={previousSnapshot.findIndex(
-                  (player) => player.isTopBanana,
-                )}
-                players={previousSnapshot}
-                includeCurrentPlayer
-              />
-            </Box>
-          </Grid>
+        {canCopy && (
+          <Button
+            colorScheme="blue"
+            leftIcon={<FaRegCopy />}
+            width="fit-content"
+            size="sm"
+            onClick={() => copyToClipboard(joinUrl)}
+          >
+            Copy invite link
+          </Button>
         )}
-      </Grid>
-    </Box>
+      </Stack>
+
+      <HStack alignItems="start" spacing={8}>
+        <PlayerList />
+
+        {previousSnapshot && (
+          <Stack>
+            <Text textAlign="center">Here are the boards from that round:</Text>
+
+            <OpponentBoardPreview
+              initialPlayerIndex={previousSnapshot.findIndex(
+                (player) => player.isTopBanana,
+              )}
+              players={previousSnapshot}
+              includeCurrentPlayer
+            />
+          </Stack>
+        )}
+      </HStack>
+    </Stack>
   );
 }

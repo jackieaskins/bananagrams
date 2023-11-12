@@ -1,14 +1,14 @@
-import { useSnackbar } from "notistack";
+import { useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-export type CopyToClipboardState = {
-  shouldShow: boolean;
+type CopyToClipboardState = {
+  canCopy: boolean;
   copyToClipboard: (copyText: string) => Promise<void>;
 };
 
-export const useCopyToClipboard = (): CopyToClipboardState => {
-  const [shouldShow, setShouldShow] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+export function useCopyToClipboard(): CopyToClipboardState {
+  const [canCopy, setCanCopy] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     const checkIfClipboardWriteSupported = async (): Promise<void> => {
@@ -17,9 +17,9 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
       } as any);
 
       if (state === "granted" || state === "prompt") {
-        setShouldShow(true);
+        setCanCopy(true);
       } else {
-        setShouldShow(false);
+        setCanCopy(false);
       }
     };
 
@@ -29,14 +29,11 @@ export const useCopyToClipboard = (): CopyToClipboardState => {
   const copyToClipboard = async (copyText: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(copyText);
-      enqueueSnackbar("Successfully copied to clipboard.");
+      toast({ description: "Successfully copied to clipboard." });
     } catch (err) {
-      enqueueSnackbar("Unable to copy to clipboard.");
+      toast({ description: "Unable to copy to clipboard." });
     }
   };
 
-  return {
-    shouldShow,
-    copyToClipboard,
-  };
-};
+  return { canCopy, copyToClipboard };
+}

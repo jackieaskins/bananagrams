@@ -1,25 +1,32 @@
-import {
-  TextField as MaterialUITextField,
-  StandardTextFieldProps as MaterialUITextFieldProps,
-} from "@mui/material";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
-export interface TextFieldProps extends MaterialUITextFieldProps {
+export interface TextFieldProps {
+  isRequired?: boolean;
+  label?: React.ReactNode;
+  name: string;
   setValue: (newValue: string) => void;
+  type?: React.HTMLInputTypeAttribute;
   value: string;
 }
 
 export default function TextField({
-  fullWidth = true,
+  isRequired = false,
+  label,
+  name,
   setValue,
-  ...rest
+  type,
+  value,
 }: TextFieldProps): JSX.Element {
   return (
-    <MaterialUITextField
-      fullWidth={fullWidth}
-      {...rest}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-        setValue(event.target.value)
-      }
-    />
+    <FormControl isRequired={isRequired}>
+      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      <Input
+        id={name}
+        type={type}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        name={name}
+      />
+    </FormControl>
   );
 }

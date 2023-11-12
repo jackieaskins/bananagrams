@@ -4,7 +4,7 @@ import { Player } from "../players/types";
 type OpponentBoardPreviewState = {
   handleLeftClick: () => void;
   handleRightClick: () => void;
-  handleSelectedPlayerChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectedPlayerChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   selectedPlayerIndex: number;
   selectedUserId?: string;
 };
@@ -41,7 +41,7 @@ export function useOpponentBoardPreview(
   };
 
   const handleSelectedPlayerChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLSelectElement>,
   ): void => {
     setSelectedUserId(e.target.value);
   };

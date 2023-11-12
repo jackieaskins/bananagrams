@@ -12,9 +12,9 @@ jest.mock("./index", () => ({
   on: jest.fn(),
   emit: jest.fn(),
 }));
-const mockEnqueueSnackbar = jest.fn();
-jest.mock("notistack", () => ({
-  useSnackbar: (): any => ({ enqueueSnackbar: mockEnqueueSnackbar }),
+const mockToast = jest.fn();
+jest.mock("@chakra-ui/react", () => ({
+  useToast: () => mockToast,
 }));
 
 describe("SocketContext", () => {
@@ -41,7 +41,7 @@ describe("SocketContext", () => {
 
       socket.on.mock.calls[0][1]({ message });
 
-      expect(mockEnqueueSnackbar).toHaveBeenCalledWith(message);
+      expect(mockToast).toHaveBeenCalledWith({ description: message });
     });
 
     test("disconnects from socket on dismount", () => {

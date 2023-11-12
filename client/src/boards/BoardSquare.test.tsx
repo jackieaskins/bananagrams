@@ -23,12 +23,6 @@ jest.mock("../games/GameContext", () => ({
   }),
 }));
 
-jest.mock("../styles", () => ({
-  useStyles: () => ({
-    validDrop: "validDrop",
-  }),
-}));
-
 describe("<BoardSquare />", () => {
   const getBoardSquare = (
     across: WordInfo = wordInfoFixture(),

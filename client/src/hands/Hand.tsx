@@ -1,10 +1,8 @@
-import { Shuffle } from "@mui/icons-material";
-import { Box, Button, Divider, Tooltip } from "@mui/material";
+import { Card, Flex, IconButton, Tooltip } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
+import { FaShuffle } from "react-icons/fa6";
 import { useGame } from "../games/GameContext";
-import TransparentPaper from "../paper/TransparentPaper";
 import { useSocket } from "../socket/SocketContext";
-import { validDropSx } from "../styles";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
 import { Hand as HandType } from "./types";
@@ -39,35 +37,31 @@ export default function Hand({ hand }: HandProps): JSX.Element {
   });
 
   return (
-    <TransparentPaper>
-      <Tooltip title="Shuffle hand">
-        <Button
-          sx={{ width: "100%" }}
-          disabled={hand.length <= 1}
-          size="small"
+    <Card variant="outline">
+      <Tooltip label="Shuffle hand" hasArrow>
+        <IconButton
+          aria-label="Shuffle hand"
+          icon={<FaShuffle />}
+          isDisabled={hand.length <= 1}
           onClick={(): void => {
             socket.emit("shuffleHand", {});
           }}
-        >
-          <Shuffle color="action" fontSize="small" />
-        </Button>
+        />
       </Tooltip>
 
-      <Divider />
-
-      <Box
+      <Flex
         ref={dropRef}
-        display="flex"
-        flexWrap="wrap"
-        flexDirection="column"
-        height={`${25 * boardLength - 28}px`}
+        wrap="wrap"
+        direction="column"
+        height={`${25 * boardLength - 40}px`}
+        minWidth="78px"
         p={1}
-        sx={isOver && canDrop ? validDropSx : null}
+        backgroundColor={isOver && canDrop ? "green.700" : undefined}
       >
         {hand.map((tile) => (
           <Tile key={tile.id} tile={tile} boardLocation={null} />
         ))}
-      </Box>
-    </TransparentPaper>
+      </Flex>
+    </Card>
   );
 }

@@ -1,12 +1,26 @@
-import { Alert, AlertProps } from "@mui/material";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
 
-interface ErrorAlertProps extends AlertProps {
+interface ErrorAlertProps {
+  children: React.ReactNode;
+  title?: React.ReactNode;
   visible: boolean;
 }
 
 export default function ErrorAlert({
+  children,
+  title,
   visible,
-  ...rest
 }: ErrorAlertProps): JSX.Element | null {
-  return visible ? <Alert {...rest} severity="error" /> : null;
+  return visible ? (
+    <Alert status="error">
+      <AlertIcon />
+      {title && <AlertTitle>{title}</AlertTitle>}
+      <AlertDescription>{children}</AlertDescription>
+    </Alert>
+  ) : null;
 }

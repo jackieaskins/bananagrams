@@ -1,8 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import { Card, CardBody, Text } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { useGame } from "../games/GameContext";
-import TransparentPaper from "../paper/TransparentPaper";
-import { invalidDropSx, validDropSx } from "../styles";
 import { TileItem } from "../tiles/types";
 
 const EXCHANGE_COUNT = 3;
@@ -26,25 +24,19 @@ export default function Dump(): JSX.Element {
   });
 
   return (
-    <TransparentPaper sx={{ width: "100%" }}>
-      <Box
-        ref={dropRef}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        p={2}
-        justifyContent="center"
-        sx={isOver ? (canDrop ? validDropSx : invalidDropSx) : undefined}
-      >
-        <Typography variant="button" color="textSecondary">
-          Dump!
-        </Typography>
+    <Card
+      variant="outline"
+      backgroundColor={isOver ? (canDrop ? "green.700" : "red.700") : undefined}
+      ref={dropRef}
+    >
+      <CardBody textAlign="center" color="gray.500">
+        <Text>Dump!</Text>
         {bunch.length >= EXCHANGE_COUNT && (
-          <Typography variant="caption" color="textSecondary">
+          <Text fontSize="xs">
             Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch
-          </Typography>
+          </Text>
         )}
-      </Box>
-    </TransparentPaper>
+      </CardBody>
+    </Card>
   );
 }

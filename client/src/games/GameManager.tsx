@@ -1,8 +1,6 @@
-import { Box } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import Game from "./Game";
 import { useGame } from "./GameContext";
-import GameSpeedDial from "./GameSpeedDial";
 import StartGame from "./StartGame";
 
 export default function GameManager(): JSX.Element {
@@ -15,10 +13,5 @@ export default function GameManager(): JSX.Element {
     return <Navigate to={`/game/${gameId}/join`} replace />;
   }
 
-  return (
-    <Box display="flex">
-      <GameSpeedDial />
-      <Box width="100%">{isInProgress ? <Game /> : <StartGame />}</Box>
-    </Box>
-  );
+  return isInProgress ? <Game /> : <StartGame />;
 }

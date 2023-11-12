@@ -1,28 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Tile /> renders properly 1`] = `
-<ForwardRef(Box)
+<Box
   alignItems="center"
-  border={1}
-  borderRadius={1}
+  backgroundColor="yellow.100"
+  border="1px"
+  borderColor="black"
+  borderRadius="5px"
+  color="black"
+  cursor="move"
   display="inline-flex"
+  height="25px"
   justifyContent="center"
-  sx={
-    {
-      "backgroundColor": "#ffffc7",
-      "color": "black",
-      "cursor": "move",
-      "height": "25px",
-      "margin": "0",
-      "opacity": 1,
-      "width": "25px",
-    }
-  }
+  margin="0"
+  opacity={1}
+  width="25px"
 >
-  <ForwardRef(Typography)
-    variant="body2"
+  <Text
+    as="b"
   >
     A
-  </ForwardRef(Typography)>
-</ForwardRef(Box)>
+  </Text>
+</Box>
 `;

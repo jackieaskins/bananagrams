@@ -1,9 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TextField /> renders properly 1`] = `
-<ForwardRef(TextField)
-  fullWidth={true}
-  onChange={[Function]}
-  value="value"
-/>
+<FormControl
+  isRequired={true}
+>
+  <FormLabel
+    htmlFor="name"
+  >
+    Label
+  </FormLabel>
+  <Input
+    id="name"
+    name="name"
+    onChange={[Function]}
+    type="text"
+    value="value"
+  />
+</FormControl>
 `;

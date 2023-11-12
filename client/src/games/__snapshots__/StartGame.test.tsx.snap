@@ -1,125 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<StartGame /> does not render board when no snapshot 1`] = `
-<ForwardRef(Box)>
-  <ForwardRef(Typography)
-    align="center"
-    gutterBottom={true}
-    variant="h3"
-  >
-    gameName
-  </ForwardRef(Typography)>
-  <ForwardRef(Typography)
-    align="center"
-    color="textSecondary"
-    variant="body1"
-  >
-    Invite others to game:
-  </ForwardRef(Typography)>
-  <ForwardRef(Typography)
-    align="center"
-    color="textSecondary"
-    gutterBottom={true}
-    variant="body2"
-  >
-    http://localhost//join
-     
-    <CopyToClipboard
-      copyText="http://localhost//join"
-    />
-  </ForwardRef(Typography)>
-  <ForwardRef(Grid)
-    container={true}
-    justifyContent="center"
-    spacing={3}
-  >
-    <ForwardRef(Grid)
-      item={true}
-      md={5}
+<Stack
+  alignItems="center"
+  marginTop="50px"
+  spacing={8}
+>
+  <Stack>
+    <Heading
+      as="h1"
+      textAlign="center"
     >
-      <PlayerList />
-    </ForwardRef(Grid)>
-  </ForwardRef(Grid)>
-</ForwardRef(Box)>
+      gameName
+    </Heading>
+  </Stack>
+  <HStack
+    alignItems="start"
+    spacing={8}
+  >
+    <PlayerList />
+  </HStack>
+</Stack>
 `;
 
 exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
-<ForwardRef(Box)>
-  <ForwardRef(Typography)
-    align="center"
-    gutterBottom={true}
-    variant="h3"
-  >
-    gameName
-  </ForwardRef(Typography)>
-  <ForwardRef(Typography)
-    align="center"
-    color="textSecondary"
-    variant="body1"
-  >
-    Invite others to game:
-  </ForwardRef(Typography)>
-  <ForwardRef(Typography)
-    align="center"
-    color="textSecondary"
-    gutterBottom={true}
-    variant="body2"
-  >
-    http://localhost//join
-     
-    <CopyToClipboard
-      copyText="http://localhost//join"
-    />
-  </ForwardRef(Typography)>
-  <ForwardRef(Grid)
-    container={true}
-    justifyContent="center"
-    spacing={3}
-  >
-    <ForwardRef(Grid)
-      item={true}
-      md={5}
+<Stack
+  alignItems="center"
+  marginTop="50px"
+  spacing={8}
+>
+  <Stack>
+    <Heading
+      as="h1"
+      textAlign="center"
     >
-      <PlayerList />
-    </ForwardRef(Grid)>
-    <ForwardRef(Grid)
-      item={true}
-    >
-      <ForwardRef(Box)
-        display="flex"
-        flexDirection="column"
+      gameName
+    </Heading>
+  </Stack>
+  <HStack
+    alignItems="start"
+    spacing={8}
+  >
+    <PlayerList />
+    <Stack>
+      <Text
+        textAlign="center"
       >
-        <ForwardRef(Typography)
-          align="center"
-          gutterBottom={true}
-          variant="body1"
-        >
-          Here are the boards from that round:
-        </ForwardRef(Typography)>
-        <OpponentBoardPreview
-          includeCurrentPlayer={true}
-          initialPlayerIndex={0}
-          players={
-            [
-              {
-                "board": [
-                  [
-                    null,
-                  ],
+        Here are the boards from that round:
+      </Text>
+      <OpponentBoardPreview
+        includeCurrentPlayer={true}
+        initialPlayerIndex={0}
+        players={
+          [
+            {
+              "board": [
+                [
+                  null,
                 ],
-                "gamesWon": 0,
-                "hand": [],
-                "isAdmin": false,
-                "isReady": false,
-                "isTopBanana": true,
-                "userId": "123",
-                "username": "username",
-              },
-            ]
-          }
-        />
-      </ForwardRef(Box)>
-    </ForwardRef(Grid)>
-  </ForwardRef(Grid)>
-</ForwardRef(Box)>
+              ],
+              "gamesWon": 0,
+              "hand": [],
+              "isAdmin": false,
+              "isReady": false,
+              "isTopBanana": true,
+              "userId": "123",
+              "username": "username",
+            },
+          ]
+        }
+      />
+    </Stack>
+  </HStack>
+</Stack>
 `;

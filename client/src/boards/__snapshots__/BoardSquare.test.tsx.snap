@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BoardSquare /> renders black tile when not validated in any direction 1`] = `
-<ForwardRef(Box)
+<Box
   height="25px"
-  sx={null}
+  opacity={1}
   width="25px"
 >
   <Tile
@@ -21,13 +21,13 @@ exports[`<BoardSquare /> renders black tile when not validated in any direction 
       }
     }
   />
-</ForwardRef(Box)>
+</Box>
 `;
 
 exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = `
-<ForwardRef(Box)
+<Box
   height="25px"
-  sx={null}
+  opacity={1}
   width="25px"
 >
   <Tile
@@ -37,7 +37,7 @@ exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = 
         "y": 0,
       }
     }
-    color="green"
+    color="green.500"
     tile={
       {
         "id": "A1",
@@ -45,28 +45,31 @@ exports[`<BoardSquare /> renders green tile when valid in every direction 1`] = 
       }
     }
   />
-</ForwardRef(Box)>
+</Box>
 `;
 
 exports[`<BoardSquare /> renders properly when is over and can drop 1`] = `
-<ForwardRef(Box)
+<Box
+  backgroundColor="green.400"
+  color="green.400"
   height="25px"
+  opacity={0.5}
   width="25px"
 />
 `;
 
 exports[`<BoardSquare /> renders properly with null boardSquare 1`] = `
-<ForwardRef(Box)
+<Box
   height="25px"
-  sx={null}
+  opacity={1}
   width="25px"
 />
 `;
 
 exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
-<ForwardRef(Box)
+<Box
   height="25px"
-  sx={null}
+  opacity={1}
   width="25px"
 >
   <Tile
@@ -76,7 +79,7 @@ exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
         "y": 0,
       }
     }
-    color="red"
+    color="red.600"
     tile={
       {
         "id": "A1",
@@ -84,5 +87,5 @@ exports[`<BoardSquare /> renders red tile when invalid in any direction 1`] = `
       }
     }
   />
-</ForwardRef(Box)>
+</Box>
 `;

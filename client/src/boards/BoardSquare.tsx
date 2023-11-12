@@ -1,7 +1,6 @@
-import { Box } from "@mui/material";
+import { Box } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { useGame } from "../games/GameContext";
-import { validDropSx } from "../styles";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
 import { BoardSquare, Direction, ValidationStatus, WordInfo } from "./types";
@@ -23,8 +22,8 @@ function getColor(wordInfo: Record<Direction, WordInfo>): string | undefined {
   const validations = Object.values(wordInfo).filter(isValidated);
 
   if (validations.length === 0) return "black";
-  if (validations.every(isValid)) return "green";
-  return "red";
+  if (validations.every(isValid)) return "green.500";
+  return "red.600";
 }
 
 export default function BoardSquare({
@@ -53,7 +52,9 @@ export default function BoardSquare({
 
   return (
     <Box
-      sx={isOver && canDrop ? validDropSx : null}
+      backgroundColor={isOver && canDrop ? "green.400" : undefined}
+      color={isOver && canDrop ? "green.400" : undefined}
+      opacity={isOver && canDrop ? 0.5 : 1}
       height="25px"
       width="25px"
       ref={dropRef}

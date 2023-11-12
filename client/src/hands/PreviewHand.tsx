@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import TransparentPaper from "../paper/TransparentPaper";
+import { Card } from "@chakra-ui/react";
 import { Hand } from "./types";
 
 type PreviewHandProps = {
@@ -14,12 +13,12 @@ export default function PreviewHand({
   const tilePixels = `${tileSize}px`;
 
   return (
-    <TransparentPaper
-      component={Box}
-      // @ts-expect-error These are accepted since the component is a Box
+    <Card
       display="inline-flex"
       flexWrap="wrap"
-      width="100%"
+      variant="outline"
+      flexDirection="row"
+      minHeight={tilePixels}
     >
       {hand.map((tile) => (
         <img
@@ -30,6 +29,6 @@ export default function PreviewHand({
           height={tilePixels}
         />
       ))}
-    </TransparentPaper>
+    </Card>
   );
 }

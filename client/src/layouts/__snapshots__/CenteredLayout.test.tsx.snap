@@ -1,31 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CeneteredLayout /> renders properly with default width 1`] = `
-<ForwardRef(Grid)
-  alignContent="center"
-  container={true}
-  justifyContent="center"
+<Center
+  height="100vh"
 >
-  <ForwardRef(Grid)
-    item={true}
-    xs={6}
-  >
-    Children
-  </ForwardRef(Grid)>
-</ForwardRef(Grid)>
+  Children
+</Center>
 `;
 
 exports[`<CeneteredLayout /> renders properly with passed in width 1`] = `
-<ForwardRef(Grid)
-  alignContent="center"
-  container={true}
-  justifyContent="center"
+<Center
+  height="100vh"
 >
-  <ForwardRef(Grid)
-    item={true}
-    xs={2}
-  >
-    Children
-  </ForwardRef(Grid)>
-</ForwardRef(Grid)>
+  Children
+</Center>
 `;

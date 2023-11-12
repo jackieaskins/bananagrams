@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Box, Text } from "@chakra-ui/react";
 import { useDrag } from "react-dnd";
 import { Tile as TileType } from "./types";
 
@@ -25,22 +25,21 @@ export default function Tile({
   return (
     <Box
       ref={dragRef}
-      display="inline-flex"
-      justifyContent="center"
       alignItems="center"
-      border={1}
-      borderRadius={1}
-      sx={{
-        color,
-        backgroundColor: "#ffffc7",
-        cursor: "move",
-        height: "25px",
-        margin,
-        opacity: isDragging ? 0.5 : 1,
-        width: "25px",
-      }}
+      backgroundColor="yellow.100"
+      border="1px"
+      borderColor={color}
+      borderRadius="5px"
+      color={color}
+      cursor="move"
+      display="inline-flex"
+      height="25px"
+      justifyContent="center"
+      margin={margin}
+      opacity={isDragging ? 0.5 : 1}
+      width="25px"
     >
-      <Typography variant="body2">{letter}</Typography>
+      <Text as="b">{letter}</Text>
     </Box>
   );
 }

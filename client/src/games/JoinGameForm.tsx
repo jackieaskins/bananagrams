@@ -1,7 +1,12 @@
-import { Grid, Link as MUILink, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Heading,
+  Link as ChakraLink,
+  Stack,
+} from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
 import ErrorAlert from "../alerts/ErrorAlert";
-import Button from "../buttons/Button";
 import TextField from "../forms/TextField";
 import { useJoinGameForm } from "./JoinGameFormState";
 
@@ -10,50 +15,41 @@ export default function JoinGameForm(): JSX.Element {
     useJoinGameForm();
 
   return (
-    <>
-      <Typography variant="h3" sx={{ marginBottom: "5px" }}>
-        Join game
-      </Typography>
-      <ErrorAlert visible={!!error} sx={{ marginBottom: "5px" }}>
-        {error}
-      </ErrorAlert>
-      <Grid
-        container
-        direction="column"
-        spacing={3}
-        component="form"
-        autoComplete="off"
-      >
-        <Grid item>
+    <Box
+      as="form"
+      autoComplete="off"
+      onSubmit={onSubmit}
+      width="40vw"
+      textAlign="center"
+    >
+      <Stack spacing={6}>
+        <Heading as="h1">Join game</Heading>
+
+        <Stack>
+          <ErrorAlert visible={!!error}>{error}</ErrorAlert>
+
           <TextField
             label="Username"
             name="username"
-            required
+            isRequired
             value={username}
             setValue={setUsername}
           />
-        </Grid>
+        </Stack>
 
-        <Grid item>
-          <Button
-            disabled={!username}
-            loading={isJoiningGame}
-            loadingText="Joining game"
-            onClick={onSubmit}
-            size="large"
-            fullWidth
-            type="submit"
-          >
-            Join game
-          </Button>
-        </Grid>
+        <Button
+          colorScheme="blue"
+          isLoading={isJoiningGame}
+          loadingText="Joining game"
+          type="submit"
+        >
+          Join game
+        </Button>
 
-        <Grid item style={{ margin: "0 auto" }}>
-          <MUILink component={Link} to="/" variant="body1" align="center">
-            Go home
-          </MUILink>
-        </Grid>
-      </Grid>
-    </>
+        <ChakraLink as={ReactRouterLink} to="/">
+          Go home
+        </ChakraLink>
+      </Stack>
+    </Box>
   );
 }

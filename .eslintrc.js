@@ -29,7 +29,7 @@ module.exports = {
   plugins: ["import"],
   reportUnusedDisableDirectives: true,
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "arrow-body-style": ["error", "as-needed"],
     "import/order": [

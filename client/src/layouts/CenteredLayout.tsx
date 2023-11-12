@@ -1,19 +1,11 @@
-import { Grid, GridSize } from "@mui/material";
+import { Center } from "@chakra-ui/react";
 
 type CenteredLayoutProps = {
   children: React.ReactNode;
-  width?: GridSize;
 };
 
 export default function CenteredLayout({
   children,
-  width = 6,
 }: CenteredLayoutProps): JSX.Element {
-  return (
-    <Grid container justifyContent="center" alignContent="center">
-      <Grid item xs={width}>
-        {children}
-      </Grid>
-    </Grid>
-  );
+  return <Center height="100vh">{children}</Center>;
 }

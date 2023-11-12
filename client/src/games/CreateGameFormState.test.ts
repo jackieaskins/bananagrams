@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useCreateGameForm } from "./CreateGameFormState";
 
 jest.mock("react", () => ({
+  useCallback: jest.fn((fn) => fn),
   useState: jest.fn(),
 }));
 

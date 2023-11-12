@@ -1,9 +1,8 @@
-import { Box, Button } from "@mui/material";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "../games/GameContext";
-import { validDropSx } from "../styles";
 import Hand from "./Hand";
 
 const mockEmit = jest.fn();
@@ -11,10 +10,6 @@ jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
     socket: { id: "123", emit: mockEmit },
   }),
-}));
-
-jest.mock("../styles", () => ({
-  validDropSx: { color: "green" },
 }));
 
 jest.mock("../games/GameContext", () => ({
@@ -54,7 +49,7 @@ describe("<Hand />", () => {
   });
 
   test("shuffle button emits shuffle hand event", () => {
-    renderComponent().find(Button).props().onClick();
+    renderComponent().find(IconButton).props().onClick();
 
     expect(mockEmit).toHaveBeenCalledWith("shuffleHand", {});
   });
@@ -154,15 +149,19 @@ describe("<Hand />", () => {
     });
   });
 
-  describe("className", () => {
-    test("has validDrop sx when is over and can drop", () => {
+  describe("background color", () => {
+    test("is green when is over and can drop", () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]),
-        expect(renderComponent().find(Box).props().sx).toEqual(validDropSx);
+        expect(renderComponent().find(Flex).props().backgroundColor).toBe(
+          "green.700",
+        );
     });
 
-    test("has no sx when is not over or cannot drop", () => {
+    test("is not set when not over or can't drop", () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]),
-        expect(renderComponent().find(Box).props().sx).toBeNull();
+        expect(
+          renderComponent().find(Flex).props().backgroundColor,
+        ).toBeUndefined();
     });
   });
 });

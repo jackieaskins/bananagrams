@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import TransparentPaper from "../paper/TransparentPaper";
+import { Box, Card } from "@chakra-ui/react";
 import { Board } from "./types";
 
 type PreviewBoardProps = {
@@ -14,12 +13,7 @@ export default function PreviewBoard({
   const tilePixels = `${tileSize}px`;
 
   return (
-    <TransparentPaper
-      component={Box}
-      // @ts-expect-error These are accepted since the component is a Box
-      display="inline-flex"
-      flexDirection="column"
-    >
+    <Card display="inline-flex" flexDirection="column" variant="outline">
       {board.map((row, x) => (
         <Box key={x} display="flex">
           {row.map((boardSquare, y) => {
@@ -41,6 +35,6 @@ export default function PreviewBoard({
           })}
         </Box>
       ))}
-    </TransparentPaper>
+    </Card>
   );
 }

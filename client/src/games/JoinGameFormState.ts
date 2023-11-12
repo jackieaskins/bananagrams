@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../socket/SocketContext";
 import { SetState } from "../state/types";
@@ -11,7 +11,7 @@ type JoinGameParams = {
 type JoinGameFormState = {
   error: string;
   isJoiningGame: boolean;
-  onSubmit: (event: MouseEvent<HTMLElement>) => void;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
   setUsername: SetState<string>;
   username: string;
 };
@@ -25,29 +25,32 @@ export function useJoinGameForm(): JoinGameFormState {
   const [error, setError] = useState("");
   const [isJoiningGame, setIsJoiningGame] = useState(false);
 
-  const onSubmit = (event: MouseEvent<HTMLElement>): void => {
-    event.preventDefault();
+  const onSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>): void => {
+      event.preventDefault();
 
-    setIsJoiningGame(true);
+      setIsJoiningGame(true);
 
-    socket.emit(
-      "joinGame",
-      { gameId, username },
-      (error: Error, gameInfo: GameInfo) => {
-        if (error) {
-          setError(error.message);
-          setIsJoiningGame(false);
-        } else {
-          const locationState: GameLocationState = {
-            isInGame: true,
-            gameInfo,
-          };
+      socket.emit(
+        "joinGame",
+        { gameId, username },
+        (error: Error, gameInfo: GameInfo) => {
+          if (error) {
+            setError(error.message);
+            setIsJoiningGame(false);
+          } else {
+            const locationState: GameLocationState = {
+              isInGame: true,
+              gameInfo,
+            };
 
-          navigate(`/game/${gameId}`, { state: locationState });
-        }
-      },
-    );
-  };
+            navigate(`/game/${gameId}`, { state: locationState });
+          }
+        },
+      );
+    },
+    [gameId, navigate, socket, username],
+  );
 
   return {
     error,

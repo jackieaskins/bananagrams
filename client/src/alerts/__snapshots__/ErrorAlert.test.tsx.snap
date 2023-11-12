@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ErrorAlert /> renders Alert when visible 1`] = `
-<ForwardRef(Alert)
-  severity="error"
+<Alert
+  status="error"
 >
-  Children
-</ForwardRef(Alert)>
+  <AlertIcon />
+  <AlertTitle>
+    Title
+  </AlertTitle>
+  <AlertDescription>
+    Children
+  </AlertDescription>
+</Alert>
 `;
 
 exports[`<ErrorAlert /> returns null when not visible 1`] = `""`;

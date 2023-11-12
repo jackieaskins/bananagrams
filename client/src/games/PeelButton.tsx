@@ -1,5 +1,5 @@
-import { Tooltip } from "@mui/material";
-import Button from "../buttons/Button";
+import { Button, Text, Tooltip } from "@chakra-ui/react";
+import { useMemo } from "react";
 
 type PeelButtonProps = {
   canPeel: boolean;
@@ -12,7 +12,7 @@ export default function PeelButton({
   handlePeel,
   peelWinsGame,
 }: PeelButtonProps): JSX.Element {
-  const getPeelButtonHint = (): string => {
+  const peelButtonHint = useMemo(() => {
     if (!canPeel) {
       return "You must have a valid connected board to peel";
     }
@@ -22,15 +22,13 @@ export default function PeelButton({
     }
 
     return "Get a new tile and send one to everyone else";
-  };
+  }, [canPeel, peelWinsGame]);
 
   return (
-    <Tooltip title={getPeelButtonHint()}>
-      <span>
-        <Button size="large" fullWidth onClick={handlePeel} disabled={!canPeel}>
-          {peelWinsGame ? "Bananas!" : "Peel!"}
-        </Button>
-      </span>
+    <Tooltip label={<Text textAlign="center">{peelButtonHint}</Text>} hasArrow>
+      <Button colorScheme="blue" onClick={handlePeel} isDisabled={!canPeel}>
+        {peelWinsGame ? "Bananas!" : "Peel!"}
+      </Button>
     </Tooltip>
   );
 }

@@ -1,18 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PeelButton /> renders properly 1`] = `
-<ForwardRef(Tooltip)
-  title="Get a new tile and send one to everyone else"
->
-  <span>
-    <Button
-      disabled={false}
-      fullWidth={true}
-      onClick={[MockFunction handlePeel]}
-      size="large"
+<Tooltip
+  hasArrow={true}
+  label={
+    <Text
+      textAlign="center"
     >
-      Peel!
-    </Button>
-  </span>
-</ForwardRef(Tooltip)>
+      Get a new tile and send one to everyone else
+    </Text>
+  }
+>
+  <Button
+    colorScheme="blue"
+    isDisabled={false}
+    onClick={[MockFunction handlePeel]}
+  >
+    Peel!
+  </Button>
+</Tooltip>
 `;

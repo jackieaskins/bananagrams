@@ -1,14 +1,8 @@
-import { Box } from "@mui/material";
+import { Card } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
 import { useGame } from "../games/GameContext";
-import { invalidDropSx, validDropSx } from "../styles";
 import Dump from "./Dump";
-
-jest.mock("../styles", () => ({
-  validDropSx: { color: "green" },
-  invalidDropSx: { color: "red" },
-}));
 
 jest.mock("react-dnd", () => ({
   useDrop: jest
@@ -102,23 +96,24 @@ describe("<Dump />", () => {
     });
   });
 
-  describe("sx", () => {
-    const getSx = () => renderComponent().find(Box).props().sx;
+  describe("background color", () => {
+    const getBgColor = () =>
+      renderComponent().find(Card).props().backgroundColor;
 
-    test("is empty when is not over", () => {
-      expect(getSx()).toBeUndefined();
+    test("is undefined when is not over", () => {
+      expect(getBgColor()).toBeUndefined();
     });
 
-    test("is validDrop when is over and can be dropped", () => {
+    test("is green when is over and can be dropped", () => {
       useDrop.mockReturnValue([{ canDrop: true, isOver: true }]);
 
-      expect(getSx()).toEqual(validDropSx);
+      expect(getBgColor()).toBe("green.700");
     });
 
     test("is invalidDrop when is over but cannot be dropped", () => {
       useDrop.mockReturnValue([{ canDrop: false, isOver: true }]);
 
-      expect(getSx()).toEqual(invalidDropSx);
+      expect(getBgColor()).toBe("red.700");
     });
   });
 

@@ -1,4 +1,4 @@
-import { useSnackbar } from "notistack";
+import { useToast } from "@chakra-ui/react";
 import { createContext, useContext, useEffect } from "react";
 import { Socket } from "socket.io-client";
 import socket from "./index";
@@ -18,17 +18,17 @@ export function SocketProvider({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  const { enqueueSnackbar } = useSnackbar();
+  const toast = useToast();
 
   useEffect(() => {
     socket.on("notification", ({ message }: { message: string }) => {
-      enqueueSnackbar(message);
+      toast({ description: message });
     });
 
     return (): void => {
       socket.emit("disconnect");
     };
-  }, [enqueueSnackbar]);
+  }, [toast]);
 
   return (
     <SocketContext.Provider value={{ socket }}>

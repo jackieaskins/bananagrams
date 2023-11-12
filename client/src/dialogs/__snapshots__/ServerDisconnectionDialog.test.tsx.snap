@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ServerDisconnectionDialog /> renders properly 1`] = `
+<AlertDialog
+  isCentered={true}
+  isOpen={true}
+  leastDestructiveRef={
+    {
+      "current": null,
+    }
+  }
+  onClose={[MockFunction hideDialog]}
+>
+  <ModalOverlay>
+    <ForwardRef>
+      <ModalHeader>
+        Disconnected
+      </ModalHeader>
+      <ModalBody>
+        You have been disconnected from the server.
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          colorScheme="blue"
+          onClick={[MockFunction hideDialog]}
+        >
+          Return home
+        </Button>
+      </ModalFooter>
+    </ForwardRef>
+  </ModalOverlay>
+</AlertDialog>
+`;

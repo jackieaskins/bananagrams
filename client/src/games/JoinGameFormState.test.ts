@@ -19,6 +19,7 @@ jest.mock("../socket/SocketContext", () => ({
 }));
 
 jest.mock("react", () => ({
+  useCallback: jest.fn((fn) => fn),
   useState: jest.fn(),
 }));
 

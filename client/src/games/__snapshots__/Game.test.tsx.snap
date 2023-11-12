@@ -4,34 +4,20 @@ exports[`<Game /> renders properly 1`] = `
 <DndProvider
   backend={[Function]}
 >
-  <ForwardRef(Grid)
-    container={true}
-    justifyContent="center"
-    spacing={2}
-    sx={
-      {
-        "marginTop": "1px",
-      }
-    }
+  <Center
+    margin="50px"
   >
-    <ForwardRef(Grid)
-      item={true}
+    <HStack
+      alignItems="start"
+      spacing={8}
     >
-      <ForwardRef(Typography)
-        align="center"
-        gutterBottom={true}
-        variant="body2"
-      >
-        Your board and hand:
-      </ForwardRef(Typography)>
-      <ForwardRef(Grid)
-        alignItems="center"
-        container={true}
-        spacing={1}
-      >
-        <ForwardRef(Grid)
-          item={true}
+      <Stack>
+        <Text
+          textAlign="center"
         >
+          Your board and hand:
+        </Text>
+        <HStack>
           <Board
             board={
               [
@@ -41,86 +27,27 @@ exports[`<Game /> renders properly 1`] = `
               ]
             }
           />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-        >
           <Hand
             hand={[]}
           />
-        </ForwardRef(Grid)>
-      </ForwardRef(Grid)>
-    </ForwardRef(Grid)>
-    <ForwardRef(Grid)
-      item={true}
-    >
-      <ForwardRef(Grid)
-        alignItems="center"
-        container={true}
-        direction="column"
-        spacing={1}
-      >
-        <ForwardRef(Grid)
-          item={true}
+        </HStack>
+      </Stack>
+      <Stack>
+        <Text
+          textAlign="center"
         >
-          <ForwardRef(Typography)
-            variant="body2"
-          >
-            Tiles remaining in bunch: 
-            0
-          </ForwardRef(Typography)>
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-          style={
-            {
-              "width": "100%",
-            }
-          }
-        >
-          <PeelButton
-            canPeel={false}
-            handlePeel={[MockFunction handlePeel]}
-            peelWinsGame={true}
-          />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-          style={
-            {
-              "width": "100%",
-            }
-          }
-        >
-          <Dump />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-        >
-          <OpponentBoardPreview
-            players={
-              [
-                {
-                  "board": [
-                    [
-                      null,
-                    ],
-                  ],
-                  "gamesWon": 0,
-                  "hand": [],
-                  "isAdmin": false,
-                  "isReady": false,
-                  "isTopBanana": false,
-                  "userId": "id",
-                  "username": "username",
-                },
-              ]
-            }
-          />
-        </ForwardRef(Grid)>
-      </ForwardRef(Grid)>
-    </ForwardRef(Grid)>
-  </ForwardRef(Grid)>
+          Tiles remaining in bunch: 
+          0
+        </Text>
+        <PeelButton
+          canPeel={false}
+          handlePeel={[MockFunction handlePeel]}
+          peelWinsGame={true}
+        />
+        <Dump />
+      </Stack>
+    </HStack>
+  </Center>
 </DndProvider>
 `;
 
@@ -128,34 +55,20 @@ exports[`<Game /> renders properly with more than one player 1`] = `
 <DndProvider
   backend={[Function]}
 >
-  <ForwardRef(Grid)
-    container={true}
-    justifyContent="center"
-    spacing={2}
-    sx={
-      {
-        "marginTop": "1px",
-      }
-    }
+  <Center
+    margin="50px"
   >
-    <ForwardRef(Grid)
-      item={true}
+    <HStack
+      alignItems="start"
+      spacing={8}
     >
-      <ForwardRef(Typography)
-        align="center"
-        gutterBottom={true}
-        variant="body2"
-      >
-        Your board and hand:
-      </ForwardRef(Typography)>
-      <ForwardRef(Grid)
-        alignItems="center"
-        container={true}
-        spacing={1}
-      >
-        <ForwardRef(Grid)
-          item={true}
+      <Stack>
+        <Text
+          textAlign="center"
         >
+          Your board and hand:
+        </Text>
+        <HStack>
           <Board
             board={
               [
@@ -165,68 +78,30 @@ exports[`<Game /> renders properly with more than one player 1`] = `
               ]
             }
           />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-        >
           <Hand
             hand={[]}
           />
-        </ForwardRef(Grid)>
-      </ForwardRef(Grid)>
-    </ForwardRef(Grid)>
-    <ForwardRef(Grid)
-      item={true}
-    >
-      <ForwardRef(Grid)
-        alignItems="center"
-        container={true}
-        direction="column"
-        spacing={1}
-      >
-        <ForwardRef(Grid)
-          item={true}
+        </HStack>
+      </Stack>
+      <Stack>
+        <Text
+          textAlign="center"
         >
-          <ForwardRef(Typography)
-            variant="body2"
-          >
-            Tiles remaining in bunch: 
-            0
-          </ForwardRef(Typography)>
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-          style={
-            {
-              "width": "100%",
-            }
-          }
-        >
-          <PeelButton
-            canPeel={false}
-            handlePeel={[MockFunction handlePeel]}
-            peelWinsGame={true}
-          />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-          style={
-            {
-              "width": "100%",
-            }
-          }
-        >
-          <Dump />
-        </ForwardRef(Grid)>
-        <ForwardRef(Grid)
-          item={true}
-        >
-          <ForwardRef(Typography)
-            align="center"
-            variant="body2"
+          Tiles remaining in bunch: 
+          0
+        </Text>
+        <PeelButton
+          canPeel={false}
+          handlePeel={[MockFunction handlePeel]}
+          peelWinsGame={true}
+        />
+        <Dump />
+        <Stack>
+          <Text
+            textAlign="center"
           >
             Opponent board(s):
-          </ForwardRef(Typography)>
+          </Text>
           <OpponentBoardPreview
             players={
               [
@@ -261,9 +136,9 @@ exports[`<Game /> renders properly with more than one player 1`] = `
               ]
             }
           />
-        </ForwardRef(Grid)>
-      </ForwardRef(Grid)>
-    </ForwardRef(Grid)>
-  </ForwardRef(Grid)>
+        </Stack>
+      </Stack>
+    </HStack>
+  </Center>
 </DndProvider>
 `;

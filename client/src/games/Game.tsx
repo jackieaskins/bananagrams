@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Center, HStack, Stack, Text } from "@chakra-ui/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Board from "../boards/Board";
@@ -10,8 +10,6 @@ import { Player } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 import PeelButton from "./PeelButton";
-
-import "./Game.css";
 
 export default function Game(): JSX.Element {
   const { socket } = useSocket();
@@ -30,59 +28,40 @@ export default function Game(): JSX.Element {
   return (
     // @ts-expect-error DndProvider doesn't work well with React.FC change
     <DndProvider backend={HTML5Backend}>
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        sx={{ marginTop: "1px" }}
-      >
-        <Grid item>
-          <Typography align="center" variant="body2" gutterBottom>
-            Your board and hand:
-          </Typography>
+      <Center margin="50px">
+        <HStack alignItems="start" spacing={8}>
+          <Stack>
+            <Text textAlign="center">Your board and hand:</Text>
 
-          <Grid container spacing={1} alignItems="center">
-            <Grid item>
+            <HStack>
               <Board board={board} />
-            </Grid>
-
-            <Grid item>
               <Hand hand={hand} />
-            </Grid>
-          </Grid>
-        </Grid>
+            </HStack>
+          </Stack>
 
-        <Grid item>
-          <Grid container direction="column" spacing={1} alignItems="center">
-            <Grid item>
-              <Typography variant="body2">
-                Tiles remaining in bunch: {bunch.length}
-              </Typography>
-            </Grid>
+          <Stack>
+            <Text textAlign="center">
+              Tiles remaining in bunch: {bunch.length}
+            </Text>
 
-            <Grid item style={{ width: "100%" }}>
-              <PeelButton
-                canPeel={canPeel}
-                handlePeel={handlePeel}
-                peelWinsGame={peelWinsGame}
-              />
-            </Grid>
+            <PeelButton
+              canPeel={canPeel}
+              handlePeel={handlePeel}
+              peelWinsGame={peelWinsGame}
+            />
 
-            <Grid item style={{ width: "100%" }}>
-              <Dump />
-            </Grid>
-            <Grid item>
-              {players.length > 1 && (
-                <Typography align="center" variant="body2">
-                  Opponent board(s):
-                </Typography>
-              )}
+            <Dump />
 
-              <OpponentBoardPreview players={players} />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            {players.length > 1 && (
+              <Stack>
+                <Text textAlign="center">Opponent board(s):</Text>
+
+                <OpponentBoardPreview players={players} />
+              </Stack>
+            )}
+          </Stack>
+        </HStack>
+      </Center>
     </DndProvider>
   );
 }

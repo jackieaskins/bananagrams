@@ -1,4 +1,4 @@
-import { Checkbox, IconButton } from "@mui/material";
+import { Checkbox, IconButton } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "../games/GameContext";

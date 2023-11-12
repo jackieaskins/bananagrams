@@ -1,67 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Hand /> renders properly 1`] = `
-<TransparentPaper>
-  <ForwardRef(Tooltip)
-    title="Shuffle hand"
+<ForwardRef(Card2)
+  variant="outline"
+>
+  <Tooltip
+    hasArrow={true}
+    label="Shuffle hand"
   >
-    <ForwardRef(Button)
-      disabled={true}
+    <IconButton
+      aria-label="Shuffle hand"
+      icon={<FaShuffle />}
+      isDisabled={true}
       onClick={[Function]}
-      size="small"
-      sx={
-        {
-          "width": "100%",
-        }
-      }
-    >
-      <Memo(ForwardRef(ShuffleIcon))
-        color="action"
-        fontSize="small"
-      />
-    </ForwardRef(Button)>
-  </ForwardRef(Tooltip)>
-  <ForwardRef(Divider) />
-  <ForwardRef(Box)
-    display="flex"
-    flexDirection="column"
-    flexWrap="wrap"
-    height="497px"
+    />
+  </Tooltip>
+  <Flex
+    direction="column"
+    height="485px"
+    minWidth="78px"
     p={1}
-    sx={null}
+    wrap="wrap"
   />
-</TransparentPaper>
+</ForwardRef(Card2)>
 `;
 
 exports[`<Hand /> renders properly with player 1`] = `
-<TransparentPaper>
-  <ForwardRef(Tooltip)
-    title="Shuffle hand"
+<ForwardRef(Card2)
+  variant="outline"
+>
+  <Tooltip
+    hasArrow={true}
+    label="Shuffle hand"
   >
-    <ForwardRef(Button)
-      disabled={false}
+    <IconButton
+      aria-label="Shuffle hand"
+      icon={<FaShuffle />}
+      isDisabled={false}
       onClick={[Function]}
-      size="small"
-      sx={
-        {
-          "width": "100%",
-        }
-      }
-    >
-      <Memo(ForwardRef(ShuffleIcon))
-        color="action"
-        fontSize="small"
-      />
-    </ForwardRef(Button)>
-  </ForwardRef(Tooltip)>
-  <ForwardRef(Divider) />
-  <ForwardRef(Box)
-    display="flex"
-    flexDirection="column"
-    flexWrap="wrap"
-    height="-3px"
+    />
+  </Tooltip>
+  <Flex
+    direction="column"
+    height="-15px"
+    minWidth="78px"
     p={1}
-    sx={null}
+    wrap="wrap"
   >
     <Tile
       boardLocation={null}
@@ -93,6 +77,6 @@ exports[`<Hand /> renders properly with player 1`] = `
         }
       }
     />
-  </ForwardRef(Box)>
-</TransparentPaper>
+  </Flex>
+</ForwardRef(Card2)>
 `;

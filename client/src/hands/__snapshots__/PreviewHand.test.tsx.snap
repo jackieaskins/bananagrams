@@ -1,21 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PreviewHand /> renders properly 1`] = `
-<TransparentPaper
-  component={
-    {
-      "$$typeof": Symbol(react.forward_ref),
-      "propTypes": {
-        "children": [Function],
-        "component": [Function],
-        "sx": [Function],
-      },
-      "render": [Function],
-    }
-  }
+<ForwardRef(Card2)
   display="inline-flex"
+  flexDirection="row"
   flexWrap="wrap"
-  width="100%"
+  minHeight="15px"
+  variant="outline"
 >
   <img
     alt="Tile for the letter A"
@@ -31,5 +22,5 @@ exports[`<PreviewHand /> renders properly 1`] = `
     src="/assets/images/B.png"
     width="15px"
   />
-</TransparentPaper>
+</ForwardRef(Card2)>
 `;
