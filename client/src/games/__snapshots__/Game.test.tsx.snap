@@ -7,8 +7,20 @@ exports[`<Game /> renders properly 1`] = `
   <Center
     margin="50px"
   >
-    <HStack
-      alignItems="start"
+    <Stack
+      alignItems={
+        {
+          "base": "center",
+          "lg": "start",
+        }
+      }
+      direction={
+        {
+          "base": "column",
+          "lg": "row",
+        }
+      }
+      justifyContent="center"
       spacing={8}
     >
       <Stack>
@@ -32,21 +44,31 @@ exports[`<Game /> renders properly 1`] = `
           />
         </HStack>
       </Stack>
-      <Stack>
-        <Text
-          textAlign="center"
-        >
-          Tiles remaining in bunch: 
-          0
-        </Text>
-        <PeelButton
-          canPeel={false}
-          handlePeel={[MockFunction handlePeel]}
-          peelWinsGame={true}
-        />
-        <Dump />
+      <Stack
+        direction={
+          {
+            "base": "row",
+            "lg": "column",
+          }
+        }
+        flex="1"
+      >
+        <Stack>
+          <Text
+            textAlign="center"
+          >
+            Tiles remaining in bunch: 
+            0
+          </Text>
+          <PeelButton
+            canPeel={false}
+            handlePeel={[MockFunction handlePeel]}
+            peelWinsGame={true}
+          />
+          <Dump />
+        </Stack>
       </Stack>
-    </HStack>
+    </Stack>
   </Center>
 </DndProvider>
 `;
@@ -58,8 +80,20 @@ exports[`<Game /> renders properly with more than one player 1`] = `
   <Center
     margin="50px"
   >
-    <HStack
-      alignItems="start"
+    <Stack
+      alignItems={
+        {
+          "base": "center",
+          "lg": "start",
+        }
+      }
+      direction={
+        {
+          "base": "column",
+          "lg": "row",
+        }
+      }
+      justifyContent="center"
       spacing={8}
     >
       <Stack>
@@ -83,19 +117,29 @@ exports[`<Game /> renders properly with more than one player 1`] = `
           />
         </HStack>
       </Stack>
-      <Stack>
-        <Text
-          textAlign="center"
-        >
-          Tiles remaining in bunch: 
-          0
-        </Text>
-        <PeelButton
-          canPeel={false}
-          handlePeel={[MockFunction handlePeel]}
-          peelWinsGame={true}
-        />
-        <Dump />
+      <Stack
+        direction={
+          {
+            "base": "row",
+            "lg": "column",
+          }
+        }
+        flex="1"
+      >
+        <Stack>
+          <Text
+            textAlign="center"
+          >
+            Tiles remaining in bunch: 
+            0
+          </Text>
+          <PeelButton
+            canPeel={false}
+            handlePeel={[MockFunction handlePeel]}
+            peelWinsGame={true}
+          />
+          <Dump />
+        </Stack>
         <Stack>
           <Text
             textAlign="center"
@@ -138,7 +182,7 @@ exports[`<Game /> renders properly with more than one player 1`] = `
           />
         </Stack>
       </Stack>
-    </HStack>
+    </Stack>
   </Center>
 </DndProvider>
 `;

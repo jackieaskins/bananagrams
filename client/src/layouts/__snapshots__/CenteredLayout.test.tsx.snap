@@ -4,7 +4,9 @@ exports[`<CeneteredLayout /> renders properly with default width 1`] = `
 <Center
   height="100vh"
 >
-  Children
+  <Container>
+    Children
+  </Container>
 </Center>
 `;
 
@@ -12,6 +14,8 @@ exports[`<CeneteredLayout /> renders properly with passed in width 1`] = `
 <Center
   height="100vh"
 >
-  Children
+  <Container>
+    Children
+  </Container>
 </Center>
 `;

@@ -15,7 +15,7 @@ export default function CreateGameForm(): JSX.Element {
   } = useCreateGameForm();
 
   return (
-    <Box as="form" autoComplete="off" onSubmit={onSubmit} width="40vw">
+    <Box as="form" autoComplete="off" onSubmit={onSubmit}>
       <Stack spacing={6}>
         <Heading as="h1" textAlign="center">
           Start a new game

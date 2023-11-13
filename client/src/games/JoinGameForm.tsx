@@ -15,13 +15,7 @@ export default function JoinGameForm(): JSX.Element {
     useJoinGameForm();
 
   return (
-    <Box
-      as="form"
-      autoComplete="off"
-      onSubmit={onSubmit}
-      width="40vw"
-      textAlign="center"
-    >
+    <Box as="form" autoComplete="off" onSubmit={onSubmit} textAlign="center">
       <Stack spacing={6}>
         <Heading as="h1">Join game</Heading>
 

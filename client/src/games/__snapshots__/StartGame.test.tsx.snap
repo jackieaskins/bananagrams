@@ -6,20 +6,34 @@ exports[`<StartGame /> does not render board when no snapshot 1`] = `
   marginTop="50px"
   spacing={8}
 >
-  <Stack>
+  <HStack
+    align="center"
+    spacing={3}
+  >
     <Heading
       as="h1"
       textAlign="center"
     >
       gameName
     </Heading>
-  </Stack>
-  <HStack
-    alignItems="start"
+  </HStack>
+  <Stack
+    alignItems={
+      {
+        "base": "center",
+        "md": "start",
+      }
+    }
+    direction={
+      {
+        "base": "column",
+        "md": "row",
+      }
+    }
     spacing={8}
   >
     <PlayerList />
-  </HStack>
+  </Stack>
 </Stack>
 `;
 
@@ -29,16 +43,30 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
   marginTop="50px"
   spacing={8}
 >
-  <Stack>
+  <HStack
+    align="center"
+    spacing={3}
+  >
     <Heading
       as="h1"
       textAlign="center"
     >
       gameName
     </Heading>
-  </Stack>
-  <HStack
-    alignItems="start"
+  </HStack>
+  <Stack
+    alignItems={
+      {
+        "base": "center",
+        "md": "start",
+      }
+    }
+    direction={
+      {
+        "base": "column",
+        "md": "row",
+      }
+    }
     spacing={8}
   >
     <PlayerList />
@@ -71,6 +99,6 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
         }
       />
     </Stack>
-  </HStack>
+  </Stack>
 </Stack>
 `;

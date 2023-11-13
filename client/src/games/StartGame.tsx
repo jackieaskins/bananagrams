@@ -14,14 +14,13 @@ export default function StartGame(): JSX.Element {
 
   return (
     <Stack marginTop="50px" alignItems="center" spacing={8}>
-      <Stack>
+      <HStack spacing={3} align="center">
         <Heading as="h1" textAlign="center">
           {gameName}
         </Heading>
 
         {canCopy && (
           <Button
-            colorScheme="blue"
             leftIcon={<FaRegCopy />}
             width="fit-content"
             size="sm"
@@ -30,9 +29,13 @@ export default function StartGame(): JSX.Element {
             Copy invite link
           </Button>
         )}
-      </Stack>
+      </HStack>
 
-      <HStack alignItems="start" spacing={8}>
+      <Stack
+        alignItems={{ base: "center", md: "start" }}
+        spacing={8}
+        direction={{ base: "column", md: "row" }}
+      >
         <PlayerList />
 
         {previousSnapshot && (
@@ -48,7 +51,7 @@ export default function StartGame(): JSX.Element {
             />
           </Stack>
         )}
-      </HStack>
+      </Stack>
     </Stack>
   );
 }

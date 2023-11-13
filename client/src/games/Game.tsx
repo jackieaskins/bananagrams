@@ -29,7 +29,12 @@ export default function Game(): JSX.Element {
     // @ts-expect-error DndProvider doesn't work well with React.FC change
     <DndProvider backend={HTML5Backend}>
       <Center margin="50px">
-        <HStack alignItems="start" spacing={8}>
+        <Stack
+          spacing={8}
+          justifyContent="center"
+          alignItems={{ base: "center", lg: "start" }}
+          direction={{ base: "column", lg: "row" }}
+        >
           <Stack>
             <Text textAlign="center">Your board and hand:</Text>
 
@@ -39,28 +44,29 @@ export default function Game(): JSX.Element {
             </HStack>
           </Stack>
 
-          <Stack>
-            <Text textAlign="center">
-              Tiles remaining in bunch: {bunch.length}
-            </Text>
+          <Stack flex="1" direction={{ base: "row", lg: "column" }}>
+            <Stack>
+              <Text textAlign="center">
+                Tiles remaining in bunch: {bunch.length}
+              </Text>
 
-            <PeelButton
-              canPeel={canPeel}
-              handlePeel={handlePeel}
-              peelWinsGame={peelWinsGame}
-            />
+              <PeelButton
+                canPeel={canPeel}
+                handlePeel={handlePeel}
+                peelWinsGame={peelWinsGame}
+              />
 
-            <Dump />
+              <Dump />
+            </Stack>
 
             {players.length > 1 && (
               <Stack>
                 <Text textAlign="center">Opponent board(s):</Text>
-
                 <OpponentBoardPreview players={players} />
               </Stack>
             )}
           </Stack>
-        </HStack>
+        </Stack>
       </Center>
     </DndProvider>
   );

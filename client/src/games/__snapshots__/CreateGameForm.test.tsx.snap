@@ -5,7 +5,6 @@ exports[`<CreateGameForm /> renders properly 1`] = `
   as="form"
   autoComplete="off"
   onSubmit={[MockFunction onSubmit]}
-  width="40vw"
 >
   <Stack
     spacing={6}

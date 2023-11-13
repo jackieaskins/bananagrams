@@ -6,7 +6,6 @@ exports[`<JoinGameForm /> renders properly 1`] = `
   autoComplete="off"
   onSubmit={[MockFunction onSubmit]}
   textAlign="center"
-  width="40vw"
 >
   <Stack
     spacing={6}

@@ -4,6 +4,7 @@ exports[`<NotFound /> renders not found header 1`] = `
 <CenteredLayout>
   <Heading
     as="h1"
+    textAlign="center"
   >
     404: Page Not Found
   </Heading>

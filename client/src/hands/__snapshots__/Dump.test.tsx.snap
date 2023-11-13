@@ -9,13 +9,12 @@ exports[`<Dump /> renders properly 1`] = `
   <ForwardRef(CardBody2)
     color="gray.500"
     textAlign="center"
+    width="fit-content"
   >
     <Text>
       Dump!
     </Text>
-    <Text
-      fontSize="xs"
-    >
+    <Text>
       Drag a tile here to exchange it for 
       3
        from the bunch
