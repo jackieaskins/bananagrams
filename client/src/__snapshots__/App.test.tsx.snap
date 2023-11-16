@@ -2617,6 +2617,7 @@ exports[`<App /> renders properly 1`] = `
     <BrowserRouter>
       <ServerDisconnectionDialog />
       <AppRoutes />
+      <NavMenu />
     </BrowserRouter>
   </SocketProvider>
 </ChakraProvider2>

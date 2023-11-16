@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExternalMenuItemLink /> renders a menu item as link 1`] = `
+<MenuItem
+  as="a"
+  href="href"
+  icon={
+    <div>
+      Icon
+    </div>
+  }
+  rel="noreferrer"
+  target="_blank"
+>
+  Children
+</MenuItem>
+`;

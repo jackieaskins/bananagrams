@@ -7,6 +7,7 @@ import {
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import ServerDisconnectionDialog from "./dialogs/ServerDisconnectionDialog";
+import NavMenu from "./menus/NavMenu";
 import { SocketProvider } from "./socket/SocketContext";
 
 const config: ThemeConfig = {
@@ -28,6 +29,7 @@ export default function App(): JSX.Element {
         <BrowserRouter>
           <ServerDisconnectionDialog />
           <AppRoutes />
+          <NavMenu />
         </BrowserRouter>
       </SocketProvider>
     </ChakraProvider>
