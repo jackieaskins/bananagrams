@@ -26,7 +26,7 @@ export function SocketProvider({
     });
 
     return (): void => {
-      socket.emit("disconnect");
+      socket.disconnect();
     };
   }, [toast]);
 

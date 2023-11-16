@@ -5,6 +5,7 @@ exports[`SocketContext <SocketProvider /> renders provider properly 1`] = `
   value={
     {
       "socket": {
+        "disconnect": [MockFunction],
         "emit": [MockFunction],
         "on": [MockFunction] {
           "calls": [

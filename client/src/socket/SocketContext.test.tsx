@@ -11,6 +11,7 @@ jest.mock("react", () => ({
 jest.mock("./index", () => ({
   on: jest.fn(),
   emit: jest.fn(),
+  disconnect: jest.fn(),
 }));
 const mockToast = jest.fn();
 jest.mock("@chakra-ui/react", () => ({
@@ -47,7 +48,7 @@ describe("SocketContext", () => {
     test("disconnects from socket on dismount", () => {
       useEffect.mock.calls[0][0]()();
 
-      expect(socket.emit).toHaveBeenCalledWith("disconnect");
+      expect(socket.disconnect).toHaveBeenCalledWith();
     });
   });
 
