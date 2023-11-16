@@ -16,6 +16,14 @@ exports[`<StartGame /> does not render board when no snapshot 1`] = `
     >
       gameName
     </Heading>
+    <Button
+      leftIcon={<FaRegCopy />}
+      onClick={[MockFunction]}
+      size="sm"
+      width="fit-content"
+    >
+      Copy invite link
+    </Button>
   </HStack>
   <Stack
     alignItems={
@@ -53,6 +61,14 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
     >
       gameName
     </Heading>
+    <Button
+      leftIcon={<FaRegCopy />}
+      onClick={[MockFunction]}
+      size="sm"
+      width="fit-content"
+    >
+      Copy invite link
+    </Button>
   </HStack>
   <Stack
     alignItems={

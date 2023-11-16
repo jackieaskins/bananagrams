@@ -5,7 +5,7 @@ import TextField from "./TextField";
 describe("<TextField />", () => {
   const mockSetValue = jest.fn();
 
-  const renderComponent = () =>
+  const renderComponent = (propOverrides = {}) =>
     shallow(
       <TextField
         setValue={mockSetValue}
@@ -14,11 +14,18 @@ describe("<TextField />", () => {
         label="Label"
         name="name"
         type="text"
+        {...propOverrides}
       />,
     );
 
   test("renders properly", () => {
     expect(renderComponent()).toMatchSnapshot();
+  });
+
+  test("defaults isRequired to false", () => {
+    expect(renderComponent({ isRequired: undefined }).props().isRequired).toBe(
+      false,
+    );
   });
 
   test("onChange calls setValue", () => {

@@ -1,7 +1,15 @@
-import { Button, HStack, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Heading,
+  Stack,
+  Text,
+  useClipboard,
+  useToast,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
 import { FaRegCopy } from "react-icons/fa6";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import { useCopyToClipboard } from "../helpers/copyToClipboard";
 import PlayerList from "../players/PlayerList";
 import { useGame } from "./GameContext";
 
@@ -9,8 +17,15 @@ export default function StartGame(): JSX.Element {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();
-  const { canCopy, copyToClipboard } = useCopyToClipboard();
   const joinUrl = `${window.location.href}/join`;
+  const { onCopy, hasCopied } = useClipboard(joinUrl);
+  const toast = useToast();
+
+  useEffect(() => {
+    if (hasCopied) {
+      toast({ description: "Successfully copied invite link to clipboard" });
+    }
+  }, [hasCopied, toast]);
 
   return (
     <Stack marginTop="50px" alignItems="center" spacing={8}>
@@ -19,16 +34,14 @@ export default function StartGame(): JSX.Element {
           {gameName}
         </Heading>
 
-        {canCopy && (
-          <Button
-            leftIcon={<FaRegCopy />}
-            width="fit-content"
-            size="sm"
-            onClick={() => copyToClipboard(joinUrl)}
-          >
-            Copy invite link
-          </Button>
-        )}
+        <Button
+          leftIcon={<FaRegCopy />}
+          width="fit-content"
+          size="sm"
+          onClick={onCopy}
+        >
+          Copy invite link
+        </Button>
       </HStack>
 
       <Stack
