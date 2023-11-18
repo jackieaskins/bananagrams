@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Changelog /> renders table of changes 1`] = `
+<Container>
+  <Heading
+    as="h1"
+    marginY="35px"
+    textAlign="center"
+  >
+    Changelog
+  </Heading>
+  <ForwardRef>
+    <Table
+      variant="striped"
+    >
+      <ForwardRef>
+        <ForwardRef>
+          <ForwardRef
+            textAlign="right"
+          >
+            Date
+          </ForwardRef>
+          <ForwardRef>
+            Description
+          </ForwardRef>
+        </ForwardRef>
+      </ForwardRef>
+      <ForwardRef>
+        <ForwardRef
+          key="changelog"
+        >
+          <ForwardRef
+            textAlign="right"
+          >
+            Nov 16, 2023
+          </ForwardRef>
+          <ForwardRef>
+            Added changelog
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
+          key="dark-mode"
+        >
+          <ForwardRef
+            textAlign="right"
+          >
+            Nov 10, 2023
+          </ForwardRef>
+          <ForwardRef>
+            Added dark mode
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
+          key="and-we-back"
+        >
+          <ForwardRef
+            textAlign="right"
+          >
+            Nov 9, 2023
+          </ForwardRef>
+          <ForwardRef>
+            We're back!
+          </ForwardRef>
+        </ForwardRef>
+      </ForwardRef>
+    </Table>
+  </ForwardRef>
+</Container>
+`;

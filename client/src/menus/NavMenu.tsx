@@ -12,6 +12,7 @@ import {
   FaBug,
   FaHouse,
   FaLightbulb,
+  FaList,
 } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 import ExternalMenuItemLink from "./ExternalMenuItemLink";
@@ -31,14 +32,16 @@ export default function NavMenu(): JSX.Element {
       />
       <MenuList>
         {pathname === "/" ? null : (
-          <>
-            <MenuItem as={Link} to="/" icon={<FaHouse />}>
-              Return home
-            </MenuItem>
-
-            <MenuDivider />
-          </>
+          <MenuItem as={Link} to="/" icon={<FaHouse />}>
+            Return home
+          </MenuItem>
         )}
+
+        <MenuItem as={Link} to="/changelog" icon={<FaList />}>
+          View changelog
+        </MenuItem>
+
+        <MenuDivider />
 
         <ExternalMenuItemLink
           href="https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started"

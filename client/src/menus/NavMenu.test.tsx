@@ -18,11 +18,12 @@ describe("<NavMenu />", () => {
   beforeEach(() => {
     useLocation.mockReturnValue({ pathname: "/" });
   });
+
   describe("Return home link", () => {
     it("is rendered when not on homepage", () => {
       useLocation.mockReturnValue({ pathname: "/other-page" });
 
-      expect(getMenuItems()[0].props.children[0].props).toEqual(
+      expect(getMenuItems()[0].props).toEqual(
         expect.objectContaining({
           children: "Return home",
           to: "/",
@@ -37,8 +38,17 @@ describe("<NavMenu />", () => {
     });
   });
 
-  it("renders instructions link", () => {
+  it("renders changelog link", () => {
     expect(getMenuItems()[1].props).toEqual(
+      expect.objectContaining({
+        children: "View changelog",
+        to: "/changelog",
+      }),
+    );
+  });
+
+  it("renders instructions link", () => {
+    expect(getMenuItems()[3].props).toEqual(
       expect.objectContaining({
         children: "Read official instructions",
         href: "https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started",
@@ -47,7 +57,7 @@ describe("<NavMenu />", () => {
   });
 
   it("renders report bug link", () => {
-    expect(getMenuItems()[3].props).toEqual(
+    expect(getMenuItems()[5].props).toEqual(
       expect.objectContaining({
         children: "Report bug",
         href: "https://github.com/jackieaskins/bananagrams/issues/new?template=bug_report.md",
@@ -56,7 +66,7 @@ describe("<NavMenu />", () => {
   });
 
   it("renders new feature link", () => {
-    expect(getMenuItems()[4].props).toEqual(
+    expect(getMenuItems()[6].props).toEqual(
       expect.objectContaining({
         children: "Suggest new feature",
         href: "https://github.com/jackieaskins/bananagrams/issues/new?template=feature_request.md",

@@ -7,6 +7,10 @@ exports[`<AppRoutes /> renders correct routes 1`] = `
     path="/"
   />
   <Route
+    element={<Changelog />}
+    path="/changelog"
+  />
+  <Route
     element={
       <SocketGameProvider>
         <GameManager />

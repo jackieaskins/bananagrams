@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Changelog from "./Changelog";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import GameManager from "./games/GameManager";
@@ -9,6 +10,7 @@ export default function AppRoutes(): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/changelog" element={<Changelog />} />
       <Route
         path="/game/:gameId"
         element={
