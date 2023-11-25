@@ -33,7 +33,6 @@ describe("GameContext", () => {
             handleMoveTileOnBoard: jest.fn().mockName("handleMoveTileOnBoard"),
             handlePeel: jest.fn().mockName("handlePeel"),
             isInGame: true,
-            walkthroughEnabled: true,
           }}
         >
           Children

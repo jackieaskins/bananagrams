@@ -90,7 +90,6 @@ export default function SocketGameProvider({
         handleMoveTileOnBoard,
         handlePeel,
         isInGame,
-        walkthroughEnabled: false,
       }}
     >
       {children}

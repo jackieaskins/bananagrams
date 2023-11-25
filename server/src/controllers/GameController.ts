@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { v4 as uuidv4 } from "uuid";
 import { BoardLocation } from "../models/Board";
 import Game, { GameJSON } from "../models/Game";
-import Player from "../models/Player";
+import Player, { PlayerStatus } from "../models/Player";
 
 const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;
@@ -48,6 +48,14 @@ export default class GameController {
     return { ...this.games };
   }
 
+  private shouldStartGame(): boolean {
+    const activePlayers = this.currentGame.getActivePlayers();
+    return (
+      activePlayers.length !== 0 &&
+      activePlayers.every((player) => player.getStatus() === PlayerStatus.READY)
+    );
+  }
+
   static createGame(
     gameName: string,
     username: string,
@@ -67,12 +75,13 @@ export default class GameController {
       [gameId]: game,
     };
 
-    return this.joinGame(gameId, username, io, socket);
+    return this.joinGame(gameId, username, false, io, socket);
   }
 
   static joinGame(
     gameId: string,
     username: string,
+    isSpectator: boolean,
     io: Server,
     socket: Socket,
   ): GameController {
@@ -92,12 +101,15 @@ export default class GameController {
       throw new Error("Game is full");
     }
 
-    if (game.isInProgress()) {
-      throw new Error("Game is already in progress");
-    }
-
     const isAdmin = game.getPlayers().length === 0;
-    const player = new Player(socket.id, username, isAdmin);
+    const player = new Player(
+      socket.id,
+      username,
+      isSpectator || game.isInProgress()
+        ? PlayerStatus.SPECTATING
+        : PlayerStatus.NOT_READY,
+      isAdmin,
+    );
 
     game.addPlayer(player);
     socket.join(gameId);
@@ -126,6 +138,7 @@ export default class GameController {
   leaveGame(): void {
     const { io, socket, currentPlayer, currentGame } = this;
 
+    // TODO: No longer return tiles to bunch when player leaves
     if (currentGame.isInProgress()) {
       currentGame
         .getBunch()
@@ -146,34 +159,53 @@ export default class GameController {
       `${currentPlayer.getUsername()} has left the game.`,
     );
 
-    const everyoneElseIsReady = currentGame
-      .getPlayers()
-      .every((player) => player.isReady());
-
     if (currentPlayer.isAdmin()) {
       currentGame.getPlayers()[0]?.setAdmin(true);
     }
 
     if (currentGame.getPlayers().length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [gameId]: toOmit, ...rest } = GameController.games;
       GameController.games = rest;
-    } else if (!currentGame.isInProgress() && everyoneElseIsReady) {
+    } else if (
+      currentGame.isInProgress() &&
+      currentGame.getActivePlayers().length === 0
+    ) {
+      currentGame.setInProgress(false);
+      GameController.emitNotification(
+        socket,
+        gameId,
+        "All active players have left, resetting game",
+      );
+      GameController.emitGameInfo(io, currentGame);
+    } else if (!currentGame.isInProgress() && this.shouldStartGame()) {
       this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
     }
   }
 
-  setReady(isReady: boolean): void {
-    const { io, currentGame, currentPlayer } = this;
-    currentPlayer.setReady(isReady);
+  setStatus(status: PlayerStatus): void {
+    const { io, currentGame, currentPlayer, socket } = this;
+    currentPlayer.setStatus(status);
 
-    const everyoneIsReady = currentGame
-      .getPlayers()
-      .every((player) => player.isReady());
+    if (currentGame.isInProgress() && status === PlayerStatus.SPECTATING) {
+      GameController.emitNotification(
+        socket,
+        currentGame.getId(),
+        `${currentPlayer.getUsername()} has switched to a spectator`,
+      );
+    }
 
-    if (everyoneIsReady) {
+    if (
+      currentGame.isInProgress() &&
+      currentGame.getActivePlayers().length === 0
+    ) {
+      currentGame.setInProgress(false);
+      GameController.emitGameInfo(io, currentGame);
+      return;
+    }
+
+    if (this.shouldStartGame()) {
       this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
@@ -182,13 +214,16 @@ export default class GameController {
 
   peel(): void {
     const { io, socket, currentPlayer, currentGame } = this;
+    const currentActivePlayers = currentGame.getActivePlayers();
     const currentPlayers = currentGame.getPlayers();
 
     if (currentPlayer.getHand().getTiles().length > 0) {
       return;
     }
 
-    if (currentGame.getBunch().getTiles().length < currentPlayers.length) {
+    if (
+      currentGame.getBunch().getTiles().length < currentActivePlayers.length
+    ) {
       GameController.emitNotification(
         socket,
         currentGame.getId(),
@@ -204,7 +239,9 @@ export default class GameController {
       currentGame.setInProgress(false);
 
       currentPlayers.forEach((player) => {
-        player.setReady(false);
+        if (player.getStatus() !== PlayerStatus.SPECTATING) {
+          player.setStatus(PlayerStatus.NOT_READY);
+        }
 
         player.setTopBanana(player.getUserId() === currentPlayer.getUserId());
         if (player.getUserId() === currentPlayer.getUserId()) {
@@ -213,7 +250,7 @@ export default class GameController {
       });
 
       currentGame.setSnapshot(
-        currentGame.getPlayers().map((player) => player.toJSON()),
+        currentGame.getActivePlayers().map((player) => player.toJSON()),
       );
     } else {
       GameController.emitNotification(
@@ -222,7 +259,7 @@ export default class GameController {
         `${currentPlayer.getUsername()} peeled.`,
       );
 
-      currentPlayers.forEach((player) => {
+      currentActivePlayers.forEach((player) => {
         player.getHand().addTiles(currentGame.getBunch().removeTiles(1));
       });
     }
@@ -292,10 +329,10 @@ export default class GameController {
       "Everyone is ready, the game will start soon!",
     );
 
-    const currentPlayers = currentGame.getPlayers();
+    const currentActivePlayers = currentGame.getActivePlayers();
     currentGame.reset();
 
-    currentPlayers.forEach((player) => {
+    currentActivePlayers.forEach((player) => {
       player
         .getHand()
         .addTiles(

@@ -4,10 +4,12 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
     "plugin:jest/style",
+    "plugin:jest-dom/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "plugin:testing-library/react",
     "prettier",
   ],
   overrides: [
@@ -31,6 +33,10 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { ignoreRestSiblings: true },
+    ],
     "arrow-body-style": ["error", "as-needed"],
     "import/order": [
       "error",
@@ -39,6 +45,10 @@ module.exports = {
         groups: [["builtin", "external"], "parent", "sibling", "index"],
         "newlines-between": "never",
       },
+    ],
+    "jest/expect-expect": [
+      "error",
+      { assertFunctionNames: ["expect", "assert*"] },
     ],
     "no-debugger": "error",
     "no-empty-pattern": "off",

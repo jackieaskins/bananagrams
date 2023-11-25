@@ -1,8 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<GameManager /> renders Game when in game 1`] = `<Game />`;
+exports[`<GameManager /> renders Game when in game, game is in progress, and status is ready 1`] = `<Game />`;
 
-exports[`<GameManager /> renders StartGame when not in game 1`] = `<StartGame />`;
+exports[`<GameManager /> renders SpectatorView when in game, game is in progress, and status is not ready 1`] = `<SpectatorView />`;
+
+exports[`<GameManager /> renders WaitingRoom when in game but game hasn't started 1`] = `<WaitingRoom />`;
+
+exports[`<GameManager /> renders redirect when no current player 1`] = `
+<Navigate
+  replace={true}
+  to="/game/gameId/join"
+/>
+`;
 
 exports[`<GameManager /> renders redirect when not in game 1`] = `
 <Navigate

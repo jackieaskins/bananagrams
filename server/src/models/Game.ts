@@ -1,6 +1,6 @@
 import BaseModel from "./BaseModel";
 import Bunch, { BunchJSON } from "./Bunch";
-import Player, { PlayerJSON } from "./Player";
+import Player, { PlayerJSON, PlayerStatus } from "./Player";
 
 export type Snapshot = PlayerJSON[] | null;
 export type GameJSON = {
@@ -53,6 +53,12 @@ export default class Game implements BaseModel<GameJSON> {
 
   getPlayers(): Player[] {
     return [...this.players];
+  }
+
+  getActivePlayers(): Player[] {
+    return this.players.filter(
+      (player) => player.getStatus() !== PlayerStatus.SPECTATING,
+    );
   }
 
   getSnapshot(): Snapshot {

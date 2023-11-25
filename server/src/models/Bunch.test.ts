@@ -1,11 +1,18 @@
 import Bunch from "./Bunch";
 import Game from "./Game";
+import Player, { PlayerStatus } from "./Player";
 import Tile from "./Tile";
 
 jest.mock("../tileBreakdown", () => [
   { letter: "A", count: 2 },
   { letter: "B", count: 5 },
 ]);
+
+function addPlayersToGame(game: Game, playerCount: number) {
+  for (let i = 0; i < playerCount; i++) {
+    game.addPlayer(new Player(`p${i}`, `u${i}`, PlayerStatus.NOT_READY, false));
+  }
+}
 
 describe("Bunch Model", () => {
   let game: Game;
@@ -40,7 +47,7 @@ describe("Bunch Model", () => {
     });
 
     test("generates tiles with multiplier of 1 when <= 4 players", () => {
-      jest.spyOn(game, "getPlayers").mockReturnValue(Array(4).fill(null));
+      addPlayersToGame(game, 4);
 
       bunch.reset();
 
@@ -50,7 +57,7 @@ describe("Bunch Model", () => {
     });
 
     test("generates tiles with multiplier of 2 when > 4 players", () => {
-      jest.spyOn(game, "getPlayers").mockReturnValue(Array(7).fill(null));
+      addPlayersToGame(game, 7);
 
       bunch.reset();
 

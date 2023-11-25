@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-render-in-lifecycle */
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
 import { boardSquareFixture, wordInfoFixture } from "../fixtures/board";

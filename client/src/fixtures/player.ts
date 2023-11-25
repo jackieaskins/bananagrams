@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
-import { Player } from "../players/types";
+import { Player, PlayerStatus } from "../players/types";
 
 export function playerFixture(overrides: Partial<Player> = {}): Player {
   return {
     userId: uuidv4(),
     username: "username",
-    isReady: false,
+    status: PlayerStatus.NOT_READY,
     isTopBanana: false,
     isAdmin: false,
     gamesWon: 0,

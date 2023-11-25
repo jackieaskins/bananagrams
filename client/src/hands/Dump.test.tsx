@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-render-in-lifecycle */
 import { Card } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";

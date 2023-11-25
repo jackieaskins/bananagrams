@@ -27,7 +27,6 @@ export function getEmptyGameState(gameId: string): GameState {
     handleMoveTileOnBoard: (): void => undefined,
     handlePeel: (): void => undefined,
     isInGame: false,
-    walkthroughEnabled: false,
   };
 }
 

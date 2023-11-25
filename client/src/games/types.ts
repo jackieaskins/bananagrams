@@ -26,7 +26,6 @@ export type GameState = {
   ) => void;
   handlePeel: () => void;
   isInGame: boolean;
-  walkthroughEnabled: boolean;
 };
 
 export type GameLocationState = Partial<GameState>;

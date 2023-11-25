@@ -19,7 +19,6 @@ exports[`GameContext GameProvider renders properly 1`] = `
       "handleMoveTileOnBoard": [MockFunction handleMoveTileOnBoard],
       "handlePeel": [MockFunction handlePeel],
       "isInGame": true,
-      "walkthroughEnabled": true,
     }
   }
 >
@@ -44,6 +43,5 @@ exports[`GameContext getEmptyGameState generates default empty state 1`] = `
   "handleMoveTileOnBoard": [Function],
   "handlePeel": [Function],
   "isInGame": false,
-  "walkthroughEnabled": false,
 }
 `;

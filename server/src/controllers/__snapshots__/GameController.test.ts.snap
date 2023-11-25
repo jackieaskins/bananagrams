@@ -4,13 +4,11 @@ exports[`GameController joinGame throws an error if game does not exist 1`] = `"
 
 exports[`GameController joinGame throws an error if game is full 1`] = `"Game is full"`;
 
-exports[`GameController joinGame throws an error if game is in progress 1`] = `"Game is already in progress"`;
-
 exports[`GameController joinGame throws an error if game is shortened 1`] = `"This game was created for test purposes and cannot be joined."`;
 
 exports[`GameController kickPlayer throws an error if user is not an admin 1`] = `"Only game admins can kick players from the game"`;
 
-exports[`GameController peel bunch has less tiles than number of players updates game snapshot 1`] = `
+exports[`GameController peel bunch has less tiles than number of players updates game snapshot with active players 1`] = `
 [
   {
     "board": [
@@ -501,8 +499,8 @@ exports[`GameController peel bunch has less tiles than number of players updates
     "gamesWon": 1,
     "hand": [],
     "isAdmin": true,
-    "isReady": false,
     "isTopBanana": true,
+    "status": "NOT_READY",
     "userId": "socketId",
     "username": "username",
   },
@@ -995,8 +993,8 @@ exports[`GameController peel bunch has less tiles than number of players updates
     "gamesWon": 0,
     "hand": [],
     "isAdmin": false,
-    "isReady": false,
     "isTopBanana": false,
+    "status": "NOT_READY",
     "userId": "p1",
     "username": "p",
   },

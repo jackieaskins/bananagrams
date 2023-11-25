@@ -19,7 +19,6 @@ exports[`<SocketGameProvider /> renders properly 1`] = `
       "handleMoveTileOnBoard": [Function],
       "handlePeel": [Function],
       "isInGame": false,
-      "walkthroughEnabled": false,
     }
   }
 >

@@ -35,7 +35,7 @@ export default class Bunch implements BaseModel<BunchJSON> {
     }
 
     const multiplier = Math.ceil(
-      this.game.getPlayers().length / MULTIPLIER_DIVISOR,
+      this.game.getActivePlayers().length / MULTIPLIER_DIVISOR,
     );
 
     this.tiles = tileBreakdown

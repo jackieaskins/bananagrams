@@ -1,4 +1,4 @@
-import Player from "./Player";
+import Player, { PlayerStatus } from "./Player";
 import Tile from "./Tile";
 
 jest.mock("../boardValidation");
@@ -10,7 +10,7 @@ describe("Player Model", () => {
   let player: Player;
 
   beforeEach(() => {
-    player = new Player(userId, username);
+    player = new Player(userId, username, PlayerStatus.NOT_READY, false);
   });
 
   describe("getUserId", () => {
@@ -25,15 +25,15 @@ describe("Player Model", () => {
     });
   });
 
-  describe("set/isReady", () => {
-    test("returns false by default", () => {
-      expect(player.isReady()).toBe(false);
+  describe("set/getStatus", () => {
+    test("returns status", () => {
+      expect(player.getStatus()).toBe(PlayerStatus.NOT_READY);
     });
 
     test("sets ready", () => {
-      player.setReady(true);
+      player.setStatus(PlayerStatus.READY);
 
-      expect(player.isReady()).toBe(true);
+      expect(player.getStatus()).toBe(PlayerStatus.READY);
     });
   });
 
@@ -50,12 +50,14 @@ describe("Player Model", () => {
   });
 
   describe("set/isAdmin", () => {
-    test("returns false by default", () => {
-      expect(player.isReady()).toBe(false);
+    test("returns admin", () => {
+      expect(player.isAdmin()).toBe(false);
     });
 
     test("returns true for admin user", () => {
-      expect(new Player(userId, username, true).isAdmin()).toBe(true);
+      expect(
+        new Player(userId, username, PlayerStatus.NOT_READY, true).isAdmin(),
+      ).toBe(true);
     });
 
     test("sets isAdmin", () => {

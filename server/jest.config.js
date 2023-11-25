@@ -5,12 +5,9 @@ module.exports = {
   name: "server",
   displayName: "SERVER",
   transform: {
-    "^.+\\.tsx?$": [
+    "^.+\\.ts$": [
       "ts-jest",
-      {
-        diagnostics: false,
-        tsconfig: "server/tsconfig.json",
-      },
+      { diagnostics: false, tsconfig: "server/tsconfig.json" },
     ],
   },
 };

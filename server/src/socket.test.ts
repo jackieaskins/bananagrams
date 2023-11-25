@@ -1,8 +1,16 @@
-/* eslint-disable jest/expect-expect */
 import GameController from "./controllers/GameController";
+import { PlayerStatus } from "./models/Player";
 import { configureSocket, handler } from "./socket";
 
 describe("socket", () => {
+  beforeAll(() => {
+    jest.spyOn(console, "log").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    jest.spyOn(console, "log").mockRestore();
+  });
+
   describe("handler", () => {
     test("handles error thrown with no callback", () => {
       const fn = jest.fn().mockImplementation(() => {
@@ -47,7 +55,7 @@ describe("socket", () => {
         }),
         kickPlayer: jest.fn(),
         leaveGame: jest.fn(),
-        setReady: jest.fn(),
+        setStatus: jest.fn(),
         peel: jest.fn(),
         dump: jest.fn(),
         moveTileFromHandToBoard: jest.fn(),
@@ -124,36 +132,49 @@ describe("socket", () => {
     });
 
     describe("joinGame", () => {
-      const joinGame = (callback?: () => void): void => {
-        socketCalls.joinGame({ gameId, username }, callback);
+      const joinGame = (isSpectator: boolean, callback?: () => void): void => {
+        socketCalls.joinGame({ gameId, username, isSpectator }, callback);
       };
 
-      beforeEach(() => {
-        joinGame(callback);
-      });
+      test("calls GameController joinGame when is spectator", () => {
+        joinGame(false, callback);
 
-      test("calls GameController joinGame", () => {
         expect(GameController.joinGame).toHaveBeenCalledWith(
           gameId,
           username,
+          false,
+          io,
+          socket,
+        );
+      });
+
+      test("calls GameController joinGame when is not spectator", () => {
+        joinGame(true, callback);
+
+        expect(GameController.joinGame).toHaveBeenCalledWith(
+          gameId,
+          username,
+          true,
           io,
           socket,
         );
       });
 
       test("calls callback with game json", () => {
+        joinGame(false, callback);
+
         expect(callback).toHaveBeenCalledWith(null, gameJSON);
       });
 
       test("works without callback", () => {
-        expect(() => joinGame()).not.toThrow();
+        expect(() => joinGame(false)).not.toThrow();
       });
 
       test("calls callback with error when game to JSON fails", () => {
         gameToJSON.mockImplementation(() => {
           throw new Error("Error");
         });
-        joinGame(callback);
+        joinGame(false, callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
@@ -232,39 +253,41 @@ describe("socket", () => {
       });
     });
 
-    describe("ready", () => {
-      const ready = (isReady: boolean, callback?: () => void): void => {
-        socketCalls.ready({ isReady }, callback);
+    describe("setStatus", () => {
+      const setStatus = (status: PlayerStatus, callback?: () => void): void => {
+        socketCalls.setStatus({ status }, callback);
       };
 
       test("throws an error when not in a game", () => {
-        ready(true, callback);
+        setStatus(PlayerStatus.READY, callback);
         assertThrowsNoGameError();
       });
 
       test("sets player as ready", () => {
         createGame();
-        ready(true, callback);
-        expect(gameController.setReady).toHaveBeenCalledWith(true);
+        setStatus(PlayerStatus.READY, callback);
+        expect(gameController.setStatus).toHaveBeenCalledWith(
+          PlayerStatus.READY,
+        );
       });
 
       test("calls callback with null", () => {
         createGame();
-        ready(false, callback);
+        setStatus(PlayerStatus.NOT_READY, callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
       test("works without callback", () => {
         createGame();
-        expect(() => ready(true)).not.toThrow();
+        expect(() => setStatus(PlayerStatus.SPECTATING)).not.toThrow();
       });
 
       test("calls callback with error when set ready fails", () => {
-        gameController.setReady.mockImplementation(() => {
+        gameController.setStatus.mockImplementation(() => {
           throw new Error("Error");
         });
         createGame();
-        ready(false, callback);
+        setStatus(PlayerStatus.SPECTATING, callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });

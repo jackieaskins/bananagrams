@@ -22,6 +22,12 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
 
 const MAJOR_CHANGES: Change[] = [
   {
+    id: "spectator-view",
+    date: "2023-11-24",
+    description:
+      "Added spectator mode. Players can now join in-progress games as a spectator!",
+  },
+  {
     id: "changelog",
     date: "2023-11-17",
     description: "Added changelog",

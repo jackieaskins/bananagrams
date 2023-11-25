@@ -490,8 +490,8 @@ exports[`Player Model toJSON converts fields into JSON 1`] = `
   "gamesWon": 0,
   "hand": [],
   "isAdmin": false,
-  "isReady": false,
   "isTopBanana": false,
+  "status": "NOT_READY",
   "userId": "userId",
   "username": "username",
 }

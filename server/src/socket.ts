@@ -47,9 +47,15 @@ export function configureSocket(io: Server): void {
       },
     );
 
-    socket.on("joinGame", ({ gameId, username }, callback) => {
+    socket.on("joinGame", ({ gameId, username, isSpectator }, callback) => {
       handler(() => {
-        gameController = GameController.joinGame(gameId, username, io, socket);
+        gameController = GameController.joinGame(
+          gameId,
+          username,
+          isSpectator,
+          io,
+          socket,
+        );
         return gameController.getCurrentGame().toJSON();
       }, callback);
     });
@@ -69,10 +75,10 @@ export function configureSocket(io: Server): void {
       }, callback);
     });
 
-    socket.on("ready", ({ isReady }, callback) => {
+    socket.on("setStatus", ({ status }, callback) => {
       handler(() => {
         validateGameControllerExists();
-        (gameController as GameController).setReady(isReady);
+        (gameController as GameController).setStatus(status);
       }, callback);
     });
 

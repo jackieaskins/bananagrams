@@ -21,14 +21,14 @@ exports[`<CreateGameForm /> renders properly 1`] = `
       >
         error
       </ErrorAlert>
-      <TextField
+      <InputField
         isRequired={true}
         label="Game name"
         name="gameName"
         setValue={[MockFunction setGameName]}
         value="gameName"
       />
-      <TextField
+      <InputField
         isRequired={true}
         label="Username"
         name="username"

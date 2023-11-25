@@ -1,8 +1,9 @@
+/* eslint-disable testing-library/render-result-naming-convention */
 import { Button, useClipboard } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "./GameContext";
-import StartGame from "./StartGame";
+import WaitingRoom from "./WaitingRoom";
 
 jest.mock("react", () => ({
   ...jest.requireActual("react"),
@@ -21,7 +22,7 @@ jest.mock("@chakra-ui/react", () => ({
   useToast: jest.fn(() => mockToast),
 }));
 
-describe("<StartGame />", () => {
+describe("<WaitingRoom />", () => {
   const mockUseGame = (previousSnapshot = null) => {
     useGame.mockReturnValue({
       gameInfo: {
@@ -31,7 +32,7 @@ describe("<StartGame />", () => {
     });
   };
 
-  const renderComponent = () => shallow(<StartGame />);
+  const renderComponent = () => shallow(<WaitingRoom />);
 
   beforeEach(() => {
     mockUseGame();

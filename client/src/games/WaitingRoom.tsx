@@ -10,10 +10,10 @@ import {
 import { useEffect } from "react";
 import { FaRegCopy } from "react-icons/fa6";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import PlayerList from "../players/PlayerList";
+import PlayerTable from "../players/PlayerTable";
 import { useGame } from "./GameContext";
 
-export default function StartGame(): JSX.Element {
+export default function WaitingRoom(): JSX.Element {
   const {
     gameInfo: { gameName, previousSnapshot },
   } = useGame();
@@ -49,7 +49,7 @@ export default function StartGame(): JSX.Element {
         spacing={8}
         direction={{ base: "column", md: "row" }}
       >
-        <PlayerList />
+        <PlayerTable />
 
         {previousSnapshot && (
           <Stack>

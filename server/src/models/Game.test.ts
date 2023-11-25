@@ -1,7 +1,11 @@
 import Game from "./Game";
-import Player from "./Player";
+import Player, { PlayerStatus } from "./Player";
 
 jest.mock("../boardValidation");
+
+function createPlayer() {
+  return new Player("p", "p", PlayerStatus.NOT_READY, false);
+}
 
 describe("Game Model", () => {
   const id = "id";
@@ -64,7 +68,7 @@ describe("Game Model", () => {
     });
 
     test("resets each player", () => {
-      const player = new Player("p", "p");
+      const player = createPlayer();
       jest.spyOn(player, "reset");
       game.addPlayer(player);
 
@@ -76,14 +80,14 @@ describe("Game Model", () => {
 
   describe("toJSON", () => {
     test("converts fields into JSON", () => {
-      game.addPlayer(new Player("p", "p"));
+      game.addPlayer(createPlayer());
       expect(game.toJSON()).toMatchSnapshot();
     });
   });
 
   describe("addPlayer", () => {
     test("adds a player to the game", () => {
-      const player = new Player("p", "p");
+      const player = createPlayer();
       game.addPlayer(player);
       expect(game.getPlayers()).toEqual([player]);
     });
@@ -91,7 +95,7 @@ describe("Game Model", () => {
 
   describe("removePlayer", () => {
     test("removes player from game", () => {
-      game.addPlayer(new Player("p", "p"));
+      game.addPlayer(createPlayer());
       game.removePlayer("p");
       expect(game.getPlayers()).toEqual([]);
     });

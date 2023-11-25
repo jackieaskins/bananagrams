@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Stack } from "@chakra-ui/react";
 import ErrorAlert from "../alerts/ErrorAlert";
-import TextField from "../forms/TextField";
+import InputField from "../forms/InputField";
 import { useCreateGameForm } from "./CreateGameFormState";
 
 export default function CreateGameForm(): JSX.Element {
@@ -24,7 +24,7 @@ export default function CreateGameForm(): JSX.Element {
         <Stack>
           <ErrorAlert visible={!!error}>{error}</ErrorAlert>
 
-          <TextField
+          <InputField
             label="Game name"
             name="gameName"
             isRequired
@@ -32,7 +32,7 @@ export default function CreateGameForm(): JSX.Element {
             setValue={setGameName}
           />
 
-          <TextField
+          <InputField
             label="Username"
             name="username"
             isRequired

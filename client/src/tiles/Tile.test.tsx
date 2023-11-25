@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-render-in-lifecycle */
 import { shallow, ShallowWrapper } from "enzyme";
 import { useDrag } from "react-dnd";
 import Tile from "./Tile";

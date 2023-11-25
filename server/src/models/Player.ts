@@ -2,10 +2,16 @@ import BaseModel from "./BaseModel";
 import Board, { BoardLocation, BoardJSON } from "./Board";
 import Hand, { HandJSON } from "./Hand";
 
+export enum PlayerStatus {
+  NOT_READY = "NOT_READY",
+  SPECTATING = "SPECTATING",
+  READY = "READY",
+}
+
 export type PlayerJSON = {
   userId: string;
   username: string;
-  isReady: boolean;
+  status: PlayerStatus;
   isTopBanana: boolean;
   isAdmin: boolean;
   gamesWon: number;
@@ -16,16 +22,22 @@ export type PlayerJSON = {
 export default class Player implements BaseModel<PlayerJSON> {
   private userId: string;
   private username: string;
-  private ready = false;
+  private status: PlayerStatus;
   private topBanana = false;
   private admin: boolean;
   private gamesWon = 0;
   private hand = new Hand();
   private board = new Board();
 
-  constructor(userId: string, username: string, admin = false) {
+  constructor(
+    userId: string,
+    username: string,
+    status: PlayerStatus,
+    admin: boolean,
+  ) {
     this.userId = userId;
     this.username = username;
+    this.status = status;
     this.admin = admin;
   }
 
@@ -37,12 +49,12 @@ export default class Player implements BaseModel<PlayerJSON> {
     return this.username;
   }
 
-  isReady(): boolean {
-    return this.ready;
+  getStatus(): PlayerStatus {
+    return this.status;
   }
 
-  setReady(ready: boolean): void {
-    this.ready = ready;
+  setStatus(status: PlayerStatus): void {
+    this.status = status;
   }
 
   isTopBanana(): boolean {
@@ -78,18 +90,15 @@ export default class Player implements BaseModel<PlayerJSON> {
   }
 
   toJSON(): PlayerJSON {
-    const { userId, username, ready, topBanana, admin, gamesWon, board, hand } =
-      this;
-
     return {
-      userId,
-      username,
-      gamesWon,
-      isReady: ready,
-      isTopBanana: topBanana,
-      isAdmin: admin,
-      board: board.toJSON(),
-      hand: hand.toJSON(),
+      userId: this.userId,
+      username: this.username,
+      gamesWon: this.gamesWon,
+      status: this.status,
+      isTopBanana: this.topBanana,
+      isAdmin: this.admin,
+      board: this.board.toJSON(),
+      hand: this.hand.toJSON(),
     };
   }
 

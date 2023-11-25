@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StartGame /> does not render board when no snapshot 1`] = `
+exports[`<WaitingRoom /> does not render board when no snapshot 1`] = `
 <Stack
   alignItems="center"
   marginTop="50px"
@@ -40,12 +40,12 @@ exports[`<StartGame /> does not render board when no snapshot 1`] = `
     }
     spacing={8}
   >
-    <PlayerList />
+    <PlayerTable />
   </Stack>
 </Stack>
 `;
 
-exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
+exports[`<WaitingRoom /> renders game boards when snapshot is present 1`] = `
 <Stack
   alignItems="center"
   marginTop="50px"
@@ -85,7 +85,7 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
     }
     spacing={8}
   >
-    <PlayerList />
+    <PlayerTable />
     <Stack>
       <Text
         textAlign="center"
@@ -106,8 +106,8 @@ exports[`<StartGame /> renders game boards when snapshot is present 1`] = `
               "gamesWon": 0,
               "hand": [],
               "isAdmin": false,
-              "isReady": false,
               "isTopBanana": true,
+              "status": "NOT_READY",
               "userId": "123",
               "username": "username",
             },

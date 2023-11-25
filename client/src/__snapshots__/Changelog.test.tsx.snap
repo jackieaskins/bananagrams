@@ -27,6 +27,18 @@ exports[`<Changelog /> renders table of changes 1`] = `
       </ForwardRef>
       <ForwardRef>
         <ForwardRef
+          key="spectator-view"
+        >
+          <ForwardRef
+            textAlign="right"
+          >
+            Nov 23, 2023
+          </ForwardRef>
+          <ForwardRef>
+            Added spectator mode. Players can now join in-progress games as a spectator!
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
           key="changelog"
         >
           <ForwardRef
