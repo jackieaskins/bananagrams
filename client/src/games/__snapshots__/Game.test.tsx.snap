@@ -66,6 +66,7 @@ exports[`<Game /> renders properly 1`] = `
             peelWinsGame={true}
           />
           <Dump />
+          <SpectateButton />
         </Stack>
       </Stack>
     </Stack>
@@ -139,6 +140,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
             peelWinsGame={true}
           />
           <Dump />
+          <SpectateButton />
         </Stack>
         <Stack>
           <Text

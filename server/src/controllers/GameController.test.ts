@@ -297,6 +297,24 @@ describe("GameController", () => {
   });
 
   describe("setStatus", () => {
+    it("does not set status when user is already in the current status", () => {
+      player.setStatus(PlayerStatus.NOT_READY);
+      jest.spyOn(player, "setStatus");
+
+      gameController.setStatus(PlayerStatus.NOT_READY);
+
+      expect(player.setStatus).not.toHaveBeenCalled();
+    });
+
+    it("throws an error if the game is in progress and user switches to ready", () => {
+      player.setStatus(PlayerStatus.SPECTATING);
+      game.setInProgress(true);
+
+      expect(() => {
+        gameController.setStatus(PlayerStatus.READY);
+      }).toThrow("Cannot switch to ready while a game is in progress");
+    });
+
     it("sets the current player status", () => {
       expect(player.getStatus()).toBe(PlayerStatus.NOT_READY);
 
@@ -305,9 +323,23 @@ describe("GameController", () => {
       expect(player.getStatus()).toBe(PlayerStatus.READY);
     });
 
-    describe("if game is in progress and player switches to spectator", () => {
+    it("emits notification to other players if game is in progress and player switches to spectator", () => {
+      player.setStatus(PlayerStatus.READY);
+      game.setInProgress(true);
+      gameController.setStatus(PlayerStatus.SPECTATING);
+
+      assertEmitsGameNotification(
+        socketEmit,
+        "username has switched to a spectator",
+      );
+    });
+
+    describe("if game is in progress and no active players remain", () => {
       beforeEach(() => {
         player.setStatus(PlayerStatus.READY);
+        game.addPlayer(
+          new Player("newUser", "username", PlayerStatus.SPECTATING, false),
+        );
         game.setInProgress(true);
         gameController.setStatus(PlayerStatus.SPECTATING);
       });
@@ -316,13 +348,16 @@ describe("GameController", () => {
         expect(game.isInProgress()).toBe(false);
       });
 
-      it("emits game info", () => {
-        assertEmitsGameInfo(ioEmit);
+      it("emits notification to all players", () => {
+        assertEmitsGameNotification(
+          ioEmit,
+          "No active players remain, resetting game",
+        );
       });
     });
 
     it("emits game info", () => {
-      gameController.setStatus(PlayerStatus.NOT_READY);
+      gameController.setStatus(PlayerStatus.READY);
 
       assertEmitsGameInfo(ioEmit);
     });

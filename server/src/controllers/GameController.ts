@@ -176,6 +176,15 @@ export default class GameController {
 
   setStatus(status: PlayerStatus): void {
     const { io, currentGame, currentPlayer, socket } = this;
+
+    if (currentPlayer.getStatus() === status) {
+      return;
+    }
+
+    if (currentGame.isInProgress() && status === PlayerStatus.READY) {
+      throw new Error("Cannot switch to ready while a game is in progress");
+    }
+
     currentPlayer.setStatus(status);
 
     if (currentGame.isInProgress() && status === PlayerStatus.SPECTATING) {
@@ -190,9 +199,13 @@ export default class GameController {
       currentGame.isInProgress() &&
       currentGame.getActivePlayers().length === 0
     ) {
+      GameController.emitNotification(
+        io,
+        currentGame.getId(),
+        "No active players remain, resetting game",
+      );
+
       currentGame.setInProgress(false);
-      GameController.emitGameInfo(io, currentGame);
-      return;
     }
 
     GameController.emitGameInfo(io, currentGame);

@@ -11,6 +11,7 @@ import { Player, PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 import PeelButton from "./PeelButton";
+import SpectateButton from "./SpectateButton";
 
 export default function Game(): JSX.Element {
   const { socket } = useSocket();
@@ -63,6 +64,8 @@ export default function Game(): JSX.Element {
               />
 
               <Dump />
+
+              <SpectateButton />
             </Stack>
 
             {activePlayers.length > 1 && (
