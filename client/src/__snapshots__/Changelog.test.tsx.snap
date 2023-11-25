@@ -30,23 +30,29 @@ exports[`<Changelog /> renders table of changes 1`] = `
           key="spectator-view"
         >
           <ForwardRef
+            overflowWrap="break-word"
             textAlign="right"
           >
-            Nov 23, 2023
+            Nov 24, 2023
           </ForwardRef>
-          <ForwardRef>
-            Added spectator mode. Players can now join in-progress games as a spectator!
+          <ForwardRef
+            whiteSpace="normal"
+          >
+            Added spectator mode. Players can now join in-progress games as spectators!
           </ForwardRef>
         </ForwardRef>
         <ForwardRef
           key="changelog"
         >
           <ForwardRef
+            overflowWrap="break-word"
             textAlign="right"
           >
-            Nov 16, 2023
+            Nov 17, 2023
           </ForwardRef>
-          <ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
             Added changelog
           </ForwardRef>
         </ForwardRef>
@@ -54,11 +60,14 @@ exports[`<Changelog /> renders table of changes 1`] = `
           key="dark-mode"
         >
           <ForwardRef
+            overflowWrap="break-word"
             textAlign="right"
           >
-            Nov 10, 2023
+            Nov 11, 2023
           </ForwardRef>
-          <ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
             Added dark mode
           </ForwardRef>
         </ForwardRef>
@@ -66,11 +75,14 @@ exports[`<Changelog /> renders table of changes 1`] = `
           key="and-we-back"
         >
           <ForwardRef
+            overflowWrap="break-word"
             textAlign="right"
           >
-            Nov 9, 2023
+            Nov 10, 2023
           </ForwardRef>
-          <ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
             We're back!
           </ForwardRef>
         </ForwardRef>

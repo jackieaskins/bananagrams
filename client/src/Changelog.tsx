@@ -18,6 +18,7 @@ type Change = {
 
 const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
   dateStyle: "medium",
+  timeZone: "UTC",
 });
 
 const MAJOR_CHANGES: Change[] = [
@@ -25,7 +26,7 @@ const MAJOR_CHANGES: Change[] = [
     id: "spectator-view",
     date: "2023-11-24",
     description:
-      "Added spectator mode. Players can now join in-progress games as a spectator!",
+      "Added spectator mode. Players can now join in-progress games as spectators!",
   },
   {
     id: "changelog",
@@ -66,8 +67,10 @@ export default function Changelog(): JSX.Element {
           <Tbody>
             {MAJOR_CHANGES.map(({ id, date, description }) => (
               <Tr key={id}>
-                <Td textAlign="right">{date}</Td>
-                <Td>{description}</Td>
+                <Td textAlign="right" overflowWrap="break-word">
+                  {date}
+                </Td>
+                <Td whiteSpace="normal">{description}</Td>
               </Tr>
             ))}
           </Tbody>
