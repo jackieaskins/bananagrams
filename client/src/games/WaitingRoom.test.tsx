@@ -1,79 +1,148 @@
-/* eslint-disable testing-library/render-result-naming-convention */
-import { Button, useClipboard } from "@chakra-ui/react";
-import { shallow } from "enzyme";
+import { ChakraProvider } from "@chakra-ui/react";
+import { screen, waitFor } from "@testing-library/react";
+import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
+import { Player, PlayerStatus } from "../players/types";
+import { render } from "../testUtils";
 import { useGame } from "./GameContext";
 import WaitingRoom from "./WaitingRoom";
 
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useEffect: jest.fn((fn) => fn()),
+const CURRENT_PLAYER_ID = "current-player";
+
+jest.mock("../boards/OpponentBoardPreview", () =>
+  jest.fn(() => <div>Preview</div>),
+);
+jest.mock("../players/PlayerTable", () => jest.fn(() => <table />));
+
+const mockEmit = jest.fn();
+jest.mock("../socket/SocketContext", () => ({
+  useSocket: () => ({
+    socket: {
+      id: CURRENT_PLAYER_ID,
+      emit: mockEmit,
+    },
+  }),
 }));
 
+const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({
+  ...jest.requireActual("./GameContext"),
   useGame: jest.fn(),
 }));
 
-const mockToast = jest.fn();
-const mockOnCopy = jest.fn();
-jest.mock("@chakra-ui/react", () => ({
-  ...jest.requireActual("@chakra-ui/react"),
-  useClipboard: jest.fn(),
-  useToast: jest.fn(() => mockToast),
-}));
+function renderRoom(
+  players: Player[] = [playerFixture()],
+  previousSnapshot?: Player[],
+) {
+  mockUseGame.mockReturnValue({
+    gameInfo: gameInfoFixture({ players, previousSnapshot }),
+  });
+
+  return render(
+    <ChakraProvider>
+      <WaitingRoom />
+    </ChakraProvider>,
+  );
+}
 
 describe("<WaitingRoom />", () => {
-  const mockUseGame = (previousSnapshot = null) => {
-    useGame.mockReturnValue({
-      gameInfo: {
-        gameName: "gameName",
-        previousSnapshot,
-      },
+  describe("copy invite button", () => {
+    async function renderAndClickCopyButton() {
+      const { user } = renderRoom();
+
+      await user.click(
+        screen.getByRole("button", { name: "Copy invite link" }),
+      );
+    }
+
+    it("copies the invite link on click", async () => {
+      await renderAndClickCopyButton();
+
+      await waitFor(async () => {
+        expect(await window.navigator.clipboard.readText()).toBe(
+          "http://localhost//join",
+        );
+      });
     });
-  };
 
-  const renderComponent = () => shallow(<WaitingRoom />);
+    it("shows error toast on error", async () => {
+      jest
+        .spyOn(window.navigator.clipboard, "writeText")
+        .mockRejectedValue(new Error("Can't copy"));
 
-  beforeEach(() => {
-    mockUseGame();
-    useClipboard.mockReturnValue({ hasCopied: false, onCopy: mockOnCopy });
-  });
+      await renderAndClickCopyButton();
 
-  test("copies the invite link when the copy button is clicked", () => {
-    renderComponent().find(Button).props().onClick();
+      await waitFor(() => {
+        expect(screen.getByRole("status")).toHaveTextContent(
+          "Unable to copy invite link, try copying the current page URL directly",
+        );
+      });
+    });
 
-    expect(mockOnCopy).toHaveBeenCalledWith();
-  });
+    it("shows success toast on success", async () => {
+      await renderAndClickCopyButton();
 
-  test("shows a toast message when the invite link is copied", () => {
-    useClipboard.mockReturnValue({ hasCopied: true, onCopy: mockOnCopy });
-
-    const component = renderComponent();
-    component.update();
-
-    expect(mockToast).toHaveBeenCalledWith({
-      description: "Successfully copied invite link to clipboard",
+      await waitFor(() => {
+        expect(screen.getByRole("status")).toHaveTextContent(
+          "Successfully copied invite link to clipboard",
+        );
+      });
     });
   });
 
-  test("does not show a toast message when invite link has not been copied", () => {
-    useClipboard.mockReturnValue({ hasCopied: true, onCopy: mockOnCopy });
+  describe("start game button", () => {
+    function getStartGameButton() {
+      return screen.getByRole("button", { name: "Start game" });
+    }
 
-    const component = renderComponent();
-    component.update();
+    it("is disabled if there are no active players", () => {
+      renderRoom([
+        playerFixture({ status: PlayerStatus.SPECTATING }),
+        playerFixture({ status: PlayerStatus.SPECTATING }),
+      ]);
 
-    expect(mockToast).not.toHaveBeenCalledWith();
+      expect(getStartGameButton()).toBeDisabled();
+    });
+
+    it("is disabled if any player is not ready", () => {
+      renderRoom([
+        playerFixture({ status: PlayerStatus.NOT_READY }),
+        playerFixture({ status: PlayerStatus.READY }),
+      ]);
+
+      expect(getStartGameButton()).toBeDisabled();
+    });
+
+    it("emits split event", async () => {
+      const { user } = renderRoom([
+        playerFixture({ status: PlayerStatus.SPECTATING }),
+        playerFixture({ status: PlayerStatus.SPECTATING }),
+        playerFixture({ status: PlayerStatus.READY }),
+      ]);
+
+      await user.click(getStartGameButton());
+
+      await waitFor(() => {
+        expect(mockEmit).toHaveBeenCalledWith("split", {});
+      });
+    });
   });
 
-  test("does not render board when no snapshot", () => {
-    mockUseGame();
+  describe("opponent preview", () => {
+    it("does not render opponent preview when no snapshot", () => {
+      renderRoom();
 
-    expect(renderComponent()).toMatchSnapshot();
-  });
+      expect(
+        screen.queryByText("Here are the boards from that round:"),
+      ).not.toBeInTheDocument();
+    });
 
-  test("renders game boards when snapshot is present", () => {
-    mockUseGame([playerFixture({ userId: "123", isTopBanana: true })]);
+    it("renders opponent preview when snapshot", () => {
+      renderRoom([playerFixture()], [playerFixture()]);
 
-    expect(renderComponent()).toMatchSnapshot();
+      expect(
+        screen.getByText("Here are the boards from that round:"),
+      ).toBeInTheDocument();
+    });
   });
 });

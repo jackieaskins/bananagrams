@@ -4,28 +4,50 @@ import {
   Heading,
   Stack,
   Text,
-  useClipboard,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useCallback, useMemo } from "react";
 import { FaRegCopy } from "react-icons/fa6";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import PlayerTable from "../players/PlayerTable";
+import { PlayerStatus } from "../players/types";
+import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 
 export default function WaitingRoom(): JSX.Element {
   const {
-    gameInfo: { gameName, previousSnapshot },
+    gameInfo: { gameName, players, previousSnapshot },
   } = useGame();
-  const joinUrl = `${window.location.href}/join`;
-  const { onCopy, hasCopied } = useClipboard(joinUrl);
+  const { socket } = useSocket();
   const toast = useToast();
 
-  useEffect(() => {
-    if (hasCopied) {
-      toast({ description: "Successfully copied invite link to clipboard" });
+  const copyInviteLink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.href}/join`);
+
+      toast({
+        description: "Successfully copied invite link to clipboard",
+        status: "success",
+      });
+    } catch (e) {
+      toast({
+        description:
+          "Unable to copy invite link, try copying the current page URL directly",
+        status: "error",
+      });
     }
-  }, [hasCopied, toast]);
+  }, [toast]);
+
+  const canStartGame = useMemo(() => {
+    const activePlayers = players.filter(
+      ({ status }) => status !== PlayerStatus.SPECTATING,
+    );
+
+    return (
+      activePlayers.length > 0 &&
+      activePlayers.every(({ status }) => status === PlayerStatus.READY)
+    );
+  }, [players]);
 
   return (
     <Stack marginTop="50px" alignItems="center" spacing={8}>
@@ -38,7 +60,7 @@ export default function WaitingRoom(): JSX.Element {
           leftIcon={<FaRegCopy />}
           width="fit-content"
           size="sm"
-          onClick={onCopy}
+          onClick={copyInviteLink}
         >
           Copy invite link
         </Button>
@@ -49,7 +71,16 @@ export default function WaitingRoom(): JSX.Element {
         spacing={8}
         direction={{ base: "column", md: "row" }}
       >
-        <PlayerTable />
+        <Stack>
+          <Button
+            colorScheme="blue"
+            isDisabled={!canStartGame}
+            onClick={() => socket.emit("split", {})}
+          >
+            Start game
+          </Button>
+          <PlayerTable />
+        </Stack>
 
         {previousSnapshot && (
           <Stack>

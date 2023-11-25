@@ -23,6 +23,12 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
 
 const MAJOR_CHANGES: Change[] = [
   {
+    id: "game-start",
+    date: "2023-11-25",
+    description:
+      "Added a start game button. The game will no longer automatically start when all players are ready.",
+  },
+  {
     id: "spectator-view",
     date: "2023-11-24",
     description:
@@ -31,12 +37,12 @@ const MAJOR_CHANGES: Change[] = [
   {
     id: "changelog",
     date: "2023-11-17",
-    description: "Added changelog",
+    description: "Added changelog.",
   },
   {
     id: "dark-mode",
     date: "2023-11-11",
-    description: "Added dark mode",
+    description: "Added dark mode.",
   },
   {
     id: "and-we-back",
@@ -67,7 +73,11 @@ export default function Changelog(): JSX.Element {
           <Tbody>
             {MAJOR_CHANGES.map(({ id, date, description }) => (
               <Tr key={id}>
-                <Td textAlign="right" overflowWrap="break-word">
+                <Td
+                  textAlign="right"
+                  overflowWrap="break-word"
+                  verticalAlign="top"
+                >
                   {date}
                 </Td>
                 <Td whiteSpace="normal">{description}</Td>

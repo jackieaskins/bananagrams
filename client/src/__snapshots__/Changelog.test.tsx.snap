@@ -27,11 +27,28 @@ exports[`<Changelog /> renders table of changes 1`] = `
       </ForwardRef>
       <ForwardRef>
         <ForwardRef
+          key="game-start"
+        >
+          <ForwardRef
+            overflowWrap="break-word"
+            textAlign="right"
+            verticalAlign="top"
+          >
+            Nov 25, 2023
+          </ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
+            Added a start game button. The game will no longer automatically start when all players are ready.
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
           key="spectator-view"
         >
           <ForwardRef
             overflowWrap="break-word"
             textAlign="right"
+            verticalAlign="top"
           >
             Nov 24, 2023
           </ForwardRef>
@@ -47,13 +64,14 @@ exports[`<Changelog /> renders table of changes 1`] = `
           <ForwardRef
             overflowWrap="break-word"
             textAlign="right"
+            verticalAlign="top"
           >
             Nov 17, 2023
           </ForwardRef>
           <ForwardRef
             whiteSpace="normal"
           >
-            Added changelog
+            Added changelog.
           </ForwardRef>
         </ForwardRef>
         <ForwardRef
@@ -62,13 +80,14 @@ exports[`<Changelog /> renders table of changes 1`] = `
           <ForwardRef
             overflowWrap="break-word"
             textAlign="right"
+            verticalAlign="top"
           >
             Nov 11, 2023
           </ForwardRef>
           <ForwardRef
             whiteSpace="normal"
           >
-            Added dark mode
+            Added dark mode.
           </ForwardRef>
         </ForwardRef>
         <ForwardRef
@@ -77,6 +96,7 @@ exports[`<Changelog /> renders table of changes 1`] = `
           <ForwardRef
             overflowWrap="break-word"
             textAlign="right"
+            verticalAlign="top"
           >
             Nov 10, 2023
           </ForwardRef>

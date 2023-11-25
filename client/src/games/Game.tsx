@@ -1,4 +1,5 @@
 import { Center, HStack, Stack, Text } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Board from "../boards/Board";
@@ -6,7 +7,7 @@ import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import { isValidConnectedBoard } from "../boards/validate";
 import Dump from "../hands/Dump";
 import Hand from "../hands/Hand";
-import { Player } from "../players/types";
+import { Player, PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 import PeelButton from "./PeelButton";
@@ -21,6 +22,11 @@ export default function Game(): JSX.Element {
   const { board, hand } = players.find(
     (player) => player.userId === socket.id,
   ) as Player;
+
+  const activePlayers = useMemo(
+    () => players.filter(({ status }) => status === PlayerStatus.READY),
+    [players],
+  );
 
   const canPeel = hand.length === 0 && isValidConnectedBoard(board);
   const peelWinsGame = bunch.length < players.length;
@@ -59,10 +65,10 @@ export default function Game(): JSX.Element {
               <Dump />
             </Stack>
 
-            {players.length > 1 && (
+            {activePlayers.length > 1 && (
               <Stack>
                 <Text textAlign="center">Opponent board(s):</Text>
-                <OpponentBoardPreview players={players} />
+                <OpponentBoardPreview players={activePlayers} />
               </Stack>
             )}
           </Stack>

@@ -67,17 +67,17 @@ describe("GameController", () => {
   });
 
   describe("createGame", () => {
-    test("can create a shortened game", () => {
+    it("can create a shortened game", () => {
       const controller = createShortenedGame();
 
       expect(controller.getCurrentGame().isShortenedGame()).toBe(true);
     });
 
-    test("adds game to list of games", () => {
+    it("adds game to list of games", () => {
       expect(GameController.getGames()[game.getId()]).toEqual(game);
     });
 
-    test("joins the new game", () => {
+    it("joins the new game", () => {
       expect(GameController.joinGame).toHaveBeenCalledWith(
         game.getId(),
         "username",
@@ -99,13 +99,13 @@ describe("GameController", () => {
       );
     };
 
-    test("throws an error if game does not exist", () => {
+    it("throws an error if game does not exist", () => {
       expect(() =>
         GameController.joinGame("1", "username", false, io, socket),
       ).toThrowErrorMatchingSnapshot();
     });
 
-    test("throws an error if game is shortened", () => {
+    it("throws an error if game is shortened", () => {
       const shortenedGame = createShortenedGame().getCurrentGame();
 
       expect(() =>
@@ -119,7 +119,7 @@ describe("GameController", () => {
       ).toThrowErrorMatchingSnapshot();
     });
 
-    test("throws an error if game is full", () => {
+    it("throws an error if game is full", () => {
       Array(16)
         .fill(null)
         .forEach((_, i) => {
@@ -131,7 +131,7 @@ describe("GameController", () => {
       expect(() => joinGame()).toThrowErrorMatchingSnapshot();
     });
 
-    test("adds a new player to the game", () => {
+    it("adds a new player to the game", () => {
       expect(game.getPlayers()).toHaveLength(1);
 
       joinGame();
@@ -139,32 +139,32 @@ describe("GameController", () => {
       expect(game.getPlayers()).toHaveLength(2);
     });
 
-    test("sets player as spectator if they join as spectator", () => {
+    it("sets player as spectator if they join as spectator", () => {
       joinGame(true);
 
       expect(game.getPlayers()[1].getStatus()).toBe(PlayerStatus.SPECTATING);
     });
 
-    test("sets player as spectator if game is in progress", () => {
+    it("sets player as spectator if game is in progress", () => {
       game.setInProgress(true);
       joinGame(false);
 
       expect(game.getPlayers()[1].getStatus()).toBe(PlayerStatus.SPECTATING);
     });
 
-    test("joins game socket", () => {
+    it("joins game socket", () => {
       joinGame();
 
       expect(socket.join).toHaveBeenCalledWith(game.getId());
     });
 
-    test("emits join game notification", () => {
+    it("emits join game notification", () => {
       joinGame();
 
       assertEmitsGameNotification(socketEmit, "username has joined the game!");
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       joinGame();
 
       assertEmitsGameInfo(socketEmit);
@@ -184,19 +184,19 @@ describe("GameController", () => {
       );
     });
 
-    test("throws an error if user is not an admin", () => {
+    it("throws an error if user is not an admin", () => {
       expect(() =>
         secondGameController.kickPlayer("socketId"),
       ).toThrowErrorMatchingSnapshot();
     });
 
-    test("disconnects passed in user if current user is admin", () => {
+    it("disconnects passed in user if current user is admin", () => {
       gameController.kickPlayer("socketId2");
 
       expect(socketDisconnect).toHaveBeenCalledWith(true);
     });
 
-    test("does not disconnect a user if passed in user does not exist", () => {
+    it("does not disconnect a user if passed in user does not exist", () => {
       gameController.kickPlayer("nonexistentuser");
 
       expect(socketDisconnect).not.toHaveBeenCalled();
@@ -204,7 +204,7 @@ describe("GameController", () => {
   });
 
   describe("leaveGame", () => {
-    test("adds player tiles to the bunch after leaving", () => {
+    it("adds player tiles to the bunch after leaving", () => {
       const handTiles = [new Tile("A1", "A"), new Tile("B1", "B")];
       const boardTile = new Tile("C1", "C");
       player.getHand().addTiles(handTiles);
@@ -219,7 +219,7 @@ describe("GameController", () => {
       expect(tiles).toContain(boardTile);
     });
 
-    test("removes player from current game", () => {
+    it("removes player from current game", () => {
       jest.spyOn(game, "removePlayer");
 
       gameController.leaveGame();
@@ -227,19 +227,19 @@ describe("GameController", () => {
       expect(game.removePlayer).toHaveBeenCalledWith(player.getUserId());
     });
 
-    test("leaves socket", () => {
+    it("leaves socket", () => {
       gameController.leaveGame();
 
       expect(socket.leave).toHaveBeenCalledWith(game.getId());
     });
 
-    test("emits leave game notification", () => {
+    it("emits leave game notification", () => {
       gameController.leaveGame();
 
       assertEmitsGameNotification(socketEmit, "username has left the game.");
     });
 
-    test("sets another player as the admin if the leaving player is admin", () => {
+    it("sets another player as the admin if the leaving player is admin", () => {
       const otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
       game.addPlayer(otherPlayer);
 
@@ -248,7 +248,7 @@ describe("GameController", () => {
       expect(otherPlayer.isAdmin()).toBe(true);
     });
 
-    test("does not set another player as admin if leaving player is not admin", () => {
+    it("does not set another player as admin if leaving player is not admin", () => {
       player.setAdmin(false);
 
       const otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
@@ -267,11 +267,11 @@ describe("GameController", () => {
         gameController.leaveGame();
       });
 
-      test("sets game as not in progress", () => {
+      it("sets game as not in progress", () => {
         expect(game.isInProgress()).toBe(false);
       });
 
-      test("emits reset game notification", () => {
+      it("emits reset game notification", () => {
         assertEmitsGameNotification(
           socketEmit,
           "All active players have left, resetting game",
@@ -279,7 +279,7 @@ describe("GameController", () => {
       });
     });
 
-    test("removes game from list of games if all players are gone", () => {
+    it("removes game from list of games if all players are gone", () => {
       expect(GameController.getGames()[game.getId()]).toBeDefined();
 
       gameController.leaveGame();
@@ -287,18 +287,7 @@ describe("GameController", () => {
       expect(GameController.getGames()[game.getId()]).toBeUndefined();
     });
 
-    test("calls split when all other players are ready and game is not in progress", () => {
-      jest.spyOn(gameController, "split");
-
-      const otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
-      game.addPlayer(otherPlayer);
-
-      gameController.leaveGame();
-
-      expect(gameController.split).toHaveBeenCalledWith();
-    });
-
-    test("emits game info if game is not ready to start", () => {
+    it("emits game info if game has not started", () => {
       game.addPlayer(new Player("p1", "p", PlayerStatus.NOT_READY, false));
 
       gameController.leaveGame();
@@ -308,7 +297,7 @@ describe("GameController", () => {
   });
 
   describe("setStatus", () => {
-    test("sets the current player status", () => {
+    it("sets the current player status", () => {
       expect(player.getStatus()).toBe(PlayerStatus.NOT_READY);
 
       gameController.setStatus(PlayerStatus.READY);
@@ -323,25 +312,16 @@ describe("GameController", () => {
         gameController.setStatus(PlayerStatus.SPECTATING);
       });
 
-      test("stops game", () => {
+      it("stops game", () => {
         expect(game.isInProgress()).toBe(false);
       });
 
-      test("emits game info", () => {
+      it("emits game info", () => {
         assertEmitsGameInfo(ioEmit);
       });
     });
 
-    test("calls split if all active players are ready", () => {
-      jest.spyOn(gameController, "split");
-
-      game.addPlayer(new Player("p1", "p", PlayerStatus.SPECTATING, false));
-      gameController.setStatus(PlayerStatus.READY);
-
-      expect(gameController.split).toHaveBeenCalledWith();
-    });
-
-    test("emits game info if not all players are ready", () => {
+    it("emits game info", () => {
       gameController.setStatus(PlayerStatus.NOT_READY);
 
       assertEmitsGameInfo(ioEmit);
@@ -381,35 +361,35 @@ describe("GameController", () => {
         gameController.peel();
       });
 
-      test("emits game over notification to losing players", () => {
+      it("emits game over notification to losing players", () => {
         assertEmitsGameNotification(socketEmit, "Game is over, username won.");
       });
 
-      test("emits game over notification to winning player", () => {
+      it("emits game over notification to winning player", () => {
         assertEmitsGameNotification(ioEmit, "Game is over, you won!");
       });
 
-      test("ends game", () => {
+      it("ends game", () => {
         expect(game.isInProgress()).toBe(false);
       });
 
-      test("resets each player's status", () => {
+      it("resets each player's status", () => {
         expect(player.getStatus()).toBe(PlayerStatus.NOT_READY);
         expect(otherPlayer.getStatus()).toBe(PlayerStatus.NOT_READY);
         expect(spectatingPlayer.getStatus()).toBe(PlayerStatus.SPECTATING);
       });
 
-      test("updates only winner to be top banana", () => {
+      it("updates only winner to be top banana", () => {
         expect(player.isTopBanana()).toBe(true);
         expect(otherPlayer.isTopBanana()).toBe(false);
       });
 
-      test("increments only winning player games won", () => {
+      it("increments only winning player games won", () => {
         expect(player.getGamesWon()).toBe(1);
         expect(otherPlayer.getGamesWon()).toBe(0);
       });
 
-      test("updates game snapshot with active players", () => {
+      it("updates game snapshot with active players", () => {
         expect(game.getSnapshot()).toMatchSnapshot();
       });
     });
@@ -427,11 +407,11 @@ describe("GameController", () => {
         gameController.peel();
       });
 
-      test("emits peel notification to all players", () => {
+      it("emits peel notification to all players", () => {
         assertEmitsGameNotification(socketEmit, "username peeled.");
       });
 
-      test("adds a tile to each player", () => {
+      it("adds a tile to each player", () => {
         expect(player.getHand().getTiles()).toHaveLength(1);
         expect(otherPlayer.getHand().getTiles()).toHaveLength(1);
       });
@@ -455,7 +435,7 @@ describe("GameController", () => {
       game.getBunch().addTiles(dumpTiles);
     });
 
-    test("emits tile dump notification", () => {
+    it("emits tile dump notification", () => {
       gameController.dump(handTile.getId(), null);
 
       assertEmitsGameNotification(socketEmit, "username dumped a tile.");
@@ -468,23 +448,23 @@ describe("GameController", () => {
         gameController.dump(boardTile.getId(), boardLocation);
       });
 
-      test("removes tile from board location", () => {
+      it("removes tile from board location", () => {
         expect(player.getBoard().removeTile).toHaveBeenCalledWith(
           boardLocation,
         );
       });
 
-      test("adds tiles from bunch to player hand", () => {
+      it("adds tiles from bunch to player hand", () => {
         expect(player.getHand().getTiles()).toEqual(
           expect.arrayContaining(dumpTiles),
         );
       });
 
-      test("adds dumped tile to bunch", () => {
+      it("adds dumped tile to bunch", () => {
         expect(game.getBunch().getTiles()).toEqual([boardTile]);
       });
 
-      test("emits game info", () => {
+      it("emits game info", () => {
         assertEmitsGameInfo(ioEmit);
       });
     });
@@ -496,23 +476,23 @@ describe("GameController", () => {
         gameController.dump(handTile.getId(), null);
       });
 
-      test("removes tile from board location", () => {
+      it("removes tile from board location", () => {
         expect(player.getHand().removeTile).toHaveBeenCalledWith(
           handTile.getId(),
         );
       });
 
-      test("adds tiles from bunch to player hand", () => {
+      it("adds tiles from bunch to player hand", () => {
         expect(player.getHand().getTiles()).toEqual(
           expect.arrayContaining(dumpTiles),
         );
       });
 
-      test("adds dumped tile to bunch", () => {
+      it("adds dumped tile to bunch", () => {
         expect(game.getBunch().getTiles()).toEqual([handTile]);
       });
 
-      test("emits game info", () => {
+      it("emits game info", () => {
         assertEmitsGameInfo(ioEmit);
       });
     });
@@ -530,14 +510,14 @@ describe("GameController", () => {
       gameController.moveTileFromHandToBoard(tile.getId(), boardLocation);
     });
 
-    test("moves tile from player hand to board", () => {
+    it("moves tile from player hand to board", () => {
       expect(player.moveTileFromHandToBoard).toHaveBeenCalledWith(
         tile.getId(),
         boardLocation,
       );
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       assertEmitsGameInfo(ioEmit);
     });
   });
@@ -554,13 +534,13 @@ describe("GameController", () => {
       gameController.moveTileFromBoardToHand(boardLocation);
     });
 
-    test("moves tile from player board to hand", () => {
+    it("moves tile from player board to hand", () => {
       expect(player.moveTileFromBoardToHand).toHaveBeenCalledWith(
         boardLocation,
       );
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       assertEmitsGameInfo(ioEmit);
     });
   });
@@ -578,12 +558,12 @@ describe("GameController", () => {
       gameController.moveAllTilesFromBoardToHand();
     });
 
-    test("moves all tiles from player board to hand", () => {
+    it("moves all tiles from player board to hand", () => {
       expect(player.getBoard().clear).toHaveBeenCalledWith();
       expect(player.getHand().addTiles).toHaveBeenCalledWith([tile]);
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       assertEmitsGameInfo(ioEmit);
     });
   });
@@ -601,14 +581,14 @@ describe("GameController", () => {
       gameController.moveTileOnBoard(fromLocation, toLocation);
     });
 
-    test("moves tile from player board to hand", () => {
+    it("moves tile from player board to hand", () => {
       expect(player.moveTileOnBoard).toHaveBeenCalledWith(
         fromLocation,
         toLocation,
       );
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       assertEmitsGameInfo(ioEmit);
     });
   });
@@ -621,11 +601,11 @@ describe("GameController", () => {
       gameController.shuffleHand();
     });
 
-    test("shuffles player hand", () => {
+    it("shuffles player hand", () => {
       expect(player.getHand().shuffle).toHaveBeenCalledWith();
     });
 
-    test("emits game info", () => {
+    it("emits game info", () => {
       assertEmitsGameInfo(ioEmit);
     });
   });
@@ -633,46 +613,82 @@ describe("GameController", () => {
   describe("split", () => {
     let spectatingPlayer: Player;
 
-    beforeEach(() => {
-      spectatingPlayer = new Player("p1", "p", PlayerStatus.SPECTATING, false);
-      game.addPlayer(spectatingPlayer);
+    it("throws an error if the game is already in progress", () => {
+      player.setStatus(PlayerStatus.READY);
+      game.setInProgress(true);
+
+      expect(() => gameController.split()).toThrow(
+        "Cannot start game, not everyone is ready",
+      );
+    });
+
+    it("throws an error if there aren't any active players", () => {
+      player.setStatus(PlayerStatus.SPECTATING);
       game.setInProgress(false);
-      jest.spyOn(game, "reset");
 
-      gameController.split();
-    });
-
-    test("emits game ready notification", () => {
-      assertEmitsGameNotification(
-        ioEmit,
-        "Everyone is ready, the game will start soon!",
+      expect(() => gameController.split()).toThrow(
+        "Cannot start game, not everyone is ready",
       );
     });
 
-    test("resets current game", () => {
-      expect(game.reset).toHaveBeenCalledWith();
-    });
+    it("throws an error if not all players are ready", () => {
+      player.setStatus(PlayerStatus.NOT_READY);
+      game.setInProgress(false);
 
-    test("adds tiles to active player hands", () => {
-      expect(player.getHand().getTiles()).toHaveLength(21);
-      expect(spectatingPlayer.getHand().getTiles()).toHaveLength(0);
-    });
-
-    test("adds fewer tiles to player hand in shortened game", () => {
-      const controller = createShortenedGame();
-      controller.split();
-
-      expect(controller.getCurrentPlayer().getHand().getTiles()).toHaveLength(
-        2,
+      expect(() => gameController.split()).toThrow(
+        "Cannot start game, not everyone is ready",
       );
     });
 
-    test("sets game in progress", () => {
-      expect(game.isInProgress()).toBe(true);
-    });
+    describe("when the game is ready to start", () => {
+      beforeEach(() => {
+        spectatingPlayer = new Player(
+          "p1",
+          "p",
+          PlayerStatus.SPECTATING,
+          false,
+        );
+        game.addPlayer(spectatingPlayer);
+        player.setStatus(PlayerStatus.READY);
+        game.setInProgress(false);
+        jest.spyOn(game, "reset");
 
-    test("emits game info", () => {
-      assertEmitsGameInfo(ioEmit);
+        gameController.split();
+      });
+
+      it("emits game ready notification", () => {
+        assertEmitsGameNotification(
+          ioEmit,
+          "Everyone is ready, the game will start soon!",
+        );
+      });
+
+      it("resets current game", () => {
+        expect(game.reset).toHaveBeenCalledWith();
+      });
+
+      it("adds tiles to active player hands", () => {
+        expect(player.getHand().getTiles()).toHaveLength(21);
+        expect(spectatingPlayer.getHand().getTiles()).toHaveLength(0);
+      });
+
+      it("adds fewer tiles to player hand in shortened game", () => {
+        const controller = createShortenedGame();
+        controller.getCurrentPlayer().setStatus(PlayerStatus.READY);
+        controller.split();
+
+        expect(controller.getCurrentPlayer().getHand().getTiles()).toHaveLength(
+          2,
+        );
+      });
+
+      it("sets game in progress", () => {
+        expect(game.isInProgress()).toBe(true);
+      });
+
+      it("emits game info", () => {
+        assertEmitsGameInfo(ioEmit);
+      });
     });
   });
 });

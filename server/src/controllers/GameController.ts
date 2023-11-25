@@ -48,14 +48,6 @@ export default class GameController {
     return { ...this.games };
   }
 
-  private shouldStartGame(): boolean {
-    const activePlayers = this.currentGame.getActivePlayers();
-    return (
-      activePlayers.length !== 0 &&
-      activePlayers.every((player) => player.getStatus() === PlayerStatus.READY)
-    );
-  }
-
   static createGame(
     gameName: string,
     username: string,
@@ -177,8 +169,6 @@ export default class GameController {
         "All active players have left, resetting game",
       );
       GameController.emitGameInfo(io, currentGame);
-    } else if (!currentGame.isInProgress() && this.shouldStartGame()) {
-      this.split();
     } else {
       GameController.emitGameInfo(io, currentGame);
     }
@@ -205,11 +195,7 @@ export default class GameController {
       return;
     }
 
-    if (this.shouldStartGame()) {
-      this.split();
-    } else {
-      GameController.emitGameInfo(io, currentGame);
-    }
+    GameController.emitGameInfo(io, currentGame);
   }
 
   peel(): void {
@@ -322,6 +308,15 @@ export default class GameController {
   split(): void {
     const { io, currentGame } = this;
     const gameId = currentGame.getId();
+    const activePlayers = currentGame.getActivePlayers();
+
+    if (
+      this.currentGame.isInProgress() ||
+      activePlayers.length === 0 ||
+      activePlayers.some((player) => player.getStatus() !== PlayerStatus.READY)
+    ) {
+      throw new Error("Cannot start game, not everyone is ready");
+    }
 
     GameController.emitNotification(
       io,
@@ -329,10 +324,9 @@ export default class GameController {
       "Everyone is ready, the game will start soon!",
     );
 
-    const currentActivePlayers = currentGame.getActivePlayers();
     currentGame.reset();
 
-    currentActivePlayers.forEach((player) => {
+    activePlayers.forEach((player) => {
       player
         .getHand()
         .addTiles(

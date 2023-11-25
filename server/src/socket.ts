@@ -82,6 +82,13 @@ export function configureSocket(io: Server): void {
       }, callback);
     });
 
+    socket.on("split", ({}, callback) => {
+      handler(() => {
+        validateGameControllerExists();
+        (gameController as GameController).split();
+      }, callback);
+    });
+
     socket.on("peel", ({}, callback) => {
       handler(() => {
         validateGameControllerExists();

@@ -22,7 +22,7 @@ import { IconType } from "react-icons/lib";
 import { useSocket } from "../socket/SocketContext";
 import { Player, PlayerStatus } from "./types";
 
-type PlayerRowProps = {
+export type PlayerTableRowProps = {
   isCurrentPlayerAdmin: boolean;
   player: Player;
   playerCount: number;
@@ -50,7 +50,7 @@ export default function PlayerTableRow({
   isCurrentPlayerAdmin,
   player: { gamesWon, isTopBanana, isAdmin, status, userId, username },
   playerCount,
-}: PlayerRowProps): JSX.Element {
+}: PlayerTableRowProps): JSX.Element {
   const { socket } = useSocket();
   const isCurrentUser = userId === socket.id;
   const currentPlayerBackground = useColorModeValue("gray.100", "gray.700");

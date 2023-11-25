@@ -73,7 +73,7 @@ exports[`<Game /> renders properly 1`] = `
 </DndProvider>
 `;
 
-exports[`<Game /> renders properly with more than one player 1`] = `
+exports[`<Game /> renders properly with more than one active player 1`] = `
 <DndProvider
   backend={[Function]}
 >
@@ -159,7 +159,7 @@ exports[`<Game /> renders properly with more than one player 1`] = `
                   "hand": [],
                   "isAdmin": false,
                   "isTopBanana": false,
-                  "status": "NOT_READY",
+                  "status": "READY",
                   "userId": "id",
                   "username": "username",
                 },
@@ -173,7 +173,7 @@ exports[`<Game /> renders properly with more than one player 1`] = `
                   "hand": [],
                   "isAdmin": false,
                   "isTopBanana": false,
-                  "status": "NOT_READY",
+                  "status": "READY",
                   "userId": "other",
                   "username": "username",
                 },
