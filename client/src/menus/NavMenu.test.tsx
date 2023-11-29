@@ -1,76 +1,108 @@
-import { MenuList } from "@chakra-ui/react";
-import { shallow } from "enzyme";
-import { useLocation } from "react-router-dom";
+import { screen, waitFor } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { renderComponent } from "../testUtils";
 import NavMenu from "./NavMenu";
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useLocation: jest.fn(),
-}));
+async function renderMenu(pathname = "/some-page") {
+  const view = renderComponent(
+    <MemoryRouter initialEntries={[pathname]}>
+      <NavMenu />
 
-function getMenuItems() {
-  return shallow(<NavMenu />)
-    .find(MenuList)
-    .props().children;
+      <Routes>
+        <Route path={pathname} element="Current page" />
+        <Route path="/redesign" element="Redesign home" />
+        <Route path="/" element="Home" />
+        <Route path="changelog" element="Changelog" />
+      </Routes>
+    </MemoryRouter>,
+  );
+
+  await view.user.click(screen.getByRole("button"));
+
+  return view;
 }
 
 describe("<NavMenu />", () => {
-  beforeEach(() => {
-    useLocation.mockReturnValue({ pathname: "/" });
+  it("does not link to home if on homepage", async () => {
+    await renderMenu("/");
+
+    await waitFor(() => {
+      expect(screen.getByRole("menu")).not.toHaveTextContent("Return home");
+    });
   });
 
-  describe("Return home link", () => {
-    it("is rendered when not on homepage", () => {
-      useLocation.mockReturnValue({ pathname: "/other-page" });
+  it("does not link to home if on redesign homepage", async () => {
+    await renderMenu("/redesign");
 
-      expect(getMenuItems()[0].props).toEqual(
-        expect.objectContaining({
-          children: "Return home",
-          to: "/",
-        }),
+    expect(screen.getByRole("menu")).not.toHaveTextContent("Return home");
+  });
+
+  it("links to home if not on a redesign or homepage", async () => {
+    const { user } = await renderMenu("/some-page");
+
+    await user.click(screen.getByRole("menuitem", { name: "Return home" }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/^Home$/)).toBeInTheDocument();
+    });
+  });
+
+  it("links to redesign home if on redesign page", async () => {
+    const { user } = await renderMenu("/redesign/some-page");
+
+    await user.click(screen.getByRole("menuitem", { name: "Return home" }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/^Redesign home$/)).toBeInTheDocument();
+    });
+  });
+
+  it("links to changelog", async () => {
+    const { user } = await renderMenu("/some-page");
+
+    await user.click(screen.getByRole("menuitem", { name: "View changelog" }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/^Changelog$/)).toBeInTheDocument();
+    });
+  });
+
+  it("links to official instructions", async () => {
+    await renderMenu("/some-page");
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("menuitem", { name: "Read official instructions" }),
+      ).toHaveAttribute(
+        "href",
+        "https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started",
       );
     });
+  });
 
-    it("is not rendered on homepage", () => {
-      useLocation.mockReturnValue({ pathname: "/" });
+  it("links to report bug", async () => {
+    await renderMenu("/some-page");
 
-      expect(getMenuItems()[0]).toBeNull();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("menuitem", { name: "Report bug" }),
+      ).toHaveAttribute(
+        "href",
+        "https://github.com/jackieaskins/bananagrams/issues/new?template=bug_report.md",
+      );
     });
   });
 
-  it("renders changelog link", () => {
-    expect(getMenuItems()[1].props).toEqual(
-      expect.objectContaining({
-        children: "View changelog",
-        to: "/changelog",
-      }),
-    );
-  });
+  it("links to suggest new feature", async () => {
+    await renderMenu("/some-page");
 
-  it("renders instructions link", () => {
-    expect(getMenuItems()[3].props).toEqual(
-      expect.objectContaining({
-        children: "Read official instructions",
-        href: "https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started",
-      }),
-    );
-  });
-
-  it("renders report bug link", () => {
-    expect(getMenuItems()[5].props).toEqual(
-      expect.objectContaining({
-        children: "Report bug",
-        href: "https://github.com/jackieaskins/bananagrams/issues/new?template=bug_report.md",
-      }),
-    );
-  });
-
-  it("renders new feature link", () => {
-    expect(getMenuItems()[6].props).toEqual(
-      expect.objectContaining({
-        children: "Suggest new feature",
-        href: "https://github.com/jackieaskins/bananagrams/issues/new?template=feature_request.md",
-      }),
-    );
+    await waitFor(() => {
+      expect(
+        screen.getByRole("menuitem", { name: "Suggest new feature" }),
+      ).toHaveAttribute(
+        "href",
+        "https://github.com/jackieaskins/bananagrams/issues/new?template=feature_request.md",
+      );
+    });
   });
 });

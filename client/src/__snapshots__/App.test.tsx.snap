@@ -2615,7 +2615,7 @@ exports[`<App /> renders properly 1`] = `
 >
   <SocketProvider>
     <BrowserRouter>
-      <ServerDisconnectionDialog />
+      <ServerDisconnectDialog />
       <AppRoutes />
       <NavMenu />
     </BrowserRouter>

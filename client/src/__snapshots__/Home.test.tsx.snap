@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Home /> renders centered create game form 1`] = `
-<CenteredLayout>
-  <CreateGameForm />
-</CenteredLayout>
-`;

@@ -1,11 +1,12 @@
 import { screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { gameInfoFixture } from "../fixtures/game";
 import { renderComponent } from "../testUtils";
-import JoinGame from "./JoinGame";
+import CreateGame from "./CreateGame";
 import { GameInfo } from "./types";
 
+const ROUTE_PREFIX = "/test";
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
 
@@ -18,16 +19,22 @@ jest.mock("../socket/SocketContext", () => ({
   }),
 }));
 
-function renderForm() {
+function renderForm(isShortenedGame: boolean = false) {
   return renderComponent(
-    <MemoryRouter initialEntries={[`/game/${GAME_ID}/join`]}>
+    <MemoryRouter
+      initialEntries={[
+        `${ROUTE_PREFIX}/${isShortenedGame ? "?isShortenedGame" : ""}`,
+      ]}
+    >
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
         <Route
-          path="/game/:gameId/join"
-          element={<JoinGame routePrefix="" />}
+          path={`${ROUTE_PREFIX}/`}
+          element={<CreateGame routePrefix={ROUTE_PREFIX} />}
         />
-        <Route path="/game/:gameId" element={<div>{GAME_SCREEN_TEXT}</div>} />
+        <Route
+          path={`${ROUTE_PREFIX}/game/:gameId`}
+          element={<div>{GAME_SCREEN_TEXT}</div>}
+        />
       </Routes>
     </MemoryRouter>,
   );
@@ -35,7 +42,7 @@ function renderForm() {
 
 function mockEmitCallback(
   error: Error | null,
-  gameInfo: GameInfo = gameInfoFixture({ gameId: GAME_ID }),
+  gameInfo: GameInfo = gameInfoFixture(),
 ) {
   mockEmit.mockImplementation((_event, _params, callback) =>
     callback(error, gameInfo),
@@ -44,56 +51,68 @@ function mockEmitCallback(
 
 async function submitForm(
   user: UserEvent,
+  gameName?: string,
   username?: string,
-  isSpectator?: boolean,
 ): Promise<void> {
-  if (username) {
-    await user.type(screen.getByLabelText("Username*"), username);
+  if (gameName) {
+    await user.type(screen.getByLabelText("Game name*"), gameName);
   }
 
-  if (isSpectator) {
-    await user.click(screen.getByLabelText("Join as spectator"));
+  if (username) {
+    await user.type(screen.getByLabelText("Username*"), username);
   }
 
   await user.click(screen.getByRole("button"));
 }
 
-describe("<JoinGame />", () => {
-  it("does not submit the form if username is not provided", async () => {
+describe("<CreateGame />", () => {
+  it("does not submit the form if game name is not provided", async () => {
     const { user } = renderForm();
 
-    await submitForm(user, undefined, undefined);
+    await submitForm(user, undefined, "username");
 
     await waitFor(() => {
       expect(mockEmit).not.toHaveBeenCalled();
     });
   });
 
-  it("joins game when spectator is not selected", async () => {
-    const username = "username";
+  it("does not submit the form if username is not provided", async () => {
     const { user } = renderForm();
 
-    await submitForm(user, username);
+    await submitForm(user, "gameName", undefined);
+
+    await waitFor(() => {
+      expect(mockEmit).not.toHaveBeenCalled();
+    });
+  });
+
+  it("creates non-shortened game", async () => {
+    const username = "username";
+    const gameName = "gameName";
+    const { user } = renderForm();
+
+    await submitForm(user, gameName, username);
 
     await waitFor(() => {
       expect(mockEmit).toHaveBeenCalledWith(
-        "joinGame",
-        { gameId: GAME_ID, username, isSpectator: false },
+        "createGame",
+        { gameName, username, isShortenedGame: false },
         expect.any(Function),
       );
     });
   });
 
-  it("joins game when spectator is selected", async () => {
+  it("creates shortened game", async () => {
     const username = "username";
-    const { user } = renderForm();
+    const gameName = "gameName";
+    const { user } = renderForm(true);
 
-    await submitForm(user, username, true);
+    await submitForm(user, gameName, username);
 
     await waitFor(() => {
       expect(mockEmit).toHaveBeenCalledWith(
-        "joinGame",
-        { gameId: GAME_ID, username, isSpectator: true },
+        "createGame",
+        { gameName, username, isShortenedGame: true },
         expect.any(Function),
       );
     });
@@ -103,7 +122,7 @@ describe("<JoinGame />", () => {
     mockEmitCallback(null);
     const { user } = renderForm();
 
-    await submitForm(user, "username");
+    await submitForm(user, "gameName", "username");
 
     await waitFor(() => {
       expect(screen.getByText(GAME_SCREEN_TEXT)).toBeInTheDocument();
@@ -115,22 +134,12 @@ describe("<JoinGame />", () => {
     mockEmitCallback(new Error(errorMessage));
     const { user } = renderForm();
 
-    await submitForm(user, "username");
+    await submitForm(user, "gameName", "username");
 
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent(
         new RegExp(`^${errorMessage}$`),
       );
-    });
-  });
-
-  it("returns to the homepage when home link is clicked", async () => {
-    const { user } = renderForm();
-
-    await user.click(screen.getByRole("link"));
-
-    await waitFor(() => {
-      expect(screen.getByText(/^Home$/)).toBeInTheDocument();
     });
   });
 });

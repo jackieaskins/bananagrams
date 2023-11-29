@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import ServerDisconnectionDialog from "./dialogs/ServerDisconnectionDialog";
+import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
 import { SocketProvider } from "./socket/SocketContext";
 
@@ -27,7 +27,7 @@ export default function App(): JSX.Element {
     <ChakraProvider theme={theme} toastOptions={toastOptions}>
       <SocketProvider>
         <BrowserRouter>
-          <ServerDisconnectionDialog />
+          <ServerDisconnectDialog />
           <AppRoutes />
           <NavMenu />
         </BrowserRouter>

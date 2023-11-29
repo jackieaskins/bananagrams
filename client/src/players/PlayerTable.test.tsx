@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "../games/GameContext";
-import { render } from "../testUtils";
+import { renderComponent } from "../testUtils";
 import PlayerTable from "./PlayerTable";
 
 const CURRENT_PLAYER_ID = "current-player";
@@ -31,7 +31,7 @@ jest.mock("../games/GameContext", () => ({
 
 function renderTable(players = [playerFixture({ userId: CURRENT_PLAYER_ID })]) {
   mockUseGame.mockReturnValue({ gameInfo: gameInfoFixture({ players }) });
-  return render(<PlayerTable />);
+  return renderComponent(<PlayerTable />);
 }
 
 describe("<PlayerTable />", () => {

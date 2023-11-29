@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { playerFixture } from "../fixtures/player";
 import { PlayerStatus } from "../players/types";
-import { render } from "../testUtils";
+import { renderComponent } from "../testUtils";
 import { getEmptyGameInfo, useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";
 
@@ -12,7 +12,7 @@ jest.mock("./GameContext", () => ({
 }));
 
 function renderView() {
-  return render(<SpectatorView />);
+  return renderComponent(<SpectatorView />);
 }
 
 describe("<SpectatorView />", () => {

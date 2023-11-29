@@ -6,7 +6,7 @@ import {
 import userEvent, { UserEvent } from "@testing-library/user-event";
 
 // https://testing-library.com/docs/user-event/intro
-export function render(
+export function renderComponent(
   ui: React.ReactElement,
   options?: Omit<RenderOptions, "queries">,
 ): RenderResult & { user: UserEvent } {

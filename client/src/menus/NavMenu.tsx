@@ -6,6 +6,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
+import { useMemo } from "react";
 import {
   FaBars,
   FaBookOpen,
@@ -20,6 +21,11 @@ import ExternalMenuItemLink from "./ExternalMenuItemLink";
 export default function NavMenu(): JSX.Element {
   const { pathname } = useLocation();
 
+  const homeRoute = useMemo(
+    () => (pathname.startsWith("/redesign") ? "/redesign" : "/"),
+    [pathname],
+  );
+
   return (
     <Menu>
       <MenuButton
@@ -30,9 +36,10 @@ export default function NavMenu(): JSX.Element {
         top={4}
         right={4}
       />
+
       <MenuList>
-        {pathname === "/" ? null : (
-          <MenuItem as={Link} to="/" icon={<FaHouse />}>
+        {pathname === homeRoute ? null : (
+          <MenuItem as={Link} to={homeRoute} icon={<FaHouse />}>
             Return home
           </MenuItem>
         )}

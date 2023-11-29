@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import { PlayerStatus } from "../players/types";
-import { render } from "../testUtils";
+import { renderComponent } from "../testUtils";
 import SpectateButton from "./SpectateButton";
 
 const mockEmit = jest.fn();
@@ -11,7 +11,7 @@ jest.mock("../socket/SocketContext", () => ({
 }));
 
 function renderButton() {
-  return render(<SpectateButton />);
+  return renderComponent(<SpectateButton />);
 }
 
 describe("<SpectateButton />", () => {

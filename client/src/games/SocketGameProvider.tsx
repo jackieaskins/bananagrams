@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-  useNavigate,
-  useLocation,
-  useParams,
   Location,
+  useLocation,
+  useNavigate,
+  useParams,
 } from "react-router-dom";
 import { BoardLocation } from "../boards/types";
 import { useSocket } from "../socket/SocketContext";
 import { TileItem } from "../tiles/types";
-import { getEmptyGameInfo, GameProvider } from "./GameContext";
+import { GameProvider, getEmptyGameInfo } from "./GameContext";
 import { GameInfo, GameLocationState } from "./types";
 
 type GameParams = {

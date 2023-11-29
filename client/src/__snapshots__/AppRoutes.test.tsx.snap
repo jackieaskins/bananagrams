@@ -3,24 +3,62 @@
 exports[`<AppRoutes /> renders correct routes 1`] = `
 <Routes>
   <Route
-    element={<Home />}
+    element={
+      <CreateGame
+        routePrefix=""
+      />
+    }
     path="/"
-  />
-  <Route
-    element={<Changelog />}
-    path="/changelog"
   />
   <Route
     element={
       <SocketGameProvider>
-        <GameManager />
+        <GameManager
+          game={<Game />}
+          routePrefix=""
+        />
       </SocketGameProvider>
     }
     path="/game/:gameId"
   />
   <Route
-    element={<JoinGame />}
+    element={
+      <JoinGame
+        routePrefix=""
+      />
+    }
     path="/game/:gameId/join"
+  />
+  <Route
+    element={
+      <CreateGame
+        routePrefix="/redesign"
+      />
+    }
+    path="/redesign"
+  />
+  <Route
+    element={
+      <SocketGameProvider>
+        <GameManager
+          game={<GameRedesign />}
+          routePrefix="/redesign"
+        />
+      </SocketGameProvider>
+    }
+    path="/redesign/game/:gameId"
+  />
+  <Route
+    element={
+      <JoinGame
+        routePrefix="/redesign"
+      />
+    }
+    path="/redesign/game/:gameId/join"
+  />
+  <Route
+    element={<Changelog />}
+    path="/changelog"
   />
   <Route
     element={<NotFound />}

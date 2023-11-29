@@ -1,7 +1,7 @@
 import { Table, Tbody } from "@chakra-ui/react";
 import { screen, waitFor, within } from "@testing-library/react";
 import { playerFixture } from "../fixtures/player";
-import { render } from "../testUtils";
+import { renderComponent } from "../testUtils";
 import PlayerTableRow, { PlayerTableRowProps } from "./PlayerTableRow";
 import { Player, PlayerStatus } from "./types";
 
@@ -29,7 +29,7 @@ function renderRow({
   player = playerFixture(),
   playerCount = 1,
 }: Partial<PlayerTableRowProps> = {}) {
-  return render(
+  return renderComponent(
     <Table>
       <Tbody>
         <PlayerTableRow

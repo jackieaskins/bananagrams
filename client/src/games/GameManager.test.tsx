@@ -1,71 +1,119 @@
-import { shallow } from "enzyme";
+import { screen } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
-import { Player, PlayerStatus } from "../players/types";
+import { PlayerStatus } from "../players/types";
+import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import GameManager from "./GameManager";
+import { GameState } from "./types";
 
-const CURRENT_PLAYER_ID = "current";
-
-jest.mock("./GameContext", () => ({
-  useGame: jest.fn(),
-}));
+const CURRENT_PLAYER_ID = "currentPlayer";
+const ROUTE_PREFIX = "/prefix";
 
 jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
-    socket: {
-      id: CURRENT_PLAYER_ID,
-    },
+    socket: { id: CURRENT_PLAYER_ID },
   }),
 }));
 
-describe("<GameManager />", () => {
-  const mockUseGame = (
-    isInGame: boolean,
-    isInProgress: boolean,
-    players: Player[] = [playerFixture({ userId: CURRENT_PLAYER_ID })],
-  ) => {
-    useGame.mockReturnValue({
-      gameInfo: { gameId: "gameId", isInProgress, players },
-      isInGame,
-    });
+const mockUseGame = useGame as jest.Mock;
+jest.mock("./GameContext", () => ({
+  ...jest.requireActual("./GameContext"),
+  useGame: jest.fn(),
+}));
+
+function renderManager(gameState: Partial<GameState> = {}) {
+  const game = {
+    gameInfo: gameInfoFixture(),
+    isInGame: false,
+    ...gameState,
   };
+  mockUseGame.mockReturnValue(game);
 
-  const renderComponent = () => shallow(<GameManager />);
+  return renderComponent(
+    <MemoryRouter initialEntries={["/game"]}>
+      <Routes>
+        <Route
+          path="/game"
+          element={
+            <GameManager game={<div>GAME</div>} routePrefix={ROUTE_PREFIX} />
+          }
+        />
 
-  it("renders redirect when not in game", () => {
-    mockUseGame(false, false);
+        <Route
+          path={`${ROUTE_PREFIX}/game/${game.gameInfo.gameId}/join`}
+          element="Join game"
+        />
+      </Routes>
+    </MemoryRouter>,
+  );
+}
 
-    expect(renderComponent()).toMatchSnapshot();
-  });
-
-  it("renders redirect when no current player", () => {
-    mockUseGame(false, false, [playerFixture({ userId: "some-other-id" })]);
-
-    expect(renderComponent()).toMatchSnapshot();
-  });
-
-  it("renders WaitingRoom when in game but game hasn't started", () => {
-    mockUseGame(true, false);
-
-    expect(renderComponent()).toMatchSnapshot();
-  });
-
-  it("renders Game when in game, game is in progress, and status is ready", () => {
-    mockUseGame(true, true, [
-      playerFixture({ userId: CURRENT_PLAYER_ID, status: PlayerStatus.READY }),
-    ]);
-
-    expect(renderComponent()).toMatchSnapshot();
-  });
-
-  it("renders SpectatorView when in game, game is in progress, and status is not ready", () => {
-    mockUseGame(true, true, [
-      playerFixture({
-        userId: CURRENT_PLAYER_ID,
-        status: PlayerStatus.SPECTATING,
+describe("<GameManager />", () => {
+  it("redirects to join page if not in game", () => {
+    renderManager({
+      isInGame: false,
+      gameInfo: gameInfoFixture({
+        players: [playerFixture({ userId: CURRENT_PLAYER_ID })],
       }),
-    ]);
+    });
 
-    expect(renderComponent()).toMatchSnapshot();
+    expect(screen.getByText(/^Join game$/)).toBeInTheDocument();
+  });
+
+  it("redirects to join page if current player doesn't exist", () => {
+    renderManager({
+      isInGame: true,
+      gameInfo: gameInfoFixture({ players: [] }),
+    });
+
+    expect(screen.getByText(/^Join game$/)).toBeInTheDocument();
+  });
+
+  it("displays waiting room if game is not in progress", () => {
+    renderManager({
+      isInGame: true,
+      gameInfo: gameInfoFixture({
+        players: [playerFixture({ userId: CURRENT_PLAYER_ID })],
+        isInProgress: false,
+      }),
+    });
+
+    expect(screen.getByText("Copy invite link")).toBeInTheDocument();
+  });
+
+  it("displays game if player is ready", () => {
+    renderManager({
+      isInGame: true,
+      gameInfo: gameInfoFixture({
+        isInProgress: true,
+        players: [
+          playerFixture({
+            userId: CURRENT_PLAYER_ID,
+            status: PlayerStatus.READY,
+          }),
+        ],
+      }),
+    });
+
+    expect(screen.getByText(/^GAME$/)).toBeInTheDocument();
+  });
+
+  it("displays spectator view if player is not in game", () => {
+    renderManager({
+      isInGame: true,
+      gameInfo: gameInfoFixture({
+        isInProgress: true,
+        players: [
+          playerFixture({
+            userId: CURRENT_PLAYER_ID,
+            status: PlayerStatus.SPECTATING,
+          }),
+        ],
+      }),
+    });
+
+    expect(screen.getByText("Spectator view")).toBeInTheDocument();
   });
 });
