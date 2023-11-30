@@ -7,15 +7,11 @@ import WaitingRoom from "./WaitingRoom";
 
 export type GameManagerProps = {
   game: JSX.Element;
-  routePrefix: string;
 };
 
-export default function GameManager({
-  game,
-  routePrefix,
-}: GameManagerProps): JSX.Element {
+export default function GameManager({ game }: GameManagerProps): JSX.Element {
   const {
-    gameInfo: { gameId, isInProgress, players },
+    gameInfo: { isInProgress, players },
     isInGame,
   } = useGame();
   const { socket } = useSocket();
@@ -23,7 +19,7 @@ export default function GameManager({
   const currentPlayer = players.find(({ userId }) => userId === socket.id);
 
   if (!isInGame || !currentPlayer) {
-    return <Navigate to={`${routePrefix}/game/${gameId}/join`} replace />;
+    return <Navigate to={`./join`} replace />;
   }
 
   if (!isInProgress) {

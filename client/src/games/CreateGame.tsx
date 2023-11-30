@@ -7,13 +7,7 @@ import CenteredLayout from "../layouts/CenteredLayout";
 import { useSocket } from "../socket/SocketContext";
 import { GameInfo, GameLocationState } from "./types";
 
-type CreateGameProps = {
-  routePrefix: string;
-};
-
-export default function CreateGame({
-  routePrefix,
-}: CreateGameProps): JSX.Element {
+export default function CreateGame(): JSX.Element {
   const [gameName, setGameName] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
@@ -43,14 +37,14 @@ export default function CreateGame({
               gameInfo,
             };
 
-            navigate(`${routePrefix}/game/${gameInfo.gameId}`, {
+            navigate(`./game/${gameInfo.gameId}`, {
               state: locationState,
             });
           }
         },
       );
     },
-    [gameName, isShortenedGame, navigate, routePrefix, socket, username],
+    [gameName, isShortenedGame, navigate, socket, username],
   );
 
   return (

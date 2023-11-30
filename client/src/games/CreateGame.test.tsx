@@ -6,7 +6,6 @@ import { renderComponent } from "../testUtils";
 import CreateGame from "./CreateGame";
 import { GameInfo } from "./types";
 
-const ROUTE_PREFIX = "/test";
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
 
@@ -22,19 +21,11 @@ jest.mock("../socket/SocketContext", () => ({
 function renderForm(isShortenedGame: boolean = false) {
   return renderComponent(
     <MemoryRouter
-      initialEntries={[
-        `${ROUTE_PREFIX}/${isShortenedGame ? "?isShortenedGame" : ""}`,
-      ]}
+      initialEntries={[`/${isShortenedGame ? "?isShortenedGame" : ""}`]}
     >
       <Routes>
-        <Route
-          path={`${ROUTE_PREFIX}/`}
-          element={<CreateGame routePrefix={ROUTE_PREFIX} />}
-        />
-        <Route
-          path={`${ROUTE_PREFIX}/game/:gameId`}
-          element={<div>{GAME_SCREEN_TEXT}</div>}
-        />
+        <Route path="/" element={<CreateGame />} />
+        <Route path="/game/:gameId" element={<div>{GAME_SCREEN_TEXT}</div>} />
       </Routes>
     </MemoryRouter>,
   );

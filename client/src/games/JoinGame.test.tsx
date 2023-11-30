@@ -23,10 +23,7 @@ function renderForm() {
     <MemoryRouter initialEntries={[`/game/${GAME_ID}/join`]}>
       <Routes>
         <Route path="/" element={<div>Home</div>} />
-        <Route
-          path="/game/:gameId/join"
-          element={<JoinGame routePrefix="" />}
-        />
+        <Route path="/game/:gameId/join" element={<JoinGame />} />
         <Route path="/game/:gameId" element={<div>{GAME_SCREEN_TEXT}</div>} />
       </Routes>
     </MemoryRouter>,

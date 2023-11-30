@@ -22,11 +22,7 @@ type JoinGameParams = {
   gameId: string;
 };
 
-export type JoinGameProps = {
-  routePrefix: string;
-};
-
-export default function JoinGame({ routePrefix }: JoinGameProps): JSX.Element {
+export default function JoinGame(): JSX.Element {
   const { socket } = useSocket();
   const navigate = useNavigate();
   const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
@@ -55,12 +51,12 @@ export default function JoinGame({ routePrefix }: JoinGameProps): JSX.Element {
               gameInfo,
             };
 
-            navigate(`${routePrefix}/game/${gameId}`, { state: locationState });
+            navigate(`/game/${gameId}`, { state: locationState });
           }
         },
       );
     },
-    [gameId, isSpectator, navigate, routePrefix, socket, username],
+    [gameId, isSpectator, navigate, socket, username],
   );
 
   return (
@@ -101,11 +97,7 @@ export default function JoinGame({ routePrefix }: JoinGameProps): JSX.Element {
             Join game
           </Button>
 
-          <ChakraLink
-            as={ReactRouterLink}
-            to={routePrefix || "/"}
-            textAlign="center"
-          >
+          <ChakraLink as={ReactRouterLink} to="../.." textAlign="center">
             Go home
           </ChakraLink>
         </Stack>

@@ -8,37 +8,28 @@ import JoinGame from "./games/JoinGame";
 import SocketGameProvider from "./games/SocketGameProvider";
 import GameRedesign from "./redesign/GameRedesign";
 
+function getGameRoutes(topLevelPath: string, game: JSX.Element) {
+  return (
+    <>
+      <Route path={topLevelPath} element={<CreateGame />} />
+      <Route
+        path={`${topLevelPath}game/:gameId`}
+        element={
+          <SocketGameProvider>
+            <GameManager game={game} />
+          </SocketGameProvider>
+        }
+      />
+      <Route path={`${topLevelPath}game/:gameId/join`} element={<JoinGame />} />
+    </>
+  );
+}
+
 export default function AppRoutes(): JSX.Element {
   return (
     <Routes>
-      <Route path="/" element={<CreateGame routePrefix="" />} />
-      <Route
-        path="/game/:gameId"
-        element={
-          <SocketGameProvider>
-            <GameManager routePrefix="" game={<Game />} />
-          </SocketGameProvider>
-        }
-      />
-      <Route path="/game/:gameId/join" element={<JoinGame routePrefix="" />} />
-
-      <Route
-        path="/redesign"
-        element={<CreateGame routePrefix="/redesign" />}
-      />
-      <Route
-        path="/redesign/game/:gameId"
-        element={
-          <SocketGameProvider>
-            <GameManager routePrefix="/redesign" game={<GameRedesign />} />
-          </SocketGameProvider>
-        }
-      />
-      <Route
-        path="/redesign/game/:gameId/join"
-        element={<JoinGame routePrefix="/redesign" />}
-      />
-
+      {getGameRoutes("/", <Game />)}
+      {getGameRoutes("/redesign/", <GameRedesign />)}
       <Route path="/changelog" element={<Changelog />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

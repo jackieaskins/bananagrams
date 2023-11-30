@@ -9,7 +9,6 @@ import GameManager from "./GameManager";
 import { GameState } from "./types";
 
 const CURRENT_PLAYER_ID = "currentPlayer";
-const ROUTE_PREFIX = "/prefix";
 
 jest.mock("../socket/SocketContext", () => ({
   useSocket: () => ({
@@ -32,19 +31,13 @@ function renderManager(gameState: Partial<GameState> = {}) {
   mockUseGame.mockReturnValue(game);
 
   return renderComponent(
-    <MemoryRouter initialEntries={["/game"]}>
+    <MemoryRouter initialEntries={["/game/123"]}>
       <Routes>
         <Route
-          path="/game"
-          element={
-            <GameManager game={<div>GAME</div>} routePrefix={ROUTE_PREFIX} />
-          }
+          path="/game/:gameId"
+          element={<GameManager game={<div>GAME</div>} />}
         />
-
-        <Route
-          path={`${ROUTE_PREFIX}/game/${game.gameInfo.gameId}/join`}
-          element="Join game"
-        />
+        <Route path="/game/:gameId/join" element="Join game" />
       </Routes>
     </MemoryRouter>,
   );
