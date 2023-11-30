@@ -5,7 +5,7 @@ type GridLineProps = {
   points: number[];
 };
 
-export default function GridLine({ points }: GridLineProps): JSX.Element {
+export default function CanvasGridLine({ points }: GridLineProps): JSX.Element {
   const [gridColor] = useToken("colors", ["gray.700"]);
 
   return (

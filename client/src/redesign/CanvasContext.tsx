@@ -14,7 +14,7 @@ type CanvasProviderProps = {
 };
 
 const CanvasContext = createContext<CanvasContextState>({
-  size: { width: window.innerWidth, height: window.innerHeight },
+  size: { width: 0, height: 0 },
   offset: { x: 0, y: 0 },
 });
 

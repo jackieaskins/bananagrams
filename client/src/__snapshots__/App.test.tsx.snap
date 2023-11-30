@@ -2608,7 +2608,7 @@ exports[`<App /> renders properly 1`] = `
   toastOptions={
     {
       "defaultOptions": {
-        "position": "bottom-left",
+        "position": "top-left",
       },
     }
   }

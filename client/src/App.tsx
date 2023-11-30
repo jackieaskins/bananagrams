@@ -18,7 +18,7 @@ const theme = extendTheme({ config });
 
 const toastOptions: ToastProviderProps = {
   defaultOptions: {
-    position: "bottom-left",
+    position: "top-left",
   },
 };
 
