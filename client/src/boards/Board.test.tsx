@@ -3,11 +3,8 @@ import { boardSquareFixture } from "../fixtures/board";
 import Board from "./Board";
 
 describe("<Board />", () => {
-  test("renders properly", () => {
-    const board = [
-      [boardSquareFixture(), null],
-      [null, null],
-    ];
+  it("renders properly", () => {
+    const board = { "0,0": boardSquareFixture() };
 
     expect(shallow(<Board board={board} />)).toMatchSnapshot();
   });

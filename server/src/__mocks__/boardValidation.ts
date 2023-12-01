@@ -1,13 +1,15 @@
+import { generateBoardKey } from "../boardKey";
+
 export const validateAddTile = jest
   .fn()
-  .mockImplementation((squares, { x, y }, tile) => {
-    squares[x][y] = { tile };
+  .mockImplementation((squares, location, tile) => {
+    squares[generateBoardKey(location)] = { tile };
     return squares;
   });
 
 export const validateRemoveTile = jest
   .fn()
-  .mockImplementation((squares, { x, y }) => {
-    squares[x][y] = null;
-    return squares;
+  .mockImplementation((squares, location) => {
+    const { [generateBoardKey(location)]: toRemove, ...newSquares } = squares;
+    return newSquares;
   });

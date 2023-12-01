@@ -17,41 +17,41 @@ describe("Game Model", () => {
   });
 
   describe("getId", () => {
-    test("returns game id", () => {
+    it("returns game id", () => {
       expect(game.getId()).toEqual(id);
     });
   });
 
   describe("getName", () => {
-    test("returns game name", () => {
+    it("returns game name", () => {
       expect(game.getName()).toEqual(name);
     });
   });
 
   describe("set/isInProgress", () => {
-    test("returns false by default", () => {
+    it("returns false by default", () => {
       expect(game.isInProgress()).toBe(false);
     });
 
-    test("returns whether or not game is in progress", () => {
+    it("returns whether or not game is in progress", () => {
       game.setInProgress(true);
       expect(game.isInProgress()).toBe(true);
     });
   });
 
   describe("isShortenedGame", () => {
-    test("returns whether or not game is shortened", () => {
+    it("returns whether or not game is shortened", () => {
       game = new Game(id, name, true);
       expect(game.isShortenedGame()).toBe(true);
     });
   });
 
   describe("set/getSnapshot", () => {
-    test("returns null by default", () => {
+    it("returns null by default", () => {
       expect(game.getSnapshot()).toBeNull();
     });
 
-    test("returns snapshot", () => {
+    it("returns snapshot", () => {
       game.setSnapshot([]);
 
       expect(game.getSnapshot()).toEqual([]);
@@ -59,7 +59,7 @@ describe("Game Model", () => {
   });
 
   describe("reset", () => {
-    test("resets bunch", () => {
+    it("resets bunch", () => {
       jest.spyOn(game.getBunch(), "reset");
 
       game.reset();
@@ -67,7 +67,7 @@ describe("Game Model", () => {
       expect(game.getBunch().reset).toHaveBeenCalledWith();
     });
 
-    test("resets each player", () => {
+    it("resets each player", () => {
       const player = createPlayer();
       jest.spyOn(player, "reset");
       game.addPlayer(player);
@@ -79,14 +79,14 @@ describe("Game Model", () => {
   });
 
   describe("toJSON", () => {
-    test("converts fields into JSON", () => {
+    it("converts fields into JSON", () => {
       game.addPlayer(createPlayer());
       expect(game.toJSON()).toMatchSnapshot();
     });
   });
 
   describe("addPlayer", () => {
-    test("adds a player to the game", () => {
+    it("adds a player to the game", () => {
       const player = createPlayer();
       game.addPlayer(player);
       expect(game.getPlayers()).toEqual([player]);
@@ -94,7 +94,7 @@ describe("Game Model", () => {
   });
 
   describe("removePlayer", () => {
-    test("removes player from game", () => {
+    it("removes player from game", () => {
       game.addPlayer(createPlayer());
       game.removePlayer("p");
       expect(game.getPlayers()).toEqual([]);

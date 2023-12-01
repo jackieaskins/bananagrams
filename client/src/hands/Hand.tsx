@@ -15,13 +15,7 @@ const DEFAULT_BOARD_LENGTH = 21;
 
 export default function Hand({ hand }: HandProps): JSX.Element {
   const { socket } = useSocket();
-  const {
-    gameInfo: { players },
-    handleMoveTileFromBoardToHand,
-  } = useGame();
-  const boardLength =
-    players.find((player) => player.userId === socket.id)?.board?.length ??
-    DEFAULT_BOARD_LENGTH;
+  const { handleMoveTileFromBoardToHand } = useGame();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: "TILE",
@@ -53,7 +47,7 @@ export default function Hand({ hand }: HandProps): JSX.Element {
         ref={dropRef}
         wrap="wrap"
         direction="column"
-        height={`${25 * boardLength - 40}px`}
+        height={`${25 * DEFAULT_BOARD_LENGTH - 40}px`}
         minWidth="78px"
         p={1}
         backgroundColor={isOver && canDrop ? "green.700" : undefined}

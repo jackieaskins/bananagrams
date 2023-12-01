@@ -1,3 +1,4 @@
+import { generateBoardKey, parseBoardKey } from "./boardKey";
 import Dictionary from "./dictionary/Dictionary";
 import {
   BoardSquares,
@@ -31,8 +32,12 @@ function iterateWordFromStart(
   const delta = getDelta(direction);
   let { x: nextX, y: nextY } = start;
 
-  while (nextX < board.length && nextY < board[nextX].length) {
-    const square = board[nextX][nextY];
+  const boardSquares = Object.keys(board).map(parseBoardKey);
+  const maxX = Math.max(...boardSquares.map(({ x }) => x));
+  const maxY = Math.max(...boardSquares.map(({ y }) => y));
+
+  while (nextX <= maxX && nextY <= maxY) {
+    const square = board[generateBoardKey({ x: nextX, y: nextY })];
     if (!square || loopFn(square)) break;
 
     nextX += delta.x;
@@ -86,8 +91,10 @@ export function validateAddTile(
   directions.forEach((direction) => {
     const delta = getDelta(direction);
 
-    const beforeSquare = board[x - delta.x]?.[y - delta.y];
-    const afterSquare = board[x + delta.x]?.[y + delta.y];
+    const beforeSquare =
+      board[generateBoardKey({ x: x - delta.x, y: y - delta.y })];
+    const afterSquare =
+      board[generateBoardKey({ x: x + delta.x, y: y + delta.y })];
 
     const start = beforeSquare
       ? beforeSquare.wordInfo[direction].start
@@ -112,7 +119,10 @@ export function validateAddTile(
     { start, validation: ValidationStatus.NOT_VALIDATED },
   ]);
 
-  board[x][y] = { tile, wordInfo: Object.fromEntries(wordInfo) };
+  board[generateBoardKey(location)] = {
+    tile,
+    wordInfo: Object.fromEntries(wordInfo),
+  };
 
   validateWordsAtLocations(board, locationsToValidate);
 
@@ -132,8 +142,10 @@ export function validateRemoveTile(
   directions.forEach((direction) => {
     const delta = getDelta(direction);
 
-    const beforeSquare = board[x - delta.x]?.[y - delta.y];
-    const afterSquare = board[x + delta.x]?.[y + delta.y];
+    const beforeSquare =
+      board[generateBoardKey({ x: x - delta.x, y: y - delta.y })];
+    const afterSquare =
+      board[generateBoardKey({ x: x + delta.x, y: y + delta.y })];
 
     if (beforeSquare) {
       locationsToValidate.push({
@@ -152,9 +164,9 @@ export function validateRemoveTile(
     }
   });
 
-  board[x][y] = null;
+  const { [generateBoardKey(location)]: toRemove, ...newBoard } = board;
 
-  validateWordsAtLocations(board, locationsToValidate);
+  validateWordsAtLocations(newBoard, locationsToValidate);
 
-  return board;
+  return newBoard;
 }

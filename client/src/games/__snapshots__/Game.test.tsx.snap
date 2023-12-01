@@ -31,13 +31,7 @@ exports[`<Game /> renders properly 1`] = `
         </Text>
         <HStack>
           <Board
-            board={
-              [
-                [
-                  null,
-                ],
-              ]
-            }
+            board={{}}
           />
           <Hand
             hand={[]}
@@ -105,13 +99,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
         </Text>
         <HStack>
           <Board
-            board={
-              [
-                [
-                  null,
-                ],
-              ]
-            }
+            board={{}}
           />
           <Hand
             hand={[]}
@@ -152,11 +140,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
             players={
               [
                 {
-                  "board": [
-                    [
-                      null,
-                    ],
-                  ],
+                  "board": {},
                   "gamesWon": 0,
                   "hand": [],
                   "isAdmin": false,
@@ -166,11 +150,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
                   "username": "username",
                 },
                 {
-                  "board": [
-                    [
-                      null,
-                    ],
-                  ],
+                  "board": {},
                   "gamesWon": 0,
                   "hand": [],
                   "isAdmin": false,

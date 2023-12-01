@@ -42,7 +42,7 @@ exports[`<Hand /> renders properly with player 1`] = `
   </Tooltip>
   <Flex
     direction="column"
-    height="-15px"
+    height="485px"
     minWidth="78px"
     p={1}
     wrap="wrap"

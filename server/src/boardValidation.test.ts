@@ -1,6 +1,11 @@
-/* eslint-disable jest/expect-expect */
+import { generateBoardKey } from "./boardKey";
 import { validateAddTile, validateRemoveTile } from "./boardValidation";
-import { Direction, ValidationStatus, WordInfo } from "./models/Board";
+import {
+  BoardSquares,
+  Direction,
+  ValidationStatus,
+  WordInfo,
+} from "./models/Board";
 import Tile from "./models/Tile";
 
 // I'm pretty sure I mixed up x & y so flip this:
@@ -27,8 +32,6 @@ jest.mock("./dictionary/Dictionary", () => {
   };
 });
 
-const BOARD_SIZE = 5;
-
 describe("boardValidation", () => {
   const tiles: Record<string, Tile> = {
     "0,2": new Tile("C1", "C"),
@@ -42,16 +45,16 @@ describe("boardValidation", () => {
     "3,2": new Tile("E2", "E"),
     "4,2": new Tile("Z1", "Z"),
   };
-  let board = [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE).fill(null));
+  let board: BoardSquares = {};
 
   const addTile = (x: number, y: number): void => {
-    board = validateAddTile(board, { x, y }, tiles[`${x},${y}`]);
+    board = validateAddTile(board, { x, y }, tiles[generateBoardKey({ x, y })]);
   };
   const removeTile = (x: number, y: number): void => {
     board = validateRemoveTile(board, { x, y });
   };
 
-  const validateSquare = (
+  const assertSquare = (
     x: number,
     y: number,
     acrossValidated = false,
@@ -59,9 +62,9 @@ describe("boardValidation", () => {
     acrossInfo?: WordInfo,
     downInfo?: WordInfo,
   ): void => {
-    const { tile, wordInfo } = board[x][y];
+    const { tile, wordInfo } = board[generateBoardKey({ x, y })];
 
-    expect(tile).toEqual(tiles[`${x},${y}`]);
+    expect(tile).toEqual(tiles[generateBoardKey({ x, y })]);
     expect(wordInfo[Direction.ACROSS]).toEqual(
       acrossValidated
         ? acrossInfo
@@ -75,19 +78,19 @@ describe("boardValidation", () => {
   };
 
   describe("validateAddTile", () => {
-    test("single letters are not validated", () => {
+    it("leaves single letters unvalidated", () => {
       addTile(1, 2);
       addTile(2, 1);
       addTile(2, 3);
       addTile(3, 2);
 
-      validateSquare(1, 2);
-      validateSquare(2, 1);
-      validateSquare(2, 3);
-      validateSquare(3, 2);
+      assertSquare(1, 2);
+      assertSquare(2, 1);
+      assertSquare(2, 3);
+      assertSquare(3, 2);
     });
 
-    test("validates when connecting words in both directions", () => {
+    it("validates when connecting words in both directions", () => {
       const acrossInfo = {
         start: { x: 2, y: 1 },
         validation: ValidationStatus.INVALID,
@@ -99,14 +102,14 @@ describe("boardValidation", () => {
 
       addTile(2, 2);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
     });
 
-    test("validates when adding to start of across word", () => {
+    it("validates when adding to start of across word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -118,15 +121,15 @@ describe("boardValidation", () => {
 
       addTile(2, 0);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
     });
 
-    test("validates when adding to end of across word", () => {
+    it("validates when adding to end of across word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -138,16 +141,16 @@ describe("boardValidation", () => {
 
       addTile(2, 4);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
     });
 
-    test("validates when adding to start of down word", () => {
+    it("validates when adding to start of down word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -159,17 +162,17 @@ describe("boardValidation", () => {
 
       addTile(0, 2);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      validateSquare(0, 2, false, true, acrossInfo, downInfo);
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(0, 2, false, true, acrossInfo, downInfo);
     });
 
-    test("validates when adding to end of down word", () => {
+    it("validates when adding to end of down word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -181,18 +184,18 @@ describe("boardValidation", () => {
 
       addTile(4, 2);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      validateSquare(0, 2, false, true, acrossInfo, downInfo);
-      validateSquare(4, 2, false, true, acrossInfo, downInfo);
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(0, 2, false, true, acrossInfo, downInfo);
+      assertSquare(4, 2, false, true, acrossInfo, downInfo);
     });
 
-    test("validates when adding at connected location", () => {
+    it("validates when adding at connected location", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -204,7 +207,7 @@ describe("boardValidation", () => {
 
       addTile(1, 3);
 
-      validateSquare(
+      assertSquare(
         1,
         2,
         true,
@@ -212,18 +215,18 @@ describe("boardValidation", () => {
         { start: { x: 1, y: 2 }, validation: ValidationStatus.VALID },
         downInfo,
       );
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, true, acrossInfo, {
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, true, acrossInfo, {
         start: { x: 1, y: 3 },
         validation: ValidationStatus.INVALID,
       });
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      validateSquare(0, 2, false, true, acrossInfo, downInfo);
-      validateSquare(4, 2, false, true, acrossInfo, downInfo);
-      validateSquare(
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(0, 2, false, true, acrossInfo, downInfo);
+      assertSquare(4, 2, false, true, acrossInfo, downInfo);
+      assertSquare(
         1,
         3,
         true,
@@ -238,7 +241,7 @@ describe("boardValidation", () => {
   });
 
   describe("validateRemoveTile", () => {
-    test("validates when removing from connected location", () => {
+    it("validates when removing from connected location", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -250,19 +253,19 @@ describe("boardValidation", () => {
 
       removeTile(1, 3);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      validateSquare(0, 2, false, true, acrossInfo, downInfo);
-      validateSquare(4, 2, false, true, acrossInfo, downInfo);
-      expect(board[1][3]).toBeNull();
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(0, 2, false, true, acrossInfo, downInfo);
+      assertSquare(4, 2, false, true, acrossInfo, downInfo);
+      expect(board["1,3"]).toBeUndefined();
     });
 
-    test("validates when removing from end of down word", () => {
+    it("validates when removing from end of down word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -274,18 +277,18 @@ describe("boardValidation", () => {
 
       removeTile(4, 2);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      validateSquare(0, 2, false, true, acrossInfo, downInfo);
-      expect(board[4][2]).toBeNull();
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      assertSquare(0, 2, false, true, acrossInfo, downInfo);
+      expect(board["4,2"]).toBeUndefined();
     });
 
-    test("validates when removing from start of down word", () => {
+    it("validates when removing from start of down word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -297,17 +300,17 @@ describe("boardValidation", () => {
 
       removeTile(0, 2);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      validateSquare(2, 4, true, false, acrossInfo, downInfo);
-      expect(board[0][2]).toBeNull();
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      assertSquare(2, 4, true, false, acrossInfo, downInfo);
+      expect(board["0,2"]).toBeUndefined();
     });
 
-    test("validates when removing from end of across word", () => {
+    it("validates when removing from end of across word", () => {
       const acrossInfo = {
         start: { x: 2, y: 0 },
         validation: ValidationStatus.VALID,
@@ -319,16 +322,16 @@ describe("boardValidation", () => {
 
       removeTile(2, 4);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      validateSquare(2, 0, true, false, acrossInfo, downInfo);
-      expect(board[2][4]).toBeNull();
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      assertSquare(2, 0, true, false, acrossInfo, downInfo);
+      expect(board["2,4"]).toBeUndefined();
     });
 
-    test("validates when removing from start of across word", () => {
+    it("validates when removing from start of across word", () => {
       const acrossInfo = {
         start: { x: 2, y: 1 },
         validation: ValidationStatus.INVALID,
@@ -340,34 +343,34 @@ describe("boardValidation", () => {
 
       removeTile(2, 0);
 
-      validateSquare(1, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 1, true, false, acrossInfo, downInfo);
-      validateSquare(2, 3, true, false, acrossInfo, downInfo);
-      validateSquare(3, 2, false, true, acrossInfo, downInfo);
-      validateSquare(2, 2, true, true, acrossInfo, downInfo);
-      expect(board[2][0]).toBeNull();
+      assertSquare(1, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 1, true, false, acrossInfo, downInfo);
+      assertSquare(2, 3, true, false, acrossInfo, downInfo);
+      assertSquare(3, 2, false, true, acrossInfo, downInfo);
+      assertSquare(2, 2, true, true, acrossInfo, downInfo);
+      expect(board["2,0"]).toBeUndefined();
     });
 
-    test("validates when disconnecting words in both directions", () => {
+    it("validates when disconnecting words in both directions", () => {
       removeTile(2, 2);
 
-      validateSquare(1, 2);
-      validateSquare(2, 1);
-      validateSquare(2, 3);
-      validateSquare(3, 2);
-      expect(board[2][2]).toBeNull();
+      assertSquare(1, 2);
+      assertSquare(2, 1);
+      assertSquare(2, 3);
+      assertSquare(3, 2);
+      expect(board["2,2"]).toBeUndefined();
     });
 
-    test("has an empty board after removing all tiles", () => {
+    it("has an empty board after removing all tiles", () => {
       removeTile(1, 2);
       removeTile(2, 1);
       removeTile(2, 3);
       removeTile(3, 2);
 
-      expect(board[1][2]).toBeNull();
-      expect(board[2][1]).toBeNull();
-      expect(board[2][3]).toBeNull();
-      expect(board[3][2]).toBeNull();
+      expect(board["1,2"]).toBeUndefined();
+      expect(board["2,1"]).toBeUndefined();
+      expect(board["2,3"]).toBeUndefined();
+      expect(board["3,2"]).toBeUndefined();
     });
   });
 });

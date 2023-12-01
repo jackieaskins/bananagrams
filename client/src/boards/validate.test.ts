@@ -3,32 +3,26 @@ import { Direction, ValidationStatus } from "./types";
 import { isValidConnectedBoard } from "./validate";
 
 describe("isValidConnectedBoard", () => {
-  test("returns false for empty board", () => {
-    expect(
-      isValidConnectedBoard([
-        [null, null],
-        [null, null],
-      ]),
-    ).toBe(false);
+  it("returns false for empty board", () => {
+    expect(isValidConnectedBoard({})).toBe(false);
   });
 
-  test("returns false if everything is valid but multiple islands", () => {
+  it("returns false if everything is valid but multiple islands", () => {
     const validWordInfo = {
       [Direction.ACROSS]: wordInfoFixture({
         validation: ValidationStatus.VALID,
       }),
       [Direction.DOWN]: wordInfoFixture({ validation: ValidationStatus.VALID }),
     };
-    const board = [
-      [boardSquareFixture({ wordInfo: validWordInfo }), null, null],
-      [null, null, null],
-      [null, null, boardSquareFixture({ wordInfo: validWordInfo })],
-    ];
+    const board = {
+      "0,0": boardSquareFixture({ wordInfo: validWordInfo }),
+      "2,2": boardSquareFixture({ wordInfo: validWordInfo }),
+    };
 
     expect(isValidConnectedBoard(board)).toBe(false);
   });
 
-  test("returns false if one island but invalid", () => {
+  it("returns false if one island but invalid", () => {
     const invalidWordInfo = {
       [Direction.ACROSS]: wordInfoFixture({
         validation: ValidationStatus.INVALID,
@@ -37,15 +31,15 @@ describe("isValidConnectedBoard", () => {
         validation: ValidationStatus.NOT_VALIDATED,
       }),
     };
-    const board = [
-      [null, null],
-      [boardSquareFixture({ wordInfo: invalidWordInfo }), boardSquareFixture()],
-    ];
+    const board = {
+      "1,0": boardSquareFixture({ wordInfo: invalidWordInfo }),
+      "1,1": boardSquareFixture(),
+    };
 
     expect(isValidConnectedBoard(board)).toBe(false);
   });
 
-  test("returns true if nothing is invalid and board is one connected component", () => {
+  it("returns true if nothing is invalid and board is one connected component", () => {
     const getSquare = () =>
       boardSquareFixture({
         wordInfo: {
@@ -58,11 +52,15 @@ describe("isValidConnectedBoard", () => {
         },
       });
 
-    const board = [
-      [getSquare(), getSquare(), getSquare()],
-      [getSquare(), null, getSquare()],
-      [getSquare(), null, getSquare()],
-    ];
+    const board = {
+      "0,0": getSquare(),
+      "0,1": getSquare(),
+      "0,2": getSquare(),
+      "1,0": getSquare(),
+      "1,2": getSquare(),
+      "2,0": getSquare(),
+      "2,2": getSquare(),
+    };
 
     expect(isValidConnectedBoard(board)).toBe(true);
   });

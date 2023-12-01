@@ -1,45 +1,57 @@
-import { Board, BoardLocation, ValidationStatus, BoardSquare } from "./types";
+import { generateBoardKey, parseBoardKey } from "./key";
+import { Board, BoardLocation, ValidationStatus } from "./types";
 
 export function isValidConnectedBoard(board: Board): boolean {
-  const width = board.length;
-  const height = board[0].length;
+  const vals = Object.keys(board).map(parseBoardKey);
 
-  const getSurroundingTiles = (x: number, y: number): BoardLocation[] =>
+  const xVals = vals.map(({ x }) => x);
+  const minX = Math.min(...xVals);
+  const maxX = Math.max(...xVals);
+
+  const yVals = vals.map(({ y }) => y);
+  const minY = Math.min(...yVals);
+  const maxY = Math.max(...yVals);
+
+  const getSurroundingTiles = ({ x, y }: BoardLocation): BoardLocation[] =>
     [
       { x: x - 1, y },
       { x: x + 1, y },
       { x, y: y - 1 },
       { x, y: y + 1 },
-    ].filter(({ x, y }) => x >= 0 && x < width && y >= 0 && y < height);
+    ].filter(({ x, y }) => x >= minX && x <= maxX && y >= minY && y <= maxY);
 
   const stack: BoardLocation[] = [];
   let connectedComponents = 0;
-  const visited = [...Array(width)].map(() => Array(height).fill(false));
+  const visited: Record<string, boolean> = {};
 
-  const shouldCheckTile = (x: number, y: number): boolean =>
-    board[x][y] != null && !visited[x][y];
+  const shouldCheckTile = (location: BoardLocation): boolean => {
+    const key = generateBoardKey(location);
+    return board[key] != null && !visited[key];
+  };
 
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      if (shouldCheckTile(x, y)) {
+  for (let x = minX; x <= maxX; x++) {
+    for (let y = minY; y <= maxY; y++) {
+      if (shouldCheckTile({ x, y })) {
         if (connectedComponents > 0) return false;
         connectedComponents++;
 
         stack.push({ x, y });
         while (stack.length > 0) {
-          const { x, y } = stack.pop() as BoardLocation;
-          visited[x][y] = true;
+          const location = stack.pop()!;
+          const key = generateBoardKey(location);
+
+          visited[key] = true;
 
           if (
-            Object.values((board[x][y] as BoardSquare).wordInfo).some(
+            Object.values(board[key].wordInfo).some(
               ({ validation }) => validation === ValidationStatus.INVALID,
             )
           ) {
             return false;
           }
 
-          getSurroundingTiles(x, y).forEach(({ x, y }) => {
-            if (shouldCheckTile(x, y)) stack.push({ x, y });
+          getSurroundingTiles(location).forEach((location) => {
+            if (shouldCheckTile(location)) stack.push(location);
           });
         }
       }

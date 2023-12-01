@@ -10,7 +10,7 @@ export function playerFixture(overrides: Partial<Player> = {}): Player {
     isAdmin: false,
     gamesWon: 0,
     hand: [],
-    board: [[null]],
+    board: {},
     ...overrides,
   };
 }

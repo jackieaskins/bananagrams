@@ -21,4 +21,4 @@ export type BoardSquare = {
   tile: Tile;
   wordInfo: Record<Direction, WordInfo>;
 };
-export type Board = (BoardSquare | null)[][];
+export type Board = Record<string, BoardSquare>;

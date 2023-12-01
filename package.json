@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc --project server/tsconfig.json && NODE_ENV=production webpack",
-    "check-types": "tsc --noEmit --project server/tsconfig.json && tsc --noEmit --project client/tsconfig-no-tests.json",
+    "check-types:server": "tsc --noEmit --project server/tsconfig.json",
+    "check-types:client": "tsc --noEmit --project client/tsconfig-no-tests.json",
+    "check-types": "npm run check-types:server && npm run check-types:client",
     "dev": "nodemon",
     "format": "prettier --write .",
     "lint": "eslint --ext .js,.ts,.tsx server/src client/src",

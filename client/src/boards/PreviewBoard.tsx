@@ -1,4 +1,5 @@
 import { Box, Card } from "@chakra-ui/react";
+import { convertToArray } from "./convert";
 import { Board } from "./types";
 
 type PreviewBoardProps = {
@@ -14,7 +15,7 @@ export default function PreviewBoard({
 
   return (
     <Card display="inline-flex" flexDirection="column" variant="outline">
-      {board.map((row, x) => (
+      {convertToArray(board).map((row, x) => (
         <Box key={x} display="flex">
           {row.map((boardSquare, y) => {
             const tile = boardSquare?.tile ?? null;

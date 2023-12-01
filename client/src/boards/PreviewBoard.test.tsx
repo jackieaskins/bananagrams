@@ -3,16 +3,10 @@ import { boardSquareFixture } from "../fixtures/board";
 import PreviewBoard from "./PreviewBoard";
 
 describe("<PreviewBoard />", () => {
-  test("renders properly", () => {
+  it("renders properly", () => {
     expect(
       shallow(
-        <PreviewBoard
-          board={[
-            [boardSquareFixture(), null],
-            [null, null],
-          ]}
-          tileSize={23}
-        />,
+        <PreviewBoard board={{ "0,0": boardSquareFixture() }} tileSize={23} />,
       ),
     ).toMatchSnapshot();
   });

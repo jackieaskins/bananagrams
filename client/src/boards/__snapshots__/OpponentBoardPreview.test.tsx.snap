@@ -8,13 +8,7 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
     direction="column"
   >
     <PreviewBoard
-      board={
-        [
-          [
-            null,
-          ],
-        ]
-      }
+      board={{}}
       tileSize={15}
     />
     <PreviewHand
@@ -554,13 +548,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
     direction="column"
   >
     <PreviewBoard
-      board={
-        [
-          [
-            null,
-          ],
-        ]
-      }
+      board={{}}
       tileSize={15}
     />
     <PreviewHand
@@ -610,13 +598,7 @@ exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
     direction="column"
   >
     <PreviewBoard
-      board={
-        [
-          [
-            null,
-          ],
-        ]
-      }
+      board={{}}
       tileSize={15}
     />
     <PreviewHand
