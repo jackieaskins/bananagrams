@@ -23,10 +23,16 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
 
 const MAJOR_CHANGES: Change[] = [
   {
+    id: "leave-game-tiles",
+    date: "2023-11-30",
+    description:
+      "Tiles will no longer return to the bunch when a player leaves the game.",
+  },
+  {
     id: "game-start",
     date: "2023-11-25",
     description:
-      "Added a start game button. The game will no longer automatically start when all players are ready.",
+      "Added start game button. The game will no longer automatically start when all players are ready.",
   },
   {
     id: "spectator-view",

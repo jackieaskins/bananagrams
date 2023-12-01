@@ -204,21 +204,6 @@ describe("GameController", () => {
   });
 
   describe("leaveGame", () => {
-    it("adds player tiles to the bunch after leaving", () => {
-      const handTiles = [new Tile("A1", "A"), new Tile("B1", "B")];
-      const boardTile = new Tile("C1", "C");
-      player.getHand().addTiles(handTiles);
-      player.getBoard().addTile({ x: 0, y: 0 }, boardTile);
-      game.setInProgress(true);
-
-      gameController.leaveGame();
-
-      const tiles = game.getBunch().getTiles();
-      expect(tiles).toContain(handTiles[0]);
-      expect(tiles).toContain(handTiles[1]);
-      expect(tiles).toContain(boardTile);
-    });
-
     it("removes player from current game", () => {
       jest.spyOn(game, "removePlayer");
 

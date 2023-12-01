@@ -27,6 +27,22 @@ exports[`<Changelog /> renders table of changes 1`] = `
       </ForwardRef>
       <ForwardRef>
         <ForwardRef
+          key="leave-game-tiles"
+        >
+          <ForwardRef
+            overflowWrap="break-word"
+            textAlign="right"
+            verticalAlign="top"
+          >
+            Nov 30, 2023
+          </ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
+            Tiles will no longer return to the bunch when a player leaves the game.
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
           key="game-start"
         >
           <ForwardRef
@@ -39,7 +55,7 @@ exports[`<Changelog /> renders table of changes 1`] = `
           <ForwardRef
             whiteSpace="normal"
           >
-            Added a start game button. The game will no longer automatically start when all players are ready.
+            Added start game button. The game will no longer automatically start when all players are ready.
           </ForwardRef>
         </ForwardRef>
         <ForwardRef

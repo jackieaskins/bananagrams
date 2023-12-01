@@ -130,16 +130,6 @@ export default class GameController {
   leaveGame(): void {
     const { io, socket, currentPlayer, currentGame } = this;
 
-    // TODO: No longer return tiles to bunch when player leaves
-    if (currentGame.isInProgress()) {
-      currentGame
-        .getBunch()
-        .addTiles([
-          ...currentPlayer.getHand().getTiles(),
-          ...currentPlayer.getBoard().getAllTiles(),
-        ]);
-    }
-
     const gameId = currentGame.getId();
 
     currentGame.removePlayer(currentPlayer.getUserId());
