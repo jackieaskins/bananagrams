@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import { SetState } from "./state/types";
 
 const LOCAL_STORAGE_PREFIX = "bananagrams";
-
-type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 function getKey(key: string) {
   return `${LOCAL_STORAGE_PREFIX}.${key}`;
@@ -28,4 +27,8 @@ function useLocalStorage<T>(key: string, defaultValue: T): [T, SetState<T>] {
 
 export function useEnableTileSwap(): [boolean, SetState<boolean>] {
   return useLocalStorage("gameSettings.enableTileSwap", false);
+}
+
+export function useSavedUsername(): [string, SetState<string>] {
+  return useLocalStorage("savedUsername", "");
 }

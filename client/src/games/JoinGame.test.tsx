@@ -2,12 +2,19 @@ import { screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router";
 import { gameInfoFixture } from "../fixtures/game";
+import { useSavedUsername } from "../localStorage";
 import { renderComponent } from "../testUtils";
 import JoinGame from "./JoinGame";
 import { GameInfo } from "./types";
 
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
+
+const mockSetSavedUsername = jest.fn();
+const mockUseSavedUsername = useSavedUsername as jest.Mock;
+jest.mock("../localStorage", () => ({
+  useSavedUsername: jest.fn(),
+}));
 
 const mockEmit = jest.fn();
 jest.mock("../socket/SocketContext", () => ({
@@ -56,6 +63,19 @@ async function submitForm(
 }
 
 describe("<JoinGame />", () => {
+  beforeEach(() => {
+    mockUseSavedUsername.mockReturnValue(["", mockSetSavedUsername]);
+  });
+
+  it("defaults username field to saved username", () => {
+    const defaultUsername = "default";
+    mockUseSavedUsername.mockReturnValue([defaultUsername, jest.fn()]);
+
+    renderForm();
+
+    expect(screen.getByLabelText("Username*")).toHaveValue(defaultUsername);
+  });
+
   it("does not submit the form if username is not provided", async () => {
     const { user } = renderForm();
 
@@ -63,6 +83,17 @@ describe("<JoinGame />", () => {
 
     await waitFor(() => {
       expect(mockEmit).not.toHaveBeenCalled();
+    });
+  });
+
+  it("updates saved username", async () => {
+    const { user } = renderForm();
+    const username = "username";
+
+    await submitForm(user, username);
+
+    await waitFor(() => {
+      expect(mockSetSavedUsername).toHaveBeenCalledWith(username);
     });
   });
 

@@ -4,12 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ErrorAlert from "../alerts/ErrorAlert";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
+import { useSavedUsername } from "../localStorage";
 import { useSocket } from "../socket/SocketContext";
 import { GameInfo, GameLocationState } from "./types";
 
 export default function CreateGame(): JSX.Element {
+  const [savedUsername, setSavedUsername] = useSavedUsername();
   const [gameName, setGameName] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(savedUsername);
   const [error, setError] = useState("");
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ export default function CreateGame(): JSX.Element {
       event.preventDefault();
 
       setIsCreatingGame(true);
+      setSavedUsername(username);
 
       socket.emit(
         "createGame",
@@ -44,7 +47,7 @@ export default function CreateGame(): JSX.Element {
         },
       );
     },
-    [gameName, isShortenedGame, navigate, socket, username],
+    [gameName, isShortenedGame, navigate, setSavedUsername, socket, username],
   );
 
   return (
@@ -72,6 +75,7 @@ export default function CreateGame(): JSX.Element {
               isRequired
               value={username}
               setValue={setUsername}
+              autoComplete="username"
             />
           </Stack>
 

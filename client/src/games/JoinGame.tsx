@@ -1,11 +1,11 @@
 import {
   Box,
-  Stack,
-  Heading,
   Button,
   Link as ChakraLink,
+  Heading,
+  Stack,
 } from "@chakra-ui/react";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import {
   Link as ReactRouterLink,
   useNavigate,
@@ -15,6 +15,7 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import CheckboxField from "../forms/CheckboxField";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
+import { useSavedUsername } from "../localStorage";
 import { useSocket } from "../socket/SocketContext";
 import { GameInfo, GameLocationState } from "./types";
 
@@ -27,7 +28,8 @@ export default function JoinGame(): JSX.Element {
   const navigate = useNavigate();
   const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
 
-  const [username, setUsername] = useState("");
+  const [savedUsername, setSavedUsername] = useSavedUsername();
+  const [username, setUsername] = useState(savedUsername);
   const [isSpectator, setIsSpectator] = useState(false);
   const [error, setError] = useState("");
   const [isJoiningGame, setIsJoiningGame] = useState(false);
@@ -37,6 +39,7 @@ export default function JoinGame(): JSX.Element {
       event.preventDefault();
 
       setIsJoiningGame(true);
+      setSavedUsername(username);
 
       socket.emit(
         "joinGame",
@@ -56,7 +59,7 @@ export default function JoinGame(): JSX.Element {
         },
       );
     },
-    [gameId, isSpectator, navigate, socket, username],
+    [gameId, isSpectator, navigate, setSavedUsername, socket, username],
   );
 
   return (
@@ -76,6 +79,7 @@ export default function JoinGame(): JSX.Element {
               isRequired
               value={username}
               setValue={setUsername}
+              autoComplete={username}
             />
 
             <CheckboxField
