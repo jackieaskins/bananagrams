@@ -29,7 +29,7 @@ export default function Dump(): JSX.Element {
       backgroundColor={isOver ? (canDrop ? "green.700" : "red.700") : undefined}
       ref={dropRef}
     >
-      <CardBody textAlign="center" color="gray.500" width="fit-content">
+      <CardBody textAlign="center" color="gray.500">
         <Text>Dump!</Text>
         <Text>
           Drag a tile here to exchange it for {EXCHANGE_COUNT} from the bunch

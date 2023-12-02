@@ -4,7 +4,6 @@ import FormField, { FormFieldProps } from "./FormField";
 interface CheckboxFieldProps extends FormFieldProps {
   checked: boolean;
   children: React.ReactNode;
-  name: string;
   setChecked: (checked: boolean) => void;
 }
 
@@ -16,8 +15,9 @@ export default function CheckboxField({
   ...formFieldProps
 }: CheckboxFieldProps): JSX.Element {
   return (
-    <FormField {...formFieldProps}>
+    <FormField name={name} {...formFieldProps}>
       <Checkbox
+        id={name}
         name={name}
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}

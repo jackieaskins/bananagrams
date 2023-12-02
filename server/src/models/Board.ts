@@ -77,6 +77,10 @@ export default class Board implements BaseModel<BoardJSON> {
     }
   }
 
+  isEmptySquare(location: BoardLocation): boolean {
+    return !this.getSquare(location);
+  }
+
   toJSON(): BoardJSON {
     return Object.fromEntries(
       Object.entries(this.squares).map(([key, square]) => [

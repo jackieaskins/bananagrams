@@ -23,6 +23,12 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
 
 const MAJOR_CHANGES: Change[] = [
   {
+    id: "swap-tiles",
+    date: "2023-12-02",
+    description:
+      "Added the ability to swap tiles on the board by placing one tile on top of another.",
+  },
+  {
     id: "leave-game-tiles",
     date: "2023-11-30",
     description:

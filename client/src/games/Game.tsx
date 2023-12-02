@@ -10,6 +10,7 @@ import Hand from "../hands/Hand";
 import { Player, PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
+import GameSettings from "./GameSettings";
 import PeelButton from "./PeelButton";
 import SpectateButton from "./SpectateButton";
 
@@ -66,6 +67,8 @@ export default function Game(): JSX.Element {
               <Dump />
 
               <SpectateButton />
+
+              <GameSettings />
             </Stack>
 
             {activePlayers.length > 1 && (

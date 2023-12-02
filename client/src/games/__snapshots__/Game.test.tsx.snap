@@ -61,6 +61,7 @@ exports[`<Game /> renders properly 1`] = `
           />
           <Dump />
           <SpectateButton />
+          <GameSettings />
         </Stack>
       </Stack>
     </Stack>
@@ -129,6 +130,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
           />
           <Dump />
           <SpectateButton />
+          <GameSettings />
         </Stack>
         <Stack>
           <Text

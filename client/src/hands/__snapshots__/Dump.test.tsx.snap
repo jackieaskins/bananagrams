@@ -9,7 +9,6 @@ exports[`<Dump /> renders properly 1`] = `
   <ForwardRef(CardBody2)
     color="gray.500"
     textAlign="center"
-    width="fit-content"
   >
     <Text>
       Dump!

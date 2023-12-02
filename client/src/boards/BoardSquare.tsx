@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { useGame } from "../games/GameContext";
+import { useEnableTileSwap } from "../localStorage";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
 import { BoardSquare, Direction, ValidationStatus, WordInfo } from "./types";
@@ -31,12 +32,13 @@ export default function BoardSquare({
   x,
   y,
 }: BoardSquareProps): JSX.Element {
+  const [enableTileSwap] = useEnableTileSwap();
   const { handleMoveTileFromHandToBoard, handleMoveTileOnBoard } = useGame();
   const { tile, wordInfo } = boardSquare ?? {};
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: "TILE",
-    canDrop: (_, monitor) => monitor.isOver() && !tile,
+    canDrop: (_, monitor) => monitor.isOver() && (enableTileSwap || !tile),
     drop: ({ id, boardLocation }: TileItem) => {
       if (boardLocation) {
         handleMoveTileOnBoard(boardLocation, { x, y });

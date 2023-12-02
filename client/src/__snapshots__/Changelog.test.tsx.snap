@@ -27,6 +27,22 @@ exports[`<Changelog /> renders table of changes 1`] = `
       </ForwardRef>
       <ForwardRef>
         <ForwardRef
+          key="swap-tiles"
+        >
+          <ForwardRef
+            overflowWrap="break-word"
+            textAlign="right"
+            verticalAlign="top"
+          >
+            Dec 2, 2023
+          </ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
+            Added the ability to swap tiles on the board by placing one tile on top of another.
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
           key="leave-game-tiles"
         >
           <ForwardRef

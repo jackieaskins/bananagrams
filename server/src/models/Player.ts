@@ -1,6 +1,7 @@
 import BaseModel from "./BaseModel";
 import Board, { BoardLocation, BoardJSON } from "./Board";
 import Hand, { HandJSON } from "./Hand";
+import Tile from "./Tile";
 
 export enum PlayerStatus {
   NOT_READY = "NOT_READY",
@@ -107,10 +108,31 @@ export default class Player implements BaseModel<PlayerJSON> {
     this.board.reset();
   }
 
-  moveTileFromHandToBoard(tileId: string, location: BoardLocation): void {
-    this.board.validateEmptySquare(location);
-    const tile = this.hand.removeTile(tileId);
-    this.board.addTile(location, tile);
+  /*
+   * If location is empty:
+   *   Remove handTile from hand
+   *   Add handTile to board
+   *
+   * If location is not empty:
+   *   Remove boardTile from board
+   *   Add boardTile to hand
+   *   Remove handTile from hand
+   *   Add handTile to location
+   */
+  moveTileFromHandToBoard(
+    tileId: string,
+    location: BoardLocation,
+  ): Tile | null {
+    let boardTile: Tile | null = null;
+    if (!this.board.isEmptySquare(location)) {
+      boardTile = this.board.removeTile(location);
+      this.hand.addTiles([boardTile]);
+    }
+
+    const handTile = this.hand.removeTile(tileId);
+    this.board.addTile(location, handTile);
+
+    return boardTile;
   }
 
   moveTileFromBoardToHand(location: BoardLocation): void {
@@ -118,9 +140,34 @@ export default class Player implements BaseModel<PlayerJSON> {
     this.hand.addTiles([tile]);
   }
 
-  moveTileOnBoard(from: BoardLocation, to: BoardLocation): void {
-    this.board.validateEmptySquare(to);
-    const tile = this.board.removeTile(from);
-    this.board.addTile(to, tile);
+  /*
+   * If toLocation is empty:
+   *  Remove fromTile from fromLocation
+   *  Add fromTile to toLocation
+   *
+   * If toLocation is not empty:
+   *  Remove toTile from toLocation
+   *  Remove fromTile from fromLocation
+   *  Add fromTile to toLocation
+   *  Add toTile to fromLocation
+   */
+  moveTileOnBoard(
+    fromLocation: BoardLocation,
+    toLocation: BoardLocation,
+  ): Tile | null {
+    let toTile: Tile | null = null;
+
+    if (!this.board.isEmptySquare(toLocation)) {
+      toTile = this.board.removeTile(toLocation);
+    }
+
+    const fromTile = this.board.removeTile(fromLocation);
+    this.board.addTile(toLocation, fromTile);
+
+    if (toTile) {
+      this.board.addTile(fromLocation, toTile);
+    }
+
+    return toTile;
   }
 }

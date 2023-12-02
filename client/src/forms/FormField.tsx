@@ -6,6 +6,7 @@ export interface FormFieldProps {
   isReadOnly?: boolean;
   isRequired?: boolean;
   label?: React.ReactNode;
+  name: string;
 }
 
 export default function FormField({
@@ -15,6 +16,7 @@ export default function FormField({
   isReadOnly,
   isRequired,
   label,
+  name,
 }: FormFieldProps & { children: React.ReactNode }): JSX.Element {
   return (
     <FormControl
@@ -22,7 +24,7 @@ export default function FormField({
       isReadOnly={isReadOnly}
       isRequired={isRequired}
     >
-      {label && <FormLabel>{label}</FormLabel>}
+      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       {children}
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
