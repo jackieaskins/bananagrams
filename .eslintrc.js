@@ -33,10 +33,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { ignoreRestSiblings: true },
-    ],
+    "@typescript-eslint/no-unused-vars": "off",
     "arrow-body-style": ["error", "as-needed"],
     "import/order": [
       "error",

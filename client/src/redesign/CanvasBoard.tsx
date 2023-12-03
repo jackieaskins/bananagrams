@@ -1,19 +1,15 @@
 import { Group, Rect } from "react-konva";
+import { SetState } from "../state/types";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import { setCursorWrapper } from "./setCursor";
 
 type BoardProps = {
-  setOffset: React.Dispatch<
-    React.SetStateAction<{
-      x: number;
-      y: number;
-    }>
-  >;
+  setOffset: SetState<{ x: number; y: number }>;
 };
 
 export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
-  const { offset, size } = useCanvasContext();
+  const { boardRectRef, offset, size } = useCanvasContext();
 
   return (
     <Group
@@ -23,6 +19,7 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
       }}
     >
       <Rect
+        ref={boardRectRef}
         x={-offset.x}
         y={-offset.y}
         width={size.width}

@@ -12,13 +12,10 @@ const PADDING = 15;
 const SPACING = 7;
 
 export default function CanvasHand(): JSX.Element {
-  const { size } = useCanvasContext();
+  const { handRectRef, size } = useCanvasContext();
   const { hand } = useCurrentPlayer();
 
-  const [bgBase, bgAlpha] = useColorHex([
-    useColorModeValue("white", "gray.800"),
-    useColorModeValue("gray.100", "whiteAlpha.200"),
-  ]);
+  const [bgAlpha] = useColorHex([useColorModeValue("gray.100", "gray.700")]);
 
   const { tilesPerRow, handHeight, handWidth } = useMemo(() => {
     const tilesPerRow = Math.floor(
@@ -40,23 +37,20 @@ export default function CanvasHand(): JSX.Element {
       y={size.height - handHeight - TILE_SIZE * 1.5}
     >
       <Rect
+        ref={handRectRef}
         cornerRadius={10}
-        fill={bgBase}
-        width={handWidth}
-        height={handHeight}
-      />
-      <Rect
-        cornerRadius={10}
+        opacity={0.8}
         fill={bgAlpha}
         width={handWidth}
         height={handHeight}
         onMouseEnter={setCursorWrapper("default")}
       />
 
-      {hand.map(({ id, letter }, index) => (
+      {hand.map((tile, index) => (
         <CanvasTile
-          key={id}
-          letter={letter}
+          position="hand"
+          key={tile.id}
+          tile={tile}
           x={PADDING + (SPACING + TILE_SIZE) * (index % tilesPerRow)}
           y={PADDING + Math.floor(index / tilesPerRow) * (TILE_SIZE + SPACING)}
         />

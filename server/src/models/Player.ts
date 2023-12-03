@@ -155,6 +155,10 @@ export default class Player implements BaseModel<PlayerJSON> {
     fromLocation: BoardLocation,
     toLocation: BoardLocation,
   ): Tile | null {
+    if (fromLocation.x === toLocation.x && fromLocation.y === toLocation.y) {
+      return null;
+    }
+
     let toTile: Tile | null = null;
 
     if (!this.board.isEmptySquare(toLocation)) {

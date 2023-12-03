@@ -1,11 +1,11 @@
 import { screen, waitFor } from "@testing-library/react";
 import { useState } from "react";
-import { useEnableTileSwap } from "../localStorage";
+import { useEnableTileSwap } from "../LocalStorageContext";
 import { renderComponent } from "../testUtils";
 import GameSettings from "./GameSettings";
 
 const mockUseEnableTileSwap = useEnableTileSwap as jest.Mock;
-jest.mock("../localStorage", () => ({
+jest.mock("../LocalStorageContext", () => ({
   useEnableTileSwap: jest.fn(),
 }));
 

@@ -1,8 +1,8 @@
 import { screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { useSavedUsername } from "../LocalStorageContext";
 import { gameInfoFixture } from "../fixtures/game";
-import { useSavedUsername } from "../localStorage";
 import { renderComponent } from "../testUtils";
 import CreateGame from "./CreateGame";
 import { GameInfo } from "./types";
@@ -12,7 +12,7 @@ const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
 
 const mockSetSavedUsername = jest.fn();
 const mockUseSavedUsername = useSavedUsername as jest.Mock;
-jest.mock("../localStorage", () => ({
+jest.mock("../LocalStorageContext", () => ({
   useSavedUsername: jest.fn(),
 }));
 

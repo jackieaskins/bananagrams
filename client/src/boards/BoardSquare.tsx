@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
+import { useEnableTileSwap } from "../LocalStorageContext";
 import { useGame } from "../games/GameContext";
-import { useEnableTileSwap } from "../localStorage";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
 import { BoardSquare, Direction, ValidationStatus, WordInfo } from "./types";

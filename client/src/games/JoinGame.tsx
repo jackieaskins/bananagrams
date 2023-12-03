@@ -11,11 +11,11 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { useSavedUsername } from "../LocalStorageContext";
 import ErrorAlert from "../alerts/ErrorAlert";
 import CheckboxField from "../forms/CheckboxField";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
-import { useSavedUsername } from "../localStorage";
 import { useSocket } from "../socket/SocketContext";
 import { GameInfo, GameLocationState } from "./types";
 

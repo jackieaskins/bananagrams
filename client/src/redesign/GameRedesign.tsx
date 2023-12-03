@@ -1,9 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { Layer, Stage } from "react-konva";
-import CanvasBoard from "./CanvasBoard";
+import Canvas from "./Canvas";
 import { CanvasProvider } from "./CanvasContext";
-import CanvasHand from "./CanvasHand";
 import GameSidebar from "./GameSidebar";
 
 export default function GameRedesign(): JSX.Element {
@@ -37,12 +35,7 @@ export default function GameRedesign(): JSX.Element {
     <Flex justifyContent="end">
       <Box height="100vh">
         <CanvasProvider offset={offset} size={size}>
-          <Stage width={size.width} height={size.height}>
-            <Layer>
-              <CanvasBoard setOffset={setOffset} />
-              <CanvasHand />
-            </Layer>
-          </Stage>
+          <Canvas setOffset={setOffset} />
         </CanvasProvider>
       </Box>
 

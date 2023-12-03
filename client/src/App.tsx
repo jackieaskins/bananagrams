@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
+import { LocalStorageProvider } from "./LocalStorageContext";
 import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
 import { SocketProvider } from "./socket/SocketContext";
@@ -24,14 +25,16 @@ const toastOptions: ToastProviderProps = {
 
 export default function App(): JSX.Element {
   return (
-    <ChakraProvider theme={theme} toastOptions={toastOptions}>
-      <SocketProvider>
-        <BrowserRouter>
-          <ServerDisconnectDialog />
-          <AppRoutes />
-          <NavMenu />
-        </BrowserRouter>
-      </SocketProvider>
-    </ChakraProvider>
+    <LocalStorageProvider>
+      <ChakraProvider theme={theme} toastOptions={toastOptions}>
+        <SocketProvider>
+          <BrowserRouter>
+            <ServerDisconnectDialog />
+            <AppRoutes />
+            <NavMenu />
+          </BrowserRouter>
+        </SocketProvider>
+      </ChakraProvider>
+    </LocalStorageProvider>
   );
 }

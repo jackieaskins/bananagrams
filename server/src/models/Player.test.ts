@@ -14,23 +14,23 @@ describe("Player Model", () => {
   });
 
   describe("getUserId", () => {
-    test("returns user id", () => {
+    it("returns user id", () => {
       expect(player.getUserId()).toEqual(userId);
     });
   });
 
   describe("getUsername", () => {
-    test("returns user name", () => {
+    it("returns user name", () => {
       expect(player.getUsername()).toEqual(username);
     });
   });
 
   describe("set/getStatus", () => {
-    test("returns status", () => {
+    it("returns status", () => {
       expect(player.getStatus()).toBe(PlayerStatus.NOT_READY);
     });
 
-    test("sets ready", () => {
+    it("sets status", () => {
       player.setStatus(PlayerStatus.READY);
 
       expect(player.getStatus()).toBe(PlayerStatus.READY);
@@ -38,11 +38,11 @@ describe("Player Model", () => {
   });
 
   describe("set/isTopBanana", () => {
-    test("returns false by default", () => {
+    it("returns false by default", () => {
       expect(player.isTopBanana()).toBe(false);
     });
 
-    test("sets isTopBanana", () => {
+    it("sets isTopBanana", () => {
       player.setTopBanana(true);
 
       expect(player.isTopBanana()).toBe(true);
@@ -50,17 +50,17 @@ describe("Player Model", () => {
   });
 
   describe("set/isAdmin", () => {
-    test("returns admin", () => {
+    it("returns admin", () => {
       expect(player.isAdmin()).toBe(false);
     });
 
-    test("returns true for admin user", () => {
+    it("returns true for admin user", () => {
       expect(
         new Player(userId, username, PlayerStatus.NOT_READY, true).isAdmin(),
       ).toBe(true);
     });
 
-    test("sets isAdmin", () => {
+    it("sets isAdmin", () => {
       player.setAdmin(true);
 
       expect(player.isAdmin()).toBe(true);
@@ -68,11 +68,11 @@ describe("Player Model", () => {
   });
 
   describe("get/incrementGamesWon", () => {
-    test("returns 0 by default", () => {
+    it("returns 0 by default", () => {
       expect(player.getGamesWon()).toBe(0);
     });
 
-    test("increments games won", () => {
+    it("increments games won", () => {
       player.incrementGamesWon();
 
       expect(player.getGamesWon()).toBe(1);
@@ -80,7 +80,7 @@ describe("Player Model", () => {
   });
 
   describe("toJSON", () => {
-    test("converts fields into JSON", () => {
+    it("converts fields into JSON", () => {
       expect(player.toJSON()).toMatchSnapshot();
     });
   });
@@ -93,11 +93,11 @@ describe("Player Model", () => {
       player.reset();
     });
 
-    test("resets hand", () => {
+    it("resets hand", () => {
       expect(player.getHand().reset).toHaveBeenCalledWith();
     });
 
-    test("resets board", () => {
+    it("resets board", () => {
       expect(player.getBoard().reset).toHaveBeenCalledWith();
     });
   });
@@ -115,17 +115,17 @@ describe("Player Model", () => {
       player.moveTileFromHandToBoard(tile.getId(), location);
     });
 
-    test("validates that board square is empty", () => {
+    it("validates that board square is empty", () => {
       expect(player.getBoard().validateEmptySquare).toHaveBeenCalledWith(
         location,
       );
     });
 
-    test("removes tile from hand", () => {
+    it("removes tile from hand", () => {
       expect(player.getHand().removeTile).toHaveBeenCalledWith(tile.getId());
     });
 
-    test("adds removed tile to board", () => {
+    it("adds removed tile to board", () => {
       expect(player.getBoard().addTile).toHaveBeenCalledWith(location, tile);
     });
   });
@@ -142,11 +142,11 @@ describe("Player Model", () => {
       player.moveTileFromBoardToHand(location);
     });
 
-    test("removes tile from board", () => {
+    it("removes tile from board", () => {
       expect(player.getBoard().removeTile).toHaveBeenCalledWith(location);
     });
 
-    test("adds removed tile to hand", () => {
+    it("adds removed tile to hand", () => {
       expect(player.getHand().addTiles).toHaveBeenCalledWith([tile]);
     });
   });
@@ -165,15 +165,15 @@ describe("Player Model", () => {
       player.moveTileOnBoard(from, to);
     });
 
-    test("validates to location is empty", () => {
+    it("validates to location is empty", () => {
       expect(player.getBoard().validateEmptySquare).toHaveBeenCalledWith(to);
     });
 
-    test("removes tile from from location", () => {
+    it("removes tile from from location", () => {
       expect(player.getBoard().removeTile).toHaveBeenCalledWith(from);
     });
 
-    test("adds removed tile to to location", () => {
+    it("adds removed tile to to location", () => {
       expect(player.getBoard().addTile).toHaveBeenCalledWith(to, tile);
     });
   });

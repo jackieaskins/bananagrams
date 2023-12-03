@@ -1,5 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
-import { useEnableTileSwap, useSavedUsername } from "./localStorage";
+import {
+  LocalStorageProvider,
+  useEnableTileSwap,
+  useSavedUsername,
+} from "./LocalStorageContext";
 import { SetState } from "./state/types";
 
 const args: Array<{
@@ -22,6 +26,10 @@ const args: Array<{
   },
 ];
 
+function renderLocalStorage(hook: () => [any, SetState<any>]) {
+  return renderHook(hook, { wrapper: LocalStorageProvider });
+}
+
 describe("localStorage", () => {
   afterEach(() => {
     localStorage.clear();
@@ -29,7 +37,7 @@ describe("localStorage", () => {
 
   describe.each(args)("$hook", ({ key, hook, defaultVal, otherVal }) => {
     it(`returns ${defaultVal} if not set`, () => {
-      const { result } = renderHook(hook);
+      const { result } = renderLocalStorage(hook);
 
       expect(result.current[0]).toBe(defaultVal);
     });
@@ -37,13 +45,13 @@ describe("localStorage", () => {
     it("returns value stored in local storage", () => {
       localStorage.setItem(key, JSON.stringify(otherVal));
 
-      const { result } = renderHook(hook);
+      const { result } = renderLocalStorage(hook);
 
       expect(result.current[0]).toBe(otherVal);
     });
 
     it("updates value in local storage", () => {
-      const { result } = renderHook(hook);
+      const { result } = renderLocalStorage(hook);
 
       expect(result.current[0]).toBe(defaultVal);
 
@@ -58,7 +66,7 @@ describe("localStorage", () => {
     it("returns default value when invalid item is in local storage", () => {
       localStorage.setItem(key, "invalid");
 
-      const { result } = renderHook(hook);
+      const { result } = renderLocalStorage(hook);
 
       expect(result.current[0]).toBe(defaultVal);
     });
