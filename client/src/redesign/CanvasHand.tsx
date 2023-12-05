@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
+import CanvasTile from "./CanvasTile";
 import { setCursorWrapper } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 import { useCurrentPlayer } from "./useCurrentPlayer";
@@ -16,7 +17,7 @@ export default function CanvasHand(): JSX.Element {
 
   const [bgAlpha] = useColorHex([useColorModeValue("gray.100", "gray.700")]);
 
-  const { handHeight, handWidth } = useMemo(() => {
+  const { tilesPerRow, handHeight, handWidth } = useMemo(() => {
     const tilesPerRow = Math.floor(
       (size.width * 0.8 - PADDING * 2 + SPACING) / (TILE_SIZE + SPACING),
     );
@@ -44,6 +45,16 @@ export default function CanvasHand(): JSX.Element {
         height={handHeight}
         onMouseEnter={setCursorWrapper("default")}
       />
+
+      {hand.map((tile, index) => (
+        <CanvasTile
+          position="hand"
+          key={tile.id}
+          tile={tile}
+          x={PADDING + (SPACING + TILE_SIZE) * (index % tilesPerRow)}
+          y={PADDING + Math.floor(index / tilesPerRow) * (TILE_SIZE + SPACING)}
+        />
+      ))}
     </Group>
   );
 }
