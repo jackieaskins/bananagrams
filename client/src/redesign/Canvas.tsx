@@ -2,9 +2,10 @@ import { Layer, Stage } from "react-konva";
 import { parseBoardKey } from "../boards/key";
 import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
+import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
+import { TILE_SIZE } from "./CanvasGrid";
 import CanvasHand from "./CanvasHand";
-import CanvasTile from "./CanvasTile";
 import { useCurrentPlayer } from "./useCurrentPlayer";
 
 type CanvasProps = {
@@ -20,15 +21,14 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
       <Layer>
         <CanvasBoard setOffset={setOffset} />
 
-        {Object.entries(board).map(([boardKey, { tile }]) => {
+        {Object.entries(board).map(([boardKey, boardSquare]) => {
           const { x, y } = parseBoardKey(boardKey);
           return (
-            <CanvasTile
-              position="board"
-              key={`${tile.id}-${boardKey}`}
-              tile={tile}
-              x={x + offset.x}
-              y={y + offset.y}
+            <CanvasBoardTile
+              key={`${boardSquare.tile.id}-${boardKey}`}
+              boardSquare={boardSquare}
+              x={x * TILE_SIZE + offset.x}
+              y={y * TILE_SIZE + offset.y}
             />
           );
         })}

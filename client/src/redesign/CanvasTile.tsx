@@ -1,8 +1,9 @@
 import Konva from "konva";
-import { useCallback, useRef } from "react";
+import { KonvaEventObject } from "konva/lib/Node";
+import { Vector2d } from "konva/lib/types";
+import { useCallback } from "react";
 import { Group, Rect, Text } from "react-konva";
 import { BoardLocation } from "../boards/types";
-import { useGame } from "../games/GameContext";
 import { Tile } from "../tiles/types";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
@@ -10,39 +11,40 @@ import { setCursor, setCursorWrapper } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 
 export type TileProps = {
-  position: "hand" | "board";
+  color?: string;
   tile: Tile;
   x: number;
   y: number;
+  tileRef: React.RefObject<Konva.Group>;
+  onDragEnd: (pointerPosition: Vector2d, boardPosition: BoardLocation) => void;
 };
 
 export default function CanvasTile({
-  position,
-  tile: { letter, id },
+  color = "black",
+  tile: { letter },
   x,
   y,
+  tileRef,
+  onDragEnd,
 }: TileProps): JSX.Element {
-  const { handRectRef, stageRef, offset } = useCanvasContext();
-  const tileRef = useRef<Konva.Group>(null);
+  const { stageRef, offset } = useCanvasContext();
   const [tileBg] = useColorHex(["yellow.100"]);
-  const {
-    handleMoveTileFromBoardToHand,
-    handleMoveTileFromHandToBoard,
-    handleMoveTileOnBoard,
-  } = useGame();
 
-  const snapToBoard = useCallback(
-    (location: BoardLocation) => {
-      function roundDown(val: number, multiplier: number): number {
-        return Math.floor(val / multiplier) * multiplier;
+  const handleDragEnd = useCallback(
+    (evt: KonvaEventObject<DragEvent>) => {
+      setCursor(evt, "grab");
+      const pointerPosition = stageRef.current?.getPointerPosition();
+
+      if (!pointerPosition) {
+        return;
       }
 
-      return {
-        x: roundDown(location.x - offset.x, TILE_SIZE),
-        y: roundDown(location.y - offset.y, TILE_SIZE),
-      };
+      onDragEnd(pointerPosition, {
+        x: Math.floor((pointerPosition.x - offset.x) / TILE_SIZE),
+        y: Math.floor((pointerPosition.y - offset.y) / TILE_SIZE),
+      });
     },
-    [offset],
+    [offset.x, offset.y, onDragEnd, stageRef],
   );
 
   return (
@@ -54,44 +56,11 @@ export default function CanvasTile({
         tileRef.current?.startDrag(evt);
       }}
       onMouseEnter={setCursorWrapper("grab")}
-      onDragStart={(evt) => {
-        setCursor(evt, "grabbing");
+      onMouseDown={setCursorWrapper("grabbing")}
+      onDragStart={() => {
         tileRef.current?.moveToTop();
       }}
-      onDragEnd={(evt) => {
-        setCursor(evt, "grab");
-        const pointerPosition = stageRef.current?.getPointerPosition();
-
-        if (!pointerPosition) {
-          return;
-        }
-
-        if (handRectRef.current?.intersects(pointerPosition)) {
-          if (position === "hand") {
-            tileRef.current?.position({ x, y });
-          } else {
-            handleMoveTileFromBoardToHand({ x: x - offset.x, y: y - offset.y });
-          }
-
-          return;
-        }
-
-        if (position === "hand") {
-          handleMoveTileFromHandToBoard(id, snapToBoard(pointerPosition));
-        } else {
-          const fromLocation = { x: x - offset.x, y: y - offset.y };
-          const toLocation = snapToBoard(pointerPosition);
-
-          if (
-            fromLocation.x === toLocation.x &&
-            fromLocation.y === toLocation.y
-          ) {
-            tileRef.current?.position({ x, y });
-          } else {
-            handleMoveTileOnBoard(fromLocation, toLocation);
-          }
-        }
-      }}
+      onDragEnd={handleDragEnd}
       draggable
     >
       <Rect
@@ -99,14 +68,14 @@ export default function CanvasTile({
         height={TILE_SIZE}
         fill={tileBg}
         cornerRadius={5}
-        stroke="black"
+        stroke={color}
       />
 
       <Text
         text={letter}
         width={TILE_SIZE}
         height={TILE_SIZE + 1}
-        fill="black"
+        fill={color}
         verticalAlign="middle"
         align="center"
         fontSize={TILE_SIZE / 2}
