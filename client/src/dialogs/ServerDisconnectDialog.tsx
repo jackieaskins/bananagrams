@@ -9,17 +9,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSocket } from "../socket/SocketContext";
 
 export default function ServerDisconnectDialog(): JSX.Element {
   const { isOpen, onClose, onOpen } = useDisclosure({
     onClose: () => {
-      navigate(pathname.startsWith("/redesign") ? "/redesign" : "/");
+      window.location.assign(
+        pathname.startsWith("/redesign") ? "/redesign" : "/",
+      );
     },
   });
   const { socket } = useSocket();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {

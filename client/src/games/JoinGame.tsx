@@ -101,7 +101,12 @@ export default function JoinGame(): JSX.Element {
             Join game
           </Button>
 
-          <ChakraLink as={ReactRouterLink} to="../.." textAlign="center">
+          <ChakraLink
+            as={ReactRouterLink}
+            to="../../.."
+            textAlign="center"
+            relative="path"
+          >
             Go home
           </ChakraLink>
         </Stack>

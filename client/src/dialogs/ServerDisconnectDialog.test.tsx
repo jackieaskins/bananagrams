@@ -48,7 +48,7 @@ describe("<ServerDisconnectDialog />", () => {
     await user.click(screen.getByRole("button", { name: "Return home" }));
 
     await waitFor(() => {
-      expect(screen.getByText(/^Home$/)).toBeInTheDocument();
+      expect(window.location).toBeAt("/");
     });
   });
 
@@ -59,7 +59,7 @@ describe("<ServerDisconnectDialog />", () => {
     await user.click(screen.getByRole("button", { name: "Return home" }));
 
     await waitFor(() => {
-      expect(screen.getByText(/^Redesigned home$/)).toBeInTheDocument();
+      expect(window.location).toBeAt("/redesign");
     });
   });
 });
