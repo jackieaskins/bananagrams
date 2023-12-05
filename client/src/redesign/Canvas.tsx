@@ -2,6 +2,7 @@ import { Layer, Stage } from "react-konva";
 import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
+import CanvasHand from "./CanvasHand";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
@@ -14,6 +15,7 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
     <Stage width={size.width} height={size.height} ref={stageRef}>
       <Layer>
         <CanvasBoard setOffset={setOffset} />
+        <CanvasHand />
       </Layer>
     </Stage>
   );
