@@ -1,14 +1,14 @@
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { Vector2d } from "konva/lib/types";
-import { useCallback } from "react";
-import { Group, Rect, Text } from "react-konva";
+import { useCallback, useState } from "react";
+import { Group } from "react-konva";
 import { BoardLocation } from "../boards/types";
 import { Tile } from "../tiles/types";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
+import CanvasInnerTile from "./CanvasInnerTile";
 import { setCursor, setCursorWrapper } from "./setCursor";
-import { useColorHex } from "./useColorHex";
 
 export type TileProps = {
   color?: string;
@@ -20,19 +20,20 @@ export type TileProps = {
 };
 
 export default function CanvasTile({
-  color = "black",
-  tile: { letter },
+  color,
+  tile,
   x,
   y,
   tileRef,
   onDragEnd,
 }: TileProps): JSX.Element {
   const { stageRef, offset } = useCanvasContext();
-  const [tileBg] = useColorHex(["yellow.100"]);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleDragEnd = useCallback(
     (evt: KonvaEventObject<DragEvent>) => {
       setCursor(evt, "grab");
+      setIsDragging(false);
       const pointerPosition = stageRef.current?.getPointerPosition();
 
       if (!pointerPosition) {
@@ -48,39 +49,29 @@ export default function CanvasTile({
   );
 
   return (
-    <Group
-      x={x}
-      y={y}
-      ref={tileRef}
-      onClick={(evt) => {
-        tileRef.current?.startDrag(evt);
-      }}
-      onMouseEnter={setCursorWrapper("grab")}
-      onMouseDown={setCursorWrapper("grabbing")}
-      onDragStart={() => {
-        tileRef.current?.moveToTop();
-      }}
-      onDragEnd={handleDragEnd}
-      draggable
-    >
-      <Rect
-        width={TILE_SIZE}
-        height={TILE_SIZE}
-        fill={tileBg}
-        cornerRadius={5}
-        stroke={color}
-      />
+    <>
+      <Group x={x} y={y} opacity={0.6} visible={isDragging}>
+        <CanvasInnerTile color={color} tile={tile} />
+      </Group>
 
-      <Text
-        text={letter}
-        width={TILE_SIZE}
-        height={TILE_SIZE + 1}
-        fill={color}
-        verticalAlign="middle"
-        align="center"
-        fontSize={TILE_SIZE / 2}
-        fontStyle="bold"
-      />
-    </Group>
+      <Group
+        x={x}
+        y={y}
+        ref={tileRef}
+        onClick={() => {
+          tileRef.current?.startDrag();
+        }}
+        onMouseEnter={setCursorWrapper("grab")}
+        onMouseDown={setCursorWrapper("grabbing")}
+        onDragStart={() => {
+          setIsDragging(true);
+          tileRef.current?.moveToTop();
+        }}
+        onDragEnd={handleDragEnd}
+        draggable
+      >
+        <CanvasInnerTile color={color} tile={tile} />
+      </Group>
+    </>
   );
 }

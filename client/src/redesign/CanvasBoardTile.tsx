@@ -30,7 +30,7 @@ function getColor(wordInfo: Record<Direction, WordInfo>): string {
   const validations = Object.values(wordInfo).filter(isValidated);
 
   if (validations.length === 0) return "black";
-  if (validations.every(isValid)) return "green.500";
+  if (validations.every(isValid)) return "green.600";
   return "red.600";
 }
 
