@@ -9,6 +9,7 @@ import {
   WordInfo,
 } from "../boards/types";
 import { useGame } from "../games/GameContext";
+import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
 import CanvasTile from "./CanvasTile";
@@ -79,6 +80,7 @@ export default function CanvasBoardTile({
 
   return (
     <CanvasTile
+      dragLayer={BOARD_TILE_DRAG_LAYER}
       tile={tile}
       x={x}
       y={y}

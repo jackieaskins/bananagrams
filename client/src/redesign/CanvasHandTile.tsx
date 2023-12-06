@@ -4,6 +4,7 @@ import { useCallback, useRef } from "react";
 import { BoardLocation } from "../boards/types";
 import { useGame } from "../games/GameContext";
 import { Tile } from "../tiles/types";
+import { HAND_TILE_DRAG_LAYER } from "./Canvas";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
 
@@ -35,6 +36,7 @@ export default function CanvasHandTile({
 
   return (
     <CanvasTile
+      dragLayer={HAND_TILE_DRAG_LAYER}
       tile={tile}
       x={x}
       y={y}
