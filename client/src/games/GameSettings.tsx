@@ -37,7 +37,6 @@ export default function GameSettings(): JSX.Element {
 
             <ForwardedTooltip
               label="When enabled, dropping a tile on top of another tile on the board will result in the two tiles swapping places"
-              shouldWrapChildren
               hasArrow
             >
               <FaCircleInfo />

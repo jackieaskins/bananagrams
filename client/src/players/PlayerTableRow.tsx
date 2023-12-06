@@ -19,6 +19,7 @@ import {
   FaXmark,
 } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
+import ForwardedTooltip from "../common/ForwardedTooltip";
 import { useSocket } from "../socket/SocketContext";
 import { Player, PlayerStatus } from "./types";
 
@@ -103,9 +104,19 @@ export default function PlayerTableRow({
       <Td>
         <HStack>
           <span>{username}</span>
-          {isAdmin && <Icon as={FaKey} boxSize={3} aria-label="Admin" />}
+          {isAdmin && (
+            <ForwardedTooltip label="Admin" hasArrow>
+              <Icon as={FaKey} boxSize={3} aria-label="Admin" />
+            </ForwardedTooltip>
+          )}
           {isTopBanana && (
-            <Icon as={FaCrown} boxSize={3} aria-label="Previous round winner" />
+            <ForwardedTooltip label="Previous round winner" hasArrow>
+              <Icon
+                as={FaCrown}
+                boxSize={3}
+                aria-label="Previous round winner"
+              />
+            </ForwardedTooltip>
           )}
         </HStack>
       </Td>
