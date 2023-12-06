@@ -31,7 +31,7 @@ export default function Game(): JSX.Element {
   );
 
   const canPeel = hand.length === 0 && isValidConnectedBoard(board);
-  const peelWinsGame = bunch.length < players.length;
+  const peelWinsGame = bunch.length < activePlayers.length;
 
   return (
     // @ts-expect-error DndProvider doesn't work well with React.FC change

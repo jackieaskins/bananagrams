@@ -57,7 +57,7 @@ exports[`<Game /> renders properly 1`] = `
           <PeelButton
             canPeel={false}
             handlePeel={[MockFunction handlePeel]}
-            peelWinsGame={true}
+            peelWinsGame={false}
           />
           <Dump />
           <SpectateButton />
