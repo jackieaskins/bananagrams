@@ -19,6 +19,7 @@ export type TileProps = {
   y: number;
   tileRef: React.RefObject<Konva.Group>;
   onDragEnd: (pointerPosition: Vector2d, boardPosition: BoardLocation) => void;
+  onHandHover?: (isOverHand: boolean) => void;
 };
 
 export default function CanvasTile({
@@ -29,9 +30,38 @@ export default function CanvasTile({
   y,
   tileRef,
   onDragEnd,
+  onHandHover,
 }: TileProps): JSX.Element {
-  const { stageRef, offset } = useCanvasContext();
+  const {
+    boardRectRef,
+    handRectRef,
+    offset,
+    setHoveredBoardPosition,
+    stageRef,
+  } = useCanvasContext();
   const [isDragging, setDragging] = useState(false);
+
+  const handleDragMove = useCallback(() => {
+    const pointerPosition = stageRef.current?.getPointerPosition();
+
+    const overHand =
+      !!pointerPosition && !!handRectRef.current?.intersects(pointerPosition);
+    onHandHover?.(overHand);
+
+    if (overHand) {
+      setHoveredBoardPosition(null);
+    } else {
+      setHoveredBoardPosition(
+        boardRectRef.current?.getParent()?.getRelativePointerPosition() ?? null,
+      );
+    }
+  }, [
+    boardRectRef,
+    handRectRef,
+    onHandHover,
+    setHoveredBoardPosition,
+    stageRef,
+  ]);
 
   const handleDragEnd = useCallback(
     (evt: KonvaEventObject<DragEvent>) => {
@@ -47,35 +77,46 @@ export default function CanvasTile({
         x: Math.floor((pointerPosition.x - offset.x) / TILE_SIZE),
         y: Math.floor((pointerPosition.y - offset.y) / TILE_SIZE),
       });
+
+      onHandHover?.(false);
+      setHoveredBoardPosition(null);
     },
-    [offset.x, offset.y, onDragEnd, stageRef],
+    [
+      offset.x,
+      offset.y,
+      onDragEnd,
+      onHandHover,
+      setHoveredBoardPosition,
+      stageRef,
+    ],
   );
 
   return (
-    <>
-      <Group x={x} y={y} opacity={0.6} visible={isDragging}>
-        <CanvasInnerTile color={color} tile={tile} />
-      </Group>
-
-      <Portal selector={`.${dragLayer}`} enabled={isDragging}>
-        <Group
-          x={x}
-          y={y}
-          ref={tileRef}
-          onClick={() => {
-            tileRef.current?.startDrag();
-          }}
-          onMouseEnter={setCursorWrapper("grab")}
-          onMouseDown={setCursorWrapper("grabbing")}
-          onDragStart={() => {
-            setDragging(true);
-          }}
-          onDragEnd={handleDragEnd}
-          draggable
-        >
+    <Portal selector={`.${dragLayer}`} enabled={isDragging}>
+      {isDragging && (
+        <Group x={x} y={y} opacity={0.6}>
           <CanvasInnerTile color={color} tile={tile} />
         </Group>
-      </Portal>
-    </>
+      )}
+
+      <Group
+        x={x}
+        y={y}
+        ref={tileRef}
+        onClick={() => {
+          tileRef.current?.startDrag();
+        }}
+        onMouseEnter={setCursorWrapper("grab")}
+        onMouseDown={setCursorWrapper("grabbing")}
+        onDragStart={() => {
+          setDragging(true);
+        }}
+        onDragMove={handleDragMove}
+        onDragEnd={handleDragEnd}
+        draggable
+      >
+        <CanvasInnerTile color={color} tile={tile} />
+      </Group>
+    </Portal>
   );
 }

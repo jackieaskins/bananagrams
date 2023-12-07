@@ -12,6 +12,7 @@ import { useGame } from "../games/GameContext";
 import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
+import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasHand";
 import CanvasTile from "./CanvasTile";
 import { useColorHex } from "./useColorHex";
 
@@ -87,6 +88,11 @@ export default function CanvasBoardTile({
       tileRef={tileRef}
       onDragEnd={handleDragEnd}
       color={color}
+      onHandHover={(isOverHand) => {
+        handRectRef.current?.fire(
+          isOverHand ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
+        );
+      }}
     />
   );
 }

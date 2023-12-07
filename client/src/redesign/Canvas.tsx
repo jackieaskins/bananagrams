@@ -3,6 +3,7 @@ import { Layer, Stage } from "react-konva";
 import { parseBoardKey } from "../boards/key";
 import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
+import CanvasBoardOverlay from "./CanvasBoardOverlay";
 import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
@@ -27,7 +28,7 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
     if (handPosition) {
       setHandPosition({ handX: handPosition.x, handY: handPosition.y });
     }
-  }, [handRectRef, size]);
+  }, [handRectRef, size]); // Size included so we recalculate when size changes
 
   return (
     <Stage width={size.width} height={size.height} ref={stageRef}>
@@ -46,12 +47,19 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
           );
         })}
 
+        <CanvasBoardOverlay />
+
         <CanvasHand />
       </Layer>
 
       {/* Ensure dragging tiles appear above the other layer */}
-      <Layer name={BOARD_TILE_DRAG_LAYER} />
-      <Layer name={HAND_TILE_DRAG_LAYER} x={handX} y={handY} />
+      <Layer name={BOARD_TILE_DRAG_LAYER} listening={false} />
+      <Layer
+        name={HAND_TILE_DRAG_LAYER}
+        x={handX}
+        y={handY}
+        listening={false}
+      />
     </Stage>
   );
 }

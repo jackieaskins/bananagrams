@@ -1,5 +1,5 @@
 import { useColorModeValue } from "@chakra-ui/react";
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
@@ -11,11 +11,17 @@ import { useCurrentPlayer } from "./useCurrentPlayer";
 const PADDING = 15;
 const SPACING = 7;
 
+export const DRAG_OVER_EVENT = "dragOver";
+export const DRAG_LEAVE_EVENT = "dragLeave";
+
 export default function CanvasHand(): JSX.Element {
+  const [tileOver, setTileOver] = useState(false);
   const { handRectRef, size } = useCanvasContext();
   const { hand } = useCurrentPlayer();
-
-  const [bgAlpha] = useColorHex([useColorModeValue("gray.100", "gray.700")]);
+  const [inactiveBgColor, activeBgColor] = useColorHex([
+    useColorModeValue("gray.100", "gray.700"),
+    useColorModeValue("gray.300", "gray.600"),
+  ]);
 
   const { tilesPerRow, handHeight, handWidth } = useMemo(() => {
     const tilesPerRow = Math.floor(
@@ -31,6 +37,23 @@ export default function CanvasHand(): JSX.Element {
     };
   }, [hand.length, size.width]);
 
+  useLayoutEffect(() => {
+    const currentHandRectRef = handRectRef.current;
+
+    currentHandRectRef?.addEventListener(DRAG_OVER_EVENT, () => {
+      setTileOver(true);
+    });
+
+    currentHandRectRef?.addEventListener(DRAG_LEAVE_EVENT, () => {
+      setTileOver(false);
+    });
+
+    return () => {
+      currentHandRectRef?.removeEventListener(DRAG_OVER_EVENT);
+      currentHandRectRef?.removeEventListener(DRAG_LEAVE_EVENT);
+    };
+  }, [activeBgColor, handRectRef, inactiveBgColor]);
+
   return (
     <Group
       x={size.width / 2 - handWidth / 2}
@@ -40,7 +63,7 @@ export default function CanvasHand(): JSX.Element {
         ref={handRectRef}
         cornerRadius={10}
         opacity={0.8}
-        fill={bgAlpha}
+        fill={tileOver ? activeBgColor : inactiveBgColor}
         width={handWidth}
         height={handHeight}
         onMouseEnter={setCursorWrapper("default")}
