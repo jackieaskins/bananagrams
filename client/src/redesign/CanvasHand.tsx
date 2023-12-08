@@ -1,5 +1,5 @@
 import { useColorModeValue } from "@chakra-ui/react";
-import { useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { TILE_SIZE } from "./CanvasGrid";
@@ -16,7 +16,12 @@ export const DRAG_LEAVE_EVENT = "dragLeave";
 
 export default function CanvasHand(): JSX.Element {
   const [tileOver, setTileOver] = useState(false);
-  const { handRectRef, size } = useCanvasContext();
+  const {
+    handRectRef,
+    size,
+    setHandLocation,
+    handLocation: { x, y },
+  } = useCanvasContext();
   const { hand } = useCurrentPlayer();
   const [inactiveBgColor, activeBgColor] = useColorHex([
     useColorModeValue("gray.100", "gray.700"),
@@ -37,6 +42,13 @@ export default function CanvasHand(): JSX.Element {
     };
   }, [hand.length, size.width]);
 
+  useEffect(() => {
+    setHandLocation({
+      x: size.width / 2 - handWidth / 2,
+      y: size.height - handHeight - TILE_SIZE * 1.5,
+    });
+  }, [handHeight, handWidth, setHandLocation, size.height, size.width]);
+
   useLayoutEffect(() => {
     const currentHandRectRef = handRectRef.current;
 
@@ -55,10 +67,7 @@ export default function CanvasHand(): JSX.Element {
   }, [activeBgColor, handRectRef, inactiveBgColor]);
 
   return (
-    <Group
-      x={size.width / 2 - handWidth / 2}
-      y={size.height - handHeight - TILE_SIZE * 1.5}
-    >
+    <Group x={x} y={y}>
       <Rect
         ref={handRectRef}
         cornerRadius={10}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Layer, Stage } from "react-konva";
 import { parseBoardKey } from "../boards/key";
 import { SetState } from "../state/types";
@@ -18,17 +17,8 @@ export const BOARD_TILE_DRAG_LAYER = "board-tile-drag-layer";
 export const HAND_TILE_DRAG_LAYER = "hand-tile-drag-layer";
 
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
-  const { handRectRef, size, stageRef, offset } = useCanvasContext();
-  const [{ handX, handY }, setHandPosition] = useState({ handX: 0, handY: 0 });
+  const { size, stageRef, offset, handLocation } = useCanvasContext();
   const { board } = useCurrentPlayer();
-
-  useEffect(() => {
-    const handPosition = handRectRef.current?.getParent()?.getPosition();
-
-    if (handPosition) {
-      setHandPosition({ handX: handPosition.x, handY: handPosition.y });
-    }
-  }, [handRectRef, size]); // Size included so we recalculate when size changes
 
   return (
     <Stage width={size.width} height={size.height} ref={stageRef}>
@@ -56,8 +46,8 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
       <Layer name={BOARD_TILE_DRAG_LAYER} listening={false} />
       <Layer
         name={HAND_TILE_DRAG_LAYER}
-        x={handX}
-        y={handY}
+        x={handLocation.x}
+        y={handLocation.y}
         listening={false}
       />
     </Stage>

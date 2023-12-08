@@ -20,6 +20,8 @@ type CanvasContextState = {
   offset: Offset;
   hoveredBoardPosition: BoardLocation | null;
   setHoveredBoardPosition: SetState<BoardLocation | null>;
+  handLocation: BoardLocation;
+  setHandLocation: SetState<BoardLocation>;
 };
 
 type CanvasProviderProps = {
@@ -36,6 +38,8 @@ const CanvasContext = createContext<CanvasContextState>({
   stageRef: createRef(),
   hoveredBoardPosition: null,
   setHoveredBoardPosition: () => null,
+  handLocation: { x: 0, y: 0 },
+  setHandLocation: () => null,
 });
 
 export function CanvasProvider({
@@ -48,18 +52,24 @@ export function CanvasProvider({
   const stageRef = useRef<Konva.Stage>(null);
   const [hoveredBoardPosition, setHoveredBoardPosition] =
     useState<BoardLocation | null>(null);
+  const [handLocation, setHandLocation] = useState<BoardLocation>({
+    x: 0,
+    y: 0,
+  });
 
   const value = useMemo(
     () => ({
       boardRectRef,
+      handLocation,
       handRectRef,
       hoveredBoardPosition,
+      setHandLocation,
       setHoveredBoardPosition,
       size,
       stageRef,
       offset,
     }),
-    [hoveredBoardPosition, offset, size],
+    [handLocation, hoveredBoardPosition, offset, size],
   );
 
   return (
