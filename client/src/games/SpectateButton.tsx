@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonProps,
+  IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -10,16 +11,34 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
+import { FaEye } from "react-icons/fa6";
 import { PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 
-export default function SpectateButton(buttonProps: ButtonProps): JSX.Element {
+export interface SpectateButtonProps extends ButtonProps {
+  hideText?: boolean;
+}
+
+export default function SpectateButton({
+  hideText,
+  ...buttonProps
+}: SpectateButtonProps): JSX.Element {
   const { socket } = useSocket();
 
   return (
     <Popover>
       <PopoverTrigger>
-        <Button {...buttonProps}>Switch to spectator</Button>
+        {hideText ? (
+          <IconButton
+            {...buttonProps}
+            icon={<FaEye />}
+            aria-label="Switch to spectator"
+          />
+        ) : (
+          <Button {...buttonProps} leftIcon={<FaEye />}>
+            Switch to spectator
+          </Button>
+        )}
       </PopoverTrigger>
 
       <PopoverContent>

@@ -16,34 +16,51 @@ jest.mock("../redesign/useCurrentPlayer", () => ({
   useCurrentPlayer: jest.fn(),
 }));
 
-function renderButton({ hand }: { hand: Tile[] }) {
-  mockUseCurrentPlayer.mockReturnValue({ hand });
-  return renderComponent(<ShuffleHandButton />);
-}
+describe.each([{ hideText: true }, { hideText: false }])(
+  "<ShuffleHandButton hideText={$hideText} />",
+  ({ hideText }) => {
+    function renderButton({ hand }: { hand: Tile[] }) {
+      mockUseCurrentPlayer.mockReturnValue({ hand });
+      return renderComponent(<ShuffleHandButton hideText={hideText} />);
+    }
 
-describe("<ShuffleHandButton />", () => {
-  it("is disabled when one tile in hand", () => {
-    renderButton({ hand: [{ id: "A1", letter: "A" }] });
+    it("is disabled when one tile in hand", () => {
+      renderButton({ hand: [{ id: "A1", letter: "A" }] });
 
-    expect(screen.getByRole("button", { name: "Shuffle hand" })).toBeDisabled();
-  });
-
-  it("is disabled when no tiles in hand", () => {
-    renderButton({ hand: [] });
-
-    expect(screen.getByRole("button", { name: "Shuffle hand" })).toBeDisabled();
-  });
-
-  it("emits shuffle hand event on click", async () => {
-    const { user } = renderButton({
-      hand: [
-        { id: "A1", letter: "A" },
-        { id: "B1", letter: "B" },
-      ],
+      expect(
+        screen.getByRole("button", { name: "Shuffle hand" }),
+      ).toBeDisabled();
     });
 
-    await user.click(screen.getByRole("button", { name: "Shuffle hand" }));
+    it("is disabled when no tiles in hand", () => {
+      renderButton({ hand: [] });
 
-    expect(mockEmit).toHaveBeenCalledWith("shuffleHand", {});
-  });
-});
+      expect(
+        screen.getByRole("button", { name: "Shuffle hand" }),
+      ).toBeDisabled();
+    });
+
+    it("emits shuffle hand event on click", async () => {
+      const { user } = renderButton({
+        hand: [
+          { id: "A1", letter: "A" },
+          { id: "B1", letter: "B" },
+        ],
+      });
+
+      await user.click(screen.getByRole("button", { name: "Shuffle hand" }));
+
+      expect(mockEmit).toHaveBeenCalledWith("shuffleHand", {});
+    });
+
+    it(`${
+      hideText ? "does not display" : "displays"
+    } text when hideText is ${hideText}`, () => {
+      renderButton({ hand: [] });
+
+      expect(
+        screen.getByRole("button", { name: "Shuffle hand" }),
+      ).toHaveTextContent(hideText ? "" : "Shuffle hand");
+    });
+  },
+);

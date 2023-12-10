@@ -10,30 +10,43 @@ jest.mock("../socket/SocketContext", () => ({
   }),
 }));
 
-function renderButton() {
-  return renderComponent(<SpectateButton />);
-}
+describe.each([{ hideText: true }, { hideText: false }])(
+  "<SpectateButton hideText={$hideText} />",
+  ({ hideText }) => {
+    function renderButton() {
+      return renderComponent(<SpectateButton hideText={hideText} />);
+    }
 
-describe("<SpectateButton />", () => {
-  it("emits setStatus on confirmation", async () => {
-    const { user } = renderButton();
+    it("emits setStatus on confirmation", async () => {
+      const { user } = renderButton();
 
-    await user.click(
-      screen.getByRole("button", { name: "Switch to spectator" }),
-    );
-
-    await waitFor(async () => {
       await user.click(
-        within(screen.getByRole("dialog")).getByRole("button", {
-          name: "Spectate",
-        }),
+        screen.getByRole("button", { name: "Switch to spectator" }),
       );
-    });
 
-    await waitFor(() => {
-      expect(mockEmit).toHaveBeenCalledWith("setStatus", {
-        status: PlayerStatus.SPECTATING,
+      await waitFor(async () => {
+        await user.click(
+          within(screen.getByRole("dialog")).getByRole("button", {
+            name: "Spectate",
+          }),
+        );
+      });
+
+      await waitFor(() => {
+        expect(mockEmit).toHaveBeenCalledWith("setStatus", {
+          status: PlayerStatus.SPECTATING,
+        });
       });
     });
-  });
-});
+
+    it(`${
+      hideText ? "does not display" : "displays"
+    } text when hideText is ${hideText}`, () => {
+      renderButton();
+
+      expect(
+        screen.getByRole("button", { name: "Switch to spectator" }),
+      ).toHaveTextContent(hideText ? "" : "Switch to spectator");
+    });
+  },
+);

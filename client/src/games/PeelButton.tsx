@@ -1,11 +1,25 @@
-import { Button, ButtonProps, Text, Tooltip } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonProps,
+  IconButton,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import { useMemo } from "react";
+import { FaPlay } from "react-icons/fa6";
 import { isValidConnectedBoard } from "../boards/validate";
 import { PlayerStatus } from "../players/types";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
 import { useGame } from "./GameContext";
 
-export default function PeelButton(buttonProps: ButtonProps): JSX.Element {
+export interface PeelButtonProps extends ButtonProps {
+  hideText?: boolean;
+}
+
+export default function PeelButton({
+  hideText,
+  ...buttonProps
+}: PeelButtonProps): JSX.Element {
   const {
     gameInfo: { bunch, players },
     handlePeel,
@@ -32,16 +46,29 @@ export default function PeelButton(buttonProps: ButtonProps): JSX.Element {
     return "Get a new tile and send one to everyone else";
   }, [canPeel, peelWinsGame]);
 
+  const commonProps = useMemo(
+    () => ({
+      ...buttonProps,
+      colorScheme: "blue",
+      onClick: handlePeel,
+      isDisabled: !canPeel,
+    }),
+    [buttonProps, canPeel, handlePeel],
+  );
+
   return (
     <Tooltip label={<Text textAlign="center">{peelButtonHint}</Text>} hasArrow>
-      <Button
-        colorScheme="blue"
-        {...buttonProps}
-        onClick={handlePeel}
-        isDisabled={!canPeel}
-      >
-        {peelWinsGame ? "Bananas!" : "Peel!"}
-      </Button>
+      {hideText ? (
+        <IconButton
+          {...commonProps}
+          icon={<FaPlay />}
+          aria-label={peelWinsGame ? "Bananas!" : "Peel!"}
+        />
+      ) : (
+        <Button {...commonProps} leftIcon={<FaPlay />}>
+          {peelWinsGame ? "Bananas!" : "Peel!"}
+        </Button>
+      )}
     </Tooltip>
   );
 }

@@ -1,6 +1,11 @@
-import { Box, ButtonGroup, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  ButtonGroup,
+  Flex,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { FaEye, FaPlay } from "react-icons/fa6";
 import { useGame } from "../games/GameContext";
 import PeelButton from "../games/PeelButton";
 import SpectateButton from "../games/SpectateButton";
@@ -10,6 +15,10 @@ import { CanvasProvider } from "./CanvasContext";
 import { useColorModeHex } from "./useColorHex";
 
 export default function GameRedesign(): JSX.Element {
+  const hideText = useBreakpointValue(
+    { base: true, sm: false },
+    { fallback: "sm" },
+  );
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({
     width: window.innerWidth,
@@ -61,9 +70,9 @@ export default function GameRedesign(): JSX.Element {
         ref={gameBarRef}
       >
         <ButtonGroup size="sm" padding={3}>
-          <PeelButton leftIcon={<FaPlay />} />
-          <ShuffleHandButton />
-          <SpectateButton leftIcon={<FaEye />} />
+          <PeelButton hideText={hideText} />
+          <ShuffleHandButton hideText={hideText} />
+          <SpectateButton hideText={hideText} />
         </ButtonGroup>
 
         <Text fontWeight="bold">Bunch: {bunch.length} tiles</Text>

@@ -5,6 +5,11 @@ import { playerFixture } from "../fixtures/player";
 import { renderComponent } from "../testUtils";
 import GameRedesign from "./GameRedesign";
 
+jest.mock("@chakra-ui/react", () => ({
+  ...jest.requireActual("@chakra-ui/react"),
+  useBreakpointValue: jest.fn((val) => val.sm),
+}));
+
 jest.mock("./useCurrentPlayer", () => ({
   useCurrentPlayer: () =>
     playerFixture({
