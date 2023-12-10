@@ -45,7 +45,7 @@ export default function CanvasHand(): JSX.Element {
   useEffect(() => {
     setHandLocation({
       x: size.width / 2 - handWidth / 2,
-      y: size.height - handHeight - TILE_SIZE * 1.5,
+      y: size.height - handHeight - TILE_SIZE,
     });
   }, [handHeight, handWidth, setHandLocation, size.height, size.width]);
 

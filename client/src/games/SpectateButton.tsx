@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonProps,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -12,13 +13,13 @@ import {
 import { PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 
-export default function SpectateButton(): JSX.Element {
+export default function SpectateButton(buttonProps: ButtonProps): JSX.Element {
   const { socket } = useSocket();
 
   return (
     <Popover>
       <PopoverTrigger>
-        <Button>Switch to spectator</Button>
+        <Button {...buttonProps}>Switch to spectator</Button>
       </PopoverTrigger>
 
       <PopoverContent>

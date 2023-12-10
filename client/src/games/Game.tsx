@@ -4,7 +4,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Board from "../boards/Board";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import { isValidConnectedBoard } from "../boards/validate";
 import Dump from "../hands/Dump";
 import Hand from "../hands/Hand";
 import { Player, PlayerStatus } from "../players/types";
@@ -18,7 +17,6 @@ export default function Game(): JSX.Element {
   const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },
-    handlePeel,
   } = useGame();
 
   const { board, hand } = players.find(
@@ -29,9 +27,6 @@ export default function Game(): JSX.Element {
     () => players.filter(({ status }) => status === PlayerStatus.READY),
     [players],
   );
-
-  const canPeel = hand.length === 0 && isValidConnectedBoard(board);
-  const peelWinsGame = bunch.length < activePlayers.length;
 
   return (
     // @ts-expect-error DndProvider doesn't work well with React.FC change
@@ -57,17 +52,9 @@ export default function Game(): JSX.Element {
               <Text textAlign="center">
                 Tiles remaining in bunch: {bunch.length}
               </Text>
-
-              <PeelButton
-                canPeel={canPeel}
-                handlePeel={handlePeel}
-                peelWinsGame={peelWinsGame}
-              />
-
+              <PeelButton />
               <Dump />
-
               <SpectateButton />
-
               <GameSettings />
             </Stack>
 

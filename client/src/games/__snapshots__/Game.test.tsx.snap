@@ -54,11 +54,7 @@ exports[`<Game /> renders properly 1`] = `
             Tiles remaining in bunch: 
             0
           </Text>
-          <PeelButton
-            canPeel={false}
-            handlePeel={[MockFunction handlePeel]}
-            peelWinsGame={false}
-          />
+          <PeelButton />
           <Dump />
           <SpectateButton />
           <GameSettings />
@@ -123,11 +119,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
             Tiles remaining in bunch: 
             0
           </Text>
-          <PeelButton
-            canPeel={false}
-            handlePeel={[MockFunction handlePeel]}
-            peelWinsGame={true}
-          />
+          <PeelButton />
           <Dump />
           <SpectateButton />
           <GameSettings />
