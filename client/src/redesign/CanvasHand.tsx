@@ -17,7 +17,7 @@ const GAP = 10;
 
 export default function CanvasHand(): JSX.Element {
   const percent = useBreakpointValue(
-    { base: 0.9, lg: 0.7 },
+    { base: 0.95, sm: 0.9, lg: 0.7 },
     { fallback: "lg" },
   );
   const {
@@ -72,6 +72,7 @@ export default function CanvasHand(): JSX.Element {
           height={handHeight}
           opacity={0.8}
           cornerRadius={CORNER_RADIUS}
+          onMouseEnter={setCursorWrapper("default")}
         />
 
         <Text

@@ -54,7 +54,7 @@ export default function JoinGame(): JSX.Element {
               gameInfo,
             };
 
-            navigate(`/game/${gameId}`, { state: locationState });
+            navigate("..", { state: locationState, relative: "path" });
           }
         },
       );
