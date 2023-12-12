@@ -9,10 +9,11 @@ import {
   WordInfo,
 } from "../boards/types";
 import { useGame } from "../games/GameContext";
+import { useSocket } from "../socket/SocketContext";
 import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
 import { useCanvasContext } from "./CanvasContext";
+import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasDragTarget";
 import { TILE_SIZE } from "./CanvasGrid";
-import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasHand";
 import CanvasTile from "./CanvasTile";
 import { useColorHex } from "./useColorHex";
 
@@ -42,7 +43,8 @@ export default function CanvasBoardTile({
   y,
 }: CanvasBoardTileProps): JSX.Element {
   const tileRef = useRef<Konva.Group>(null);
-  const { handRectRef, offset } = useCanvasContext();
+  const { socket } = useSocket();
+  const { dumpZoneRectRef, handRectRef, offset } = useCanvasContext();
   const { handleMoveTileFromBoardToHand, handleMoveTileOnBoard } = useGame();
 
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
@@ -55,7 +57,9 @@ export default function CanvasBoardTile({
         y: (y - offset.y) / TILE_SIZE,
       };
 
-      if (handRectRef.current?.intersects(pointerPosition)) {
+      if (dumpZoneRectRef.current?.intersects(pointerPosition)) {
+        socket.emit("dump", { tileId: tile.id, boardLocation: fromLocation });
+      } else if (handRectRef.current?.intersects(pointerPosition)) {
         handleMoveTileFromBoardToHand(fromLocation);
       } else {
         if (
@@ -69,11 +73,14 @@ export default function CanvasBoardTile({
       }
     },
     [
+      dumpZoneRectRef,
       handRectRef,
       handleMoveTileFromBoardToHand,
       handleMoveTileOnBoard,
       offset.x,
       offset.y,
+      socket,
+      tile.id,
       x,
       y,
     ],

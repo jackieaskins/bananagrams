@@ -15,6 +15,7 @@ type Offset = { x: number; y: number };
 type CanvasContextState = {
   boardRectRef: React.RefObject<Konva.Rect>;
   handRectRef: React.RefObject<Konva.Rect>;
+  dumpZoneRectRef: React.RefObject<Konva.Rect>;
   size: Size;
   stageRef: React.RefObject<Konva.Stage>;
   offset: Offset;
@@ -35,6 +36,7 @@ const CanvasContext = createContext<CanvasContextState>({
   offset: { x: 0, y: 0 },
   handRectRef: createRef(),
   boardRectRef: createRef(),
+  dumpZoneRectRef: createRef(),
   stageRef: createRef(),
   hoveredBoardPosition: null,
   setHoveredBoardPosition: () => null,
@@ -49,6 +51,7 @@ export function CanvasProvider({
 }: CanvasProviderProps): JSX.Element {
   const boardRectRef = useRef<Konva.Rect>(null);
   const handRectRef = useRef<Konva.Rect>(null);
+  const dumpZoneRectRef = useRef<Konva.Rect>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const [hoveredBoardPosition, setHoveredBoardPosition] =
     useState<BoardLocation | null>(null);
@@ -61,6 +64,7 @@ export function CanvasProvider({
     () => ({
       boardRectRef,
       handLocation,
+      dumpZoneRectRef,
       handRectRef,
       hoveredBoardPosition,
       setHandLocation,

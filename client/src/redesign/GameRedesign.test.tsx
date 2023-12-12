@@ -7,7 +7,7 @@ import GameRedesign from "./GameRedesign";
 
 jest.mock("@chakra-ui/react", () => ({
   ...jest.requireActual("@chakra-ui/react"),
-  useBreakpointValue: jest.fn((val) => val.sm),
+  useBreakpointValue: jest.fn((val, { fallback }) => val[fallback]),
 }));
 
 jest.mock("./useCurrentPlayer", () => ({

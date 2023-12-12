@@ -10,7 +10,7 @@
     "check-types": "npm run check-types:server && npm run check-types:client",
     "dev": "nodemon",
     "format": "prettier --write .",
-    "lint": "eslint --ext .js,.ts,.tsx server/src client/src",
+    "lint": "eslint --ext .js,.ts,.tsx --max-warnings 0 server/src client/src",
     "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test",
     "prepare": "husky install",
     "start": "NODE_ENV=production node dist/index.js",

@@ -7,6 +7,7 @@ import { Portal } from "react-konva-utils";
 import { BoardLocation } from "../boards/types";
 import { Tile } from "../tiles/types";
 import { useCanvasContext } from "./CanvasContext";
+import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasDragTarget";
 import { TILE_SIZE } from "./CanvasGrid";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { setCursor, setCursorWrapper } from "./setCursor";
@@ -35,6 +36,7 @@ export default function CanvasTile({
   const {
     boardRectRef,
     handRectRef,
+    dumpZoneRectRef,
     offset,
     setHoveredBoardPosition,
     stageRef,
@@ -44,11 +46,18 @@ export default function CanvasTile({
   const handleDragMove = useCallback(() => {
     const pointerPosition = stageRef.current?.getPointerPosition();
 
+    const overDumpZone =
+      !!pointerPosition &&
+      !!dumpZoneRectRef.current?.intersects(pointerPosition);
     const overHand =
       !!pointerPosition && !!handRectRef.current?.intersects(pointerPosition);
     onHandHover?.(overHand);
 
-    if (overHand) {
+    dumpZoneRectRef.current?.fire(
+      overDumpZone ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
+    );
+
+    if (overHand || overDumpZone) {
       setHoveredBoardPosition(null);
     } else {
       setHoveredBoardPosition(
@@ -57,6 +66,7 @@ export default function CanvasTile({
     }
   }, [
     boardRectRef,
+    dumpZoneRectRef,
     handRectRef,
     onHandHover,
     setHoveredBoardPosition,
@@ -78,10 +88,12 @@ export default function CanvasTile({
         y: Math.floor((pointerPosition.y - offset.y) / TILE_SIZE),
       });
 
+      dumpZoneRectRef.current?.fire(DRAG_LEAVE_EVENT);
       onHandHover?.(false);
       setHoveredBoardPosition(null);
     },
     [
+      dumpZoneRectRef,
       offset.x,
       offset.y,
       onDragEnd,
