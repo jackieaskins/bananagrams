@@ -1,6 +1,5 @@
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
-import { Vector2d } from "konva/lib/types";
 import { useCallback, useState } from "react";
 import { Group } from "react-konva";
 import { Portal } from "react-konva-utils";
@@ -19,19 +18,23 @@ export type TileProps = {
   x: number;
   y: number;
   tileRef: React.RefObject<Konva.Group>;
-  onDragEnd: (pointerPosition: Vector2d, boardPosition: BoardLocation) => void;
-  onHandHover?: (isOverHand: boolean) => void;
+  fireHandDragEvents: boolean;
+  onDump: () => void;
+  onHandMove: () => void;
+  onBoardMove: (boardLocation: BoardLocation) => void;
 };
 
 export default function CanvasTile({
   color,
   dragLayer,
+  fireHandDragEvents,
   tile,
   x,
   y,
   tileRef,
-  onDragEnd,
-  onHandHover,
+  onDump,
+  onHandMove,
+  onBoardMove,
 }: TileProps): JSX.Element {
   const {
     boardRectRef,
@@ -51,7 +54,10 @@ export default function CanvasTile({
       !!dumpZoneRectRef.current?.intersects(pointerPosition);
     const overHand =
       !!pointerPosition && !!handRectRef.current?.intersects(pointerPosition);
-    onHandHover?.(overHand);
+
+    if (fireHandDragEvents) {
+      handRectRef.current?.fire(overHand ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT);
+    }
 
     dumpZoneRectRef.current?.fire(
       overDumpZone ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
@@ -67,8 +73,8 @@ export default function CanvasTile({
   }, [
     boardRectRef,
     dumpZoneRectRef,
+    fireHandDragEvents,
     handRectRef,
-    onHandHover,
     setHoveredBoardPosition,
     stageRef,
   ]);
@@ -83,21 +89,29 @@ export default function CanvasTile({
         return;
       }
 
-      onDragEnd(pointerPosition, {
-        x: Math.floor((pointerPosition.x - offset.x) / TILE_SIZE),
-        y: Math.floor((pointerPosition.y - offset.y) / TILE_SIZE),
-      });
+      if (dumpZoneRectRef.current?.intersects(pointerPosition)) {
+        onDump();
+      } else if (handRectRef.current?.intersects(pointerPosition)) {
+        onHandMove();
+      } else {
+        onBoardMove({
+          x: Math.floor((pointerPosition.x - offset.x) / TILE_SIZE),
+          y: Math.floor((pointerPosition.y - offset.y) / TILE_SIZE),
+        });
+      }
 
       dumpZoneRectRef.current?.fire(DRAG_LEAVE_EVENT);
-      onHandHover?.(false);
+      handRectRef.current?.fire(DRAG_LEAVE_EVENT);
       setHoveredBoardPosition(null);
     },
     [
       dumpZoneRectRef,
+      handRectRef,
       offset.x,
       offset.y,
-      onDragEnd,
-      onHandHover,
+      onBoardMove,
+      onDump,
+      onHandMove,
       setHoveredBoardPosition,
       stageRef,
     ],

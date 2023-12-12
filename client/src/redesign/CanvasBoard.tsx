@@ -1,8 +1,12 @@
 import { Group, Rect } from "react-konva";
+import { parseBoardKey } from "../boards/key";
 import { SetState } from "../state/types";
+import CanvasBoardDragOverlay from "./CanvasBoardDragOverlay";
+import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import { setCursorWrapper } from "./setCursor";
+import { useCurrentPlayer } from "./useCurrentPlayer";
 
 type BoardProps = {
   setOffset: SetState<{ x: number; y: number }>;
@@ -10,6 +14,7 @@ type BoardProps = {
 
 export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
   const { boardRectRef, offset, size } = useCanvasContext();
+  const { board } = useCurrentPlayer();
 
   return (
     <Group
@@ -28,6 +33,20 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
       />
 
       <CanvasGrid width={size.width} height={size.height} />
+
+      {Object.entries(board).map(([boardKey, boardSquare]) => {
+        const { x, y } = parseBoardKey(boardKey);
+        return (
+          <CanvasBoardTile
+            key={`${boardSquare.tile.id}-${boardKey}`}
+            boardSquare={boardSquare}
+            x={x}
+            y={y}
+          />
+        );
+      })}
+
+      <CanvasBoardDragOverlay />
     </Group>
   );
 }

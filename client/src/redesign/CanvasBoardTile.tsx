@@ -1,5 +1,4 @@
 import Konva from "konva";
-import { Vector2d } from "konva/lib/types";
 import { useCallback, useMemo, useRef } from "react";
 import {
   BoardLocation,
@@ -11,8 +10,6 @@ import {
 import { useGame } from "../games/GameContext";
 import { useSocket } from "../socket/SocketContext";
 import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
-import { useCanvasContext } from "./CanvasContext";
-import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasDragTarget";
 import { TILE_SIZE } from "./CanvasGrid";
 import CanvasTile from "./CanvasTile";
 import { useColorHex } from "./useColorHex";
@@ -44,62 +41,42 @@ export default function CanvasBoardTile({
 }: CanvasBoardTileProps): JSX.Element {
   const tileRef = useRef<Konva.Group>(null);
   const { socket } = useSocket();
-  const { dumpZoneRectRef, handRectRef, offset } = useCanvasContext();
   const { handleMoveTileFromBoardToHand, handleMoveTileOnBoard } = useGame();
 
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
-  const handleDragEnd = useCallback(
-    (pointerPosition: Vector2d, boardPosition: BoardLocation) => {
-      const fromLocation = {
-        x: (x - offset.x) / TILE_SIZE,
-        y: (y - offset.y) / TILE_SIZE,
-      };
+  const handleDump = useCallback(() => {
+    socket.emit("dump", { tileId: tile.id, boardLocation: { x, y } });
+  }, [socket, tile.id, x, y]);
 
-      if (dumpZoneRectRef.current?.intersects(pointerPosition)) {
-        socket.emit("dump", { tileId: tile.id, boardLocation: fromLocation });
-      } else if (handRectRef.current?.intersects(pointerPosition)) {
-        handleMoveTileFromBoardToHand(fromLocation);
+  const handleHandMove = useCallback(() => {
+    handleMoveTileFromBoardToHand({ x, y });
+  }, [handleMoveTileFromBoardToHand, x, y]);
+
+  const handleBoardMove = useCallback(
+    (toLocation: BoardLocation) => {
+      if (x === toLocation.x && y === toLocation.y) {
+        tileRef.current?.position({ x, y });
       } else {
-        if (
-          fromLocation.x === boardPosition.x &&
-          fromLocation.y === boardPosition.y
-        ) {
-          tileRef.current?.position({ x, y });
-        } else {
-          handleMoveTileOnBoard(fromLocation, boardPosition);
-        }
+        handleMoveTileOnBoard({ x, y }, toLocation);
       }
     },
-    [
-      dumpZoneRectRef,
-      handRectRef,
-      handleMoveTileFromBoardToHand,
-      handleMoveTileOnBoard,
-      offset.x,
-      offset.y,
-      socket,
-      tile.id,
-      x,
-      y,
-    ],
+    [handleMoveTileOnBoard, x, y],
   );
 
   return (
     <CanvasTile
       dragLayer={BOARD_TILE_DRAG_LAYER}
       tile={tile}
-      x={x}
-      y={y}
+      x={x * TILE_SIZE}
+      y={y * TILE_SIZE}
+      fireHandDragEvents
       tileRef={tileRef}
-      onDragEnd={handleDragEnd}
       color={color}
-      onHandHover={(isOverHand) => {
-        handRectRef.current?.fire(
-          isOverHand ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
-        );
-      }}
+      onDump={handleDump}
+      onHandMove={handleHandMove}
+      onBoardMove={handleBoardMove}
     />
   );
 }
