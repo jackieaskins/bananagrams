@@ -5,6 +5,7 @@ import CanvasBoardDragOverlay from "./CanvasBoardDragOverlay";
 import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
+import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
 import { setCursorWrapper } from "./setCursor";
 import { useCurrentPlayer } from "./useCurrentPlayer";
 
@@ -47,6 +48,7 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
       })}
 
       <CanvasBoardDragOverlay />
+      <CanvasOffScreenIndicators />
     </Group>
   );
 }

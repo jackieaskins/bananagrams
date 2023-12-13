@@ -57,7 +57,7 @@ export default function CanvasBoardTile({
   const handleBoardMove = useCallback(
     (toLocation: BoardLocation) => {
       if (x === toLocation.x && y === toLocation.y) {
-        tileRef.current?.position({ x, y });
+        tileRef.current?.position({ x: x * TILE_SIZE, y: y * TILE_SIZE });
       } else {
         handleMoveTileOnBoard({ x, y }, toLocation);
       }
