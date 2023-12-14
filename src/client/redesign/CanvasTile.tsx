@@ -1,15 +1,18 @@
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Group } from "react-konva";
 import { Portal } from "react-konva-utils";
 import { BoardLocation } from "../boards/types";
+import { useGame } from "../games/GameContext";
 import { Tile } from "../tiles/types";
 import { useCanvasContext } from "./CanvasContext";
 import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasDragTarget";
 import { TILE_SIZE } from "./CanvasGrid";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { setCursor, setCursorWrapper } from "./setCursor";
+
+const EXCHANGE_COUNT = 3;
 
 export type TileProps = {
   color?: string;
@@ -45,6 +48,11 @@ export default function CanvasTile({
     stageRef,
   } = useCanvasContext();
   const [isDragging, setDragging] = useState(false);
+  const {
+    gameInfo: { bunch },
+  } = useGame();
+
+  const canDump = useMemo(() => bunch.length > EXCHANGE_COUNT, [bunch.length]);
 
   const handleDragMove = useCallback(() => {
     const pointerPosition = stageRef.current?.getPointerPosition();
@@ -60,7 +68,7 @@ export default function CanvasTile({
     }
 
     dumpZoneRectRef.current?.fire(
-      overDumpZone ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
+      canDump && overDumpZone ? DRAG_OVER_EVENT : DRAG_LEAVE_EVENT,
     );
 
     if (overHand || overDumpZone) {
@@ -72,6 +80,7 @@ export default function CanvasTile({
     }
   }, [
     boardRectRef,
+    canDump,
     dumpZoneRectRef,
     fireHandDragEvents,
     handRectRef,
@@ -90,7 +99,11 @@ export default function CanvasTile({
       }
 
       if (dumpZoneRectRef.current?.intersects(pointerPosition)) {
-        onDump();
+        if (canDump) {
+          onDump();
+        } else {
+          tileRef.current?.position({ x, y });
+        }
       } else if (handRectRef.current?.intersects(pointerPosition)) {
         onHandMove();
       } else {
@@ -105,6 +118,7 @@ export default function CanvasTile({
       setHoveredBoardPosition(null);
     },
     [
+      canDump,
       dumpZoneRectRef,
       handRectRef,
       offset.x,
@@ -114,6 +128,9 @@ export default function CanvasTile({
       onHandMove,
       setHoveredBoardPosition,
       stageRef,
+      tileRef,
+      x,
+      y,
     ],
   );
 
