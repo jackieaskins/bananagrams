@@ -14,7 +14,7 @@ exports[`<PreviewBoard /> renders properly 1`] = `
       alt="Tile for the letter A"
       height="23px"
       key="0"
-      src="/assets/images/A.png"
+      src="/images/A.png"
       width="23px"
     />
     <Box

@@ -12,14 +12,14 @@ exports[`<PreviewHand /> renders properly 1`] = `
     alt="Tile for the letter A"
     height="15px"
     key="A1"
-    src="/assets/images/A.png"
+    src="/images/A.png"
     width="15px"
   />
   <img
     alt="Tile for the letter B"
     height="15px"
     key="B1"
-    src="/assets/images/B.png"
+    src="/images/B.png"
     width="15px"
   />
 </ForwardRef(Card2)>

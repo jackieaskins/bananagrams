@@ -1,9 +1,0 @@
-{
-  "env": {
-    "NODE_ENV": "development"
-  },
-  "exec": "ts-node --transpile-only --project server/tsconfig.json server/src/index.ts",
-  "ext": ".ts,.js",
-  "ignore": ["server/src/public"],
-  "watch": ["server/src"]
-}

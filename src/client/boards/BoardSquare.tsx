@@ -4,10 +4,15 @@ import { useEnableTileSwap } from "../LocalStorageContext";
 import { useGame } from "../games/GameContext";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
-import { BoardSquare, Direction, ValidationStatus, WordInfo } from "./types";
+import {
+  BoardSquare as BoardSquareType,
+  Direction,
+  ValidationStatus,
+  WordInfo,
+} from "./types";
 
 type BoardSquareProps = {
-  boardSquare: BoardSquare | null;
+  boardSquare: BoardSquareType | null;
   x: number;
   y: number;
 };

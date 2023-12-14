@@ -27,7 +27,7 @@ export default function PreviewBoard({
             return (
               <img
                 key={y}
-                src={`/assets/images/${tile.letter}.png`}
+                src={`/images/${tile.letter}.png`}
                 alt={`Tile for the letter ${tile.letter}`}
                 width={tilePixels}
                 height={tilePixels}

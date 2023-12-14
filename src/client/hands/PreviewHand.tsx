@@ -23,7 +23,7 @@ export default function PreviewHand({
       {hand.map((tile) => (
         <img
           key={tile.id}
-          src={`/assets/images/${tile.letter}.png`}
+          src={`/images/${tile.letter}.png`}
           alt={`Tile for the letter ${tile.letter}`}
           width={tilePixels}
           height={tilePixels}
