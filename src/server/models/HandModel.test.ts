@@ -1,16 +1,16 @@
-import Hand from "./Hand";
-import Tile from "./Tile";
+import HandModel from "./HandModel";
+import TileModel from "./TileModel";
 
 describe("Hand Model", () => {
-  const tileA1 = new Tile("A1", "A");
-  const tileB1 = new Tile("B1", "B");
-  const tileC1 = new Tile("C1", "C");
+  const tileA1 = new TileModel("A1", "A");
+  const tileB1 = new TileModel("B1", "B");
+  const tileC1 = new TileModel("C1", "C");
   const defaultTiles = [tileA1, tileB1, tileC1];
 
-  let hand: Hand;
+  let hand: HandModel;
 
   beforeEach(() => {
-    hand = new Hand();
+    hand = new HandModel();
   });
 
   describe("set/getTiles", () => {

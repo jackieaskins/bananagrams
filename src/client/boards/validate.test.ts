@@ -1,5 +1,5 @@
+import { Direction, ValidationStatus } from "../../types/board";
 import { boardSquareFixture, wordInfoFixture } from "../fixtures/board";
-import { Direction, ValidationStatus } from "./types";
 import { isValidConnectedBoard } from "./validate";
 
 describe("isValidConnectedBoard", () => {

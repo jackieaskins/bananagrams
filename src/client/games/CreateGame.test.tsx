@@ -1,11 +1,11 @@
 import { screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { Game } from "../../types/game";
 import { useSavedUsername } from "../LocalStorageContext";
 import { gameInfoFixture } from "../fixtures/game";
 import { renderComponent } from "../testUtils";
 import CreateGame from "./CreateGame";
-import { GameInfo } from "./types";
 
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
@@ -40,7 +40,7 @@ function renderForm(isShortenedGame: boolean = false) {
 
 function mockEmitCallback(
   error: Error | null,
-  gameInfo: GameInfo = gameInfoFixture(),
+  gameInfo: Game = gameInfoFixture(),
 ) {
   mockEmit.mockImplementation((_event, _params, callback) =>
     callback(error, gameInfo),

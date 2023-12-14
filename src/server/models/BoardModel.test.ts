@@ -1,15 +1,15 @@
 import { generateBoardKey } from "../boardKey";
 import { validateAddTile, validateRemoveTile } from "../boardValidation";
-import Board from "./Board";
-import Tile from "./Tile";
+import BoardModel from "./BoardModel";
+import TileModel from "./TileModel";
 
 jest.mock("../boardValidation");
 
 describe("Board Model", () => {
-  let board: Board;
+  let board: BoardModel;
 
   beforeEach(() => {
-    board = new Board();
+    board = new BoardModel();
   });
 
   describe("getSquares", () => {
@@ -24,7 +24,7 @@ describe("Board Model", () => {
     });
 
     it("returns tiles on board", () => {
-      const tile = new Tile("A1", "A");
+      const tile = new TileModel("A1", "A");
       board.addTile({ x: 0, y: 0 }, tile);
 
       expect(board.getAllTiles()).toEqual([tile]);
@@ -33,7 +33,7 @@ describe("Board Model", () => {
 
   describe("reset", () => {
     it("removes all tiles from board", () => {
-      board.addTile({ x: 0, y: 0 }, new Tile("A1", "A"));
+      board.addTile({ x: 0, y: 0 }, new TileModel("A1", "A"));
       board.reset();
 
       expect(board.getAllTiles()).toEqual([]);
@@ -41,7 +41,7 @@ describe("Board Model", () => {
   });
 
   describe("clear", () => {
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
 
     beforeEach(() => {
       board.addTile({ x: 0, y: 0 }, tile);
@@ -66,7 +66,7 @@ describe("Board Model", () => {
     });
 
     it("throws an error when location is not empty", () => {
-      board.addTile(location, new Tile("A1", "A"));
+      board.addTile(location, new TileModel("A1", "A"));
 
       expect(() =>
         board.validateEmptySquare(location),
@@ -76,7 +76,7 @@ describe("Board Model", () => {
 
   describe("toJSON", () => {
     it("turns fields into JSON", () => {
-      board.addTile({ x: 0, y: 0 }, new Tile("A1", "A"));
+      board.addTile({ x: 0, y: 0 }, new TileModel("A1", "A"));
 
       expect(board.toJSON()).toMatchSnapshot();
     });
@@ -84,7 +84,7 @@ describe("Board Model", () => {
 
   describe("removeTile", () => {
     const location = { x: 0, y: 0 };
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
 
     it("throws an error if there is no tile at location", () => {
       expect(() => board.removeTile(location)).toThrowErrorMatchingSnapshot();
@@ -110,7 +110,7 @@ describe("Board Model", () => {
 
   describe("addTile", () => {
     const location = { x: 0, y: 0 };
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
 
     it("throws error if square is not empty", () => {
       board.addTile(location, tile);

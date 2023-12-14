@@ -1,7 +1,7 @@
+import { Game } from "../../types/game";
 import { getEmptyGameInfo } from "../games/GameContext";
-import { GameInfo } from "../games/types";
 
-export function gameInfoFixture(overrides: Partial<GameInfo> = {}): GameInfo {
+export function gameInfoFixture(overrides: Partial<Game> = {}): Game {
   return {
     ...getEmptyGameInfo("gameId"),
     ...overrides,

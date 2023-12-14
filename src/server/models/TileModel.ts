@@ -1,15 +1,11 @@
+import { Letter, Tile } from "../../types/tile";
 import BaseModel from "./BaseModel";
 
-export type TileJSON = {
-  id: string;
-  letter: string;
-};
-
-export default class Tile implements BaseModel<TileJSON> {
+export default class TileModel implements BaseModel<Tile> {
   private id: string;
-  private letter: string;
+  private letter: Letter;
 
-  constructor(id: string, letter: string) {
+  constructor(id: string, letter: Letter) {
     this.id = id;
     this.letter = letter;
   }
@@ -22,7 +18,7 @@ export default class Tile implements BaseModel<TileJSON> {
     return this.letter;
   }
 
-  toJSON(): TileJSON {
+  toJSON(): Tile {
     const { id, letter } = this;
     return { id, letter };
   }

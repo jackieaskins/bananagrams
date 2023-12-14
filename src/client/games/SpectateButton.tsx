@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { FaEye } from "react-icons/fa6";
-import { PlayerStatus } from "../players/types";
+import { PlayerStatus } from "../../types/player";
 import { useSocket } from "../socket/SocketContext";
 
 export interface SpectateButtonProps extends ButtonProps {

@@ -1,9 +1,9 @@
 import { Table, Tbody } from "@chakra-ui/react";
 import { screen, waitFor, within } from "@testing-library/react";
+import { Player, PlayerStatus } from "../../types/player";
 import { playerFixture } from "../fixtures/player";
 import { renderComponent } from "../testUtils";
 import PlayerTableRow, { PlayerTableRowProps } from "./PlayerTableRow";
-import { Player, PlayerStatus } from "./types";
 
 const CURRENT_PLAYER_ID = "current-player";
 

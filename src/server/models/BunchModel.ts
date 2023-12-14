@@ -1,34 +1,33 @@
+import { Bunch } from "../../types/bunch";
 import tileBreakdown from "../tileBreakdown";
 import BaseModel from "./BaseModel";
-import Game from "./Game";
-import Tile, { TileJSON } from "./Tile";
-
-export type BunchJSON = TileJSON[];
+import GameModel from "./GameModel";
+import TileModel from "./TileModel";
 
 const MULTIPLIER_DIVISOR = 4;
 
-export default class Bunch implements BaseModel<BunchJSON> {
-  private game: Game;
-  private tiles: Tile[] = [];
+export default class BunchModel implements BaseModel<Bunch> {
+  private game: GameModel;
+  private tiles: TileModel[] = [];
 
-  constructor(game: Game) {
+  constructor(game: GameModel) {
     this.game = game;
   }
 
-  getTiles(): Tile[] {
+  getTiles(): TileModel[] {
     return [...this.tiles];
   }
 
-  toJSON(): BunchJSON {
+  toJSON(): Bunch {
     return this.tiles.map((tile) => tile.toJSON());
   }
 
   reset(): void {
     if (this.game.isShortenedGame()) {
       this.tiles = [
-        new Tile("A1", "A"),
-        new Tile("E1", "E"),
-        new Tile("T1", "T"),
+        new TileModel("A1", "A"),
+        new TileModel("E1", "E"),
+        new TileModel("T1", "T"),
       ];
 
       return;
@@ -42,16 +41,16 @@ export default class Bunch implements BaseModel<BunchJSON> {
       .map(({ letter, count }) =>
         Array(count * multiplier)
           .fill(null)
-          .map((_, i) => new Tile(`${letter}${i}`, letter)),
+          .map((_, i) => new TileModel(`${letter}${i}`, letter)),
       )
       .flat();
   }
 
-  addTiles(tiles: Tile[]): void {
+  addTiles(tiles: TileModel[]): void {
     this.tiles = [...this.tiles, ...tiles];
   }
 
-  removeTiles(count: number): Tile[] {
+  removeTiles(count: number): TileModel[] {
     if (this.tiles.length < count) {
       throw new Error(
         `The bunch has less than ${count} ${count === 1 ? "tile" : "tiles"}`,

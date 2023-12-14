@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Player } from "../players/types";
+import { Player } from "../../types/player";
 
 type OpponentBoardPreviewState = {
   handleLeftClick: () => void;

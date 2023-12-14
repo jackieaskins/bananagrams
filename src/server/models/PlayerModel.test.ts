@@ -1,5 +1,6 @@
-import Player, { PlayerStatus } from "./Player";
-import Tile from "./Tile";
+import { PlayerStatus } from "../../types/player";
+import PlayerModel from "./PlayerModel";
+import TileModel from "./TileModel";
 
 jest.mock("../boardValidation");
 
@@ -7,10 +8,10 @@ describe("Player Model", () => {
   const userId = "userId";
   const username = "username";
 
-  let player: Player;
+  let player: PlayerModel;
 
   beforeEach(() => {
-    player = new Player(userId, username, PlayerStatus.NOT_READY, false);
+    player = new PlayerModel(userId, username, PlayerStatus.NOT_READY, false);
   });
 
   describe("getUserId", () => {
@@ -56,7 +57,12 @@ describe("Player Model", () => {
 
     it("returns true for admin user", () => {
       expect(
-        new Player(userId, username, PlayerStatus.NOT_READY, true).isAdmin(),
+        new PlayerModel(
+          userId,
+          username,
+          PlayerStatus.NOT_READY,
+          true,
+        ).isAdmin(),
       ).toBe(true);
     });
 
@@ -103,7 +109,7 @@ describe("Player Model", () => {
   });
 
   describe("moveTileFromHandToBoard", () => {
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
     const location = { x: 0, y: 0 };
 
     beforeEach(() => {
@@ -132,7 +138,7 @@ describe("Player Model", () => {
 
   describe("moveTileFromBoardToHand", () => {
     const location = { x: 0, y: 0 };
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
 
     beforeEach(() => {
       jest.spyOn(player.getBoard(), "removeTile");
@@ -154,7 +160,7 @@ describe("Player Model", () => {
   describe("moveTileOnBoard", () => {
     const from = { x: 0, y: 0 };
     const to = { x: 1, y: 1 };
-    const tile = new Tile("A1", "A");
+    const tile = new TileModel("A1", "A");
 
     beforeEach(() => {
       jest.spyOn(player.getBoard(), "validateEmptySquare");

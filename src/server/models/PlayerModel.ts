@@ -1,34 +1,19 @@
+import { BoardLocation } from "../../types/board";
+import { Player, PlayerStatus } from "../../types/player";
 import BaseModel from "./BaseModel";
-import Board, { BoardLocation, BoardJSON } from "./Board";
-import Hand, { HandJSON } from "./Hand";
-import Tile from "./Tile";
+import BoardModel from "./BoardModel";
+import HandModel from "./HandModel";
+import TileModel from "./TileModel";
 
-export enum PlayerStatus {
-  NOT_READY = "NOT_READY",
-  SPECTATING = "SPECTATING",
-  READY = "READY",
-}
-
-export type PlayerJSON = {
-  userId: string;
-  username: string;
-  status: PlayerStatus;
-  isTopBanana: boolean;
-  isAdmin: boolean;
-  gamesWon: number;
-  hand: HandJSON;
-  board: BoardJSON;
-};
-
-export default class Player implements BaseModel<PlayerJSON> {
+export default class PlayerModel implements BaseModel<Player> {
   private userId: string;
   private username: string;
   private status: PlayerStatus;
   private topBanana = false;
   private admin: boolean;
   private gamesWon = 0;
-  private hand = new Hand();
-  private board = new Board();
+  private hand = new HandModel();
+  private board = new BoardModel();
 
   constructor(
     userId: string,
@@ -82,15 +67,15 @@ export default class Player implements BaseModel<PlayerJSON> {
     this.gamesWon++;
   }
 
-  getHand(): Hand {
+  getHand(): HandModel {
     return this.hand;
   }
 
-  getBoard(): Board {
+  getBoard(): BoardModel {
     return this.board;
   }
 
-  toJSON(): PlayerJSON {
+  toJSON(): Player {
     return {
       userId: this.userId,
       username: this.username,
@@ -122,8 +107,8 @@ export default class Player implements BaseModel<PlayerJSON> {
   moveTileFromHandToBoard(
     tileId: string,
     location: BoardLocation,
-  ): Tile | null {
-    let boardTile: Tile | null = null;
+  ): TileModel | null {
+    let boardTile: TileModel | null = null;
     if (!this.board.isEmptySquare(location)) {
       boardTile = this.board.removeTile(location);
       this.hand.addTiles([boardTile]);
@@ -154,12 +139,12 @@ export default class Player implements BaseModel<PlayerJSON> {
   moveTileOnBoard(
     fromLocation: BoardLocation,
     toLocation: BoardLocation,
-  ): Tile | null {
+  ): TileModel | null {
     if (fromLocation.x === toLocation.x && fromLocation.y === toLocation.y) {
       return null;
     }
 
-    let toTile: Tile | null = null;
+    let toTile: TileModel | null = null;
 
     if (!this.board.isEmptySquare(toLocation)) {
       toTile = this.board.removeTile(toLocation);

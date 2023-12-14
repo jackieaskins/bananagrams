@@ -1,24 +1,16 @@
+import { Game, Snapshot } from "../../types/game";
+import { Player, PlayerStatus } from "../../types/player";
 import BaseModel from "./BaseModel";
-import Bunch, { BunchJSON } from "./Bunch";
-import Player, { PlayerJSON, PlayerStatus } from "./Player";
+import BunchModel from "./BunchModel";
+import PlayerModel from "./PlayerModel";
 
-export type Snapshot = PlayerJSON[] | null;
-export type GameJSON = {
-  gameId: string;
-  gameName: string;
-  isInProgress: boolean;
-  bunch: BunchJSON;
-  players: PlayerJSON[];
-  previousSnapshot: Snapshot;
-};
-
-export default class Game implements BaseModel<GameJSON> {
+export default class GameModel implements BaseModel<Game> {
   private id: string;
   private name: string;
   private inProgress = false;
   private shortenedGame: boolean;
-  private bunch: Bunch = new Bunch(this);
-  private players: Player[] = [];
+  private bunch: BunchModel = new BunchModel(this);
+  private players: PlayerModel[] = [];
   private previousSnapshot: Snapshot = null;
 
   constructor(id: string, name: string, shortenedGame = false) {
@@ -47,15 +39,15 @@ export default class Game implements BaseModel<GameJSON> {
     return this.shortenedGame;
   }
 
-  getBunch(): Bunch {
+  getBunch(): BunchModel {
     return this.bunch;
   }
 
-  getPlayers(): Player[] {
+  getPlayers(): PlayerModel[] {
     return [...this.players];
   }
 
-  getActivePlayers(): Player[] {
+  getActivePlayers(): PlayerModel[] {
     return this.players.filter(
       (player) => player.getStatus() !== PlayerStatus.SPECTATING,
     );
@@ -65,7 +57,7 @@ export default class Game implements BaseModel<GameJSON> {
     return this.previousSnapshot ? [...this.previousSnapshot] : null;
   }
 
-  setSnapshot(previousSnapshot: PlayerJSON[]): void {
+  setSnapshot(previousSnapshot: Player[]): void {
     this.previousSnapshot = [...previousSnapshot];
   }
 
@@ -74,7 +66,7 @@ export default class Game implements BaseModel<GameJSON> {
     this.players.forEach((player) => player.reset());
   }
 
-  toJSON(): GameJSON {
+  toJSON(): Game {
     const {
       id: gameId,
       name: gameName,
@@ -94,7 +86,7 @@ export default class Game implements BaseModel<GameJSON> {
     };
   }
 
-  addPlayer(player: Player): void {
+  addPlayer(player: PlayerModel): void {
     this.players = [...this.players, player];
   }
 

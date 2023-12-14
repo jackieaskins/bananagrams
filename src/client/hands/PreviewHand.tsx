@@ -1,5 +1,5 @@
 import { Card } from "@chakra-ui/react";
-import { Hand } from "./types";
+import { Hand } from "../../types/hand";
 
 type PreviewHandProps = {
   hand: Hand;

@@ -1,6 +1,7 @@
-import Game from "../models/Game";
-import Player, { PlayerStatus } from "../models/Player";
-import Tile from "../models/Tile";
+import { PlayerStatus } from "../../types/player";
+import GameModel from "../models/GameModel";
+import PlayerModel from "../models/PlayerModel";
+import TileModel from "../models/TileModel";
 import GameController from "./GameController";
 
 jest.mock("../boardValidation");
@@ -23,8 +24,8 @@ describe("GameController", () => {
   let socket: any;
 
   let gameController: GameController;
-  let game: Game;
-  let player: Player;
+  let game: GameModel;
+  let player: PlayerModel;
 
   const createShortenedGame = () =>
     GameController.createGame(gameName, username, true, io, socket);
@@ -124,7 +125,7 @@ describe("GameController", () => {
         .fill(null)
         .forEach((_, i) => {
           game.addPlayer(
-            new Player(`p${i}`, "p", PlayerStatus.NOT_READY, false),
+            new PlayerModel(`p${i}`, "p", PlayerStatus.NOT_READY, false),
           );
         });
 
@@ -225,7 +226,7 @@ describe("GameController", () => {
     });
 
     it("sets another player as the admin if the leaving player is admin", () => {
-      const otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
+      const otherPlayer = new PlayerModel("p1", "p", PlayerStatus.READY, false);
       game.addPlayer(otherPlayer);
 
       gameController.leaveGame();
@@ -236,7 +237,7 @@ describe("GameController", () => {
     it("does not set another player as admin if leaving player is not admin", () => {
       player.setAdmin(false);
 
-      const otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
+      const otherPlayer = new PlayerModel("p1", "p", PlayerStatus.READY, false);
       game.addPlayer(otherPlayer);
 
       gameController.leaveGame();
@@ -247,7 +248,9 @@ describe("GameController", () => {
     describe("game is in progress and no active players are left", () => {
       beforeEach(() => {
         player.setStatus(PlayerStatus.READY);
-        game.addPlayer(new Player("p1", "p", PlayerStatus.SPECTATING, false));
+        game.addPlayer(
+          new PlayerModel("p1", "p", PlayerStatus.SPECTATING, false),
+        );
         game.setInProgress(true);
         gameController.leaveGame();
       });
@@ -273,7 +276,7 @@ describe("GameController", () => {
     });
 
     it("emits game info if game has not started", () => {
-      game.addPlayer(new Player("p1", "p", PlayerStatus.NOT_READY, false));
+      game.addPlayer(new PlayerModel("p1", "p", PlayerStatus.NOT_READY, false));
 
       gameController.leaveGame();
 
@@ -323,7 +326,12 @@ describe("GameController", () => {
       beforeEach(() => {
         player.setStatus(PlayerStatus.READY);
         game.addPlayer(
-          new Player("newUser", "username", PlayerStatus.SPECTATING, false),
+          new PlayerModel(
+            "newUser",
+            "username",
+            PlayerStatus.SPECTATING,
+            false,
+          ),
         );
         game.setInProgress(true);
         gameController.setStatus(PlayerStatus.SPECTATING);
@@ -349,16 +357,21 @@ describe("GameController", () => {
   });
 
   describe("peel", () => {
-    let otherPlayer: Player;
-    let spectatingPlayer: Player;
+    let otherPlayer: PlayerModel;
+    let spectatingPlayer: PlayerModel;
 
     beforeEach(() => {
       player.setStatus(PlayerStatus.READY);
-      otherPlayer = new Player("p1", "p", PlayerStatus.READY, false);
+      otherPlayer = new PlayerModel("p1", "p", PlayerStatus.READY, false);
       otherPlayer.setTopBanana(true);
 
       game.addPlayer(otherPlayer);
-      spectatingPlayer = new Player("p2", "p", PlayerStatus.SPECTATING, false);
+      spectatingPlayer = new PlayerModel(
+        "p2",
+        "p",
+        PlayerStatus.SPECTATING,
+        false,
+      );
       game.addPlayer(spectatingPlayer);
 
       game.setInProgress(true);
@@ -367,7 +380,7 @@ describe("GameController", () => {
     });
 
     it("does make any updates if player hand is not empty", () => {
-      player.getHand().addTiles([new Tile("A1", "A")]);
+      player.getHand().addTiles([new TileModel("A1", "A")]);
 
       gameController.peel();
 
@@ -377,7 +390,9 @@ describe("GameController", () => {
 
     describe("bunch has less tiles than number of players", () => {
       beforeEach(() => {
-        game.addPlayer(new Player("p1", "p", PlayerStatus.SPECTATING, false));
+        game.addPlayer(
+          new PlayerModel("p1", "p", PlayerStatus.SPECTATING, false),
+        );
         gameController.peel();
       });
 
@@ -419,9 +434,9 @@ describe("GameController", () => {
         game
           .getBunch()
           .addTiles([
-            new Tile("A1", "A"),
-            new Tile("A2", "A"),
-            new Tile("A3", "A"),
+            new TileModel("A1", "A"),
+            new TileModel("A2", "A"),
+            new TileModel("A3", "A"),
           ]);
 
         gameController.peel();
@@ -439,13 +454,13 @@ describe("GameController", () => {
   });
 
   describe("dump", () => {
-    const handTile = new Tile("H1", "H");
+    const handTile = new TileModel("H1", "H");
     const boardLocation = { x: 0, y: 0 };
-    const boardTile = new Tile("B1", "B");
+    const boardTile = new TileModel("B1", "B");
     const dumpTiles = [
-      new Tile("D1", "D"),
-      new Tile("U1", "U"),
-      new Tile("M1", "M"),
+      new TileModel("D1", "D"),
+      new TileModel("U1", "U"),
+      new TileModel("M1", "M"),
     ];
 
     beforeEach(() => {
@@ -519,7 +534,7 @@ describe("GameController", () => {
   });
 
   describe("moveTileFromHandToBoard", () => {
-    const tile = new Tile("H1", "H");
+    const tile = new TileModel("H1", "H");
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
@@ -543,7 +558,7 @@ describe("GameController", () => {
   });
 
   describe("moveTileFromBoardToHand", () => {
-    const tile = new Tile("B1", "B");
+    const tile = new TileModel("B1", "B");
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
@@ -566,7 +581,7 @@ describe("GameController", () => {
   });
 
   describe("moveAllTilesFromBoardToHand", () => {
-    const tile = new Tile("B1", "B");
+    const tile = new TileModel("B1", "B");
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
@@ -589,7 +604,7 @@ describe("GameController", () => {
   });
 
   describe("moveTileOnBoard", () => {
-    const tile = new Tile("B1", "B");
+    const tile = new TileModel("B1", "B");
     const fromLocation = { x: 0, y: 0 };
     const toLocation = { x: 1, y: 1 };
 
@@ -631,7 +646,7 @@ describe("GameController", () => {
   });
 
   describe("split", () => {
-    let spectatingPlayer: Player;
+    let spectatingPlayer: PlayerModel;
 
     it("throws an error if the game is already in progress", () => {
       player.setStatus(PlayerStatus.READY);
@@ -662,7 +677,7 @@ describe("GameController", () => {
 
     describe("when the game is ready to start", () => {
       beforeEach(() => {
-        spectatingPlayer = new Player(
+        spectatingPlayer = new PlayerModel(
           "p1",
           "p",
           PlayerStatus.SPECTATING,

@@ -1,26 +1,28 @@
 import { Server, Socket } from "socket.io";
 import { v4 as uuidv4 } from "uuid";
-import { BoardLocation } from "../models/Board";
-import Game, { GameJSON } from "../models/Game";
-import Player, { PlayerStatus } from "../models/Player";
+import { BoardLocation } from "../../types/board";
+import { Game } from "../../types/game";
+import { PlayerStatus } from "../../types/player";
+import GameModel from "../models/GameModel";
+import PlayerModel from "../models/PlayerModel";
 
 const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;
 const INITIAL_SHORTENED_GAME_TILE_COUNT = 2;
 
 export default class GameController {
-  private static games: Record<string, Game> = {};
+  private static games: Record<string, GameModel> = {};
 
   private io: Server;
   private socket: Socket;
-  private currentGame: Game;
-  private currentPlayer: Player;
+  private currentGame: GameModel;
+  private currentPlayer: PlayerModel;
 
   constructor(
     io: Server,
     socket: Socket,
-    currentGame: Game,
-    currentPlayer: Player,
+    currentGame: GameModel,
+    currentPlayer: PlayerModel,
   ) {
     this.io = io;
     this.socket = socket;
@@ -38,13 +40,13 @@ export default class GameController {
     from.to(to).emit("notification", { message });
   }
 
-  private static emitGameInfo(from: Server | Socket, game: Game): GameJSON {
+  private static emitGameInfo(from: Server | Socket, game: GameModel): Game {
     const gameInfo = game.toJSON();
     from.to(game.getId()).emit("gameInfo", gameInfo);
     return gameInfo;
   }
 
-  static getGames(): Record<string, Game> {
+  static getGames(): Record<string, GameModel> {
     return { ...this.games };
   }
 
@@ -61,7 +63,7 @@ export default class GameController {
       gameId = uuidv4();
     } while (this.games[gameId]);
 
-    const game = new Game(gameId, gameName, isShortenedGame);
+    const game = new GameModel(gameId, gameName, isShortenedGame);
     this.games = {
       ...this.games,
       [gameId]: game,
@@ -94,7 +96,7 @@ export default class GameController {
     }
 
     const isAdmin = game.getPlayers().length === 0;
-    const player = new Player(
+    const player = new PlayerModel(
       socket.id,
       username,
       isSpectator || game.isInProgress()
@@ -111,11 +113,11 @@ export default class GameController {
     return new GameController(io, socket, game, player);
   }
 
-  getCurrentGame(): Game {
+  getCurrentGame(): GameModel {
     return this.currentGame;
   }
 
-  getCurrentPlayer(): Player {
+  getCurrentPlayer(): PlayerModel {
     return this.currentPlayer;
   }
 

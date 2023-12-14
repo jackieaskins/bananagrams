@@ -1,19 +1,20 @@
-import Game from "./Game";
-import Player, { PlayerStatus } from "./Player";
+import { PlayerStatus } from "../../types/player";
+import GameModel from "./GameModel";
+import PlayerModel from "./PlayerModel";
 
 jest.mock("../boardValidation");
 
 function createPlayer() {
-  return new Player("p", "p", PlayerStatus.NOT_READY, false);
+  return new PlayerModel("p", "p", PlayerStatus.NOT_READY, false);
 }
 
 describe("Game Model", () => {
   const id = "id";
   const name = "name";
-  let game: Game;
+  let game: GameModel;
 
   beforeEach(() => {
-    game = new Game(id, name);
+    game = new GameModel(id, name);
   });
 
   describe("getId", () => {
@@ -41,7 +42,7 @@ describe("Game Model", () => {
 
   describe("isShortenedGame", () => {
     it("returns whether or not game is shortened", () => {
-      game = new Game(id, name, true);
+      game = new GameModel(id, name, true);
       expect(game.isShortenedGame()).toBe(true);
     });
   });

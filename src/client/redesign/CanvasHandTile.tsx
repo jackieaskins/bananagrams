@@ -1,9 +1,9 @@
 import Konva from "konva";
 import { useCallback, useRef } from "react";
-import { BoardLocation } from "../boards/types";
+import { BoardLocation } from "../../types/board";
+import { Tile } from "../../types/tile";
 import { useGame } from "../games/GameContext";
 import { useSocket } from "../socket/SocketContext";
-import { Tile } from "../tiles/types";
 import { HAND_TILE_DRAG_LAYER } from "./Canvas";
 import CanvasTile from "./CanvasTile";
 

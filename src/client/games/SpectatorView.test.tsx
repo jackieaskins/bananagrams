@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
+import { PlayerStatus } from "../../types/player";
 import { playerFixture } from "../fixtures/player";
-import { PlayerStatus } from "../players/types";
 import { renderComponent } from "../testUtils";
 import { getEmptyGameInfo, useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";

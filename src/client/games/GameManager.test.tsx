@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { PlayerStatus } from "../../types/player";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
-import { PlayerStatus } from "../players/types";
 import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import GameManager from "./GameManager";

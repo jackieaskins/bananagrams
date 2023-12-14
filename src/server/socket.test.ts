@@ -1,5 +1,5 @@
+import { PlayerStatus } from "../types/player";
 import GameController from "./controllers/GameController";
-import { PlayerStatus } from "./models/Player";
 import { configureSocket, handler } from "./socket";
 
 describe("socket", () => {

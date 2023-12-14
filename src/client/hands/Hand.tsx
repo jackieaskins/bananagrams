@@ -1,11 +1,11 @@
 import { Card, Flex, IconButton, Tooltip } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { FaShuffle } from "react-icons/fa6";
+import { Hand as HandType } from "../../types/hand";
 import { useGame } from "../games/GameContext";
 import { useSocket } from "../socket/SocketContext";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
-import { Hand as HandType } from "./types";
 
 type HandProps = {
   hand: HandType;

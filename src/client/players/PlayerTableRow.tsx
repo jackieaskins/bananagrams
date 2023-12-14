@@ -19,9 +19,9 @@ import {
   FaXmark,
 } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
+import { Player, PlayerStatus } from "../../types/player";
 import ForwardedTooltip from "../common/ForwardedTooltip";
 import { useSocket } from "../socket/SocketContext";
-import { Player, PlayerStatus } from "./types";
 
 export type PlayerTableRowProps = {
   isCurrentPlayerAdmin: boolean;

@@ -8,7 +8,7 @@ module.exports = {
     "**/*.{ts,tsx}",
     "!index.tsx",
     "!socket/index.ts",
-    "!fixures/**/*.{ts,tsx}",
+    "!fixtures/**/*.{ts,tsx}",
   ],
   displayName: "CLIENT",
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],

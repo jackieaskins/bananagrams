@@ -1,5 +1,5 @@
-import { Board } from "../boards/types";
-import { Hand } from "../hands/types";
+import { Board } from "./board";
+import { Hand } from "./hand";
 
 export enum PlayerStatus {
   NOT_READY = "NOT_READY",

@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
+import { Hand } from "../../types/hand";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
 import { renderComponent } from "../testUtils";
-import { Tile } from "../tiles/types";
 import ShuffleHandButton from "./ShuffleHandButton";
 
 const mockEmit = jest.fn();
@@ -19,7 +19,7 @@ jest.mock("../redesign/useCurrentPlayer", () => ({
 describe.each([{ hideText: true }, { hideText: false }])(
   "<ShuffleHandButton hideText={$hideText} />",
   ({ hideText }) => {
-    function renderButton({ hand }: { hand: Tile[] }) {
+    function renderButton({ hand }: { hand: Hand }) {
       mockUseCurrentPlayer.mockReturnValue({ hand });
       return renderComponent(<ShuffleHandButton hideText={hideText} />);
     }

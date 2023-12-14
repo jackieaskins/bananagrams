@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useDrag } from "react-dnd";
-import { Tile as TileType } from "./types";
+import { Tile as TileType } from "../../types/tile";
 
 type TileProps = {
   boardLocation: { x: number; y: number } | null;

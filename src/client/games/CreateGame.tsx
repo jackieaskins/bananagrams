@@ -1,12 +1,13 @@
 import { Box, Button, Heading, Stack } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Game } from "../../types/game";
 import { useSavedUsername } from "../LocalStorageContext";
 import ErrorAlert from "../alerts/ErrorAlert";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
 import { useSocket } from "../socket/SocketContext";
-import { GameInfo, GameLocationState } from "./types";
+import { GameLocationState } from "./types";
 
 export default function CreateGame(): JSX.Element {
   const [savedUsername, setSavedUsername] = useSavedUsername();
@@ -30,7 +31,7 @@ export default function CreateGame(): JSX.Element {
       socket.emit(
         "createGame",
         { gameName, username, isShortenedGame },
-        (error: Error, gameInfo: GameInfo) => {
+        (error: Error, gameInfo: Game) => {
           if (error) {
             setError(error.message);
             setIsCreatingGame(false);

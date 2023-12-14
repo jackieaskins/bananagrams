@@ -1,6 +1,6 @@
 import { shallow } from "enzyme";
+import { PlayerStatus } from "../../types/player";
 import { playerFixture } from "../fixtures/player";
-import { PlayerStatus } from "../players/types";
 import Game from "./Game";
 import { useGame } from "./GameContext";
 

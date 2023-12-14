@@ -1,5 +1,5 @@
 import { Rect, Text } from "react-konva";
-import { Tile } from "../tiles/types";
+import { Tile } from "../../types/tile";
 import { TILE_SIZE } from "./CanvasGrid";
 import { useColorHex } from "./useColorHex";
 

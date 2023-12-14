@@ -1,26 +1,29 @@
-import Bunch from "./Bunch";
-import Game from "./Game";
-import Player, { PlayerStatus } from "./Player";
-import Tile from "./Tile";
+import { PlayerStatus } from "../../types/player";
+import BunchModel from "./BunchModel";
+import GameModel from "./GameModel";
+import PlayerModel from "./PlayerModel";
+import TileModel from "./TileModel";
 
 jest.mock("../tileBreakdown", () => [
   { letter: "A", count: 2 },
   { letter: "B", count: 5 },
 ]);
 
-function addPlayersToGame(game: Game, playerCount: number) {
+function addPlayersToGame(game: GameModel, playerCount: number) {
   for (let i = 0; i < playerCount; i++) {
-    game.addPlayer(new Player(`p${i}`, `u${i}`, PlayerStatus.NOT_READY, false));
+    game.addPlayer(
+      new PlayerModel(`p${i}`, `u${i}`, PlayerStatus.NOT_READY, false),
+    );
   }
 }
 
 describe("Bunch Model", () => {
-  let game: Game;
-  let bunch: Bunch;
+  let game: GameModel;
+  let bunch: BunchModel;
 
   beforeEach(() => {
-    game = new Game("gameId", "gameName");
-    bunch = new Bunch(game);
+    game = new GameModel("gameId", "gameName");
+    bunch = new BunchModel(game);
   });
 
   describe("getTiles", () => {
@@ -31,15 +34,15 @@ describe("Bunch Model", () => {
 
   describe("toJSON", () => {
     test("returns fields converted to JSON", () => {
-      bunch.addTiles([new Tile("A1", "A")]);
+      bunch.addTiles([new TileModel("A1", "A")]);
       expect(bunch.toJSON()).toMatchSnapshot();
     });
   });
 
   describe("reset", () => {
     test("creates bunch with 3 tiles if shortened game", () => {
-      const shortenedGame = new Game("gameId", "gameName", true);
-      const shortenedBunch = new Bunch(shortenedGame);
+      const shortenedGame = new GameModel("gameId", "gameName", true);
+      const shortenedBunch = new BunchModel(shortenedGame);
 
       shortenedBunch.reset();
 
@@ -69,7 +72,7 @@ describe("Bunch Model", () => {
 
   describe("addTiles", () => {
     test("adds tiles to bunch", () => {
-      const tiles = [new Tile("A1", "A"), new Tile("B1", "B")];
+      const tiles = [new TileModel("A1", "A"), new TileModel("B1", "B")];
       bunch.addTiles(tiles);
 
       expect(bunch.getTiles()).toEqual(tiles);
@@ -77,9 +80,9 @@ describe("Bunch Model", () => {
   });
 
   describe("removeTiles", () => {
-    const tileA1 = new Tile("A1", "A");
-    const tileB1 = new Tile("B1", "B");
-    const tileC1 = new Tile("C1", "C");
+    const tileA1 = new TileModel("A1", "A");
+    const tileB1 = new TileModel("B1", "B");
+    const tileC1 = new TileModel("C1", "C");
     const tiles = [tileA1, tileB1, tileC1];
 
     beforeAll(() => {

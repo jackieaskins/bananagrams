@@ -1,8 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { screen, waitFor } from "@testing-library/react";
+import { Player, PlayerStatus } from "../../types/player";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
-import { Player, PlayerStatus } from "../players/types";
 import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import WaitingRoom from "./WaitingRoom";

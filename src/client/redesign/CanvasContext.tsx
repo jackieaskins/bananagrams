@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { BoardLocation } from "../boards/types";
+import { BoardLocation } from "../../types/board";
 import { SetState } from "../state/types";
 
 type Size = { width: number; height: number };

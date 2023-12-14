@@ -1,20 +1,19 @@
+import { Hand } from "../../types/hand";
 import BaseModel from "./BaseModel";
-import Tile, { TileJSON } from "./Tile";
+import TileModel from "./TileModel";
 
-export type HandJSON = TileJSON[];
+export default class HandModel implements BaseModel<Hand> {
+  private tiles: TileModel[] = [];
 
-export default class Hand implements BaseModel<HandJSON> {
-  private tiles: Tile[] = [];
-
-  getTiles(): Tile[] {
+  getTiles(): TileModel[] {
     return [...this.tiles];
   }
 
-  setTiles(tiles: Tile[]): void {
+  setTiles(tiles: TileModel[]): void {
     this.tiles = [...tiles];
   }
 
-  toJSON(): HandJSON {
+  toJSON(): Hand {
     return this.tiles.map((tile) => tile.toJSON());
   }
 
@@ -22,12 +21,12 @@ export default class Hand implements BaseModel<HandJSON> {
     this.tiles = [];
   }
 
-  addTiles(tiles: Tile[]): void {
+  addTiles(tiles: TileModel[]): void {
     this.tiles = [...this.tiles, ...tiles];
   }
 
-  removeTile(id: string): Tile {
-    let removedTile: Tile | null = null;
+  removeTile(id: string): TileModel {
+    let removedTile: TileModel | null = null;
 
     this.tiles = this.tiles.filter((tile) => {
       if (id === tile.getId()) {

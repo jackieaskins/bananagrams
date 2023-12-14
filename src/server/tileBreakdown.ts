@@ -1,4 +1,6 @@
-const tileBreakdown = [
+import { Letter } from "../types/tile";
+
+const tileBreakdown: Array<{ letter: Letter; count: number }> = [
   { letter: "A", count: 13 },
   { letter: "B", count: 3 },
   { letter: "C", count: 3 },

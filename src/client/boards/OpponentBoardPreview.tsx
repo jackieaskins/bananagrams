@@ -7,8 +7,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { Player } from "../../types/player";
 import PreviewHand from "../hands/PreviewHand";
-import { Player } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 import PreviewBoard from "./PreviewBoard";

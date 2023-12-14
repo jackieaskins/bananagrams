@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { PlayerStatus } from "../players/types";
+import { PlayerStatus } from "../../types/player";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";

@@ -1,5 +1,5 @@
 import { screen, waitFor, within } from "@testing-library/react";
-import { PlayerStatus } from "../players/types";
+import { PlayerStatus } from "../../types/player";
 import { renderComponent } from "../testUtils";
 import SpectateButton from "./SpectateButton";
 

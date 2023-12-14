@@ -1,13 +1,13 @@
 import { screen, waitFor } from "@testing-library/react";
-import { Board } from "../boards/types";
+import { Board } from "../../types/board";
+import { Bunch } from "../../types/bunch";
+import { Hand } from "../../types/hand";
+import { Player, PlayerStatus } from "../../types/player";
 import { isValidConnectedBoard } from "../boards/validate";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
-import { Hand } from "../hands/types";
-import { Player, PlayerStatus } from "../players/types";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
 import { renderComponent } from "../testUtils";
-import { Tile } from "../tiles/types";
 import { useGame } from "./GameContext";
 import PeelButton from "./PeelButton";
 
@@ -43,7 +43,7 @@ describe.each([{ hideText: true }, { hideText: false }])(
       isBoardValid: boolean;
       hand: Hand;
       board: Board;
-      bunch: Tile[];
+      bunch: Bunch;
       players: Player[];
     }> = {}) {
       mockIsValidConnectedBoard.mockReturnValue(isBoardValid);

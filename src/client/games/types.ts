@@ -1,18 +1,9 @@
-import { BoardLocation } from "../boards/types";
-import { Player } from "../players/types";
-import { Tile, TileItem } from "../tiles/types";
-
-export type GameInfo = {
-  gameId: string;
-  gameName: string;
-  isInProgress: boolean;
-  bunch: Tile[];
-  players: Player[];
-  previousSnapshot: Player[] | null;
-};
+import { BoardLocation } from "../../types/board";
+import { Game } from "../../types/game";
+import { TileItem } from "../tiles/types";
 
 export type GameState = {
-  gameInfo: GameInfo;
+  gameInfo: Game;
   handleDump: (tileItem: TileItem) => void;
   handleMoveTileFromHandToBoard: (
     tileId: string,

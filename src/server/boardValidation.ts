@@ -1,13 +1,8 @@
+import { BoardLocation, Direction, ValidationStatus } from "../types/board";
 import { generateBoardKey, parseBoardKey } from "./boardKey";
 import Dictionary from "./dictionary/Dictionary";
-import {
-  BoardSquares,
-  BoardLocation,
-  Direction,
-  BoardSquare,
-  ValidationStatus,
-} from "./models/Board";
-import Tile from "./models/Tile";
+import { BoardSquareModel, BoardSquareModels } from "./models/BoardModel";
+import TileModel from "./models/TileModel";
 
 type ValidateLocation = {
   start: BoardLocation;
@@ -24,10 +19,10 @@ function getDelta(direction: Direction): BoardLocation {
 }
 
 function iterateWordFromStart(
-  board: BoardSquares,
+  board: BoardSquareModels,
   start: BoardLocation,
   direction: Direction,
-  loopFn: (square: BoardSquare) => boolean | void,
+  loopFn: (square: BoardSquareModel) => boolean | void,
 ): void {
   const delta = getDelta(direction);
   let { x: nextX, y: nextY } = start;
@@ -46,7 +41,7 @@ function iterateWordFromStart(
 }
 
 function validateWordsAtLocations(
-  board: BoardSquares,
+  board: BoardSquareModels,
   locationsToValidate: ValidateLocation[],
 ): void {
   const locationsWithWords = locationsToValidate.map(({ start, direction }) => {
@@ -77,10 +72,10 @@ function validateWordsAtLocations(
 }
 
 export function validateAddTile(
-  board: BoardSquares,
+  board: BoardSquareModels,
   location: BoardLocation,
-  tile: Tile,
-): BoardSquares {
+  tile: TileModel,
+): BoardSquareModels {
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction],
   );
@@ -130,9 +125,9 @@ export function validateAddTile(
 }
 
 export function validateRemoveTile(
-  board: BoardSquares,
+  board: BoardSquareModels,
   location: BoardLocation,
-): BoardSquares {
+): BoardSquareModels {
   const directions: Direction[] = Object.keys(Direction).map(
     (direction) => Direction[direction as keyof typeof Direction],
   );

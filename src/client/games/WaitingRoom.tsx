@@ -8,9 +8,9 @@ import {
 } from "@chakra-ui/react";
 import { useCallback, useMemo } from "react";
 import { FaRegCopy } from "react-icons/fa6";
+import { PlayerStatus } from "../../types/player";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import PlayerTable from "../players/PlayerTable";
-import { PlayerStatus } from "../players/types";
 import { useSocket } from "../socket/SocketContext";
 import { useGame } from "./GameContext";
 

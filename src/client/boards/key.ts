@@ -1,4 +1,4 @@
-import { BoardLocation } from "./types";
+import { BoardLocation } from "../../types/board";
 
 const SEPARATOR = ",";
 

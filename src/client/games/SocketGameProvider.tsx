@@ -5,11 +5,12 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { BoardLocation } from "../boards/types";
+import { BoardLocation } from "../../types/board";
+import { Game } from "../../types/game";
 import { useSocket } from "../socket/SocketContext";
 import { TileItem } from "../tiles/types";
 import { GameProvider, getEmptyGameInfo } from "./GameContext";
-import { GameInfo, GameLocationState } from "./types";
+import { GameLocationState } from "./types";
 
 type GameParams = {
   gameId: string;
@@ -25,7 +26,7 @@ export default function SocketGameProvider({
   const { pathname, state } = useLocation() as Location<GameLocationState>;
   const { gameId } = useParams<GameParams>() as GameParams;
 
-  const [gameInfo, setGameInfo] = useState<GameInfo>(
+  const [gameInfo, setGameInfo] = useState<Game>(
     state?.gameInfo ?? getEmptyGameInfo(gameId),
   );
   const [isInGame] = useState<boolean>(state?.isInGame ?? false);
@@ -70,7 +71,7 @@ export default function SocketGameProvider({
   }, [gameId, isInGame, navigate, pathname, socket]);
 
   useEffect(() => {
-    socket.on("gameInfo", (gameInfo: GameInfo) => {
+    socket.on("gameInfo", (gameInfo: Game) => {
       setGameInfo(gameInfo);
     });
 

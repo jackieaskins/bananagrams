@@ -1,55 +1,31 @@
+import {
+  AbstractBoard,
+  AbstractBoardSquare,
+  Board,
+  BoardLocation,
+} from "../../types/board";
 import { generateBoardKey } from "../boardKey";
 import { validateAddTile, validateRemoveTile } from "../boardValidation";
 import BaseModel from "./BaseModel";
-import Tile, { TileJSON } from "./Tile";
+import TileModel from "./TileModel";
 
-export type BoardLocation = {
-  x: number;
-  y: number;
-};
-export enum Direction {
-  ACROSS = "ACROSS",
-  DOWN = "DOWN",
-}
-export enum ValidationStatus {
-  NOT_VALIDATED = "NOT_VALIDATED",
-  VALID = "VALID",
-  INVALID = "INVALID",
-}
-export type WordInfo = {
-  start: BoardLocation;
-  validation: ValidationStatus;
-};
-export type BoardSquare = {
-  tile: Tile;
-  wordInfo: Record<Direction, WordInfo>;
-};
-export type BoardSquares = Record<string, BoardSquare>;
-export type BoardJSON = Record<
-  string,
-  {
-    tile: TileJSON;
-    wordInfo: {
-      [Direction.ACROSS]?: WordInfo;
-      [Direction.DOWN]?: WordInfo;
-    };
-  }
->;
+export type BoardSquareModel = AbstractBoardSquare<TileModel>;
+export type BoardSquareModels = AbstractBoard<TileModel>;
 
-function initializeBoard(): BoardSquares {
+function initializeBoard(): BoardSquareModels {
   return {};
 }
 
-export default class Board implements BaseModel<BoardJSON> {
+export default class BoardModel implements BaseModel<Board> {
   private squares = initializeBoard();
 
-  getSquares(): BoardSquares {
+  getSquares(): BoardSquareModels {
     return Object.fromEntries(
       Object.entries(this.squares).map(([key, square]) => [key, { ...square }]),
     );
   }
 
-  getAllTiles(): Tile[] {
+  getAllTiles(): TileModel[] {
     return Object.values(this.squares).map(({ tile }) => tile);
   }
 
@@ -57,7 +33,7 @@ export default class Board implements BaseModel<BoardJSON> {
     this.squares = initializeBoard();
   }
 
-  clear(): Tile[] {
+  clear(): TileModel[] {
     const clearedTiles = Object.values(this.getSquares()).map(
       ({ tile }) => tile,
     );
@@ -81,7 +57,7 @@ export default class Board implements BaseModel<BoardJSON> {
     return !this.getSquare(location);
   }
 
-  toJSON(): BoardJSON {
+  toJSON(): Board {
     return Object.fromEntries(
       Object.entries(this.squares).map(([key, square]) => [
         key,
@@ -90,7 +66,7 @@ export default class Board implements BaseModel<BoardJSON> {
     );
   }
 
-  removeTile({ x, y }: BoardLocation): Tile {
+  removeTile({ x, y }: BoardLocation): TileModel {
     const square = this.getSquare({ x, y });
 
     if (!square) {
@@ -102,7 +78,7 @@ export default class Board implements BaseModel<BoardJSON> {
     return tile;
   }
 
-  addTile(location: BoardLocation, tile: Tile): void {
+  addTile(location: BoardLocation, tile: TileModel): void {
     this.validateEmptySquare(location);
 
     this.squares = validateAddTile(this.getSquares(), location, tile);

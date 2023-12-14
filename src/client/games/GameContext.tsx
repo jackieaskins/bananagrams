@@ -1,12 +1,13 @@
 import { createContext, useContext } from "react";
-import { GameState, GameInfo } from "./types";
+import { Game } from "../../types/game";
+import { GameState } from "./types";
 
 type GameProviderProps = {
   children: React.ReactNode;
   gameState: GameState;
 };
 
-export function getEmptyGameInfo(gameId: string): GameInfo {
+export function getEmptyGameInfo(gameId: string): Game {
   return {
     gameId,
     gameName: "",

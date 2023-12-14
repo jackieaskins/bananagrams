@@ -11,13 +11,14 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { Game } from "../../types/game";
 import { useSavedUsername } from "../LocalStorageContext";
 import ErrorAlert from "../alerts/ErrorAlert";
 import CheckboxField from "../forms/CheckboxField";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
 import { useSocket } from "../socket/SocketContext";
-import { GameInfo, GameLocationState } from "./types";
+import { GameLocationState } from "./types";
 
 type JoinGameParams = {
   gameId: string;
@@ -44,7 +45,7 @@ export default function JoinGame(): JSX.Element {
       socket.emit(
         "joinGame",
         { gameId, username, isSpectator },
-        (error: Error | null, gameInfo: GameInfo) => {
+        (error: Error | null, gameInfo: Game) => {
           if (error) {
             setError(error.message);
             setIsJoiningGame(false);

@@ -6,7 +6,7 @@ import {
   Direction,
   ValidationStatus,
   WordInfo,
-} from "../boards/types";
+} from "../../types/board";
 import { useGame } from "../games/GameContext";
 import { useSocket } from "../socket/SocketContext";
 import { BOARD_TILE_DRAG_LAYER } from "./Canvas";

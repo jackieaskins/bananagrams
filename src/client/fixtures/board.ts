@@ -1,9 +1,9 @@
 import {
   BoardSquare,
-  ValidationStatus,
   Direction,
+  ValidationStatus,
   WordInfo,
-} from "../boards/types";
+} from "../../types/board";
 
 export function wordInfoFixture(overrides: Partial<WordInfo> = {}): WordInfo {
   return {

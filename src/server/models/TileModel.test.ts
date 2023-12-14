@@ -1,7 +1,7 @@
-import Tile from "./Tile";
+import TileModel from "./TileModel";
 
 describe("Tile Model", () => {
-  const tile = new Tile("A1", "A");
+  const tile = new TileModel("A1", "A");
 
   test("getId returns id", () => {
     expect(tile.getId()).toBe("A1");

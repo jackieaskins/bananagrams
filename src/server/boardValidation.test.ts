@@ -1,12 +1,8 @@
+import { Direction, ValidationStatus, WordInfo } from "../types/board";
 import { generateBoardKey } from "./boardKey";
 import { validateAddTile, validateRemoveTile } from "./boardValidation";
-import {
-  BoardSquares,
-  Direction,
-  ValidationStatus,
-  WordInfo,
-} from "./models/Board";
-import Tile from "./models/Tile";
+import { BoardSquareModels } from "./models/BoardModel";
+import TileModel from "./models/TileModel";
 
 // I'm pretty sure I mixed up x & y so flip this:
 //     0 1 2 3 4
@@ -33,19 +29,19 @@ jest.mock("./dictionary/Dictionary", () => {
 });
 
 describe("boardValidation", () => {
-  const tiles: Record<string, Tile> = {
-    "0,2": new Tile("C1", "C"),
-    "1,2": new Tile("A1", "A"),
-    "1,3": new Tile("T1", "T"),
-    "2,0": new Tile("T2", "T"),
-    "2,1": new Tile("I1", "I"),
-    "2,2": new Tile("M1", "M"),
-    "2,3": new Tile("E1", "E"),
-    "2,4": new Tile("S1", "S"),
-    "3,2": new Tile("E2", "E"),
-    "4,2": new Tile("Z1", "Z"),
+  const tiles: Record<string, TileModel> = {
+    "0,2": new TileModel("C1", "C"),
+    "1,2": new TileModel("A1", "A"),
+    "1,3": new TileModel("T1", "T"),
+    "2,0": new TileModel("T2", "T"),
+    "2,1": new TileModel("I1", "I"),
+    "2,2": new TileModel("M1", "M"),
+    "2,3": new TileModel("E1", "E"),
+    "2,4": new TileModel("S1", "S"),
+    "3,2": new TileModel("E2", "E"),
+    "4,2": new TileModel("Z1", "Z"),
   };
-  let board: BoardSquares = {};
+  let board: BoardSquareModels = {};
 
   const addTile = (x: number, y: number): void => {
     board = validateAddTile(board, { x, y }, tiles[generateBoardKey({ x, y })]);

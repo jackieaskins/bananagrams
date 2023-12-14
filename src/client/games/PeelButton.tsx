@@ -7,8 +7,8 @@ import {
 } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { FaPlay } from "react-icons/fa6";
+import { PlayerStatus } from "../../types/player";
 import { isValidConnectedBoard } from "../boards/validate";
-import { PlayerStatus } from "../players/types";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
 import { useGame } from "./GameContext";
 
