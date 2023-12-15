@@ -1,54 +1,63 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
+import {
+  ClientToServerEventName,
+  ClientToServerEvents,
+  ServerToClientEvents,
+  SocketCallback,
+} from "../types/socket";
 import GameController from "./controllers/GameController";
 
-export function handler(
-  fn: () => Record<string, any> | void,
-  callback?: (
-    error: { message: string } | null,
-    data: Record<string, any> | null,
-  ) => void,
-): void {
-  try {
-    const returnValue = fn() || null;
-    callback?.(null, returnValue);
-  } catch (e) {
-    const { message } = e as Error;
-    callback?.({ message }, null);
-  }
+export function handler<E, T>(fn: (event: E) => T) {
+  return function (event: E, callback?: SocketCallback<T>): void {
+    try {
+      const returnValue = fn(event) || null;
+      callback?.(null, returnValue);
+    } catch (e) {
+      const { message } = e as Error;
+      callback?.({ message }, null);
+    }
+  };
 }
 
-export function configureSocket(io: Server): void {
-  io.on("connection", (socket: Socket) => {
+export function configureSocket(
+  io: Server<ClientToServerEvents, ServerToClientEvents>,
+): void {
+  io.on("connection", (socket) => {
     const { id: userId } = socket;
 
     console.log(`New connection: ${userId}`);
 
     let gameController: GameController | undefined;
 
-    const validateGameControllerExists = (): void => {
-      if (!gameController) {
-        throw new Error("Not in a game");
-      }
-    };
+    function withController<E, T>(
+      fn: (event: E, controller: GameController) => T,
+    ) {
+      return handler((event: E) => {
+        if (!gameController) {
+          throw new Error("Not in a game");
+        }
+
+        return fn(event, gameController);
+      });
+    }
 
     socket.on(
-      "createGame",
-      ({ gameName, username, isShortenedGame }, callback) => {
-        handler(() => {
-          gameController = GameController.createGame(
-            gameName,
-            username,
-            isShortenedGame,
-            io,
-            socket,
-          );
-          return gameController.getCurrentGame().toJSON();
-        }, callback);
-      },
+      ClientToServerEventName.CreateGame,
+      handler(({ gameName, username, isShortenedGame }) => {
+        gameController = GameController.createGame(
+          gameName,
+          username,
+          isShortenedGame,
+          io,
+          socket,
+        );
+        return gameController.getCurrentGame().toJSON();
+      }),
     );
 
-    socket.on("joinGame", ({ gameId, username, isSpectator }, callback) => {
-      handler(() => {
+    socket.on(
+      ClientToServerEventName.JoinGame,
+      handler(({ gameId, username, isSpectator }) => {
         gameController = GameController.joinGame(
           gameId,
           username,
@@ -57,97 +66,69 @@ export function configureSocket(io: Server): void {
           socket,
         );
         return gameController.getCurrentGame().toJSON();
-      }, callback);
-    });
-
-    socket.on("kickPlayer", ({ userId }, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).kickPlayer(userId);
-      }, callback);
-    });
-
-    socket.on("leaveGame", ({}, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).leaveGame();
-        gameController = undefined;
-      }, callback);
-    });
-
-    socket.on("setStatus", ({ status }, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).setStatus(status);
-      }, callback);
-    });
-
-    socket.on("split", ({}, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).split();
-      }, callback);
-    });
-
-    socket.on("peel", ({}, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).peel();
-      }, callback);
-    });
-
-    socket.on("dump", ({ tileId, boardLocation }, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).dump(tileId, boardLocation);
-      }, callback);
-    });
-
-    socket.on(
-      "moveTileFromHandToBoard",
-      ({ tileId, boardLocation }, callback) => {
-        handler(() => {
-          validateGameControllerExists();
-          (gameController as GameController).moveTileFromHandToBoard(
-            tileId,
-            boardLocation,
-          );
-        }, callback);
-      },
+      }),
     );
 
-    socket.on("moveTileFromBoardToHand", ({ boardLocation }, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).moveTileFromBoardToHand(
-          boardLocation,
-        );
-      }, callback);
-    });
+    socket.on(
+      ClientToServerEventName.KickPlayer,
+      withController(({ userId }, controller) => controller.kickPlayer(userId)),
+    );
 
-    socket.on("moveAllTilesFromBoardToHand", ({}, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).moveAllTilesFromBoardToHand();
-      }, callback);
-    });
+    socket.on(
+      ClientToServerEventName.LeaveGame,
+      withController((_event, controller) => {
+        controller.leaveGame();
+        gameController = undefined;
+      }),
+    );
 
-    socket.on("moveTileOnBoard", ({ fromLocation, toLocation }, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).moveTileOnBoard(
-          fromLocation,
-          toLocation,
-        );
-      }, callback);
-    });
+    socket.on(
+      ClientToServerEventName.SetStatus,
+      withController(({ status }, controller) => controller.setStatus(status)),
+    );
 
-    socket.on("shuffleHand", ({}, callback) => {
-      handler(() => {
-        validateGameControllerExists();
-        (gameController as GameController).shuffleHand();
-      }, callback);
-    });
+    socket.on(
+      ClientToServerEventName.Split,
+      withController((_event, controller) => controller.split()),
+    );
+
+    socket.on(
+      ClientToServerEventName.Peel,
+      withController((_event, controller) => controller.peel()),
+    );
+
+    socket.on(
+      ClientToServerEventName.Dump,
+      withController(({ tileId, boardLocation }, controller) =>
+        controller.dump(tileId, boardLocation),
+      ),
+    );
+
+    socket.on(
+      ClientToServerEventName.MoveTileFromHandToBoard,
+      withController(({ tileId, boardLocation }, controller) =>
+        controller.moveTileFromHandToBoard(tileId, boardLocation),
+      ),
+    );
+
+    socket.on(
+      ClientToServerEventName.MoveTileFromBoardToHand,
+      withController(({ boardLocation }, controller) =>
+        controller.moveTileFromBoardToHand(boardLocation),
+      ),
+    );
+
+    socket.on(
+      ClientToServerEventName.MoveTileOnBoard,
+      withController(({ fromLocation, toLocation }, controller) =>
+        controller.moveTileOnBoard(fromLocation, toLocation),
+      ),
+    );
+
+    socket.on(
+      ClientToServerEventName.ShuffleHand,
+      withController((_event, controller) => controller.shuffleHand()),
+    );
 
     socket.on("disconnect", () => {
       gameController?.leaveGame();

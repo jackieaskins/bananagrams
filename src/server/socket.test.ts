@@ -61,7 +61,6 @@ describe("socket", () => {
         dump: jest.fn(),
         moveTileFromHandToBoard: jest.fn(),
         moveTileFromBoardToHand: jest.fn(),
-        moveAllTilesFromBoardToHand: jest.fn(),
         moveTileOnBoard: jest.fn(),
         shuffleHand: jest.fn(),
       };
@@ -490,45 +489,6 @@ describe("socket", () => {
         });
         createGame();
         moveTileFromBoardToHand(callback);
-        expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
-      });
-    });
-
-    describe("moveAllTilesFromBoardToHand", () => {
-      const moveAllTilesFromBoardToHand = (callback?: () => void): void => {
-        socketCalls.moveAllTilesFromBoardToHand({}, callback);
-      };
-
-      it("throws an error when not in a game", () => {
-        moveAllTilesFromBoardToHand(callback);
-        assertThrowsNoGameError();
-      });
-
-      it("calls move all tiles from board to hand on game", () => {
-        createGame();
-        moveAllTilesFromBoardToHand(callback);
-        expect(
-          gameController.moveAllTilesFromBoardToHand,
-        ).toHaveBeenCalledWith();
-      });
-
-      it("calls callback with null", () => {
-        createGame();
-        moveAllTilesFromBoardToHand(callback);
-        expect(callback).toHaveBeenCalledWith(null, null);
-      });
-
-      it("works without callback", () => {
-        createGame();
-        expect(() => moveAllTilesFromBoardToHand()).not.toThrow();
-      });
-
-      it("calls callback with error when move tiles fails", () => {
-        gameController.moveAllTilesFromBoardToHand.mockImplementation(() => {
-          throw new Error("Error");
-        });
-        createGame();
-        moveAllTilesFromBoardToHand(callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });

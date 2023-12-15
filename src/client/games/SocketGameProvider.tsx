@@ -45,9 +45,6 @@ export default function SocketGameProvider({
   ): void => {
     socket.emit("moveTileFromHandToBoard", { tileId, boardLocation });
   };
-  const handleMoveAllTilesFromBoardToHand = (): void => {
-    socket.emit("moveAllTilesFromBoardToHand", {});
-  };
   const handleMoveTileOnBoard = (
     fromLocation: BoardLocation,
     toLocation: BoardLocation,
@@ -87,7 +84,6 @@ export default function SocketGameProvider({
         handleDump,
         handleMoveTileFromBoardToHand,
         handleMoveTileFromHandToBoard,
-        handleMoveAllTilesFromBoardToHand,
         handleMoveTileOnBoard,
         handlePeel,
         isInGame,

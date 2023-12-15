@@ -280,7 +280,7 @@ describe("GameController", () => {
 
       gameController.leaveGame();
 
-      assertEmitsGameInfo(ioEmit);
+      assertEmitsGameInfo(socketEmit);
     });
   });
 
@@ -573,29 +573,6 @@ describe("GameController", () => {
       expect(player.moveTileFromBoardToHand).toHaveBeenCalledWith(
         boardLocation,
       );
-    });
-
-    it("emits game info", () => {
-      assertEmitsGameInfo(ioEmit);
-    });
-  });
-
-  describe("moveAllTilesFromBoardToHand", () => {
-    const tile = new TileModel("B1", "B");
-    const boardLocation = { x: 0, y: 0 };
-
-    beforeEach(() => {
-      player.getBoard().addTile(boardLocation, tile);
-
-      jest.spyOn(player.getHand(), "addTiles");
-      jest.spyOn(player.getBoard(), "clear");
-
-      gameController.moveAllTilesFromBoardToHand();
-    });
-
-    it("moves all tiles from player board to hand", () => {
-      expect(player.getBoard().clear).toHaveBeenCalledWith();
-      expect(player.getHand().addTiles).toHaveBeenCalledWith([tile]);
     });
 
     it("emits game info", () => {

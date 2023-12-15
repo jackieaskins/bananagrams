@@ -13,7 +13,6 @@ exports[`<SocketGameProvider /> renders properly 1`] = `
         "previousSnapshot": null,
       },
       "handleDump": [Function],
-      "handleMoveAllTilesFromBoardToHand": [Function],
       "handleMoveTileFromBoardToHand": [Function],
       "handleMoveTileFromHandToBoard": [Function],
       "handleMoveTileOnBoard": [Function],

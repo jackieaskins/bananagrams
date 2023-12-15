@@ -84,12 +84,6 @@ describe("<SocketGameProvider />", () => {
       });
     });
 
-    test("handleMoveAllTilesFromBoardToHand", () => {
-      getGameState().handleMoveAllTilesFromBoardToHand();
-
-      expect(mockEmit).toHaveBeenCalledWith("moveAllTilesFromBoardToHand", {});
-    });
-
     test("handleMoveTileOnBoard", () => {
       getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
 

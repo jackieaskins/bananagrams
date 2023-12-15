@@ -10,7 +10,6 @@ export type GameState = {
     boardLocation: BoardLocation,
   ) => void;
   handleMoveTileFromBoardToHand: (boardLocation: BoardLocation | null) => void;
-  handleMoveAllTilesFromBoardToHand: () => void;
   handleMoveTileOnBoard: (
     fromLocation: BoardLocation,
     toLocation: BoardLocation,
