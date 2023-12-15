@@ -14,10 +14,10 @@
     "start": "NODE_ENV=production tsx src/server/index.ts",
     "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test",
     "test": "jest --silent",
-    "test:client": "jest --projects src/client",
-    "test:client:watch": "jest --projects src/client --watch",
-    "test:server": "jest --projects src/server",
-    "test:server:watch": "jest --projects src/server --watch",
+    "test:client": "jest --config ./jest.client.config.cjs",
+    "test:client:watch": "npm run test:client -- --watch",
+    "test:server": "jest --config ./jest.server.config.cjs",
+    "test:server:watch": "npm run test:server -- --watch",
     "test:watch": "jest --watch"
   },
   "engines": {

@@ -1,9 +1,8 @@
-const baseConfig = require("../../jest.config.base.cjs");
+const baseConfig = require("./jest.config.base.cjs");
 
 /** @type {import('jest').Config} */
 module.exports = {
   ...baseConfig,
-  name: "client",
   collectCoverageFrom: [
     "**/*.{ts,tsx}",
     "!index.tsx",
@@ -11,6 +10,7 @@ module.exports = {
     "!fixtures/**/*.{ts,tsx}",
   ],
   displayName: "CLIENT",
+  rootDir: "./src/client",
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
   testEnvironment: "jsdom",

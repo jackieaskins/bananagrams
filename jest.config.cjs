@@ -1,6 +1,8 @@
 const baseConfig = require("./jest.config.base.cjs");
+const clientConfig = require("./jest.client.config.cjs");
+const serverConfig = require("./jest.server.config.cjs");
 
 module.exports = {
   ...baseConfig,
-  projects: ["<rootDir>/src/client", "<rootDir>/src/server"],
+  projects: [clientConfig, serverConfig],
 };
