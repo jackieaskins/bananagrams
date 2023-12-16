@@ -4,14 +4,9 @@ import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "../games/GameContext";
+import { socket } from "../socket";
+import { CURRENT_PLAYER_ID } from "../testUtils";
 import Hand from "./Hand";
-
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { id: "123", emit: mockEmit },
-  }),
-}));
 
 jest.mock("../games/GameContext", () => ({
   useGame: jest.fn().mockReturnValue({
@@ -42,7 +37,7 @@ describe("<Hand />", () => {
 
   test("renders properly with player", () => {
     useGame.mockReturnValue({
-      gameInfo: { players: [playerFixture({ userId: "123" })] },
+      gameInfo: { players: [playerFixture({ userId: CURRENT_PLAYER_ID })] },
       handleMoveTileFromBoardToHand: jest.fn(),
     });
 
@@ -52,7 +47,7 @@ describe("<Hand />", () => {
   test("shuffle button emits shuffle hand event", () => {
     renderComponent().find(IconButton).props().onClick();
 
-    expect(mockEmit).toHaveBeenCalledWith("shuffleHand", {});
+    expect(socket.emit).toHaveBeenCalledWith("shuffleHand", null);
   });
 
   describe("useDrop", () => {

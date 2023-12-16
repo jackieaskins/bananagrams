@@ -2,6 +2,7 @@ import { shallow } from "enzyme";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { gameInfoFixture } from "../fixtures/game";
+import { socket } from "../socket";
 import SocketGameProvider from "./SocketGameProvider";
 
 jest.mock("react", () => ({
@@ -19,18 +20,9 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({ gameId: "gameId" }),
 }));
 
-const mockEmit = jest.fn();
-const mockOn = jest.fn();
-const mockOff = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: {
-      emit: mockEmit,
-      on: mockOn,
-      off: mockOff,
-    },
-  }),
-}));
+const mockEmit = socket.emit as jest.Mock;
+const mockOn = socket.on as jest.Mock;
+const mockOff = socket.off as jest.Mock;
 
 describe("<SocketGameProvider />", () => {
   const mockSetGameInfo = jest.fn();
@@ -96,7 +88,7 @@ describe("<SocketGameProvider />", () => {
     test("handlePeel", () => {
       getGameState().handlePeel();
 
-      expect(mockEmit).toHaveBeenCalledWith("peel", {});
+      expect(mockEmit).toHaveBeenCalledWith("peel", null);
     });
   });
 
@@ -127,9 +119,7 @@ describe("<SocketGameProvider />", () => {
       test("emits leave game event on dismount", () => {
         callComponentMount()();
 
-        expect(mockEmit).toHaveBeenCalledWith("leaveGame", {
-          gameId: "gameId",
-        });
+        expect(mockEmit).toHaveBeenCalledWith("leaveGame", null);
       });
     });
 

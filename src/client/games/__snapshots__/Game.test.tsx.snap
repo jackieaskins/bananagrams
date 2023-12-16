@@ -140,7 +140,7 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
                   "isAdmin": false,
                   "isTopBanana": false,
                   "status": "READY",
-                  "userId": "id",
+                  "userId": "currentPlayerId",
                   "username": "username",
                 },
                 {

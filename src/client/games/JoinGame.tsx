@@ -11,13 +11,13 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { Game } from "../../types/game";
+import { ClientToServerEventName } from "../../types/socket";
 import { useSavedUsername } from "../LocalStorageContext";
 import ErrorAlert from "../alerts/ErrorAlert";
 import CheckboxField from "../forms/CheckboxField";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { GameLocationState } from "./types";
 
 type JoinGameParams = {
@@ -25,7 +25,6 @@ type JoinGameParams = {
 };
 
 export default function JoinGame(): JSX.Element {
-  const { socket } = useSocket();
   const navigate = useNavigate();
   const { gameId } = useParams<JoinGameParams>() as JoinGameParams;
 
@@ -43,24 +42,24 @@ export default function JoinGame(): JSX.Element {
       setSavedUsername(username);
 
       socket.emit(
-        "joinGame",
+        ClientToServerEventName.JoinGame,
         { gameId, username, isSpectator },
-        (error: Error | null, gameInfo: Game) => {
-          if (error) {
-            setError(error.message);
-            setIsJoiningGame(false);
-          } else {
+        (error, gameInfo) => {
+          if (gameInfo) {
             const locationState: GameLocationState = {
               isInGame: true,
               gameInfo,
             };
 
             navigate("..", { state: locationState, relative: "path" });
+          } else {
+            setError(error?.message ?? "Unable to join game");
+            setIsJoiningGame(false);
           }
         },
       );
     },
-    [gameId, isSpectator, navigate, setSavedUsername, socket, username],
+    [gameId, isSpectator, navigate, setSavedUsername, username],
   );
 
   return (

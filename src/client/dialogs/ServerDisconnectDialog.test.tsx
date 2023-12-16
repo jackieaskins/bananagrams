@@ -1,14 +1,10 @@
 import { screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { socket } from "../socket";
 import { renderComponent } from "../testUtils";
 import ServerDisconnectDialog from "./ServerDisconnectDialog";
 
-const mockOn = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { on: mockOn },
-  }),
-}));
+const mockOn = socket.on as jest.Mock;
 
 function emitDisconnect() {
   mockOn.mockImplementation((_event, callback) => callback());

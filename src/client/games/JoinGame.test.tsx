@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Routes } from "react-router";
 import { Game } from "../../types/game";
 import { useSavedUsername } from "../LocalStorageContext";
 import { gameInfoFixture } from "../fixtures/game";
+import { socket } from "../socket";
 import { renderComponent } from "../testUtils";
 import JoinGame from "./JoinGame";
 
@@ -16,14 +17,7 @@ jest.mock("../LocalStorageContext", () => ({
   useSavedUsername: jest.fn(),
 }));
 
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: {
-      emit: mockEmit,
-    },
-  }),
-}));
+const mockEmit = socket.emit as jest.Mock;
 
 function renderForm() {
   return renderComponent(
@@ -42,7 +36,7 @@ function mockEmitCallback(
   gameInfo: Game = gameInfoFixture({ gameId: GAME_ID }),
 ) {
   mockEmit.mockImplementation((_event, _params, callback) =>
-    callback(error, gameInfo),
+    callback(error, error ? null : gameInfo),
   );
 }
 

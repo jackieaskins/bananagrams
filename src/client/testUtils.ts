@@ -5,6 +5,8 @@ import {
 } from "@testing-library/react";
 import userEvent, { UserEvent } from "@testing-library/user-event";
 
+export const CURRENT_PLAYER_ID = "currentPlayerId";
+
 // https://testing-library.com/docs/user-event/intro
 export function renderComponent(
   ui: React.ReactElement,

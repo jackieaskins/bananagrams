@@ -1,15 +1,9 @@
 import { screen } from "@testing-library/react";
 import { Hand } from "../../types/hand";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
+import { socket } from "../socket";
 import { renderComponent } from "../testUtils";
 import ShuffleHandButton from "./ShuffleHandButton";
-
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { emit: mockEmit },
-  }),
-}));
 
 const mockUseCurrentPlayer = useCurrentPlayer as jest.Mock;
 jest.mock("../redesign/useCurrentPlayer", () => ({
@@ -50,7 +44,7 @@ describe.each([{ hideText: true }, { hideText: false }])(
 
       await user.click(screen.getByRole("button", { name: "Shuffle hand" }));
 
-      expect(mockEmit).toHaveBeenCalledWith("shuffleHand", {});
+      expect(socket.emit).toHaveBeenCalledWith("shuffleHand", null);
     });
 
     it(`${

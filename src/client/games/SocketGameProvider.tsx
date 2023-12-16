@@ -7,7 +7,11 @@ import {
 } from "react-router-dom";
 import { BoardLocation } from "../../types/board";
 import { Game } from "../../types/game";
-import { useSocket } from "../socket/SocketContext";
+import {
+  ClientToServerEventName,
+  ServerToClientEventName,
+} from "../../types/socket";
+import { socket } from "../socket";
 import { TileItem } from "../tiles/types";
 import { GameProvider, getEmptyGameInfo } from "./GameContext";
 import { GameLocationState } from "./types";
@@ -21,7 +25,6 @@ export default function SocketGameProvider({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  const { socket } = useSocket();
   const navigate = useNavigate();
   const { pathname, state } = useLocation() as Location<GameLocationState>;
   const { gameId } = useParams<GameParams>() as GameParams;
@@ -32,50 +35,56 @@ export default function SocketGameProvider({
   const [isInGame] = useState<boolean>(state?.isInGame ?? false);
 
   const handleDump = ({ boardLocation, id }: TileItem): void => {
-    socket.emit("dump", { boardLocation, tileId: id });
+    socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
   };
   const handleMoveTileFromBoardToHand = (
-    boardLocation: BoardLocation | null,
+    boardLocation: BoardLocation,
   ): void => {
-    socket.emit("moveTileFromBoardToHand", { boardLocation });
+    socket.emit(ClientToServerEventName.MoveTileFromBoardToHand, {
+      boardLocation,
+    });
   };
   const handleMoveTileFromHandToBoard = (
     tileId: string,
     boardLocation: BoardLocation,
   ): void => {
-    socket.emit("moveTileFromHandToBoard", { tileId, boardLocation });
+    socket.emit(ClientToServerEventName.MoveTileFromHandToBoard, {
+      tileId,
+      boardLocation,
+    });
   };
   const handleMoveTileOnBoard = (
     fromLocation: BoardLocation,
     toLocation: BoardLocation,
   ): void => {
-    socket.emit("moveTileOnBoard", { fromLocation, toLocation });
+    socket.emit(ClientToServerEventName.MoveTileOnBoard, {
+      fromLocation,
+      toLocation,
+    });
   };
   const handlePeel = (): void => {
-    socket.emit("peel", {});
+    socket.emit(ClientToServerEventName.Peel, null);
   };
 
   useEffect(() => {
-    if (isInGame) {
-      navigate(pathname, { replace: true });
+    if (!isInGame) return;
 
-      return (): void => {
-        socket.emit("leaveGame", { gameId });
-      };
-    }
+    navigate(pathname, { replace: true });
 
-    return;
-  }, [gameId, isInGame, navigate, pathname, socket]);
+    return (): void => {
+      socket.emit(ClientToServerEventName.LeaveGame, null);
+    };
+  }, [gameId, isInGame, navigate, pathname]);
 
   useEffect(() => {
-    socket.on("gameInfo", (gameInfo: Game) => {
+    socket.on(ServerToClientEventName.GameInfo, (gameInfo: Game) => {
       setGameInfo(gameInfo);
     });
 
     return (): void => {
-      socket.off("gameInfo");
+      socket.off(ServerToClientEventName.GameInfo);
     };
-  }, [socket]);
+  }, []);
 
   return (
     <GameProvider

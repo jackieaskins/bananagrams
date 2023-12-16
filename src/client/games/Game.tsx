@@ -7,14 +7,13 @@ import Board from "../boards/Board";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import Dump from "../hands/Dump";
 import Hand from "../hands/Hand";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { useGame } from "./GameContext";
 import GameSettings from "./GameSettings";
 import PeelButton from "./PeelButton";
 import SpectateButton from "./SpectateButton";
 
 export default function Game(): JSX.Element {
-  const { socket } = useSocket();
   const {
     gameInfo: { bunch, players },
   } = useGame();

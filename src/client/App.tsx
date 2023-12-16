@@ -9,7 +9,7 @@ import AppRoutes from "./AppRoutes";
 import { LocalStorageProvider } from "./LocalStorageContext";
 import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
-import { SocketProvider } from "./socket/SocketContext";
+import SocketManager from "./socket/SocketManager";
 
 const config: ThemeConfig = {
   initialColorMode: "system",
@@ -27,13 +27,13 @@ export default function App(): JSX.Element {
   return (
     <LocalStorageProvider>
       <ChakraProvider theme={theme} toastOptions={toastOptions}>
-        <SocketProvider>
-          <BrowserRouter>
-            <ServerDisconnectDialog />
-            <AppRoutes />
-            <NavMenu />
-          </BrowserRouter>
-        </SocketProvider>
+        <BrowserRouter>
+          <ServerDisconnectDialog />
+          <AppRoutes />
+          <NavMenu />
+        </BrowserRouter>
+
+        <SocketManager />
       </ChakraProvider>
     </LocalStorageProvider>
   );

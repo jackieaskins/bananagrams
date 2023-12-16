@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { PlayerStatus } from "../../types/player";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";
 import WaitingRoom from "./WaitingRoom";
@@ -14,7 +14,6 @@ export default function GameManager({ game }: GameManagerProps): JSX.Element {
     gameInfo: { isInProgress, players },
     isInGame,
   } = useGame();
-  const { socket } = useSocket();
 
   const currentPlayer = players.find(({ userId }) => userId === socket.id);
 

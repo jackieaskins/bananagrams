@@ -1,9 +1,10 @@
 import Konva from "konva";
 import { useCallback, useRef } from "react";
 import { BoardLocation } from "../../types/board";
+import { ClientToServerEventName } from "../../types/socket";
 import { Tile } from "../../types/tile";
 import { useGame } from "../games/GameContext";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { HAND_TILE_DRAG_LAYER } from "./Canvas";
 import CanvasTile from "./CanvasTile";
 
@@ -20,11 +21,13 @@ export default function CanvasHandTile({
 }: CanvasHandTileProps): JSX.Element {
   const tileRef = useRef<Konva.Group>(null);
   const { handleMoveTileFromHandToBoard } = useGame();
-  const { socket } = useSocket();
 
   const handleDump = useCallback(() => {
-    socket.emit("dump", { tileId: tile.id, boardLocation: null });
-  }, [socket, tile.id]);
+    socket.emit(ClientToServerEventName.Dump, {
+      tileId: tile.id,
+      boardLocation: null,
+    });
+  }, [tile.id]);
 
   const handleHandMove = useCallback(() => {
     tileRef.current?.position({ x, y });

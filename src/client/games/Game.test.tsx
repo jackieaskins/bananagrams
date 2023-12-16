@@ -1,17 +1,13 @@
 import { shallow } from "enzyme";
 import { PlayerStatus } from "../../types/player";
 import { playerFixture } from "../fixtures/player";
+import { CURRENT_PLAYER_ID } from "../testUtils";
 import Game from "./Game";
 import { useGame } from "./GameContext";
 
+const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({
   useGame: jest.fn(),
-}));
-
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { id: "id" },
-  }),
 }));
 
 jest.mock("../boards/validate", () => ({
@@ -22,10 +18,10 @@ describe("<Game />", () => {
   const renderComponent = () => shallow(<Game />);
 
   beforeEach(() => {
-    useGame.mockReturnValue({
+    mockUseGame.mockReturnValue({
       gameInfo: {
         bunch: [],
-        players: [playerFixture({ userId: "id" })],
+        players: [playerFixture({ userId: CURRENT_PLAYER_ID })],
       },
       handlePeel: jest.fn().mockName("handlePeel"),
     });
@@ -36,11 +32,14 @@ describe("<Game />", () => {
   });
 
   it("renders properly with more than one active player", () => {
-    useGame.mockReturnValue({
+    mockUseGame.mockReturnValue({
       gameInfo: {
         bunch: [],
         players: [
-          playerFixture({ userId: "id", status: PlayerStatus.READY }),
+          playerFixture({
+            userId: CURRENT_PLAYER_ID,
+            status: PlayerStatus.READY,
+          }),
           playerFixture({
             userId: "inactive",
             status: PlayerStatus.SPECTATING,

@@ -1,13 +1,8 @@
 import { shallow } from "enzyme";
 import { playerFixture } from "../fixtures/player";
+import { CURRENT_PLAYER_ID } from "../testUtils";
 import OpponentBoardPreview from "./OpponentBoardPreview";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
-
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { id: "playerId" },
-  }),
-}));
 
 jest.mock("./OpponentBoardPreviewState", () => ({
   useOpponentBoardPreview: jest.fn(),
@@ -17,7 +12,7 @@ describe("<OpponentBoardPreview />", () => {
   const renderComponent = (propOverrides = {}) =>
     shallow(
       <OpponentBoardPreview
-        players={[playerFixture({ userId: "playerId" })]}
+        players={[playerFixture({ userId: CURRENT_PLAYER_ID })]}
         {...propOverrides}
       />,
     );

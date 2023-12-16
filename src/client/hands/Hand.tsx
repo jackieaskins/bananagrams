@@ -2,8 +2,9 @@ import { Card, Flex, IconButton, Tooltip } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { FaShuffle } from "react-icons/fa6";
 import { Hand as HandType } from "../../types/hand";
+import { ClientToServerEventName } from "../../types/socket";
 import { useGame } from "../games/GameContext";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import Tile from "../tiles/Tile";
 import { TileItem } from "../tiles/types";
 
@@ -14,7 +15,6 @@ type HandProps = {
 const DEFAULT_BOARD_LENGTH = 21;
 
 export default function Hand({ hand }: HandProps): JSX.Element {
-  const { socket } = useSocket();
   const { handleMoveTileFromBoardToHand } = useGame();
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -22,7 +22,9 @@ export default function Hand({ hand }: HandProps): JSX.Element {
     canDrop: ({ boardLocation }: TileItem, monitor) =>
       monitor.isOver() && !!boardLocation,
     drop: ({ boardLocation }: TileItem) => {
-      handleMoveTileFromBoardToHand(boardLocation);
+      if (boardLocation) {
+        handleMoveTileFromBoardToHand(boardLocation);
+      }
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -38,7 +40,7 @@ export default function Hand({ hand }: HandProps): JSX.Element {
           icon={<FaShuffle />}
           isDisabled={hand.length <= 1}
           onClick={(): void => {
-            socket.emit("shuffleHand", {});
+            socket.emit(ClientToServerEventName.ShuffleHand, null);
           }}
         />
       </Tooltip>

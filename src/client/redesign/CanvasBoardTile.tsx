@@ -7,8 +7,9 @@ import {
   ValidationStatus,
   WordInfo,
 } from "../../types/board";
+import { ClientToServerEventName } from "../../types/socket";
 import { useGame } from "../games/GameContext";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
 import { TILE_SIZE } from "./CanvasGrid";
 import CanvasTile from "./CanvasTile";
@@ -40,15 +41,17 @@ export default function CanvasBoardTile({
   y,
 }: CanvasBoardTileProps): JSX.Element {
   const tileRef = useRef<Konva.Group>(null);
-  const { socket } = useSocket();
   const { handleMoveTileFromBoardToHand, handleMoveTileOnBoard } = useGame();
 
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
   const handleDump = useCallback(() => {
-    socket.emit("dump", { tileId: tile.id, boardLocation: { x, y } });
-  }, [socket, tile.id, x, y]);
+    socket.emit(ClientToServerEventName.Dump, {
+      tileId: tile.id,
+      boardLocation: { x, y },
+    });
+  }, [tile.id, x, y]);
 
   const handleHandMove = useCallback(() => {
     handleMoveTileFromBoardToHand({ x, y });

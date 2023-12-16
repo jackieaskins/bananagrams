@@ -8,13 +8,12 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useGame } from "../games/GameContext";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import PlayerTableRow from "./PlayerTableRow";
 
 const MAX_PLAYERS = 16;
 
 export default function PlayerTable(): JSX.Element {
-  const { socket } = useSocket();
   const { gameInfo } = useGame();
 
   const players = gameInfo.players;

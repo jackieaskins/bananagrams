@@ -9,7 +9,7 @@ export type GameState = {
     tileId: string,
     boardLocation: BoardLocation,
   ) => void;
-  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation | null) => void;
+  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation) => void;
   handleMoveTileOnBoard: (
     fromLocation: BoardLocation,
     toLocation: BoardLocation,

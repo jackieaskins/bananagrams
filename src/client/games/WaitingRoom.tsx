@@ -9,16 +9,16 @@ import {
 import { useCallback, useMemo } from "react";
 import { FaRegCopy } from "react-icons/fa6";
 import { PlayerStatus } from "../../types/player";
+import { ClientToServerEventName } from "../../types/socket";
 import OpponentBoardPreview from "../boards/OpponentBoardPreview";
 import PlayerTable from "../players/PlayerTable";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { useGame } from "./GameContext";
 
 export default function WaitingRoom(): JSX.Element {
   const {
     gameInfo: { gameName, players, previousSnapshot },
   } = useGame();
-  const { socket } = useSocket();
   const toast = useToast();
 
   const copyInviteLink = useCallback(async () => {
@@ -75,7 +75,7 @@ export default function WaitingRoom(): JSX.Element {
           <Button
             colorScheme="blue"
             isDisabled={!canStartGame}
-            onClick={() => socket.emit("split", {})}
+            onClick={() => socket.emit(ClientToServerEventName.Split, null)}
           >
             Start game
           </Button>

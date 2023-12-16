@@ -9,7 +9,7 @@ import {
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Player } from "../../types/player";
 import PreviewHand from "../hands/PreviewHand";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 import PreviewBoard from "./PreviewBoard";
 
@@ -28,13 +28,9 @@ export default function OpponentBoardPreview({
   tileSize = 15,
   includeCurrentPlayer = false,
 }: OpponentBoardPreviewProps): JSX.Element | null {
-  const {
-    socket: { id: userId },
-  } = useSocket();
-
   const opponents = includeCurrentPlayer
     ? players
-    : players.filter((player) => player.userId !== userId);
+    : players.filter((player) => player.userId !== socket.id);
   const {
     handleLeftClick,
     handleRightClick,

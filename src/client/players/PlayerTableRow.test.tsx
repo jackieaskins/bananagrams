@@ -2,10 +2,9 @@ import { Table, Tbody } from "@chakra-ui/react";
 import { screen, waitFor, within } from "@testing-library/react";
 import { Player, PlayerStatus } from "../../types/player";
 import { playerFixture } from "../fixtures/player";
-import { renderComponent } from "../testUtils";
+import { socket } from "../socket";
+import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import PlayerTableRow, { PlayerTableRowProps } from "./PlayerTableRow";
-
-const CURRENT_PLAYER_ID = "current-player";
 
 const WITHOUT_KICK_COLUMN_COUNT = 3;
 
@@ -14,15 +13,7 @@ const PLAYER_COLUMN_INDEX = 1;
 const GAMES_WON_COLUMN_INDEX = 2;
 const KICK_COLUMN_INDEX = 3;
 
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: {
-      id: CURRENT_PLAYER_ID,
-      emit: mockEmit,
-    },
-  }),
-}));
+const mockEmit = socket.emit as jest.Mock;
 
 function renderRow({
   isCurrentPlayerAdmin = false,

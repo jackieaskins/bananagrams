@@ -13,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { FaEye } from "react-icons/fa6";
 import { PlayerStatus } from "../../types/player";
-import { useSocket } from "../socket/SocketContext";
+import { ClientToServerEventName } from "../../types/socket";
+import { socket } from "../socket";
 
 export interface SpectateButtonProps extends ButtonProps {
   hideText?: boolean;
@@ -23,8 +24,6 @@ export default function SpectateButton({
   hideText,
   ...buttonProps
 }: SpectateButtonProps): JSX.Element {
-  const { socket } = useSocket();
-
   return (
     <Popover>
       <PopoverTrigger>
@@ -57,7 +56,7 @@ export default function SpectateButton({
             colorScheme="blue"
             size="sm"
             onClick={() =>
-              socket.emit("setStatus", {
+              socket.emit(ClientToServerEventName.SetStatus, {
                 status: PlayerStatus.SPECTATING,
               })
             }

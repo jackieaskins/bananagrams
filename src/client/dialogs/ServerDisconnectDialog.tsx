@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 
 export default function ServerDisconnectDialog(): JSX.Element {
   const { isOpen, onClose, onOpen } = useDisclosure({
@@ -20,12 +20,11 @@ export default function ServerDisconnectDialog(): JSX.Element {
       );
     },
   });
-  const { socket } = useSocket();
   const { pathname } = useLocation();
 
   useEffect(() => {
     socket.on("disconnect", onOpen);
-  }, [onOpen, socket]);
+  }, [onOpen]);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 

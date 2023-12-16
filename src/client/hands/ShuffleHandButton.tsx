@@ -1,8 +1,9 @@
 import { Button, ButtonProps, IconButton } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { FaShuffle } from "react-icons/fa6";
+import { ClientToServerEventName } from "../../types/socket";
 import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 
 export interface ShuffleHandButtonProps extends ButtonProps {
   hideText?: boolean;
@@ -12,16 +13,15 @@ export default function ShuffleHandButton({
   hideText,
   ...buttonProps
 }: ShuffleHandButtonProps): JSX.Element {
-  const { socket } = useSocket();
   const { hand } = useCurrentPlayer();
 
   const commonProps = useMemo(
     () => ({
       ...buttonProps,
       isDisabled: hand.length <= 1,
-      onClick: () => socket.emit("shuffleHand", {}),
+      onClick: () => socket.emit(ClientToServerEventName.ShuffleHand, null),
     }),
-    [buttonProps, hand.length, socket],
+    [buttonProps, hand.length],
   );
 
   if (hideText) {

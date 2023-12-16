@@ -6,10 +6,6 @@ import ResizeObserverPolyfill from "resize-observer-polyfill";
 
 configure({ adapter: new Adapter() });
 
-jest.mock("./socket/index", () => ({
-  emit: jest.fn(),
-  off: jest.fn(),
-  on: jest.fn(),
-}));
+jest.mock("./socket");
 
 global.ResizeObserver = ResizeObserverPolyfill;

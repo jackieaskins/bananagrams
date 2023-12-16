@@ -3,18 +3,10 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { PlayerStatus } from "../../types/player";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
-import { renderComponent } from "../testUtils";
+import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import GameManager from "./GameManager";
 import { GameState } from "./types";
-
-const CURRENT_PLAYER_ID = "currentPlayer";
-
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { id: CURRENT_PLAYER_ID },
-  }),
-}));
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({

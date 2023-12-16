@@ -1,14 +1,8 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import { PlayerStatus } from "../../types/player";
+import { socket } from "../socket";
 import { renderComponent } from "../testUtils";
 import SpectateButton from "./SpectateButton";
-
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { emit: mockEmit },
-  }),
-}));
 
 describe.each([{ hideText: true }, { hideText: false }])(
   "<SpectateButton hideText={$hideText} />",
@@ -33,7 +27,7 @@ describe.each([{ hideText: true }, { hideText: false }])(
       });
 
       await waitFor(() => {
-        expect(mockEmit).toHaveBeenCalledWith("setStatus", {
+        expect(socket.emit).toHaveBeenCalledWith("setStatus", {
           status: PlayerStatus.SPECTATING,
         });
       });

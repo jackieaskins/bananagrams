@@ -3,26 +3,15 @@ import { screen, waitFor } from "@testing-library/react";
 import { Player, PlayerStatus } from "../../types/player";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
+import { socket } from "../socket";
 import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import WaitingRoom from "./WaitingRoom";
-
-const CURRENT_PLAYER_ID = "current-player";
 
 jest.mock("../boards/OpponentBoardPreview", () =>
   jest.fn(() => <div>Preview</div>),
 );
 jest.mock("../players/PlayerTable", () => jest.fn(() => <table />));
-
-const mockEmit = jest.fn();
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: {
-      id: CURRENT_PLAYER_ID,
-      emit: mockEmit,
-    },
-  }),
-}));
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({
@@ -123,7 +112,7 @@ describe("<WaitingRoom />", () => {
       await user.click(getStartGameButton());
 
       await waitFor(() => {
-        expect(mockEmit).toHaveBeenCalledWith("split", {});
+        expect(socket.emit).toHaveBeenCalledWith("split", null);
       });
     });
   });

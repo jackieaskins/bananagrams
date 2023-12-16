@@ -1,12 +1,12 @@
 import { Box, Button, Heading, Stack } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Game } from "../../types/game";
+import { ClientToServerEventName } from "../../types/socket";
 import { useSavedUsername } from "../LocalStorageContext";
 import ErrorAlert from "../alerts/ErrorAlert";
 import InputField from "../forms/InputField";
 import CenteredLayout from "../layouts/CenteredLayout";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 import { GameLocationState } from "./types";
 
 export default function CreateGame(): JSX.Element {
@@ -19,8 +19,6 @@ export default function CreateGame(): JSX.Element {
   const { search } = useLocation();
   const isShortenedGame = new URLSearchParams(search).has("isShortenedGame");
 
-  const { socket } = useSocket();
-
   const onSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault();
@@ -29,13 +27,10 @@ export default function CreateGame(): JSX.Element {
       setSavedUsername(username);
 
       socket.emit(
-        "createGame",
+        ClientToServerEventName.CreateGame,
         { gameName, username, isShortenedGame },
-        (error: Error, gameInfo: Game) => {
-          if (error) {
-            setError(error.message);
-            setIsCreatingGame(false);
-          } else {
+        (error, gameInfo) => {
+          if (gameInfo) {
             const locationState: GameLocationState = {
               isInGame: true,
               gameInfo,
@@ -44,11 +39,14 @@ export default function CreateGame(): JSX.Element {
             navigate(`./game/${gameInfo.gameId}`, {
               state: locationState,
             });
+          } else {
+            setError(error?.message ?? "Unable to create game");
+            setIsCreatingGame(false);
           }
         },
       );
     },
-    [gameName, isShortenedGame, navigate, setSavedUsername, socket, username],
+    [gameName, isShortenedGame, navigate, setSavedUsername, username],
   );
 
   return (

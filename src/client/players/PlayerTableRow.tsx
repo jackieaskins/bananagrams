@@ -20,8 +20,9 @@ import {
 } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
 import { Player, PlayerStatus } from "../../types/player";
+import { ClientToServerEventName } from "../../types/socket";
 import ForwardedTooltip from "../common/ForwardedTooltip";
-import { useSocket } from "../socket/SocketContext";
+import { socket } from "../socket";
 
 export type PlayerTableRowProps = {
   isCurrentPlayerAdmin: boolean;
@@ -52,7 +53,6 @@ export default function PlayerTableRow({
   player: { gamesWon, isTopBanana, isAdmin, status, userId, username },
   playerCount,
 }: PlayerTableRowProps): JSX.Element {
-  const { socket } = useSocket();
   const isCurrentUser = userId === socket.id;
   const currentPlayerBackground = useColorModeValue("gray.100", "gray.700");
 
@@ -86,7 +86,9 @@ export default function PlayerTableRow({
                     aria-label={label}
                     icon={<Icon />}
                     onClick={() =>
-                      socket.emit("setStatus", { status: buttonStatus })
+                      socket.emit(ClientToServerEventName.SetStatus, {
+                        status: buttonStatus,
+                      })
                     }
                   />
                 </Tooltip>
@@ -131,7 +133,7 @@ export default function PlayerTableRow({
               icon={<FaRegTrashCan />}
               size="small"
               onClick={(): void => {
-                socket.emit("kickPlayer", { userId });
+                socket.emit(ClientToServerEventName.KickPlayer, { userId });
               }}
             />
           )}

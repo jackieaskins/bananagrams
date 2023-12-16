@@ -2,10 +2,8 @@ import { screen } from "@testing-library/react";
 import { gameInfoFixture } from "../fixtures/game";
 import { playerFixture } from "../fixtures/player";
 import { useGame } from "../games/GameContext";
-import { renderComponent } from "../testUtils";
+import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import PlayerTable from "./PlayerTable";
-
-const CURRENT_PLAYER_ID = "current-player";
 
 const WITH_KICK_COLUMN_COUNT = 4;
 const WITHOUT_KICK_COLUMN_COUNT = 3;
@@ -16,12 +14,6 @@ const GAMES_WON_COLUMN_INDEX = 2;
 const KICK_COLUMN_INDEX = 3;
 
 jest.mock("./PlayerTableRow", () => jest.fn(() => <tr />));
-
-jest.mock("../socket/SocketContext", () => ({
-  useSocket: () => ({
-    socket: { id: CURRENT_PLAYER_ID },
-  }),
-}));
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("../games/GameContext", () => ({
