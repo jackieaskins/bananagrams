@@ -116,22 +116,38 @@ describe("Player Model", () => {
       jest.spyOn(player.getBoard(), "validateEmptySquare");
       jest.spyOn(player.getHand(), "removeTile");
       jest.spyOn(player.getBoard(), "addTile");
+      jest.spyOn(player.getBoard(), "removeTile");
 
       player.getHand().addTiles([tile]);
-      player.moveTileFromHandToBoard(tile.getId(), location);
     });
 
-    it("validates that board square is empty", () => {
-      expect(player.getBoard().validateEmptySquare).toHaveBeenCalledWith(
-        location,
-      );
+    describe("when location is not empty", () => {
+      const otherTile = new TileModel("B1", "B");
+
+      beforeEach(() => {
+        player.getBoard().addTile(location, otherTile);
+        player.moveTileFromHandToBoard(tile.getId(), location);
+      });
+
+      it("removes the current tile from the location", () => {
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(location);
+      });
+
+      it("adds the tile to the hand", () => {
+        expect(player.getHand().getTiles()).toHaveLength(1);
+        expect(player.getHand().getTiles()[0]).toEqual(otherTile);
+      });
     });
 
     it("removes tile from hand", () => {
+      player.moveTileFromHandToBoard(tile.getId(), location);
+
       expect(player.getHand().removeTile).toHaveBeenCalledWith(tile.getId());
     });
 
     it("adds removed tile to board", () => {
+      player.moveTileFromHandToBoard(tile.getId(), location);
+
       expect(player.getBoard().addTile).toHaveBeenCalledWith(location, tile);
     });
   });
@@ -168,18 +184,43 @@ describe("Player Model", () => {
       jest.spyOn(player.getBoard(), "addTile");
 
       player.getBoard().addTile(from, tile);
-      player.moveTileOnBoard(from, to);
     });
 
-    it("validates to location is empty", () => {
-      expect(player.getBoard().validateEmptySquare).toHaveBeenCalledWith(to);
+    it("does not move any tiles if from and to locations are the same", () => {
+      jest.clearAllMocks();
+
+      player.moveTileOnBoard(to, to);
+
+      expect(player.getBoard().addTile).not.toHaveBeenCalled();
+      expect(player.getBoard().removeTile).not.toHaveBeenCalled();
+    });
+
+    describe("when there is a tile at the to location", () => {
+      const otherTile = new TileModel("B1", "B");
+
+      beforeEach(() => {
+        player.getBoard().addTile(to, otherTile);
+        player.moveTileOnBoard(from, to);
+      });
+
+      it("removes the tile currently at to location", () => {
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(to);
+      });
+
+      it("adds the tile that was at the to location to the from location", () => {
+        expect(player.getBoard().addTile).toHaveBeenCalledWith(from, otherTile);
+      });
     });
 
     it("removes tile from from location", () => {
+      player.moveTileOnBoard(from, to);
+
       expect(player.getBoard().removeTile).toHaveBeenCalledWith(from);
     });
 
     it("adds removed tile to to location", () => {
+      player.moveTileOnBoard(from, to);
+
       expect(player.getBoard().addTile).toHaveBeenCalledWith(to, tile);
     });
   });
