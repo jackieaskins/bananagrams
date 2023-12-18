@@ -1,21 +1,8 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
+import { LocalStorageContext } from "./LocalStorageContext";
 import { SetState } from "./state/types";
 
 const LOCAL_STORAGE_PREFIX = "bananagrams";
-
-type LocalStorageContextState = {
-  gameSettings: {
-    enableTileSwap: [boolean, SetState<boolean>];
-  };
-  savedUsername: [string, SetState<string>];
-};
 
 function getKey(key: string) {
   return `${LOCAL_STORAGE_PREFIX}.${key}`;
@@ -38,15 +25,10 @@ function useLocalStorage<T>(key: string, defaultValue: T): [T, SetState<T>] {
 
   return [value, setValue];
 }
-
-const LocalStorageContext = createContext<LocalStorageContextState>(
-  {} as LocalStorageContextState,
-);
-
-export function LocalStorageProvider({
+export default function LocalStorageProvider({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }): JSX.Element {
   const enableTileSwap = useLocalStorage("gameSettings.enableTileSwap", false);
   const savedUsername = useLocalStorage("savedUsername", "");
@@ -64,16 +46,4 @@ export function LocalStorageProvider({
       {children}
     </LocalStorageContext.Provider>
   );
-}
-
-function useLocalStorageContext(): LocalStorageContextState {
-  return useContext(LocalStorageContext);
-}
-
-export function useEnableTileSwap(): [boolean, SetState<boolean>] {
-  return useLocalStorageContext().gameSettings.enableTileSwap;
-}
-
-export function useSavedUsername(): [string, SetState<string>] {
-  return useLocalStorageContext().savedUsername;
 }

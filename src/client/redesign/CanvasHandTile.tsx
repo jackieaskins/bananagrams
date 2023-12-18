@@ -5,8 +5,8 @@ import { ClientToServerEventName } from "../../types/socket";
 import { Tile } from "../../types/tile";
 import { useGame } from "../games/GameContext";
 import { socket } from "../socket";
-import { HAND_TILE_DRAG_LAYER } from "./Canvas";
 import CanvasTile from "./CanvasTile";
+import { HAND_TILE_DRAG_LAYER } from "./constants";
 
 type CanvasHandTileProps = {
   tile: Tile;

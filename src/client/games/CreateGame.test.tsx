@@ -32,12 +32,9 @@ function renderForm(isShortenedGame: boolean = false) {
   );
 }
 
-function mockEmitCallback(
-  error: Error | null,
-  gameInfo: Game = gameInfoFixture(),
-) {
+function mockEmitCallback(error: Error | null, gameInfo: Game | null) {
   mockEmit.mockImplementation((_event, _params, callback) =>
-    callback(error, error ? null : gameInfo),
+    callback(error, gameInfo),
   );
 }
 
@@ -135,7 +132,7 @@ describe("<CreateGame />", () => {
   });
 
   it("redirects to game with state after successful submit", async () => {
-    mockEmitCallback(null);
+    mockEmitCallback(null, gameInfoFixture());
     const { user } = renderForm();
 
     await submitForm(user, "gameName", "username");
@@ -147,7 +144,7 @@ describe("<CreateGame />", () => {
 
   it("shows an error if there was an error submitting the form", async () => {
     const errorMessage = "Here is the error";
-    mockEmitCallback(new Error(errorMessage));
+    mockEmitCallback(new Error(errorMessage), null);
     const { user } = renderForm();
 
     await submitForm(user, "gameName", "username");
@@ -155,6 +152,19 @@ describe("<CreateGame />", () => {
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent(
         new RegExp(`^${errorMessage}$`),
+      );
+    });
+  });
+
+  it("shows fallback error message if error has no message", async () => {
+    mockEmitCallback(null, null);
+    const { user } = renderForm();
+
+    await submitForm(user, "gameName", "username");
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert")).toHaveTextContent(
+        /^Unable to create game$/,
       );
     });
   });

@@ -1,9 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
-import {
-  LocalStorageProvider,
-  useEnableTileSwap,
-  useSavedUsername,
-} from "./LocalStorageContext";
+import { useEnableTileSwap, useSavedUsername } from "./LocalStorageContext";
+import LocalStorageProvider from "./LocalStorageProvider";
 import { SetState } from "./state/types";
 
 const args: Array<{

@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGridLine from "./CanvasGridLine";
-
-export const TILE_SIZE = 32;
+import { TILE_SIZE } from "./constants";
 
 export type GridLinesProp = {
   width: number;

@@ -1,17 +1,12 @@
-import { shallow } from "enzyme";
-import { useEffect, useState } from "react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { useLocation } from "react-router-dom";
 import { gameInfoFixture } from "../fixtures/game";
 import { socket } from "../socket";
+import { useGame } from "./GameContext";
 import SocketGameProvider from "./SocketGameProvider";
 
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useEffect: jest.fn(),
-  useState: jest.fn(),
-}));
-
 const mockNavigate = jest.fn();
+const mockUseLocation = useLocation as jest.Mock;
 jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
   useLocation: jest.fn().mockReturnValue({
@@ -24,83 +19,15 @@ const mockEmit = socket.emit as jest.Mock;
 const mockOn = socket.on as jest.Mock;
 const mockOff = socket.off as jest.Mock;
 
+function renderProviderWithHook() {
+  return renderHook(useGame, { wrapper: SocketGameProvider });
+}
+
 describe("<SocketGameProvider />", () => {
-  const mockSetGameInfo = jest.fn();
-  const mockSetIsInGame = jest.fn();
-
-  const renderComponent = () =>
-    shallow(<SocketGameProvider>Children</SocketGameProvider>);
-
-  beforeEach(() => {
-    useState
-      .mockImplementationOnce((initialValue) => [initialValue, mockSetGameInfo])
-      .mockImplementationOnce((initialValue) => [
-        initialValue,
-        mockSetIsInGame,
-      ]);
-  });
-
-  test("renders properly", () => {
-    expect(renderComponent()).toMatchSnapshot();
-  });
-
-  describe("handle methods", () => {
-    const boardLocation = { x: 0, y: 0 };
-    const id = "id";
-
-    const getGameState = () => renderComponent().props().gameState;
-
-    test("handleDump", () => {
-      getGameState().handleDump({ boardLocation, id });
-
-      expect(mockEmit).toHaveBeenCalledWith("dump", {
-        boardLocation,
-        tileId: id,
-      });
-    });
-
-    test("handleMoveTileFromHandToBoard", () => {
-      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
-
-      expect(mockEmit).toHaveBeenCalledWith("moveTileFromHandToBoard", {
-        tileId: id,
-        boardLocation,
-      });
-    });
-
-    test("handleMoveTileFromBoardToHand", () => {
-      getGameState().handleMoveTileFromBoardToHand(boardLocation);
-
-      expect(mockEmit).toHaveBeenCalledWith("moveTileFromBoardToHand", {
-        boardLocation,
-      });
-    });
-
-    test("handleMoveTileOnBoard", () => {
-      getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
-
-      expect(mockEmit).toHaveBeenCalledWith("moveTileOnBoard", {
-        fromLocation: boardLocation,
-        toLocation: boardLocation,
-      });
-    });
-
-    test("handlePeel", () => {
-      getGameState().handlePeel();
-
-      expect(mockEmit).toHaveBeenCalledWith("peel", null);
-    });
-  });
-
   describe("mount/unmount game management", () => {
-    const callComponentMount = () => {
-      renderComponent();
-      return useEffect.mock.calls[0][0]();
-    };
-
     describe("if in game", () => {
       beforeEach(() => {
-        useLocation.mockReturnValue({
+        mockUseLocation.mockReturnValue({
           pathname: "/pathname",
           state: {
             gameInfo: gameInfoFixture(),
@@ -109,52 +36,137 @@ describe("<SocketGameProvider />", () => {
         });
       });
 
-      test("removes router state", () => {
-        callComponentMount();
+      it("properly sets state", () => {
+        const { result } = renderProviderWithHook();
+
+        expect(result.current.isInGame).toBe(true);
+      });
+
+      it("removes router state", () => {
+        renderProviderWithHook();
+
         expect(mockNavigate).toHaveBeenCalledWith("/pathname", {
           replace: true,
         });
       });
 
-      test("emits leave game event on dismount", () => {
-        callComponentMount()();
+      it("emits leave game event on dismount", () => {
+        const { unmount } = renderProviderWithHook();
+
+        expect(mockEmit).not.toHaveBeenCalled();
+
+        unmount();
 
         expect(mockEmit).toHaveBeenCalledWith("leaveGame", null);
       });
     });
 
-    test("if not in game does not do any dismount actions", () => {
-      useLocation.mockReturnValue({ pathname: "/pathname" });
+    describe("if not in game", () => {
+      beforeEach(() => {
+        mockUseLocation.mockReturnValue({ pathname: "/pathname" });
+      });
 
-      expect(callComponentMount()).toBeUndefined();
+      it("properly sets state", () => {
+        const { result } = renderProviderWithHook();
+
+        expect(result.current.isInGame).toBe(false);
+      });
+
+      it("does not remove router state", () => {
+        renderProviderWithHook();
+
+        expect(mockNavigate).not.toHaveBeenCalled();
+      });
+
+      it("does not emit leaveGame event on unmount", () => {
+        const { unmount } = renderProviderWithHook();
+
+        unmount();
+
+        expect(mockEmit).not.toHaveBeenCalled();
+      });
     });
   });
 
   describe("mount/unmount game info management", () => {
-    const callComponentMount = () => {
-      renderComponent();
-      return useEffect.mock.calls[1][0]();
-    };
-
-    test("listens on game info events", () => {
-      callComponentMount();
+    it("listens on game info events", () => {
+      renderProviderWithHook();
 
       expect(mockOn).toHaveBeenCalledWith("gameInfo", expect.any(Function));
     });
 
-    test("sets game info on change", () => {
-      const gameInfo = gameInfoFixture();
+    it("sets game info on game info event", async () => {
+      const gameInfo = gameInfoFixture({ gameName: "newGameName" });
 
-      callComponentMount();
-      mockOn.mock.calls[0][1](gameInfo);
+      const { result } = renderProviderWithHook();
 
-      expect(mockSetGameInfo).toHaveBeenCalledWith(gameInfo);
+      expect(result.current.gameInfo).not.toEqual(gameInfo);
+
+      act(() => {
+        mockOn.mock.calls[0][1](gameInfo);
+      });
+
+      await waitFor(() => {
+        expect(result.current.gameInfo).toEqual(gameInfo);
+      });
     });
 
-    test("stops listening for game info on dismount", () => {
-      callComponentMount()();
+    it("stops listening for game info on dismount", () => {
+      const { unmount } = renderProviderWithHook();
+
+      expect(mockOff).not.toHaveBeenCalled();
+
+      unmount();
 
       expect(mockOff).toHaveBeenCalledWith("gameInfo");
+    });
+  });
+
+  describe("handle methods", () => {
+    const boardLocation = { x: 0, y: 0 };
+    const id = "id";
+
+    const getGameState = () => renderProviderWithHook().result.current;
+
+    it("emits dump event on handleDump", () => {
+      getGameState().handleDump({ boardLocation, id, type: "tile" });
+
+      expect(mockEmit).toHaveBeenCalledWith("dump", {
+        boardLocation,
+        tileId: id,
+      });
+    });
+
+    it("emits moveTileFromHandToBoard event on handleMoveTileFromHandToBoard", () => {
+      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
+
+      expect(mockEmit).toHaveBeenCalledWith("moveTileFromHandToBoard", {
+        tileId: id,
+        boardLocation,
+      });
+    });
+
+    it("emits moveTileFromBoardTo event on handleMoveTileFromBoardToHand", () => {
+      getGameState().handleMoveTileFromBoardToHand(boardLocation);
+
+      expect(mockEmit).toHaveBeenCalledWith("moveTileFromBoardToHand", {
+        boardLocation,
+      });
+    });
+
+    it("emits moveTileOnBoard event on handleMoveTileOnBoard", () => {
+      getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
+
+      expect(mockEmit).toHaveBeenCalledWith("moveTileOnBoard", {
+        fromLocation: boardLocation,
+        toLocation: boardLocation,
+      });
+    });
+
+    it("emits peel event on handlePeel", () => {
+      getGameState().handlePeel();
+
+      expect(mockEmit).toHaveBeenCalledWith("peel", null);
     });
   });
 });

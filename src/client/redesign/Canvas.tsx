@@ -3,13 +3,11 @@ import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHand from "./CanvasHand";
+import { BOARD_TILE_DRAG_LAYER, HAND_TILE_DRAG_LAYER } from "./constants";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
 };
-
-export const BOARD_TILE_DRAG_LAYER = "board-tile-drag-layer";
-export const HAND_TILE_DRAG_LAYER = "hand-tile-drag-layer";
 
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
   const { handLocation, offset, size, stageRef } = useCanvasContext();

@@ -28,7 +28,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["import"],
+  plugins: ["import", "react-refresh"],
   reportUnusedDisableDirectives: true,
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": "error",
@@ -48,11 +48,10 @@ module.exports = {
       { assertFunctionNames: ["expect", "assert*"] },
     ],
     "no-debugger": "error",
-    "no-empty-pattern": "off",
     "no-useless-rename": "error",
     "object-shorthand": "error",
-    "react/prop-types": "off",
     "react/self-closing-comp": "error",
+    "react-refresh/only-export-components": "error",
     "require-await": "error",
   },
   settings: {

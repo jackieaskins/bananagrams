@@ -13,7 +13,7 @@ import {
 } from "../../types/socket";
 import { socket } from "../socket";
 import { TileItem } from "../tiles/types";
-import { GameProvider, getEmptyGameInfo } from "./GameContext";
+import { GameContext, getEmptyGameInfo } from "./GameContext";
 import { GameLocationState } from "./types";
 
 type GameParams = {
@@ -33,6 +33,26 @@ export default function SocketGameProvider({
     state?.gameInfo ?? getEmptyGameInfo(gameId),
   );
   const [isInGame] = useState<boolean>(state?.isInGame ?? false);
+
+  useEffect(() => {
+    if (!isInGame) return;
+
+    navigate(pathname, { replace: true });
+
+    return (): void => {
+      socket.emit(ClientToServerEventName.LeaveGame, null);
+    };
+  }, [gameId, isInGame, navigate, pathname]);
+
+  useEffect(() => {
+    socket.on(ServerToClientEventName.GameInfo, (gameInfo: Game) => {
+      setGameInfo(gameInfo);
+    });
+
+    return (): void => {
+      socket.off(ServerToClientEventName.GameInfo);
+    };
+  }, []);
 
   const handleDump = ({ boardLocation, id }: TileItem): void => {
     socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
@@ -65,30 +85,9 @@ export default function SocketGameProvider({
   const handlePeel = (): void => {
     socket.emit(ClientToServerEventName.Peel, null);
   };
-
-  useEffect(() => {
-    if (!isInGame) return;
-
-    navigate(pathname, { replace: true });
-
-    return (): void => {
-      socket.emit(ClientToServerEventName.LeaveGame, null);
-    };
-  }, [gameId, isInGame, navigate, pathname]);
-
-  useEffect(() => {
-    socket.on(ServerToClientEventName.GameInfo, (gameInfo: Game) => {
-      setGameInfo(gameInfo);
-    });
-
-    return (): void => {
-      socket.off(ServerToClientEventName.GameInfo);
-    };
-  }, []);
-
   return (
-    <GameProvider
-      gameState={{
+    <GameContext.Provider
+      value={{
         gameInfo,
         handleDump,
         handleMoveTileFromBoardToHand,
@@ -99,6 +98,6 @@ export default function SocketGameProvider({
       }}
     >
       {children}
-    </GameProvider>
+    </GameContext.Provider>
   );
 }

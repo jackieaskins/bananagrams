@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { Arrow, Group } from "react-konva";
 import { BoardLocation } from "../../types/board";
 import { useCanvasContext } from "./CanvasContext";
-import { TILE_SIZE } from "./CanvasGrid";
 import { getBoardClusters } from "./boardClusters";
+import { TILE_SIZE } from "./constants";
 import { useColorHex } from "./useColorHex";
 import { useCurrentPlayer } from "./useCurrentPlayer";
 

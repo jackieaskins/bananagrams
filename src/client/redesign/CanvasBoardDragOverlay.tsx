@@ -1,6 +1,6 @@
 import { Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
-import { TILE_SIZE } from "./CanvasGrid";
+import { TILE_SIZE } from "./constants";
 import { useColorModeHex } from "./useColorHex";
 
 export default function CanvasBoardDragOverlay(): JSX.Element | null {

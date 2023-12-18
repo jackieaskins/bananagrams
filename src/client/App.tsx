@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import { LocalStorageProvider } from "./LocalStorageContext";
+import LocalStorageProvider from "./LocalStorageProvider";
 import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
 import SocketManager from "./socket/SocketManager";

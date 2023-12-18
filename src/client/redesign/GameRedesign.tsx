@@ -11,7 +11,7 @@ import PeelButton from "../games/PeelButton";
 import SpectateButton from "../games/SpectateButton";
 import ShuffleHandButton from "../hands/ShuffleHandButton";
 import Canvas from "./Canvas";
-import { CanvasProvider } from "./CanvasContext";
+import CanvasProvider from "./CanvasProvider";
 import { useColorModeHex } from "./useColorHex";
 
 export default function GameRedesign(): JSX.Element {

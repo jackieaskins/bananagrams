@@ -1,75 +1,104 @@
-import { shallow } from "enzyme";
-import { useContext } from "react";
-import {
-  GameContext,
-  GameProvider,
-  getEmptyGameInfo,
-  getEmptyGameState,
-  useGame,
-} from "./GameContext";
+import { renderHook } from "@testing-library/react";
+import { GameContext, getEmptyGameInfo, useGame } from "./GameContext";
 
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useContext: jest.fn(),
-}));
+const mockHandleDump = jest.fn();
+const mockHandleMoveTileFromHandToBoard = jest.fn();
+const mockHandleMoveTileFromBoardToHand = jest.fn();
+const mockHandleMoveTileOnBoard = jest.fn();
+const mockHandlePeel = jest.fn();
+
+const gameInfo = getEmptyGameInfo("gameId");
+
+function GameProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <GameContext.Provider
+      value={{
+        gameInfo,
+        handleDump: mockHandleDump,
+        handleMoveTileFromHandToBoard: mockHandleMoveTileFromHandToBoard,
+        handleMoveTileFromBoardToHand: mockHandleMoveTileFromBoardToHand,
+        handleMoveTileOnBoard: mockHandleMoveTileOnBoard,
+        handlePeel: mockHandlePeel,
+        isInGame: true,
+      }}
+    >
+      {children}
+    </GameContext.Provider>
+  );
+}
+
+function renderGameWithHook() {
+  return renderHook(useGame, { wrapper: GameProvider });
+}
 
 describe("GameContext", () => {
-  test("GameProvider renders properly", () => {
-    expect(
-      shallow(
-        <GameProvider
-          gameState={{
-            gameInfo: getEmptyGameInfo("gameId"),
-            handleDump: jest.fn().mockName("handleDump"),
-            handleMoveTileFromHandToBoard: jest
-              .fn()
-              .mockName("handleMoveTileFromHandToBoard"),
-            handleMoveTileFromBoardToHand: jest
-              .fn()
-              .mockName("handleMoveTileFromBoardToHand"),
-            handleMoveTileOnBoard: jest.fn().mockName("handleMoveTileOnBoard"),
-            handlePeel: jest.fn().mockName("handlePeel"),
-            isInGame: true,
-          }}
-        >
-          Children
-        </GameProvider>,
-      ),
-    ).toMatchSnapshot();
+  it("provides game info", () => {
+    const { result } = renderGameWithHook();
+
+    expect(result.current.gameInfo).toEqual(gameInfo);
   });
 
-  test("useGame calls useContext", () => {
-    useGame();
+  it("provides dump handler", () => {
+    const tileItem = { id: "A1", boardLocation: { x: 0, y: 0 }, type: "tile" };
 
-    expect(useContext).toHaveBeenCalledWith(GameContext);
+    const { result } = renderGameWithHook();
+
+    result.current.handleDump(tileItem);
+
+    expect(mockHandleDump).toHaveBeenCalledWith(tileItem);
   });
 
-  describe("getEmptyGameState", () => {
-    test("generates default empty state", () => {
-      expect(getEmptyGameState("gameId")).toMatchSnapshot();
-    });
+  it("provides moveTileFromHandToBoard handler", () => {
+    const tileId = "A1";
+    const boardLocation = { x: 0, y: 0 };
 
-    test("handle methods are callable", () => {
-      const type = "type";
-      const id = "id";
-      const boardLocation = { x: 0, y: 0 };
-      const {
-        handleDump,
-        handleMoveTileFromHandToBoard,
-        handleMoveTileFromBoardToHand,
-        handleMoveTileOnBoard,
-        handlePeel,
-      } = getEmptyGameState("gameId");
+    const { result } = renderGameWithHook();
 
-      expect(() => handleDump({ id, boardLocation, type })).not.toThrow();
-      expect(() =>
-        handleMoveTileFromHandToBoard(id, boardLocation),
-      ).not.toThrow();
-      expect(() => handleMoveTileFromBoardToHand(boardLocation)).not.toThrow();
-      expect(() =>
-        handleMoveTileOnBoard(boardLocation, boardLocation),
-      ).not.toThrow();
-      expect(() => handlePeel()).not.toThrow();
-    });
+    result.current.handleMoveTileFromHandToBoard(tileId, boardLocation);
+
+    expect(mockHandleMoveTileFromHandToBoard).toHaveBeenCalledWith(
+      tileId,
+      boardLocation,
+    );
+  });
+
+  it("provides moveTileFromBoardToHand handler", () => {
+    const boardLocation = { x: 0, y: 0 };
+
+    const { result } = renderGameWithHook();
+
+    result.current.handleMoveTileFromBoardToHand(boardLocation);
+
+    expect(mockHandleMoveTileFromBoardToHand).toHaveBeenCalledWith(
+      boardLocation,
+    );
+  });
+
+  it("provides moveTileOnBoard handler", () => {
+    const fromLocation = { x: 0, y: 0 };
+    const toLocation = { x: 1, y: 1 };
+
+    const { result } = renderGameWithHook();
+
+    result.current.handleMoveTileOnBoard(fromLocation, toLocation);
+
+    expect(mockHandleMoveTileOnBoard).toHaveBeenCalledWith(
+      fromLocation,
+      toLocation,
+    );
+  });
+
+  it("provides peel handler", () => {
+    const { result } = renderGameWithHook();
+
+    result.current.handlePeel();
+
+    expect(mockHandlePeel).toHaveBeenCalledWith();
+  });
+
+  it("provides in game status", () => {
+    const { result } = renderGameWithHook();
+
+    expect(result.current.isInGame).toBe(true);
   });
 });

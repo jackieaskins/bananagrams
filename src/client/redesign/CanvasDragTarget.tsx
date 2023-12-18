@@ -2,15 +2,13 @@ import Konva from "konva";
 import { RectConfig } from "konva/lib/shapes/Rect";
 import { useLayoutEffect, useState } from "react";
 import { Rect } from "react-konva";
+import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./constants";
 
 type CanvasDragTargetProps = RectConfig & {
   targetRef: React.RefObject<Konva.Rect>;
   dragOverBgColor: string;
   defaultBgColor: string;
 };
-
-export const DRAG_OVER_EVENT = "dragOver";
-export const DRAG_LEAVE_EVENT = "dragLeave";
 
 export default function CanvasDragTarget({
   targetRef,

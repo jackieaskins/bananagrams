@@ -10,9 +10,8 @@ import {
 import { ClientToServerEventName } from "../../types/socket";
 import { useGame } from "../games/GameContext";
 import { socket } from "../socket";
-import { BOARD_TILE_DRAG_LAYER } from "./Canvas";
-import { TILE_SIZE } from "./CanvasGrid";
 import CanvasTile from "./CanvasTile";
+import { BOARD_TILE_DRAG_LAYER, TILE_SIZE } from "./constants";
 import { useColorHex } from "./useColorHex";
 
 type CanvasBoardTileProps = {

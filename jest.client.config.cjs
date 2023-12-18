@@ -8,6 +8,7 @@ module.exports = {
     "!index.tsx",
     "!socket/index.ts",
     "!fixtures/**/*.{ts,tsx}",
+    "!vite-env.d.ts",
   ],
   displayName: "CLIENT",
   rootDir: "./src/client",

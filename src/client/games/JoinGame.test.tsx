@@ -31,12 +31,9 @@ function renderForm() {
   );
 }
 
-function mockEmitCallback(
-  error: Error | null,
-  gameInfo: Game = gameInfoFixture({ gameId: GAME_ID }),
-) {
+function mockEmitCallback(error: Error | null, gameInfo: Game | null) {
   mockEmit.mockImplementation((_event, _params, callback) =>
-    callback(error, error ? null : gameInfo),
+    callback(error, gameInfo),
   );
 }
 
@@ -122,7 +119,7 @@ describe("<JoinGame />", () => {
   });
 
   it("redirects to game with state after successful submit", async () => {
-    mockEmitCallback(null);
+    mockEmitCallback(null, gameInfoFixture({ gameId: GAME_ID }));
     const { user } = renderForm();
 
     await submitForm(user, "username");
@@ -134,7 +131,7 @@ describe("<JoinGame />", () => {
 
   it("shows an error if there was an error submitting the form", async () => {
     const errorMessage = "Here is the error";
-    mockEmitCallback(new Error(errorMessage));
+    mockEmitCallback(new Error(errorMessage), null);
     const { user } = renderForm();
 
     await submitForm(user, "username");
@@ -142,6 +139,19 @@ describe("<JoinGame />", () => {
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent(
         new RegExp(`^${errorMessage}$`),
+      );
+    });
+  });
+
+  it("shows default error if form error doesn't have a message", async () => {
+    mockEmitCallback(null, null);
+    const { user } = renderForm();
+
+    await submitForm(user, "username");
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert")).toHaveTextContent(
+        /^Unable to join game$/,
       );
     });
   });

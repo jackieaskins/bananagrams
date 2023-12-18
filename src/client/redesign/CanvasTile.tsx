@@ -7,9 +7,8 @@ import { BoardLocation } from "../../types/board";
 import { Tile } from "../../types/tile";
 import { useGame } from "../games/GameContext";
 import { useCanvasContext } from "./CanvasContext";
-import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT } from "./CanvasDragTarget";
-import { TILE_SIZE } from "./CanvasGrid";
 import CanvasInnerTile from "./CanvasInnerTile";
+import { DRAG_LEAVE_EVENT, DRAG_OVER_EVENT, TILE_SIZE } from "./constants";
 import { setCursor, setCursorWrapper } from "./setCursor";
 
 const EXCHANGE_COUNT = 3;
