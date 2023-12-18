@@ -10,9 +10,9 @@ type BoardProps = {
 export default function Board({ board }: BoardProps): JSX.Element {
   return (
     <Card display="inline-flex" flexDirection="column" variant="outline">
-      {convertToArray(board).map((row, x) => (
-        <Flex key={x}>
-          {row.map((boardSquare, y) => (
+      {convertToArray(board).map((row, y) => (
+        <Flex key={y}>
+          {row.map((boardSquare, x) => (
             <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
           ))}
         </Flex>
