@@ -1,37 +1,59 @@
-import { Layer, Stage } from "react-konva";
+import { KonvaEventObject } from "konva/lib/Node";
+import { useCallback, useState } from "react";
+import { Group, Layer, Stage } from "react-konva";
 import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHand from "./CanvasHand";
-import { BOARD_TILE_DRAG_LAYER, HAND_TILE_DRAG_LAYER } from "./constants";
+import CanvasInnerTile from "./CanvasInnerTile";
+import { SelectedTile, SelectedTileContext } from "./SelectedTileContext";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
 };
 
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
-  const { handLocation, offset, size, stageRef } = useCanvasContext();
+  const { size, stageRef } = useCanvasContext();
+  const [selectedTile, setSelectedTile] = useState<SelectedTile | null>(null);
+
+  const handleMouseMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
+    setSelectedTile((selectedTile) => {
+      if (selectedTile) {
+        return {
+          ...selectedTile,
+          followPosition: { x: e.evt.x, y: e.evt.y },
+        };
+      }
+
+      return null;
+    });
+  }, []);
 
   return (
-    <Stage width={size.width} height={size.height} ref={stageRef}>
-      <Layer>
-        <CanvasBoard setOffset={setOffset} />
-        <CanvasHand />
-      </Layer>
+    <SelectedTileContext.Provider value={{ selectedTile, setSelectedTile }}>
+      <Stage
+        width={size.width}
+        height={size.height}
+        ref={stageRef}
+        onMouseMove={handleMouseMove}
+      >
+        <Layer>
+          <CanvasBoard setOffset={setOffset} />
+          <CanvasHand />
+        </Layer>
 
-      {/* Ensure dragging tiles appear above the other layer */}
-      <Layer
-        name={BOARD_TILE_DRAG_LAYER}
-        x={offset.x}
-        y={offset.y}
-        listening={false}
-      />
-      <Layer
-        name={HAND_TILE_DRAG_LAYER}
-        x={handLocation.x}
-        y={handLocation.y}
-        listening={false}
-      />
-    </Stage>
+        <Layer>
+          {selectedTile && (
+            <Group
+              listening={false}
+              x={selectedTile.followPosition.x + 5}
+              y={selectedTile.followPosition.y + 5}
+            >
+              <CanvasInnerTile tile={selectedTile.tile} />
+            </Group>
+          )}
+        </Layer>
+      </Stage>
+    </SelectedTileContext.Provider>
   );
 }

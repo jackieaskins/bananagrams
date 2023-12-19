@@ -1,12 +1,11 @@
-import Konva from "konva";
-import { useCallback, useRef } from "react";
-import { BoardLocation } from "../../types/board";
-import { ClientToServerEventName } from "../../types/socket";
+import { KonvaEventObject } from "konva/lib/Node";
+import { useCallback } from "react";
 import { Tile } from "../../types/tile";
 import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
 import CanvasTile from "./CanvasTile";
-import { HAND_TILE_DRAG_LAYER } from "./constants";
+import { useSelectedTile } from "./SelectedTileContext";
+import { CanvasName } from "./constants";
+import { setCursor } from "./setCursor";
 
 type CanvasHandTileProps = {
   tile: Tile;
@@ -19,38 +18,33 @@ export default function CanvasHandTile({
   x,
   y,
 }: CanvasHandTileProps): JSX.Element {
-  const tileRef = useRef<Konva.Group>(null);
-  const { handleMoveTileFromHandToBoard } = useGame();
+  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { handleMoveTileFromBoardToHand } = useGame();
 
-  const handleDump = useCallback(() => {
-    socket.emit(ClientToServerEventName.Dump, {
-      tileId: tile.id,
-      boardLocation: null,
-    });
-  }, [tile.id]);
+  const handleClick = useCallback(
+    (e: KonvaEventObject<MouseEvent>) => {
+      if (selectedTile?.location) {
+        handleMoveTileFromBoardToHand(selectedTile.location);
+      }
 
-  const handleHandMove = useCallback(() => {
-    tileRef.current?.position({ x, y });
-  }, [x, y]);
+      setSelectedTile({
+        tile,
+        location: selectedTile?.location ?? null,
+        followPosition: { x: e.evt.x, y: e.evt.y },
+      });
 
-  const handleBoardMove = useCallback(
-    (boardLocation: BoardLocation) => {
-      handleMoveTileFromHandToBoard(tile.id, boardLocation);
+      setCursor(e, "grabbing");
     },
-    [handleMoveTileFromHandToBoard, tile.id],
+    [handleMoveTileFromBoardToHand, selectedTile, setSelectedTile, tile],
   );
 
   return (
     <CanvasTile
-      dragLayer={HAND_TILE_DRAG_LAYER}
+      name={CanvasName.HandTile}
       tile={tile}
       x={x}
       y={y}
-      tileRef={tileRef}
-      onDump={handleDump}
-      onHandMove={handleHandMove}
-      onBoardMove={handleBoardMove}
-      fireHandDragEvents={false}
+      onClick={handleClick}
     />
   );
 }

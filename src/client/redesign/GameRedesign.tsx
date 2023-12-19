@@ -5,13 +5,14 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import Konva from "konva";
 import { useLayoutEffect, useRef, useState } from "react";
 import { useGame } from "../games/GameContext";
 import PeelButton from "../games/PeelButton";
 import SpectateButton from "../games/SpectateButton";
 import ShuffleHandButton from "../hands/ShuffleHandButton";
 import Canvas from "./Canvas";
-import CanvasProvider from "./CanvasProvider";
+import { CanvasContext } from "./CanvasContext";
 import { useColorModeHex } from "./useColorHex";
 
 export default function GameRedesign(): JSX.Element {
@@ -20,6 +21,7 @@ export default function GameRedesign(): JSX.Element {
     { fallback: "sm" },
   );
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const stageRef = useRef<Konva.Stage>(null);
   const [size, setSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -56,9 +58,9 @@ export default function GameRedesign(): JSX.Element {
 
   return (
     <Box height="100vh">
-      <CanvasProvider offset={offset} size={size}>
+      <CanvasContext.Provider value={{ size, stageRef, offset }}>
         <Canvas setOffset={setOffset} />
-      </CanvasProvider>
+      </CanvasContext.Provider>
 
       <Flex
         borderTop="solid"

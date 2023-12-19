@@ -12,7 +12,6 @@ import {
   ServerToClientEventName,
 } from "../../types/socket";
 import { socket } from "../socket";
-import { TileItem } from "../tiles/types";
 import { GameContext, getEmptyGameInfo } from "./GameContext";
 import { GameLocationState } from "./types";
 
@@ -54,7 +53,13 @@ export default function SocketGameProvider({
     };
   }, []);
 
-  const handleDump = ({ boardLocation, id }: TileItem): void => {
+  const handleDump = ({
+    boardLocation,
+    id,
+  }: {
+    boardLocation: BoardLocation | null;
+    id: string;
+  }): void => {
     socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
   };
   const handleMoveTileFromBoardToHand = (

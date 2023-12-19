@@ -1,17 +1,16 @@
-import Konva from "konva";
-import { useCallback, useMemo, useRef } from "react";
+import { KonvaEventObject } from "konva/lib/Node";
+import { useCallback, useMemo } from "react";
 import {
-  BoardLocation,
   BoardSquare,
   Direction,
   ValidationStatus,
   WordInfo,
 } from "../../types/board";
-import { ClientToServerEventName } from "../../types/socket";
 import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
 import CanvasTile from "./CanvasTile";
-import { BOARD_TILE_DRAG_LAYER, TILE_SIZE } from "./constants";
+import { useSelectedTile } from "./SelectedTileContext";
+import { CanvasName, TILE_SIZE } from "./constants";
+import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 
 type CanvasBoardTileProps = {
@@ -39,46 +38,55 @@ export default function CanvasBoardTile({
   x,
   y,
 }: CanvasBoardTileProps): JSX.Element {
-  const tileRef = useRef<Konva.Group>(null);
-  const { handleMoveTileFromBoardToHand, handleMoveTileOnBoard } = useGame();
-
+  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
-  const handleDump = useCallback(() => {
-    socket.emit(ClientToServerEventName.Dump, {
-      tileId: tile.id,
-      boardLocation: { x, y },
-    });
-  }, [tile.id, x, y]);
-
-  const handleHandMove = useCallback(() => {
-    handleMoveTileFromBoardToHand({ x, y });
-  }, [handleMoveTileFromBoardToHand, x, y]);
-
-  const handleBoardMove = useCallback(
-    (toLocation: BoardLocation) => {
-      if (x === toLocation.x && y === toLocation.y) {
-        tileRef.current?.position({ x: x * TILE_SIZE, y: y * TILE_SIZE });
-      } else {
-        handleMoveTileOnBoard({ x, y }, toLocation);
+  const handleClick = useCallback(
+    (e: KonvaEventObject<MouseEvent>) => {
+      if (!selectedTile) {
+        setSelectedTile({
+          tile,
+          location: { x, y },
+          followPosition: { x: e.evt.x, y: e.evt.y },
+        });
+        setCursor(e, "grabbing");
+        return;
       }
+
+      if (selectedTile?.location) {
+        handleMoveTileOnBoard(selectedTile.location, { x, y });
+      } else if (selectedTile) {
+        handleMoveTileFromHandToBoard(selectedTile.tile.id, { x, y });
+      }
+
+      setSelectedTile({
+        tile,
+        location: selectedTile?.location ?? null,
+        followPosition: { x: e.evt.x, y: e.evt.y },
+      });
+      setCursor(e, "grabbing");
     },
-    [handleMoveTileOnBoard, x, y],
+    [
+      handleMoveTileFromHandToBoard,
+      handleMoveTileOnBoard,
+      selectedTile,
+      setSelectedTile,
+      tile,
+      x,
+      y,
+    ],
   );
 
   return (
     <CanvasTile
-      dragLayer={BOARD_TILE_DRAG_LAYER}
+      name={CanvasName.BoardTile}
       tile={tile}
       x={x * TILE_SIZE}
       y={y * TILE_SIZE}
-      fireHandDragEvents
-      tileRef={tileRef}
       color={color}
-      onDump={handleDump}
-      onHandMove={handleHandMove}
-      onBoardMove={handleBoardMove}
+      onClick={handleClick}
     />
   );
 }

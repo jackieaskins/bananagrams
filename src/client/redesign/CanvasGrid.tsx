@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGridLine from "./CanvasGridLine";
 import { TILE_SIZE } from "./constants";
@@ -38,7 +39,7 @@ export default function CanvasGrid({
   }, [height, offset.x, offset.y, width]);
 
   return (
-    <>
+    <Group listening={false}>
       {horizontalPoints.map((points, index) => (
         <CanvasGridLine key={index} points={points} />
       ))}
@@ -46,6 +47,6 @@ export default function CanvasGrid({
       {verticalPoints.map((points, index) => (
         <CanvasGridLine key={index} points={points} />
       ))}
-    </>
+    </Group>
   );
 }

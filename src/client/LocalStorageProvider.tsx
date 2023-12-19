@@ -25,6 +25,7 @@ function useLocalStorage<T>(key: string, defaultValue: T): [T, SetState<T>] {
 
   return [value, setValue];
 }
+
 export default function LocalStorageProvider({
   children,
 }: {

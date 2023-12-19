@@ -1,7 +1,11 @@
-export const BOARD_TILE_DRAG_LAYER = "board-tile-drag-layer";
-export const HAND_TILE_DRAG_LAYER = "hand-tile-drag-layer";
-
-export const DRAG_OVER_EVENT = "dragOver";
-export const DRAG_LEAVE_EVENT = "dragLeave";
-
 export const TILE_SIZE = 32;
+export const DUMP_ZONE_WIDTH = 100;
+export const CORNER_RADIUS = 10;
+
+export enum CanvasName {
+  Board = "board",
+  BoardTile = "boardTile",
+  DumpZone = "dumpZone",
+  Hand = "hand",
+  HandTile = "handTile",
+}

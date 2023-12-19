@@ -4,12 +4,14 @@ import { TILE_SIZE } from "./constants";
 import { useColorHex } from "./useColorHex";
 
 type CanvasInnerTileProps = {
+  name?: string;
   color?: string;
   tile: Tile;
 };
 
 export default function CanvasInnerTile({
   color = "black",
+  name,
   tile: { letter },
 }: CanvasInnerTileProps): JSX.Element {
   const [tileBg] = useColorHex(["yellow.100"]);
@@ -17,6 +19,7 @@ export default function CanvasInnerTile({
   return (
     <>
       <Rect
+        name={name}
         width={TILE_SIZE}
         height={TILE_SIZE}
         fill={tileBg}
@@ -33,6 +36,7 @@ export default function CanvasInnerTile({
         align="center"
         fontSize={TILE_SIZE / 2}
         fontStyle="bold"
+        listening={false}
       />
     </>
   );

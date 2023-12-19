@@ -1,18 +1,24 @@
 import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
-import { useEffect, useMemo } from "react";
-import { Group, Text } from "react-konva";
+import { KonvaEventObject } from "konva/lib/Node";
+import { useCallback, useMemo, useState } from "react";
+import { Group, Rect } from "react-konva";
+import { useGame } from "../games/GameContext";
 import { useCanvasContext } from "./CanvasContext";
-import CanvasDragTarget from "./CanvasDragTarget";
+import CanvasDumpZone from "./CanvasDumpZone";
 import CanvasHandTile from "./CanvasHandTile";
-import { TILE_SIZE } from "./constants";
-import { setCursorWrapper } from "./setCursor";
+import { useSelectedTile } from "./SelectedTileContext";
+import {
+  CORNER_RADIUS,
+  CanvasName,
+  DUMP_ZONE_WIDTH,
+  TILE_SIZE,
+} from "./constants";
+import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 import { useCurrentPlayer } from "./useCurrentPlayer";
 
-const CORNER_RADIUS = 10;
 const PADDING = 15;
 const SPACING = 7;
-const DUMP_ZONE_WIDTH = 100;
 const GAP = 10;
 
 export default function CanvasHand(): JSX.Element {
@@ -20,19 +26,15 @@ export default function CanvasHand(): JSX.Element {
     { base: 0.95, sm: 0.9, lg: 0.7 },
     { fallback: "lg" },
   );
-  const {
-    handRectRef,
-    dumpZoneRectRef,
-    size,
-    setHandLocation,
-    handLocation: { x, y },
-  } = useCanvasContext();
+  const { size } = useCanvasContext();
   const { hand } = useCurrentPlayer();
-  const [defaultBgColor, dragOverBgColor, dumpColor] = useColorHex([
+  const [defaultBgColor, activeBgColor] = useColorHex([
     useColorModeValue("gray.100", "gray.700"),
     useColorModeValue("gray.300", "gray.600"),
-    useColorModeValue("gray.500", "gray.300"),
   ]);
+  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { handleMoveTileFromBoardToHand } = useGame();
+  const [isActive, setActive] = useState(false);
 
   const { tilesPerRow, handHeight, handWidth } = useMemo(() => {
     const maxWidth = size.width * percent! - DUMP_ZONE_WIDTH - GAP;
@@ -54,65 +56,71 @@ export default function CanvasHand(): JSX.Element {
     };
   }, [hand.length, percent, size.width]);
 
-  useEffect(() => {
-    setHandLocation({
-      x: size.width / 2 - handWidth / 2,
-      y: size.height - handHeight - TILE_SIZE,
-    });
-  }, [handHeight, handWidth, setHandLocation, size.height, size.width]);
+  const bgColor = useMemo(
+    () => (isActive ? activeBgColor : defaultBgColor),
+    [activeBgColor, defaultBgColor, isActive],
+  );
+
+  const handleClick = useCallback(
+    (evt: KonvaEventObject<MouseEvent>) => {
+      if (!selectedTile) return;
+
+      if (selectedTile.location) {
+        handleMoveTileFromBoardToHand(selectedTile.location);
+      }
+
+      setSelectedTile(null);
+      setActive(false);
+      setCursor(evt, "default");
+    },
+    [handleMoveTileFromBoardToHand, selectedTile, setSelectedTile],
+  );
 
   return (
-    <>
-      <Group x={x} y={y}>
-        <CanvasDragTarget
-          targetRef={dumpZoneRectRef}
-          dragOverBgColor={dragOverBgColor}
-          defaultBgColor={defaultBgColor}
-          width={DUMP_ZONE_WIDTH}
-          height={handHeight}
-          opacity={0.8}
-          cornerRadius={CORNER_RADIUS}
-          onMouseEnter={setCursorWrapper("default")}
-        />
+    <Group
+      x={size.width / 2 - handWidth / 2}
+      y={size.height - handHeight - TILE_SIZE}
+    >
+      <CanvasDumpZone
+        handHeight={handHeight}
+        defaultBgColor={defaultBgColor}
+        activeBgColor={activeBgColor}
+      />
 
-        <Text
-          width={DUMP_ZONE_WIDTH}
-          height={handHeight}
-          text="Dump"
-          fontSize={20}
-          fill={dumpColor}
-          verticalAlign="middle"
-          align="center"
-        />
+      <Rect
+        name={CanvasName.Hand}
+        fill={bgColor}
+        x={DUMP_ZONE_WIDTH + GAP}
+        width={handWidth - DUMP_ZONE_WIDTH}
+        height={handHeight}
+        cornerRadius={CORNER_RADIUS}
+        opacity={0.8}
+        onMouseEnter={(evt) => {
+          if (selectedTile?.location) {
+            setActive(true);
+          }
 
-        <CanvasDragTarget
-          targetRef={handRectRef}
-          dragOverBgColor={dragOverBgColor}
-          defaultBgColor={defaultBgColor}
-          cornerRadius={CORNER_RADIUS}
-          opacity={0.8}
-          x={DUMP_ZONE_WIDTH + GAP}
-          width={handWidth - DUMP_ZONE_WIDTH}
-          height={handHeight}
-          onMouseEnter={setCursorWrapper("default")}
-        />
+          if (!selectedTile) {
+            setCursor(evt, "default");
+          }
+        }}
+        onMouseLeave={() => setActive(false)}
+        onClick={handleClick}
+      />
 
-        {hand.map((tile, index) => (
-          <CanvasHandTile
-            key={tile.id}
-            tile={tile}
-            x={
-              PADDING +
-              (SPACING + TILE_SIZE) * (index % tilesPerRow) +
-              DUMP_ZONE_WIDTH +
-              GAP
-            }
-            y={
-              PADDING + Math.floor(index / tilesPerRow) * (TILE_SIZE + SPACING)
-            }
-          />
-        ))}
-      </Group>
-    </>
+      {hand.map((tile, index) => (
+        <CanvasHandTile
+          key={tile.id}
+          tile={tile}
+          x={
+            PADDING +
+            (SPACING + TILE_SIZE) * (index % tilesPerRow) +
+            DUMP_ZONE_WIDTH +
+            GAP
+          }
+          y={PADDING + Math.floor(index / tilesPerRow) * (TILE_SIZE + SPACING)}
+        />
+      ))}
+    </Group>
   );
 }
