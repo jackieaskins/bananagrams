@@ -35,7 +35,7 @@ export default function CanvasDumpZone({
     [activeBgColor, defaultBgColor, isActive],
   );
 
-  const handleMouseEnter = useCallback(
+  const handlePointerEnter = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
       if (selectedTile && canDrop) {
         setActive(true);
@@ -48,7 +48,7 @@ export default function CanvasDumpZone({
     [canDrop, selectedTile],
   );
 
-  const handleMouseLeave = useCallback(
+  const handlePointerLeave = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
       if (selectedTile) {
         setCursor(evt, "grabbing");
@@ -59,7 +59,7 @@ export default function CanvasDumpZone({
     [selectedTile],
   );
 
-  const handleClick = useCallback(
+  const handlePointerClick = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
       if (bunch.length < EXCHANGE_COUNT || !selectedTile) return;
 
@@ -84,9 +84,9 @@ export default function CanvasDumpZone({
         height={handHeight}
         opacity={0.8}
         cornerRadius={CORNER_RADIUS}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onPointerClick={handlePointerClick}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
       />
 
       <Text

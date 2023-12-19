@@ -61,7 +61,7 @@ export default function CanvasHand(): JSX.Element {
     [activeBgColor, defaultBgColor, isActive],
   );
 
-  const handleClick = useCallback(
+  const handlePointerClick = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
       if (!selectedTile) return;
 
@@ -95,7 +95,7 @@ export default function CanvasHand(): JSX.Element {
         height={handHeight}
         cornerRadius={CORNER_RADIUS}
         opacity={0.8}
-        onMouseEnter={(evt) => {
+        onPointerEnter={(evt) => {
           if (selectedTile?.location) {
             setActive(true);
           }
@@ -104,8 +104,8 @@ export default function CanvasHand(): JSX.Element {
             setCursor(evt, "default");
           }
         }}
-        onMouseLeave={() => setActive(false)}
-        onClick={handleClick}
+        onPointerLeave={() => setActive(false)}
+        onPointerClick={handlePointerClick}
       />
 
       {hand.map((tile, index) => (

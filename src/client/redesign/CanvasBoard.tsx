@@ -24,7 +24,7 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
   const { selectedTile, setSelectedTile } = useSelectedTile();
   const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
 
-  const handleClick = useCallback(
+  const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
       if (!selectedTile) return;
 
@@ -65,10 +65,10 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
         y={-offset.y}
         width={size.width}
         height={size.height}
-        onMouseEnter={(evt) => {
+        onPointerEnter={(evt) => {
           if (!selectedTile) setCursor(evt, "move");
         }}
-        onClick={handleClick}
+        onPointerClick={handlePointerClick}
       />
 
       <CanvasGrid width={size.width} height={size.height} />

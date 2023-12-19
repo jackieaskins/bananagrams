@@ -43,7 +43,7 @@ export default function CanvasBoardTile({
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
-  const handleClick = useCallback(
+  const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
       /*
        * No selected tile:
@@ -118,7 +118,7 @@ export default function CanvasBoardTile({
       x={x * TILE_SIZE}
       y={y * TILE_SIZE}
       color={color}
-      onClick={handleClick}
+      onPointerClick={handlePointerClick}
     />
   );
 }

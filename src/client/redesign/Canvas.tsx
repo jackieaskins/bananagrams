@@ -16,7 +16,7 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
   const { size, stageRef } = useCanvasContext();
   const [selectedTile, setSelectedTile] = useState<SelectedTile | null>(null);
 
-  const handleMouseMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
+  const handlePointerMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
     setSelectedTile((selectedTile) => {
       if (selectedTile) {
         return {
@@ -35,7 +35,7 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
         width={size.width}
         height={size.height}
         ref={stageRef}
-        onMouseMove={handleMouseMove}
+        onPointerMove={handlePointerMove}
       >
         <Layer>
           <CanvasBoard setOffset={setOffset} />

@@ -21,7 +21,7 @@ export default function CanvasHandTile({
   const { selectedTile, setSelectedTile } = useSelectedTile();
   const { handleMoveTileFromBoardToHand } = useGame();
 
-  const handleClick = useCallback(
+  const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
       /**
        * No tile is selected:
@@ -84,7 +84,7 @@ export default function CanvasHandTile({
       tile={tile}
       x={x}
       y={y}
-      onClick={handleClick}
+      onPointerClick={handlePointerClick}
     />
   );
 }
