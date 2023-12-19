@@ -44,7 +44,7 @@ export default function CanvasBoardDragOverlay(): JSX.Element | null {
       width={TILE_SIZE}
       height={TILE_SIZE}
       fill={hoverColor}
-      opacity={0.6}
+      opacity={0.5}
       listening={false}
     />
   );

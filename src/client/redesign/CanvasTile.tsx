@@ -1,5 +1,4 @@
 import { KonvaEventObject } from "konva/lib/Node";
-import { useCallback } from "react";
 import { Group } from "react-konva";
 import { Tile } from "../../types/tile";
 import CanvasInnerTile from "./CanvasInnerTile";
@@ -23,26 +22,13 @@ export default function CanvasTile({
   y,
   onClick,
 }: TileProps): JSX.Element {
-  const { selectedTile, setSelectedTile } = useSelectedTile();
-
-  const handleClick = useCallback(
-    (evt: KonvaEventObject<MouseEvent>) => {
-      if (selectedTile?.tile.id === tile.id) {
-        setSelectedTile(null);
-        setCursor(evt, "grab");
-        return;
-      }
-
-      onClick(evt);
-    },
-    [onClick, selectedTile?.tile.id, setSelectedTile, tile.id],
-  );
+  const { selectedTile } = useSelectedTile();
 
   return (
     <Group
       x={x}
       y={y}
-      onClick={handleClick}
+      onClick={onClick}
       onMouseEnter={(evt) => {
         if (!selectedTile) {
           setCursor(evt, "grab");

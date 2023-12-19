@@ -45,6 +45,26 @@ export default function CanvasBoardTile({
 
   const handleClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
+      /*
+       * No selected tile:
+       * - Select the tile under the cursor at current location
+       * - Set the cursor to grabbing
+       *
+       * Current tile is selected:
+       * - Deselect tile
+       * - Set the cursor to grab
+       *
+       * Current tile is also on the board:
+       * - Call moveTileOnBoard
+       * - Select the tile under the cursor at its new position
+       * - Set the cursor to grabbing
+       *
+       * Current tile is in the hand:
+       * - Call moveTileFromHandToBoard
+       * - Select the tile under the cursor with no position
+       * - Set the cursor to grabbing
+       */
+
       if (!selectedTile) {
         setSelectedTile({
           tile,
@@ -55,15 +75,27 @@ export default function CanvasBoardTile({
         return;
       }
 
-      if (selectedTile?.location) {
-        handleMoveTileOnBoard(selectedTile.location, { x, y });
-      } else if (selectedTile) {
-        handleMoveTileFromHandToBoard(selectedTile.tile.id, { x, y });
+      if (selectedTile.tile.id === tile.id) {
+        setSelectedTile(null);
+        setCursor(e, "grab");
+        return;
       }
 
+      if (selectedTile.location) {
+        handleMoveTileOnBoard(selectedTile.location, { x, y });
+        setSelectedTile({
+          tile,
+          location: selectedTile.location,
+          followPosition: { x: e.evt.x, y: e.evt.y },
+        });
+        setCursor(e, "grabbing");
+        return;
+      }
+
+      handleMoveTileFromHandToBoard(selectedTile.tile.id, { x, y });
       setSelectedTile({
         tile,
-        location: selectedTile?.location ?? null,
+        location: null,
         followPosition: { x: e.evt.x, y: e.evt.y },
       });
       setCursor(e, "grabbing");
