@@ -105,7 +105,7 @@ export default function CanvasHand(): JSX.Element {
           }
         }}
         onPointerLeave={() => setActive(false)}
-        onPointerClick={handlePointerClick}
+        onPointerUp={handlePointerClick}
       />
 
       {hand.map((tile, index) => (

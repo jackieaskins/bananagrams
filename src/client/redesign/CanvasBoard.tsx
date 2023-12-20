@@ -68,7 +68,7 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
         onPointerEnter={(evt) => {
           if (!selectedTile) setCursor(evt, "move");
         }}
-        onPointerClick={handlePointerClick}
+        onPointerUp={handlePointerClick}
       />
 
       <CanvasGrid width={size.width} height={size.height} />

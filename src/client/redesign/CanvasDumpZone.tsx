@@ -84,7 +84,7 @@ export default function CanvasDumpZone({
         height={handHeight}
         opacity={0.8}
         cornerRadius={CORNER_RADIUS}
-        onPointerClick={handlePointerClick}
+        onPointerUp={handlePointerClick}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
       />

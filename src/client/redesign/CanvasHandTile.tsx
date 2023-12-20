@@ -34,12 +34,12 @@ export default function CanvasHandTile({
        *
        * Current tile is on the board:
        * - Call moveTileFromBoardToHand
-       * - Select the tile under the cursor with board location
-       * - Set the cursor to grabbing
+       * - ~~Select the tile under the cursor with board location~~ Deslect tile
+       * - Set the cursor to ~~grabbing~~ grab
        *
        * Current tile is in the hand:
-       * - Select the tile under the cursor with no location
-       * - Set cursor to grabbing
+       * - ~~Select the tile under the cursor with no location~~ Deselect tile
+       * - Set cursor to ~~grabbing~~ grab
        */
       if (!selectedTile) {
         setSelectedTile({
@@ -51,29 +51,12 @@ export default function CanvasHandTile({
         return;
       }
 
-      if (selectedTile.tile.id === tile.id) {
-        setSelectedTile(null);
-        setCursor(e, "grab");
-        return;
-      }
-
       if (selectedTile.location) {
         handleMoveTileFromBoardToHand(selectedTile.location);
-        setSelectedTile({
-          tile,
-          location: selectedTile.location,
-          followPosition: { x: e.evt.x, y: e.evt.y },
-        });
-        setCursor(e, "grabbing");
-        return;
       }
 
-      setSelectedTile({
-        tile,
-        location: null,
-        followPosition: { x: e.evt.x, y: e.evt.y },
-      });
-      setCursor(e, "grabbing");
+      setSelectedTile(null);
+      setCursor(e, "grab");
     },
     [handleMoveTileFromBoardToHand, selectedTile, setSelectedTile, tile],
   );
