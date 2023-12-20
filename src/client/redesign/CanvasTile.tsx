@@ -55,7 +55,7 @@ export default function CanvasTile({
         }
       }}
       onPointerUp={(e) => {
-        if (canRelease) {
+        if (selectedTile && canRelease) {
           handlePointerClick(e);
         }
       }}

@@ -7,6 +7,7 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasHand from "./CanvasHand";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { SelectedTile, SelectedTileContext } from "./SelectedTileContext";
+import { TILE_SIZE } from "./constants";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
@@ -46,8 +47,8 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
           {selectedTile && (
             <Group
               listening={false}
-              x={selectedTile.followPosition.x + 5}
-              y={selectedTile.followPosition.y + 5}
+              x={selectedTile.followPosition.x - TILE_SIZE / 2}
+              y={selectedTile.followPosition.y - TILE_SIZE / 2}
             >
               <CanvasInnerTile tile={selectedTile.tile} />
             </Group>
