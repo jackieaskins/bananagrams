@@ -8,7 +8,7 @@
   "scripts": {
     "build": "vite build",
     "check-types": "tsc --project tsconfig-no-tests.json",
-    "dev": "nodemon -w src/server -x tsx --ignore **/*.test.ts src/server/index.ts",
+    "dev": "nodemon",
     "format": "prettier --write .",
     "lint": "eslint --ext .ts,.tsx --max-warnings 0 src",
     "start": "NODE_ENV=production tsx src/server/index.ts",
