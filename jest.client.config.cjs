@@ -7,7 +7,7 @@ module.exports = {
     "**/*.{ts,tsx}",
     "!index.tsx",
     "!socket/index.ts",
-    "!fixtures/**/*.{ts,tsx}",
+    "!fixtures/*.ts",
     "!vite-env.d.ts",
   ],
   displayName: "CLIENT",
@@ -15,10 +15,4 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
   testEnvironment: "jsdom",
-  transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      { diagnostics: false, tsconfig: "tsconfig.json" },
-    ],
-  },
 };

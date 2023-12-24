@@ -8,4 +8,8 @@ configure({ adapter: new Adapter() });
 
 jest.mock("./socket");
 
+jest.mock("@formkit/auto-animate/react", () => ({
+  useAutoAnimate: jest.fn().mockReturnValue([]),
+}));
+
 global.ResizeObserver = ResizeObserverPolyfill;

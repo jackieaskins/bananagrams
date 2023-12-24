@@ -2614,12 +2614,21 @@ exports[`<App /> renders properly 1`] = `
       }
     }
   >
-    <BrowserRouter>
-      <ServerDisconnectDialog />
-      <AppRoutes />
-      <NavMenu />
-    </BrowserRouter>
-    <SocketManager />
+    <ContextProvider
+      value={
+        [
+          true,
+          [Function],
+        ]
+      }
+    >
+      <BrowserRouter>
+        <ServerDisconnectDialog />
+        <AppRoutes />
+        <NavMenu />
+      </BrowserRouter>
+      <SocketManager />
+    </ContextProvider>
   </ChakraProvider2>
 </LocalStorageProvider>
 `;
