@@ -11,7 +11,7 @@ import LocalStorageProvider from "./LocalStorageProvider";
 import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
 import { NavMenuContext } from "./menus/NavMenuContext";
-import SocketManager from "./socket/SocketManager";
+import useSocketManager from "./socket/useSocketManager";
 
 const config: ThemeConfig = {
   initialColorMode: "system",
@@ -26,6 +26,7 @@ const toastOptions: ToastProviderProps = {
 };
 
 export default function App(): JSX.Element {
+  useSocketManager();
   const [renderNavMenu, setRenderNavMenu] = useState(true);
 
   return (
@@ -37,8 +38,6 @@ export default function App(): JSX.Element {
             <AppRoutes />
             {renderNavMenu && <NavMenu />}
           </BrowserRouter>
-
-          <SocketManager />
         </NavMenuContext.Provider>
       </ChakraProvider>
     </LocalStorageProvider>

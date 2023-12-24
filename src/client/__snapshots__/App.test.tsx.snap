@@ -2627,7 +2627,6 @@ exports[`<App /> renders properly 1`] = `
         <AppRoutes />
         <NavMenu />
       </BrowserRouter>
-      <SocketManager />
     </ContextProvider>
   </ChakraProvider2>
 </LocalStorageProvider>

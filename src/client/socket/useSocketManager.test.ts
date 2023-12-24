@@ -1,6 +1,6 @@
+import { renderHook } from "@testing-library/react";
 import { ServerToClientEventName } from "../../types/socket";
-import { renderComponent } from "../testUtils";
-import SocketManager from "./SocketManager";
+import useSocketManager from "./useSocketManager";
 import { socket } from ".";
 
 const mockSocketOn = socket.on as jest.Mock;
@@ -10,9 +10,9 @@ jest.mock("@chakra-ui/react", () => ({
   useToast: () => mockToast,
 }));
 
-describe("<SocketManager />", () => {
+describe("useSocketManager", () => {
   it("disconnects from socket when component unmounts", () => {
-    const { unmount } = renderComponent(<SocketManager />);
+    const { unmount } = renderHook(useSocketManager);
 
     expect(socket.disconnect).not.toHaveBeenCalled();
     unmount();
@@ -21,7 +21,7 @@ describe("<SocketManager />", () => {
   });
 
   it("subscribes to notifications on mount", () => {
-    renderComponent(<SocketManager />);
+    renderHook(useSocketManager);
 
     expect(mockSocketOn).toHaveBeenCalledWith(
       ServerToClientEventName.Notification,
@@ -32,7 +32,7 @@ describe("<SocketManager />", () => {
   it("emits a toast event whenever a notification is received", () => {
     const message = "Hello world";
 
-    renderComponent(<SocketManager />);
+    renderHook(useSocketManager);
 
     mockSocketOn.mock.calls[0][1]({ message });
 
@@ -40,7 +40,7 @@ describe("<SocketManager />", () => {
   });
 
   it("unsubscribes from notifications on unmount", () => {
-    const { unmount } = renderComponent(<SocketManager />);
+    const { unmount } = renderHook(useSocketManager);
 
     expect(socket.off).not.toHaveBeenCalled();
     unmount();

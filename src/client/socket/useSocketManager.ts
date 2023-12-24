@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { ServerToClientEventName } from "../../types/socket";
 import { socket } from ".";
 
-export default function SocketManager(): null {
+export default function useSocketManager(): void {
   const toast = useToast();
 
   useEffect(
@@ -25,6 +25,4 @@ export default function SocketManager(): null {
       socket.off(ServerToClientEventName.Notification);
     };
   }, [toast]);
-
-  return null;
 }
