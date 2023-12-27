@@ -27,6 +27,7 @@
     "*.{cjs,css,html,js,json,md,ts,tsx}": "prettier --write"
   },
   "workspaces": [
-    "app"
+    "app",
+    "eslint-config"
   ]
 }

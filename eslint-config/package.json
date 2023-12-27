@@ -1,0 +1,15 @@
+{
+  "name": "eslint-config-bananagrams",
+  "private": true,
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint-config-prettier": "^9.1.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "eslint": ">=8",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}
