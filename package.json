@@ -7,6 +7,8 @@
     "build": "npm run -w app build",
     "check-types": "npm run -ws --if-present check-types",
     "dev": "npm run -w app dev",
+    "e2e": "npm run -w e2e test",
+    "format": "npm run --ws --if-present format",
     "lint": "npm run --ws --if-present lint",
     "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test",
     "start": "npm run -w app start",
@@ -27,7 +29,8 @@
     "*.{cjs,css,html,js,json,md,ts,tsx}": "prettier --write"
   },
   "workspaces": [
+    "eslint-config",
     "app",
-    "eslint-config"
+    "e2e"
   ]
 }
