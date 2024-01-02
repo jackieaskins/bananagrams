@@ -11,15 +11,6 @@ jest.mock("@chakra-ui/react", () => ({
 }));
 
 describe("useSocketManager", () => {
-  it("disconnects from socket when component unmounts", () => {
-    const { unmount } = renderHook(useSocketManager);
-
-    expect(socket.disconnect).not.toHaveBeenCalled();
-    unmount();
-
-    expect(socket.disconnect).toHaveBeenCalledWith();
-  });
-
   it("subscribes to notifications on mount", () => {
     renderHook(useSocketManager);
 

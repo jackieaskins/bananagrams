@@ -6,13 +6,6 @@ import { socket } from ".";
 export default function useSocketManager(): void {
   const toast = useToast();
 
-  useEffect(
-    () => () => {
-      socket.disconnect();
-    },
-    [],
-  );
-
   useEffect(() => {
     socket.on(
       ServerToClientEventName.Notification,
