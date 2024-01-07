@@ -1,7 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const isDevelopment = process.env.ENV === "development";
-const port = isDevelopment ? 3000 : 3001;
+const PORT = 3001;
 
 export default defineConfig({
   testDir: "./tests",
@@ -11,7 +10,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: isDevelopment ? "http://localhost:3000" : "http://127.0.0.1:3001",
+    baseURL: `http://localhost:${PORT}`,
     colorScheme: "dark",
     trace: "on-first-retry",
     video: "on-first-retry",
@@ -33,10 +32,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: isDevelopment
-      ? "cd .. && npm run dev"
-      : "cd .. && PORT=3001 npm start",
-    url: `http://127.0.0.1:${port}`,
-    reuseExistingServer: true,
+    command: `PORT=${PORT} npm start`,
+    cwd: "..",
+    port: PORT,
+    reuseExistingServer: !process.env.CI,
   },
 });

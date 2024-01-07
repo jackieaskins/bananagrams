@@ -9,9 +9,7 @@
     "lint": "eslint --ext .ts --max-warnings 0 tests",
     "report": "playwright show-report",
     "test": "playwright test",
-    "test:dev": "ENV=development npm run test",
-    "ui": "playwright test --ui",
-    "ui:dev": "ENV=development npm run ui"
+    "ui": "playwright test --ui"
   },
   "keywords": [],
   "author": "",
