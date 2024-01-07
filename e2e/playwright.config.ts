@@ -1,7 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const prodPort = "3001";
 const isDevelopment = process.env.ENV === "development";
-const url = "http://localhost:3000";
+const url = `http://localhost:${isDevelopment ? "3000" : prodPort}`;
 
 export default defineConfig({
   testDir: "./tests",
@@ -33,7 +34,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: isDevelopment ? "cd .. && npm run dev" : "cd .. && npm run start",
+    command: isDevelopment
+      ? "cd .. && npm run dev"
+      : `cd .. && PORT=${prodPort} npm run start -- --port ${prodPort}`,
     url,
     reuseExistingServer: !process.env.CI,
   },
