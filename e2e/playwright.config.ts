@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3001;
+const PORT = 3000;
 
 export default defineConfig({
   testDir: "./tests",
@@ -32,7 +32,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `PORT=${PORT} npm start`,
+    command: `npm start`,
     cwd: "..",
     port: PORT,
     reuseExistingServer: !process.env.CI,
