@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const isDevelopment = process.env.ENV === "development";
+const url = "http://localhost:3000";
+
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: url,
     colorScheme: "dark",
     trace: "on-first-retry",
     video: "on-first-retry",
@@ -29,4 +32,9 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
   ],
+  webServer: {
+    command: isDevelopment ? "cd .. && npm run dev" : "cd .. && npm run start",
+    url,
+    reuseExistingServer: !process.env.CI,
+  },
 });
