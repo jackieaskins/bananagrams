@@ -35,21 +35,21 @@ export default function ServerDisconnectDialog(): JSX.Element {
       leastDestructiveRef={buttonRef}
       isCentered
     >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader>Disconnected</AlertDialogHeader>
+      <AlertDialogOverlay />
 
-          <AlertDialogBody>
-            You have been disconnected from the server.
-          </AlertDialogBody>
+      <AlertDialogContent>
+        <AlertDialogHeader>Disconnected</AlertDialogHeader>
 
-          <AlertDialogFooter>
-            <Button colorScheme="blue" ref={buttonRef} onClick={onClose}>
-              Return home
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
+        <AlertDialogBody>
+          You have been disconnected from the server.
+        </AlertDialogBody>
+
+        <AlertDialogFooter>
+          <Button colorScheme="blue" ref={buttonRef} onClick={onClose}>
+            Return home
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
     </AlertDialog>
   );
 }

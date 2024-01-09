@@ -2626,6 +2626,7 @@ exports[`<App /> renders properly 1`] = `
         <ServerDisconnectDialog />
         <AppRoutes />
         <NavMenu />
+        <BraveBrowserDialog />
       </BrowserRouter>
     </ContextProvider>
   </ChakraProvider2>

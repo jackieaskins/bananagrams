@@ -8,6 +8,7 @@ import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import LocalStorageProvider from "./LocalStorageProvider";
+import BraveBrowserDialog from "./dialogs/BraveBrowserDialog";
 import ServerDisconnectDialog from "./dialogs/ServerDisconnectDialog";
 import NavMenu from "./menus/NavMenu";
 import { NavMenuContext } from "./menus/NavMenuContext";
@@ -35,6 +36,7 @@ export default function App(): JSX.Element {
             <ServerDisconnectDialog />
             <AppRoutes />
             {renderNavMenu && <NavMenu />}
+            <BraveBrowserDialog />
           </BrowserRouter>
         </NavMenuContext.Provider>
       </ChakraProvider>
