@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { PROD } from "../env";
 
 export default function BraveBrowserDialog(): JSX.Element {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -18,7 +19,7 @@ export default function BraveBrowserDialog(): JSX.Element {
   const { isOpen, onClose } = useDisclosure({
     defaultIsOpen:
       // @ts-expect-error brave object is included on navigator in Brave Browser
-      navigator.brave?.isBrave() && pathname.startsWith("/redesign"),
+      PROD && navigator.brave?.isBrave() && pathname.startsWith("/redesign"),
   });
 
   return (
@@ -32,6 +33,7 @@ export default function BraveBrowserDialog(): JSX.Element {
 
       <AlertDialogContent>
         <AlertDialogHeader>Brave Browser Detected</AlertDialogHeader>
+
         <AlertDialogBody>
           Hey! It looks like you&apos;re using the Brave Browser. Great choice,
           but unfortunately this app does not work well in Brave. Please switch

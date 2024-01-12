@@ -14,6 +14,10 @@ function renderDialog(pathname: string) {
   );
 }
 
+jest.mock("../env", () => ({
+  PROD: true,
+}));
+
 describe("<BraveBrowserDialog />", () => {
   let windowNavigator: Navigator;
 

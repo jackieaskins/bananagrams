@@ -6,6 +6,7 @@ import ResizeObserverPolyfill from "resize-observer-polyfill";
 
 configure({ adapter: new Adapter() });
 
+jest.mock("./env");
 jest.mock("./socket");
 
 jest.mock("@formkit/auto-animate/react", () => ({
