@@ -1,15 +1,15 @@
 import { screen, waitFor } from "@testing-library/react";
-import { Board } from "../../types/board";
-import { Bunch } from "../../types/bunch";
-import { Hand } from "../../types/hand";
-import { Player, PlayerStatus } from "../../types/player";
-import { isValidConnectedBoard } from "../boards/validate";
-import { gameInfoFixture } from "../fixtures/game";
-import { playerFixture } from "../fixtures/player";
-import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
-import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import PeelButton from "./PeelButton";
+import { isValidConnectedBoard } from "@/client/boards/validate";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { playerFixture } from "@/client/fixtures/player";
+import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { renderComponent } from "@/client/testUtils";
+import { Board } from "@/types/board";
+import { Bunch } from "@/types/bunch";
+import { Hand } from "@/types/hand";
+import { Player, PlayerStatus } from "@/types/player";
 
 const mockHandlePeel = jest.fn();
 

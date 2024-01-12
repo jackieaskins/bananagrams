@@ -19,10 +19,10 @@ import {
   FaXmark,
 } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
-import { Player, PlayerStatus } from "../../types/player";
-import { ClientToServerEventName } from "../../types/socket";
-import ForwardedTooltip from "../common/ForwardedTooltip";
-import { socket } from "../socket";
+import ForwardedTooltip from "@/client/common/ForwardedTooltip";
+import { socket } from "@/client/socket";
+import { Player, PlayerStatus } from "@/types/player";
+import { ClientToServerEventName } from "@/types/socket";
 
 export type PlayerTableRowProps = {
   isCurrentPlayerAdmin: boolean;

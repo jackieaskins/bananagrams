@@ -1,9 +1,9 @@
 import { shallow } from "enzyme";
-import { PlayerStatus } from "../../types/player";
-import { playerFixture } from "../fixtures/player";
-import { CURRENT_PLAYER_ID } from "../testUtils";
 import Game from "./Game";
 import { useGame } from "./GameContext";
+import { playerFixture } from "@/client/fixtures/player";
+import { CURRENT_PLAYER_ID } from "@/client/testUtils";
+import { PlayerStatus } from "@/types/player";
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({

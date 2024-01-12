@@ -1,5 +1,6 @@
 module.exports = {
   extends: [
+    "plugin:@dword-design/import-alias/recommended",
     "plugin:jest/recommended",
     "plugin:jest/style",
     "plugin:jest-dom/recommended",
@@ -15,6 +16,10 @@ module.exports = {
   },
   plugins: ["react-refresh"],
   rules: {
+    "@dword-design/import-alias/prefer-alias": [
+      "error",
+      { alias: { "@": "./src" } },
+    ],
     "jest/expect-expect": [
       "error",
       { assertFunctionNames: ["expect", "assert*"] },

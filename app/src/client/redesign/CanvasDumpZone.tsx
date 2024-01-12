@@ -2,11 +2,11 @@ import { useColorModeValue } from "@chakra-ui/react";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Rect, Text } from "react-konva";
-import { useGame } from "../games/GameContext";
 import { useSelectedTile } from "./SelectedTileContext";
 import { CORNER_RADIUS, CanvasName, DUMP_ZONE_WIDTH } from "./constants";
 import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
+import { useGame } from "@/client/games/GameContext";
 
 const EXCHANGE_COUNT = 3;
 

@@ -2,11 +2,11 @@
 import { Flex, IconButton } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
-import { playerFixture } from "../fixtures/player";
-import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
-import { CURRENT_PLAYER_ID } from "../testUtils";
 import Hand from "./Hand";
+import { playerFixture } from "@/client/fixtures/player";
+import { useGame } from "@/client/games/GameContext";
+import { socket } from "@/client/socket";
+import { CURRENT_PLAYER_ID } from "@/client/testUtils";
 
 jest.mock("../games/GameContext", () => ({
   useGame: jest.fn().mockReturnValue({

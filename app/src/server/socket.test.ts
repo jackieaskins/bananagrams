@@ -1,6 +1,6 @@
-import { PlayerStatus } from "../types/player";
 import GameController from "./controllers/GameController";
 import { configureSocket, handler } from "./socket";
+import { PlayerStatus } from "@/types/player";
 
 describe("socket", () => {
   beforeAll(() => {

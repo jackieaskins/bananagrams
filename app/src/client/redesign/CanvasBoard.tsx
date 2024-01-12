@@ -1,9 +1,6 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback } from "react";
 import { Group, Rect } from "react-konva";
-import { parseBoardKey } from "../boards/key";
-import { useGame } from "../games/GameContext";
-import { SetState } from "../state/types";
 import CanvasBoardDragOverlay from "./CanvasBoardDragOverlay";
 import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
@@ -13,6 +10,9 @@ import { useSelectedTile } from "./SelectedTileContext";
 import { CanvasName, TILE_SIZE } from "./constants";
 import { setCursor } from "./setCursor";
 import { useCurrentPlayer } from "./useCurrentPlayer";
+import { parseBoardKey } from "@/client/boards/key";
+import { useGame } from "@/client/games/GameContext";
+import { SetState } from "@/client/state/types";
 
 type BoardProps = {
   setOffset: SetState<{ x: number; y: number }>;

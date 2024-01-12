@@ -8,15 +8,15 @@ import {
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Konva from "konva";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useGame } from "../games/GameContext";
-import PeelButton from "../games/PeelButton";
-import SpectateButton from "../games/SpectateButton";
-import ShuffleHandButton from "../hands/ShuffleHandButton";
-import { useNavMenu } from "../menus/NavMenuContext";
 import Canvas from "./Canvas";
 import { CanvasContext } from "./CanvasContext";
 import GameSidebar from "./GameSidebar";
 import { useColorModeHex } from "./useColorHex";
+import { useGame } from "@/client/games/GameContext";
+import PeelButton from "@/client/games/PeelButton";
+import SpectateButton from "@/client/games/SpectateButton";
+import ShuffleHandButton from "@/client/hands/ShuffleHandButton";
+import { useNavMenu } from "@/client/menus/NavMenuContext";
 
 export default function GameRedesign(): JSX.Element {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);

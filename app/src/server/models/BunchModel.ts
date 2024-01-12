@@ -1,8 +1,8 @@
-import { Bunch } from "../../types/bunch";
-import tileBreakdown from "../tileBreakdown";
 import BaseModel from "./BaseModel";
 import GameModel from "./GameModel";
 import TileModel from "./TileModel";
+import tileBreakdown from "@/server/tileBreakdown";
+import { Bunch } from "@/types/bunch";
 
 const MULTIPLIER_DIVISOR = 4;
 

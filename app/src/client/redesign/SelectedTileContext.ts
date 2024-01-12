@@ -1,8 +1,8 @@
 import { Vector2d } from "konva/lib/types";
 import { createContext, useContext } from "react";
-import { BoardLocation } from "../../types/board";
-import { Tile } from "../../types/tile";
-import { SetState } from "../state/types";
+import { SetState } from "@/client/state/types";
+import { BoardLocation } from "@/types/board";
+import { Tile } from "@/types/tile";
 
 export type SelectedTile = {
   tile: Tile;

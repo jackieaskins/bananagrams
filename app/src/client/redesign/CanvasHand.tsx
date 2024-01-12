@@ -2,7 +2,6 @@ import { useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Rect } from "react-konva";
-import { useGame } from "../games/GameContext";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasDumpZone from "./CanvasDumpZone";
 import CanvasHandTile from "./CanvasHandTile";
@@ -16,6 +15,7 @@ import {
 import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 import { useCurrentPlayer } from "./useCurrentPlayer";
+import { useGame } from "@/client/games/GameContext";
 
 const PADDING = 15;
 const SPACING = 7;

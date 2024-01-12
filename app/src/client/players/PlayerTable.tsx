@@ -7,9 +7,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
 import PlayerTableRow from "./PlayerTableRow";
+import { useGame } from "@/client/games/GameContext";
+import { socket } from "@/client/socket";
 
 const MAX_PLAYERS = 16;
 

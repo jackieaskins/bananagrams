@@ -1,12 +1,12 @@
 import { Card, Flex, IconButton, Tooltip } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { FaShuffle } from "react-icons/fa6";
-import { Hand as HandType } from "../../types/hand";
-import { ClientToServerEventName } from "../../types/socket";
-import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
-import Tile from "../tiles/Tile";
-import { TileItem } from "../tiles/types";
+import { useGame } from "@/client/games/GameContext";
+import { socket } from "@/client/socket";
+import Tile from "@/client/tiles/Tile";
+import { TileItem } from "@/client/tiles/types";
+import { Hand as HandType } from "@/types/hand";
+import { ClientToServerEventName } from "@/types/socket";
 
 type HandProps = {
   hand: HandType;

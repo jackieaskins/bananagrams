@@ -1,15 +1,15 @@
 import { Box } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
+import { useEnableTileSwap } from "@/client/LocalStorageContext";
+import { useGame } from "@/client/games/GameContext";
+import Tile from "@/client/tiles/Tile";
+import { TileItem } from "@/client/tiles/types";
 import {
   BoardSquare as BoardSquareType,
   Direction,
   ValidationStatus,
   WordInfo,
-} from "../../types/board";
-import { useEnableTileSwap } from "../LocalStorageContext";
-import { useGame } from "../games/GameContext";
-import Tile from "../tiles/Tile";
-import { TileItem } from "../tiles/types";
+} from "@/types/board";
 
 type BoardSquareProps = {
   boardSquare: BoardSquareType | null;

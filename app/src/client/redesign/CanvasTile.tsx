@@ -1,11 +1,11 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useState } from "react";
 import { Group } from "react-konva";
-import { BoardLocation } from "../../types/board";
-import { Tile } from "../../types/tile";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { useSelectedTile } from "./SelectedTileContext";
 import { setCursor } from "./setCursor";
+import { BoardLocation } from "@/types/board";
+import { Tile } from "@/types/tile";
 
 const delta = 5;
 

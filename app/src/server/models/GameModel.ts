@@ -1,8 +1,8 @@
-import { Game, Snapshot } from "../../types/game";
-import { Player, PlayerStatus } from "../../types/player";
 import BaseModel from "./BaseModel";
 import BunchModel from "./BunchModel";
 import PlayerModel from "./PlayerModel";
+import { Game, Snapshot } from "@/types/game";
+import { Player, PlayerStatus } from "@/types/player";
 
 export default class GameModel implements BaseModel<Game> {
   private id: string;

@@ -1,7 +1,7 @@
 import { Card, Flex } from "@chakra-ui/react";
-import { Board as BoardType } from "../../types/board";
 import BoardSquare from "./BoardSquare";
 import { convertToArray } from "./convert";
+import { Board as BoardType } from "@/types/board";
 
 type BoardProps = {
   board: BoardType;

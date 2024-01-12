@@ -1,5 +1,5 @@
-import { Board, BoardSquare } from "../../types/board";
 import { generateBoardKey } from "./key";
+import { Board, BoardSquare } from "@/types/board";
 
 const BOARD_SIZE = 21;
 

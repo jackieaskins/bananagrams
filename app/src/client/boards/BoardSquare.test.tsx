@@ -1,16 +1,16 @@
 /* eslint-disable testing-library/no-render-in-lifecycle */
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
+import BoardSquare from "./BoardSquare";
+import { useEnableTileSwap } from "@/client/LocalStorageContext";
+import { boardSquareFixture, wordInfoFixture } from "@/client/fixtures/board";
 import {
   BoardLocation,
   BoardSquare as BoardSquareType,
   Direction,
   ValidationStatus,
   WordInfo,
-} from "../../types/board";
-import { useEnableTileSwap } from "../LocalStorageContext";
-import { boardSquareFixture, wordInfoFixture } from "../fixtures/board";
-import BoardSquare from "./BoardSquare";
+} from "@/types/board";
 
 const mockUseEnableTileSwap = useEnableTileSwap as jest.Mock;
 jest.mock("../LocalStorageContext", () => ({

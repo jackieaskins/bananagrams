@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { renderComponent } from "../testUtils";
 import BraveBrowserDialog from "./BraveBrowserDialog";
+import { renderComponent } from "@/client/testUtils";
 
 function renderDialog(pathname: string) {
   return renderComponent(

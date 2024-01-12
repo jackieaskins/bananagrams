@@ -1,8 +1,8 @@
 import { screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { socket } from "../socket";
-import { renderComponent } from "../testUtils";
 import ServerDisconnectDialog from "./ServerDisconnectDialog";
+import { socket } from "@/client/socket";
+import { renderComponent } from "@/client/testUtils";
 
 const mockOn = socket.on as jest.Mock;
 

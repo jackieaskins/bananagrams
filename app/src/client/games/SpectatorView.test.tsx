@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
-import { PlayerStatus } from "../../types/player";
-import { playerFixture } from "../fixtures/player";
-import { renderComponent } from "../testUtils";
 import { getEmptyGameInfo, useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";
+import { playerFixture } from "@/client/fixtures/player";
+import { renderComponent } from "@/client/testUtils";
+import { PlayerStatus } from "@/types/player";
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({

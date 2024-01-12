@@ -1,7 +1,7 @@
 import { Card, CardBody, Text } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
-import { useGame } from "../games/GameContext";
-import { TileItem } from "../tiles/types";
+import { useGame } from "@/client/games/GameContext";
+import { TileItem } from "@/client/tiles/types";
 
 const EXCHANGE_COUNT = 3;
 

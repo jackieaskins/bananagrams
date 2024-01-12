@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { playerFixture } from "../fixtures/player";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
+import { playerFixture } from "@/client/fixtures/player";
 
 const mockSetSelectedUserId = jest.fn();
 jest.mock("react", () => ({

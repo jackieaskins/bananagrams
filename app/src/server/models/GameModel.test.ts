@@ -1,6 +1,6 @@
-import { PlayerStatus } from "../../types/player";
 import GameModel from "./GameModel";
 import PlayerModel from "./PlayerModel";
+import { PlayerStatus } from "@/types/player";
 
 jest.mock("../boardValidation");
 

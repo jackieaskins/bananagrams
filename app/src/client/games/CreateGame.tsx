@@ -1,13 +1,13 @@
 import { Box, Button, Heading, Stack } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ClientToServerEventName } from "../../types/socket";
-import { useSavedUsername } from "../LocalStorageContext";
-import ErrorAlert from "../alerts/ErrorAlert";
-import InputField from "../forms/InputField";
-import CenteredLayout from "../layouts/CenteredLayout";
-import { socket } from "../socket";
 import { GameLocationState } from "./types";
+import { useSavedUsername } from "@/client/LocalStorageContext";
+import ErrorAlert from "@/client/alerts/ErrorAlert";
+import InputField from "@/client/forms/InputField";
+import CenteredLayout from "@/client/layouts/CenteredLayout";
+import { socket } from "@/client/socket";
+import { ClientToServerEventName } from "@/types/socket";
 
 export default function CreateGame(): JSX.Element {
   const [savedUsername, setSavedUsername] = useSavedUsername();

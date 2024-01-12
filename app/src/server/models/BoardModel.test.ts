@@ -1,7 +1,7 @@
-import { generateBoardKey } from "../boardKey";
-import { validateAddTile, validateRemoveTile } from "../boardValidation";
 import BoardModel from "./BoardModel";
 import TileModel from "./TileModel";
+import { generateBoardKey } from "@/server/boardKey";
+import { validateAddTile, validateRemoveTile } from "@/server/boardValidation";
 
 jest.mock("../boardValidation");
 

@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
-import { Hand } from "../../types/hand";
-import { useCurrentPlayer } from "../redesign/useCurrentPlayer";
-import { socket } from "../socket";
-import { renderComponent } from "../testUtils";
 import ShuffleHandButton from "./ShuffleHandButton";
+import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { socket } from "@/client/socket";
+import { renderComponent } from "@/client/testUtils";
+import { Hand } from "@/types/hand";
 
 const mockUseCurrentPlayer = useCurrentPlayer as jest.Mock;
 jest.mock("../redesign/useCurrentPlayer", () => ({

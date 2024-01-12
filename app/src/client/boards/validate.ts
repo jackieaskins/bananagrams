@@ -1,5 +1,5 @@
-import { Board, BoardLocation, ValidationStatus } from "../../types/board";
 import { generateBoardKey, parseBoardKey } from "./key";
+import { Board, BoardLocation, ValidationStatus } from "@/types/board";
 
 export function isValidConnectedBoard(board: Board): boolean {
   const vals = Object.keys(board).map(parseBoardKey);

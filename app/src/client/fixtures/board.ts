@@ -3,7 +3,7 @@ import {
   Direction,
   ValidationStatus,
   WordInfo,
-} from "../../types/board";
+} from "@/types/board";
 
 export function wordInfoFixture(overrides: Partial<WordInfo> = {}): WordInfo {
   return {

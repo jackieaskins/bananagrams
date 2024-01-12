@@ -1,14 +1,14 @@
 import { Server, Socket } from "socket.io";
 import { v4 as uuidv4 } from "uuid";
-import { BoardLocation } from "../../types/board";
-import { PlayerStatus } from "../../types/player";
+import GameModel from "@/server/models/GameModel";
+import PlayerModel from "@/server/models/PlayerModel";
+import { BoardLocation } from "@/types/board";
+import { PlayerStatus } from "@/types/player";
 import {
   ClientToServerEvents,
   ServerToClientEventName,
   ServerToClientEvents,
-} from "../../types/socket";
-import GameModel from "../models/GameModel";
-import PlayerModel from "../models/PlayerModel";
+} from "@/types/socket";
 
 const MAX_PLAYERS = 16;
 const INITIAL_TILE_COUNT = 21;

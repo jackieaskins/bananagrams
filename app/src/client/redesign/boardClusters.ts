@@ -1,5 +1,5 @@
-import { Board, BoardLocation } from "../../types/board";
-import { generateBoardKey, parseBoardKey } from "../boards/key";
+import { generateBoardKey, parseBoardKey } from "@/client/boards/key";
+import { Board, BoardLocation } from "@/types/board";
 
 type BoardCluster = {
   midX: number;

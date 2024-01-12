@@ -1,5 +1,5 @@
-import { BoardLocation } from "../../types/board";
-import { Game } from "../../types/game";
+import { BoardLocation } from "@/types/board";
+import { Game } from "@/types/game";
 
 export type GameState = {
   gameInfo: Game;

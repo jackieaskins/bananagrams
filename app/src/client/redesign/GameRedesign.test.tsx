@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
 import Konva from "konva";
-import { gameInfoFixture } from "../fixtures/game";
-import { playerFixture } from "../fixtures/player";
-import { renderComponent } from "../testUtils";
 import GameRedesign from "./GameRedesign";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { playerFixture } from "@/client/fixtures/player";
+import { renderComponent } from "@/client/testUtils";
 
 jest.mock("@chakra-ui/react", () => ({
   ...jest.requireActual("@chakra-ui/react"),

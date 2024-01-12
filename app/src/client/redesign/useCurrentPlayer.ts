@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Player } from "../../types/player";
-import { useGame } from "../games/GameContext";
-import { socket } from "../socket";
+import { useGame } from "@/client/games/GameContext";
+import { socket } from "@/client/socket";
+import { Player } from "@/types/player";
 
 export function useCurrentPlayer(): Player {
   const {

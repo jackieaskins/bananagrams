@@ -1,6 +1,6 @@
 import { Box, Card } from "@chakra-ui/react";
-import { Board } from "../../types/board";
 import { convertToArray } from "./convert";
+import { Board } from "@/types/board";
 
 type PreviewBoardProps = {
   board: Board;

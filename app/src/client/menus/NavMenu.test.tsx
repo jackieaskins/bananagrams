@@ -1,7 +1,7 @@
 import { screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { renderComponent } from "../testUtils";
 import NavMenu from "./NavMenu";
+import { renderComponent } from "@/client/testUtils";
 
 async function renderMenu(pathname = "/some-page") {
   const view = renderComponent(

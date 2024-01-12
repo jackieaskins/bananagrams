@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { SetState } from "../state/types";
+import { SetState } from "@/client/state/types";
 
 export type NavMenuState = [boolean, SetState<boolean>];
 

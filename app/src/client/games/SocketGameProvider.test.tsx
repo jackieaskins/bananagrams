@@ -1,9 +1,9 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { useLocation } from "react-router-dom";
-import { gameInfoFixture } from "../fixtures/game";
-import { socket } from "../socket";
 import { useGame } from "./GameContext";
 import SocketGameProvider from "./SocketGameProvider";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { socket } from "@/client/socket";
 
 const mockNavigate = jest.fn();
 const mockUseLocation = useLocation as jest.Mock;

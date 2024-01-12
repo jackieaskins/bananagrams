@@ -8,12 +8,12 @@ import {
 } from "@chakra-ui/react";
 import { useCallback, useMemo } from "react";
 import { FaRegCopy } from "react-icons/fa6";
-import { PlayerStatus } from "../../types/player";
-import { ClientToServerEventName } from "../../types/socket";
-import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import PlayerTable from "../players/PlayerTable";
-import { socket } from "../socket";
 import { useGame } from "./GameContext";
+import OpponentBoardPreview from "@/client/boards/OpponentBoardPreview";
+import PlayerTable from "@/client/players/PlayerTable";
+import { socket } from "@/client/socket";
+import { PlayerStatus } from "@/types/player";
+import { ClientToServerEventName } from "@/types/socket";
 
 export default function WaitingRoom(): JSX.Element {
   const {

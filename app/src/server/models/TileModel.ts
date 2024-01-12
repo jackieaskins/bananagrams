@@ -1,5 +1,5 @@
-import { Letter, Tile } from "../../types/tile";
 import BaseModel from "./BaseModel";
+import { Letter, Tile } from "@/types/tile";
 
 export default class TileModel implements BaseModel<Tile> {
   private id: string;

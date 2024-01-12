@@ -1,8 +1,8 @@
 import { shallow } from "enzyme";
-import { playerFixture } from "../fixtures/player";
-import { CURRENT_PLAYER_ID } from "../testUtils";
 import OpponentBoardPreview from "./OpponentBoardPreview";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
+import { playerFixture } from "@/client/fixtures/player";
+import { CURRENT_PLAYER_ID } from "@/client/testUtils";
 
 jest.mock("./OpponentBoardPreviewState", () => ({
   useOpponentBoardPreview: jest.fn(),

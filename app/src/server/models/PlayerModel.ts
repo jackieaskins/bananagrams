@@ -1,9 +1,9 @@
-import { BoardLocation } from "../../types/board";
-import { Player, PlayerStatus } from "../../types/player";
 import BaseModel from "./BaseModel";
 import BoardModel from "./BoardModel";
 import HandModel from "./HandModel";
 import TileModel from "./TileModel";
+import { BoardLocation } from "@/types/board";
+import { Player, PlayerStatus } from "@/types/player";
 
 export default class PlayerModel implements BaseModel<Player> {
   private userId: string;

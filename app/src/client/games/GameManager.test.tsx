@@ -1,12 +1,12 @@
 import { screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { PlayerStatus } from "../../types/player";
-import { gameInfoFixture } from "../fixtures/game";
-import { playerFixture } from "../fixtures/player";
-import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import GameManager from "./GameManager";
 import { GameState } from "./types";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { playerFixture } from "@/client/fixtures/player";
+import { CURRENT_PLAYER_ID, renderComponent } from "@/client/testUtils";
+import { PlayerStatus } from "@/types/player";
 
 const mockUseGame = useGame as jest.Mock;
 jest.mock("./GameContext", () => ({

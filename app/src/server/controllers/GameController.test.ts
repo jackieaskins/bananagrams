@@ -1,8 +1,8 @@
-import { PlayerStatus } from "../../types/player";
-import GameModel from "../models/GameModel";
-import PlayerModel from "../models/PlayerModel";
-import TileModel from "../models/TileModel";
 import GameController from "./GameController";
+import GameModel from "@/server/models/GameModel";
+import PlayerModel from "@/server/models/PlayerModel";
+import TileModel from "@/server/models/TileModel";
+import { PlayerStatus } from "@/types/player";
 
 jest.mock("../boardValidation");
 

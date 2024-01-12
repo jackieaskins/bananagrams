@@ -10,8 +10,8 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { FaCircleInfo } from "react-icons/fa6";
-import { useEnableTileSwap } from "../LocalStorageContext";
-import ForwardedTooltip from "../common/ForwardedTooltip";
+import { useEnableTileSwap } from "@/client/LocalStorageContext";
+import ForwardedTooltip from "@/client/common/ForwardedTooltip";
 
 export default function GameSettings(): JSX.Element {
   const [enableTileSwap, setEnableTileSwap] = useEnableTileSwap();

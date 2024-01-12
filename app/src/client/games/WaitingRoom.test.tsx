@@ -1,12 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { screen, waitFor } from "@testing-library/react";
-import { Player, PlayerStatus } from "../../types/player";
-import { gameInfoFixture } from "../fixtures/game";
-import { playerFixture } from "../fixtures/player";
-import { socket } from "../socket";
-import { renderComponent } from "../testUtils";
 import { useGame } from "./GameContext";
 import WaitingRoom from "./WaitingRoom";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { playerFixture } from "@/client/fixtures/player";
+import { socket } from "@/client/socket";
+import { renderComponent } from "@/client/testUtils";
+import { Player, PlayerStatus } from "@/types/player";
 
 jest.mock("../boards/OpponentBoardPreview", () =>
   jest.fn(() => <div>Preview</div>),

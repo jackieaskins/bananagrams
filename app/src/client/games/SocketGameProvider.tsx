@@ -5,15 +5,15 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { BoardLocation } from "../../types/board";
-import { Game } from "../../types/game";
+import { GameContext, getEmptyGameInfo } from "./GameContext";
+import { GameLocationState } from "./types";
+import { socket } from "@/client/socket";
+import { BoardLocation } from "@/types/board";
+import { Game } from "@/types/game";
 import {
   ClientToServerEventName,
   ServerToClientEventName,
-} from "../../types/socket";
-import { socket } from "../socket";
-import { GameContext, getEmptyGameInfo } from "./GameContext";
-import { GameLocationState } from "./types";
+} from "@/types/socket";
 
 type GameParams = {
   gameId: string;

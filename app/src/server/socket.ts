@@ -1,11 +1,11 @@
 import { Server } from "socket.io";
+import GameController from "./controllers/GameController";
 import {
   ClientToServerEventName,
   ClientToServerEvents,
   ServerToClientEvents,
   SocketCallback,
-} from "../types/socket";
-import GameController from "./controllers/GameController";
+} from "@/types/socket";
 
 export function handler<E, T>(fn: (event: E) => T) {
   return function (event: E, callback?: SocketCallback<T>): void {

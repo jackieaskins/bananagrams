@@ -11,14 +11,14 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { ClientToServerEventName } from "../../types/socket";
-import { useSavedUsername } from "../LocalStorageContext";
-import ErrorAlert from "../alerts/ErrorAlert";
-import CheckboxField from "../forms/CheckboxField";
-import InputField from "../forms/InputField";
-import CenteredLayout from "../layouts/CenteredLayout";
-import { socket } from "../socket";
 import { GameLocationState } from "./types";
+import { useSavedUsername } from "@/client/LocalStorageContext";
+import ErrorAlert from "@/client/alerts/ErrorAlert";
+import CheckboxField from "@/client/forms/CheckboxField";
+import InputField from "@/client/forms/InputField";
+import CenteredLayout from "@/client/layouts/CenteredLayout";
+import { socket } from "@/client/socket";
+import { ClientToServerEventName } from "@/types/socket";
 
 type JoinGameParams = {
   gameId: string;

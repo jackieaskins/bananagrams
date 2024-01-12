@@ -1,13 +1,13 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useState } from "react";
 import { Group, Layer, Stage } from "react-konva";
-import { SetState } from "../state/types";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHand from "./CanvasHand";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { SelectedTile, SelectedTileContext } from "./SelectedTileContext";
 import { TILE_SIZE } from "./constants";
+import { SetState } from "@/client/state/types";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;

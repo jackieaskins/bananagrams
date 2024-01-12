@@ -8,10 +8,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useMemo } from "react";
-import { PlayerStatus } from "../../types/player";
-import PreviewBoard from "../boards/PreviewBoard";
-import PreviewHand from "../hands/PreviewHand";
 import { useGame } from "./GameContext";
+import PreviewBoard from "@/client/boards/PreviewBoard";
+import PreviewHand from "@/client/hands/PreviewHand";
+import { PlayerStatus } from "@/types/player";
 
 const TILE_SIZE = 15;
 

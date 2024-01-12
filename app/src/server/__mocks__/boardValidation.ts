@@ -1,4 +1,4 @@
-import { generateBoardKey } from "../boardKey";
+import { generateBoardKey } from "@/server/boardKey";
 
 export const validateAddTile = jest
   .fn()

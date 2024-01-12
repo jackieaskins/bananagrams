@@ -1,8 +1,8 @@
 import { screen, waitFor, within } from "@testing-library/react";
-import { PlayerStatus } from "../../types/player";
-import { socket } from "../socket";
-import { renderComponent } from "../testUtils";
 import SpectateButton from "./SpectateButton";
+import { socket } from "@/client/socket";
+import { renderComponent } from "@/client/testUtils";
+import { PlayerStatus } from "@/types/player";
 
 describe.each([{ hideText: true }, { hideText: false }])(
   "<SpectateButton hideText={$hideText} />",

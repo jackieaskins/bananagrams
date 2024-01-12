@@ -2,8 +2,8 @@
 import { Card } from "@chakra-ui/react";
 import { shallow } from "enzyme";
 import { useDrop } from "react-dnd";
-import { useGame } from "../games/GameContext";
 import Dump from "./Dump";
+import { useGame } from "@/client/games/GameContext";
 
 jest.mock("react-dnd", () => ({
   useDrop: jest

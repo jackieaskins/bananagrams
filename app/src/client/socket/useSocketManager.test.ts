@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
-import { ServerToClientEventName } from "../../types/socket";
 import useSocketManager from "./useSocketManager";
 import { socket } from ".";
+import { ServerToClientEventName } from "@/types/socket";
 
 const mockSocketOn = socket.on as jest.Mock;
 

@@ -12,11 +12,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaBars, FaXmark } from "react-icons/fa6";
-import PreviewBoard from "../boards/PreviewBoard";
-import { useGame } from "../games/GameContext";
-import PreviewHand from "../hands/PreviewHand";
-import { socket } from "../socket";
-import { SetState } from "../state/types";
+import PreviewBoard from "@/client/boards/PreviewBoard";
+import { useGame } from "@/client/games/GameContext";
+import PreviewHand from "@/client/hands/PreviewHand";
+import { socket } from "@/client/socket";
+import { SetState } from "@/client/state/types";
 
 export type GameSidebarProps = {
   expanded: boolean;

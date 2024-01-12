@@ -1,6 +1,6 @@
-import { Hand } from "../../types/hand";
 import BaseModel from "./BaseModel";
 import TileModel from "./TileModel";
+import { Hand } from "@/types/hand";
 
 export default class HandModel implements BaseModel<Hand> {
   private tiles: TileModel[] = [];

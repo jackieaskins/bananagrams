@@ -1,6 +1,6 @@
 import { shallow } from "enzyme";
-import { boardSquareFixture } from "../fixtures/board";
 import Board from "./Board";
+import { boardSquareFixture } from "@/client/fixtures/board";
 
 describe("<Board />", () => {
   it("renders properly", () => {

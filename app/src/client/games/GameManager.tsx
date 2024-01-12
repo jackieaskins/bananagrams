@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { PlayerStatus } from "../../types/player";
-import { socket } from "../socket";
 import { useGame } from "./GameContext";
 import SpectatorView from "./SpectatorView";
 import WaitingRoom from "./WaitingRoom";
+import { socket } from "@/client/socket";
+import { PlayerStatus } from "@/types/player";
 
 export type GameManagerProps = {
   game: JSX.Element;

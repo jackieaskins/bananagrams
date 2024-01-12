@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { ServerToClientEventName } from "../../types/socket";
 import { socket } from ".";
+import { ServerToClientEventName } from "@/types/socket";
 
 export default function useSocketManager(): void {
   const toast = useToast();

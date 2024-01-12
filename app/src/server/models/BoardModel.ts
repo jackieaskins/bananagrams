@@ -1,13 +1,13 @@
+import BaseModel from "./BaseModel";
+import TileModel from "./TileModel";
+import { generateBoardKey } from "@/server/boardKey";
+import { validateAddTile, validateRemoveTile } from "@/server/boardValidation";
 import {
   AbstractBoard,
   AbstractBoardSquare,
   Board,
   BoardLocation,
-} from "../../types/board";
-import { generateBoardKey } from "../boardKey";
-import { validateAddTile, validateRemoveTile } from "../boardValidation";
-import BaseModel from "./BaseModel";
-import TileModel from "./TileModel";
+} from "@/types/board";
 
 export type BoardSquareModel = AbstractBoardSquare<TileModel>;
 export type BoardSquareModels = AbstractBoard<TileModel>;

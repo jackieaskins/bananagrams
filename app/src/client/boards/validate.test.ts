@@ -1,6 +1,6 @@
-import { Direction, ValidationStatus } from "../../types/board";
-import { boardSquareFixture, wordInfoFixture } from "../fixtures/board";
 import { isValidConnectedBoard } from "./validate";
+import { boardSquareFixture, wordInfoFixture } from "@/client/fixtures/board";
+import { Direction, ValidationStatus } from "@/types/board";
 
 describe("isValidConnectedBoard", () => {
   it("returns false for empty board", () => {

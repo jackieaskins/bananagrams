@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Player, PlayerStatus } from "../../types/player";
+import { Player, PlayerStatus } from "@/types/player";
 
 export function playerFixture(overrides: Partial<Player> = {}): Player {
   return {

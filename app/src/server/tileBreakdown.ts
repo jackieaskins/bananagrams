@@ -1,4 +1,4 @@
-import { Letter } from "../types/tile";
+import { Letter } from "@/types/tile";
 
 const tileBreakdown: Array<{ letter: Letter; count: number }> = [
   { letter: "A", count: 13 },

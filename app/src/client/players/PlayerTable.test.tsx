@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
-import { gameInfoFixture } from "../fixtures/game";
-import { playerFixture } from "../fixtures/player";
-import { useGame } from "../games/GameContext";
-import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import PlayerTable from "./PlayerTable";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { playerFixture } from "@/client/fixtures/player";
+import { useGame } from "@/client/games/GameContext";
+import { CURRENT_PLAYER_ID, renderComponent } from "@/client/testUtils";
 
 const WITH_KICK_COLUMN_COUNT = 4;
 const WITHOUT_KICK_COLUMN_COUNT = 3;

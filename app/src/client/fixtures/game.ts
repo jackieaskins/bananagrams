@@ -1,5 +1,5 @@
-import { Game } from "../../types/game";
-import { getEmptyGameInfo } from "../games/GameContext";
+import { getEmptyGameInfo } from "@/client/games/GameContext";
+import { Game } from "@/types/game";
 
 export function gameInfoFixture(overrides: Partial<Game> = {}): Game {
   return {

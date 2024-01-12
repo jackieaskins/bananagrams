@@ -1,8 +1,8 @@
-import { BoardLocation, Direction, ValidationStatus } from "../types/board";
 import { generateBoardKey, parseBoardKey } from "./boardKey";
 import Dictionary from "./dictionary/Dictionary";
 import { BoardSquareModel, BoardSquareModels } from "./models/BoardModel";
 import TileModel from "./models/TileModel";
+import { BoardLocation, Direction, ValidationStatus } from "@/types/board";
 
 type ValidateLocation = {
   start: BoardLocation;

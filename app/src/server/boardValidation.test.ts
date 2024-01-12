@@ -1,8 +1,8 @@
-import { Direction, ValidationStatus, WordInfo } from "../types/board";
 import { generateBoardKey } from "./boardKey";
 import { validateAddTile, validateRemoveTile } from "./boardValidation";
 import { BoardSquareModels } from "./models/BoardModel";
 import TileModel from "./models/TileModel";
+import { Direction, ValidationStatus, WordInfo } from "@/types/board";
 
 // I'm pretty sure I mixed up x & y so flip this:
 //     0 1 2 3 4

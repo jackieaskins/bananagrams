@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
-import { Game } from "../../types/game";
 import { GameState } from "./types";
+import { Game } from "@/types/game";
 
 export function getEmptyGameInfo(gameId: string): Game {
   return {

@@ -1,8 +1,8 @@
-import { PlayerStatus } from "../../types/player";
 import BunchModel from "./BunchModel";
 import GameModel from "./GameModel";
 import PlayerModel from "./PlayerModel";
 import TileModel from "./TileModel";
+import { PlayerStatus } from "@/types/player";
 
 jest.mock("../tileBreakdown", () => [
   { letter: "A", count: 2 },

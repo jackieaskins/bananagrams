@@ -2,16 +2,16 @@ import { Center, HStack, Stack, Text } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Player, PlayerStatus } from "../../types/player";
-import Board from "../boards/Board";
-import OpponentBoardPreview from "../boards/OpponentBoardPreview";
-import Dump from "../hands/Dump";
-import Hand from "../hands/Hand";
-import { socket } from "../socket";
 import { useGame } from "./GameContext";
 import GameSettings from "./GameSettings";
 import PeelButton from "./PeelButton";
 import SpectateButton from "./SpectateButton";
+import Board from "@/client/boards/Board";
+import OpponentBoardPreview from "@/client/boards/OpponentBoardPreview";
+import Dump from "@/client/hands/Dump";
+import Hand from "@/client/hands/Hand";
+import { socket } from "@/client/socket";
+import { Player, PlayerStatus } from "@/types/player";
 
 export default function Game(): JSX.Element {
   const {

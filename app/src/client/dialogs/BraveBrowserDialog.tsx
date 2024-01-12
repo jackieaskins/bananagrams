@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { PROD } from "../env";
+import { PROD } from "@/client/env";
 
 export default function BraveBrowserDialog(): JSX.Element {
   const buttonRef = useRef<HTMLButtonElement>(null);

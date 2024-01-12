@@ -7,11 +7,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { Player } from "../../types/player";
-import PreviewHand from "../hands/PreviewHand";
-import { socket } from "../socket";
 import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 import PreviewBoard from "./PreviewBoard";
+import PreviewHand from "@/client/hands/PreviewHand";
+import { socket } from "@/client/socket";
+import { Player } from "@/types/player";
 
 type OpponentBoardPreviewProps = {
   initialPlayerIndex?: number;

@@ -1,12 +1,12 @@
 import { screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { Game } from "../../types/game";
-import { useSavedUsername } from "../LocalStorageContext";
-import { gameInfoFixture } from "../fixtures/game";
-import { socket } from "../socket";
-import { renderComponent } from "../testUtils";
 import CreateGame from "./CreateGame";
+import { useSavedUsername } from "@/client/LocalStorageContext";
+import { gameInfoFixture } from "@/client/fixtures/game";
+import { socket } from "@/client/socket";
+import { renderComponent } from "@/client/testUtils";
+import { Game } from "@/types/game";
 
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;

@@ -1,10 +1,10 @@
 import { Table, Tbody } from "@chakra-ui/react";
 import { screen, waitFor, within } from "@testing-library/react";
-import { Player, PlayerStatus } from "../../types/player";
-import { playerFixture } from "../fixtures/player";
-import { socket } from "../socket";
-import { CURRENT_PLAYER_ID, renderComponent } from "../testUtils";
 import PlayerTableRow, { PlayerTableRowProps } from "./PlayerTableRow";
+import { playerFixture } from "@/client/fixtures/player";
+import { socket } from "@/client/socket";
+import { CURRENT_PLAYER_ID, renderComponent } from "@/client/testUtils";
+import { Player, PlayerStatus } from "@/types/player";
 
 const WITHOUT_KICK_COLUMN_COUNT = 3;
 

@@ -1,17 +1,17 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo } from "react";
-import {
-  BoardSquare,
-  Direction,
-  ValidationStatus,
-  WordInfo,
-} from "../../types/board";
-import { useGame } from "../games/GameContext";
 import CanvasTile from "./CanvasTile";
 import { useSelectedTile } from "./SelectedTileContext";
 import { CanvasName, TILE_SIZE } from "./constants";
 import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
+import { useGame } from "@/client/games/GameContext";
+import {
+  BoardSquare,
+  Direction,
+  ValidationStatus,
+  WordInfo,
+} from "@/types/board";
 
 type CanvasBoardTileProps = {
   boardSquare: BoardSquare;
