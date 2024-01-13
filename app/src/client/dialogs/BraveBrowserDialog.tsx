@@ -8,19 +8,33 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PROD } from "@/client/env";
 
 export default function BraveBrowserDialog(): JSX.Element {
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { pathname } = useLocation();
-
-  const { isOpen, onClose } = useDisclosure({
-    defaultIsOpen:
-      // @ts-expect-error brave object is included on navigator in Brave Browser
-      PROD && navigator.brave?.isBrave() && pathname.startsWith("/redesign"),
+  const { isOpen, onClose, onOpen } = useDisclosure({
+    onOpen: () => {
+      setHasBeenOpened(true);
+    },
   });
+
+  useEffect(() => {
+    (async () => {
+      if (
+        PROD &&
+        !hasBeenOpened &&
+        // @ts-expect-error brave object is included on navigator in Brave Browser
+        (await navigator.brave?.isBrave()) &&
+        pathname.startsWith("/redesign")
+      ) {
+        onOpen();
+      }
+    })();
+  }, [hasBeenOpened, onOpen, pathname]);
 
   return (
     <AlertDialog

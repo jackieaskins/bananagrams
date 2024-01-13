@@ -26,6 +26,7 @@ module.exports = {
     ],
     "react/self-closing-comp": "error",
     "react-refresh/only-export-components": "error",
+    "testing-library/prefer-user-event": "error",
   },
   settings: {
     react: { version: "detect" },
