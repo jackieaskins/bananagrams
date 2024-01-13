@@ -114,7 +114,7 @@ export default class GameController {
     );
 
     game.addPlayer(player);
-    socket.join(gameId);
+    void socket.join(gameId);
 
     const gameContoller = new GameController(io, socket, game, player);
 
@@ -150,7 +150,7 @@ export default class GameController {
     const gameId = currentGame.getId();
 
     currentGame.removePlayer(currentPlayer.getUserId());
-    socket.leave(gameId);
+    void socket.leave(gameId);
 
     this.emitNotification(
       gameId,

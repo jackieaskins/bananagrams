@@ -60,7 +60,7 @@ export default function WaitingRoom(): JSX.Element {
           leftIcon={<FaRegCopy />}
           width="fit-content"
           size="sm"
-          onClick={copyInviteLink}
+          onClick={() => void copyInviteLink()}
         >
           Copy invite link
         </Button>

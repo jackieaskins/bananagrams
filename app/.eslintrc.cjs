@@ -11,8 +11,27 @@ module.exports = {
     "plugin:testing-library/react",
     "bananagrams",
   ],
+  // TODO: Revisit after getting rid of enzyme tests
+  overrides: [
+    {
+      files: [
+        "./src/**/*.test.tsx",
+        "./src/**/*.test.ts",
+        "./src/**/__mocks__/**/*",
+      ],
+      rules: {
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/unbound-method": "off",
+      },
+    },
+  ],
   parserOptions: {
     ecmaFeatures: { jsx: true },
+    project: true,
   },
   plugins: ["react-refresh"],
   rules: {

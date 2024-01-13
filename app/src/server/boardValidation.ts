@@ -2,7 +2,12 @@ import { generateBoardKey, parseBoardKey } from "./boardKey";
 import Dictionary from "./dictionary/Dictionary";
 import { BoardSquareModel, BoardSquareModels } from "./models/BoardModel";
 import TileModel from "./models/TileModel";
-import { BoardLocation, Direction, ValidationStatus } from "@/types/board";
+import {
+  BoardLocation,
+  Direction,
+  ValidationStatus,
+  WordInfo,
+} from "@/types/board";
 
 type ValidateLocation = {
   start: BoardLocation;
@@ -116,7 +121,7 @@ export function validateAddTile(
 
   board[generateBoardKey(location)] = {
     tile,
-    wordInfo: Object.fromEntries(wordInfo),
+    wordInfo: Object.fromEntries(wordInfo) as Record<Direction, WordInfo>,
   };
 
   validateWordsAtLocations(board, locationsToValidate);

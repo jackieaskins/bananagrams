@@ -11,6 +11,7 @@ import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 import PreviewBoard from "./PreviewBoard";
 import PreviewHand from "@/client/hands/PreviewHand";
 import { socket } from "@/client/socket";
+import { Board } from "@/types/board";
 import { Player } from "@/types/player";
 
 type OpponentBoardPreviewProps = {
@@ -20,7 +21,7 @@ type OpponentBoardPreviewProps = {
   includeCurrentPlayer?: boolean;
 };
 
-const EMPTY_BOARD = [...Array(21)].map(() => Array(21).fill(null));
+const EMPTY_BOARD: Board = {};
 
 export default function OpponentBoardPreview({
   initialPlayerIndex = 0,

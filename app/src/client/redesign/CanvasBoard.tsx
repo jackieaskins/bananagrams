@@ -7,7 +7,7 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
 import { useSelectedTile } from "./SelectedTileContext";
-import { CanvasName, TILE_SIZE } from "./constants";
+import { Attrs, CanvasName, TILE_SIZE } from "./constants";
 import { setCursor } from "./setCursor";
 import { useCurrentPlayer } from "./useCurrentPlayer";
 import { parseBoardKey } from "@/client/boards/key";
@@ -56,7 +56,8 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
     <Group
       draggable={!selectedTile}
       onDragMove={(event) => {
-        setOffset({ x: event.target.attrs.x, y: event.target.attrs.y });
+        const { x, y } = event.target.attrs as Attrs;
+        setOffset({ x, y });
       }}
     >
       <Rect

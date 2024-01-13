@@ -9,3 +9,9 @@ export enum CanvasName {
   Hand = "hand",
   HandTile = "handTile",
 }
+
+export type Attrs = {
+  x: number;
+  y: number;
+  name?: CanvasName;
+};

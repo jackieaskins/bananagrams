@@ -13,7 +13,7 @@ function useLocalStorage<T>(key: string, defaultValue: T): [T, SetState<T>] {
     try {
       return JSON.parse(
         localStorage.getItem(getKey(key)) ?? String(defaultValue),
-      );
+      ) as T;
     } catch (error) {
       return defaultValue;
     }

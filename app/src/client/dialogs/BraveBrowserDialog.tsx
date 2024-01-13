@@ -23,11 +23,12 @@ export default function BraveBrowserDialog(): JSX.Element {
   });
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       if (
         PROD &&
         !hasBeenOpened &&
         // @ts-expect-error brave object is included on navigator in Brave Browser
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         (await navigator.brave?.isBrave()) &&
         pathname.startsWith("/redesign")
       ) {

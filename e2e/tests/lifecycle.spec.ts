@@ -30,7 +30,7 @@ test("game lifecycle", async ({
   //                           Create game                            //
   //------------------------------------------------------------------//
   await page.goto("/redesign?isShortenedGame");
-  homePage.createGame(GAME_NAME, USERNAME);
+  await homePage.createGame(GAME_NAME, USERNAME);
 
   await expect(waitingRoomPage.gameHeader).toHaveText(GAME_NAME);
 
