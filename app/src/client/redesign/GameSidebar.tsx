@@ -16,12 +16,11 @@ import { FaBars } from "react-icons/fa6";
 import PlayerPreview from "./PlayerPreview";
 import { useGame } from "@/client/games/GameContext";
 import { socket } from "@/client/socket";
-import { SetState } from "@/client/state/types";
 import { PlayerStatus } from "@/types/player";
 
 export type GameSidebarProps = {
   expanded: boolean;
-  setExpanded: SetState<boolean>;
+  setExpanded: (expanded: boolean) => void;
 };
 
 export default function GameSidebar({

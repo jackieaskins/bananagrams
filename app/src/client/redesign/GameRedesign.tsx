@@ -1,47 +1,49 @@
-import {
-  Box,
-  ButtonGroup,
-  Flex,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 import Konva from "konva";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import Canvas from "./Canvas";
 import { CanvasContext } from "./CanvasContext";
+import GameFooter from "./GameFooter";
 import GameSidebar from "./GameSidebar";
-import { useLineColorHex } from "./colors";
-import { useGame } from "@/client/games/GameContext";
-import PeelButton from "@/client/games/PeelButton";
-import SpectateButton from "@/client/games/SpectateButton";
-import ShuffleHandButton from "@/client/hands/ShuffleHandButton";
 import { useNavMenu } from "@/client/menus/NavMenuContext";
 
 const TILE_SIZE = 32;
 
 export default function GameRedesign(): JSX.Element {
-  const [sidebarExpanded, setSidebarExpanded] = useState(true);
-  const [, setRenderNavMenu] = useNavMenu();
-  const [parent] = useAutoAnimate();
+  const gameSidebarRef = useRef<HTMLDivElement>(null);
+  const gameBarRef = useRef<HTMLDivElement>(null);
 
-  const hideText = useBreakpointValue(
-    { base: true, sm: sidebarExpanded, md: sidebarExpanded, lg: false },
-    { fallback: "sm" },
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
+  const [hasManuallyToggledSidebar, setHasManuallyToggledSidebar] =
+    useState(false);
+  const shouldDefaultSidebarOpen = useBreakpointValue(
+    { base: true, sm: false, md: true },
+    { fallback: "md" },
   );
+  const expandSidebar = useCallback((expanded: boolean) => {
+    setSidebarExpanded(expanded);
+    setHasManuallyToggledSidebar(true);
+  }, []);
+  useEffect(() => {
+    if (!hasManuallyToggledSidebar) {
+      setSidebarExpanded(shouldDefaultSidebarOpen!);
+    }
+  }, [hasManuallyToggledSidebar, shouldDefaultSidebarOpen]);
+
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const stageRef = useRef<Konva.Stage>(null);
   const [size, setSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const gameSidebarRef = useRef<HTMLDivElement>(null);
-  const gameBarRef = useRef<HTMLDivElement>(null);
-  const borderColor = useLineColorHex();
-  const {
-    gameInfo: { bunch },
-  } = useGame();
 
+  const [, setRenderNavMenu] = useNavMenu();
   useEffect(() => {
     setRenderNavMenu(false);
 
@@ -89,31 +91,13 @@ export default function GameRedesign(): JSX.Element {
           <Canvas setOffset={setOffset} />
         </CanvasContext.Provider>
 
-        <Flex
-          borderTop="solid"
-          borderTopColor={borderColor}
-          borderTopWidth={1}
-          justifyContent="space-around"
-          alignItems="center"
-          ref={gameBarRef}
-        >
-          <ButtonGroup size="sm" padding={3}>
-            <PeelButton hideText={hideText} />
-            <ShuffleHandButton hideText={hideText} />
-            <SpectateButton hideText={hideText} />
-          </ButtonGroup>
-
-          <Text fontWeight="bold">Bunch: {bunch.length} tiles</Text>
-        </Flex>
+        <Box ref={gameBarRef}>
+          <GameFooter sidebarExpanded={sidebarExpanded} />
+        </Box>
       </Box>
 
       <Box ref={gameSidebarRef}>
-        <Box ref={parent}>
-          <GameSidebar
-            expanded={sidebarExpanded}
-            setExpanded={setSidebarExpanded}
-          />
-        </Box>
+        <GameSidebar expanded={sidebarExpanded} setExpanded={expandSidebar} />
       </Box>
     </Flex>
   );

@@ -9,8 +9,4 @@ configure({ adapter: new Adapter() });
 jest.mock("./env");
 jest.mock("./socket");
 
-jest.mock("@formkit/auto-animate/react", () => ({
-  useAutoAnimate: jest.fn().mockReturnValue([]),
-}));
-
 global.ResizeObserver = ResizeObserverPolyfill;

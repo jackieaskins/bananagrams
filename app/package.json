@@ -60,7 +60,6 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@formkit/auto-animate": "^0.8.1",
     "canvas": "^2.11.2",
     "express": "^4.18.2",
     "framer-motion": "^10.17.9",
