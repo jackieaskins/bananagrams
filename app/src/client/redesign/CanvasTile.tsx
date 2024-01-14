@@ -17,6 +17,7 @@ export type TileProps = {
   x: number;
   y: number;
   onPointerClick: (event: KonvaEventObject<MouseEvent>) => void;
+  onPointerEnter?: (event: KonvaEventObject<MouseEvent>) => void;
 };
 
 export default function CanvasTile({
@@ -26,6 +27,7 @@ export default function CanvasTile({
   x,
   y,
   onPointerClick,
+  onPointerEnter,
 }: TileProps): JSX.Element {
   const { playable } = useCanvasContext();
   const { selectedTile } = useSelectedTile();
@@ -61,10 +63,11 @@ export default function CanvasTile({
           handlePointerClick(e);
         }
       }}
-      onPointerEnter={(evt) => {
+      onPointerEnter={(e) => {
         if (!selectedTile) {
-          setCursor(evt, "grab");
+          setCursor(e, "grab");
         }
+        onPointerEnter?.(e);
       }}
       opacity={selectedTile?.tile.id === tile.id ? 0.6 : 1}
       listening={playable}

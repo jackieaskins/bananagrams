@@ -81,6 +81,11 @@ export default function CanvasHand({
 
       {hand.map((tile, index) => (
         <CanvasHandTile
+          onPointerEnter={() => {
+            if (selectedTile?.location) {
+              setActive(true);
+            }
+          }}
           key={tile.id}
           tile={tile}
           x={padding + (spacing + tileSize) * (index % tilesPerRow)}

@@ -11,12 +11,14 @@ type CanvasHandTileProps = {
   tile: Tile;
   x: number;
   y: number;
+  onPointerEnter: (event: KonvaEventObject<MouseEvent>) => void;
 };
 
 export default function CanvasHandTile({
   tile,
   x,
   y,
+  onPointerEnter,
 }: CanvasHandTileProps): JSX.Element {
   const { selectedTile, setSelectedTile } = useSelectedTile();
   const { handleMoveTileFromBoardToHand } = useGame();
@@ -68,6 +70,7 @@ export default function CanvasHandTile({
       x={x}
       y={y}
       onPointerClick={handlePointerClick}
+      onPointerEnter={onPointerEnter}
     />
   );
 }
