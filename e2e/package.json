@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts --max-warnings 0 tests",
     "report": "playwright show-report",
     "test": "playwright test",
-    "ui": "playwright test --ui"
+    "ui": "USE_DEV_SERVER=true playwright test --ui"
   },
   "keywords": [],
   "author": "",

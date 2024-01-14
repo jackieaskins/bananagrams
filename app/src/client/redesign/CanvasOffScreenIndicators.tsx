@@ -2,26 +2,29 @@ import { useMemo } from "react";
 import { Arrow, Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { getBoardClusters } from "./boardClusters";
-import { TILE_SIZE } from "./constants";
 import { useColorHex } from "./useColorHex";
-import { useCurrentPlayer } from "./useCurrentPlayer";
-import { BoardLocation } from "@/types/board";
+import { Board, BoardLocation } from "@/types/board";
 
 const EDGE_OFFSET = 0.5;
 
-export default function CanvasOffScreenIndicators(): JSX.Element {
+type CanvasOffScreenIndicatorsProps = {
+  board: Board;
+};
+
+export default function CanvasOffScreenIndicators({
+  board,
+}: CanvasOffScreenIndicatorsProps): JSX.Element {
   const [arrowColor] = useColorHex(["gray.500"]);
-  const { offset, size } = useCanvasContext();
-  const { board } = useCurrentPlayer();
+  const { offset, size, tileSize } = useCanvasContext();
 
   const { boardMinX, boardMaxX, boardMinY, boardMaxY } = useMemo(
     () => ({
-      boardMinX: -offset.x / TILE_SIZE,
-      boardMaxX: (-offset.x + size.width) / TILE_SIZE,
-      boardMinY: -offset.y / TILE_SIZE,
-      boardMaxY: (-offset.y + size.height) / TILE_SIZE,
+      boardMinX: -offset.x / tileSize,
+      boardMaxX: (-offset.x + size.width) / tileSize,
+      boardMinY: -offset.y / tileSize,
+      boardMaxY: (-offset.y + size.height) / tileSize,
     }),
-    [offset, size],
+    [offset.x, offset.y, size.height, size.width, tileSize],
   );
 
   const offScreenBoardClusters = useMemo(() => {
@@ -38,12 +41,12 @@ export default function CanvasOffScreenIndicators(): JSX.Element {
           Math.max(
             boardMinY + EDGE_OFFSET,
             Math.min(boardMaxY - EDGE_OFFSET, midY),
-          ) * TILE_SIZE;
+          ) * tileSize;
         const x =
           Math.max(
             boardMinX + EDGE_OFFSET,
             Math.min(boardMaxX - EDGE_OFFSET, midX),
-          ) * TILE_SIZE;
+          ) * tileSize;
 
         return {
           points: [
@@ -58,7 +61,16 @@ export default function CanvasOffScreenIndicators(): JSX.Element {
           ],
         };
       });
-  }, [board, boardMaxX, boardMaxY, boardMinX, boardMinY, offset, size]);
+  }, [
+    board,
+    boardMaxX,
+    boardMaxY,
+    boardMinX,
+    boardMinY,
+    offset,
+    size,
+    tileSize,
+  ]);
 
   return (
     <Group>
@@ -66,8 +78,8 @@ export default function CanvasOffScreenIndicators(): JSX.Element {
         <Arrow
           key={index}
           fill={arrowColor}
-          pointerLength={10}
-          pointerWidth={20}
+          pointerLength={tileSize / 3}
+          pointerWidth={tileSize / 1.5}
           points={points}
           opacity={0.6}
         />

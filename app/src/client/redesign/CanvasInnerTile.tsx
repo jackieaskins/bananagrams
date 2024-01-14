@@ -1,5 +1,5 @@
 import { Rect, Text } from "react-konva";
-import { TILE_SIZE } from "./constants";
+import { useCanvasContext } from "./CanvasContext";
 import { useColorHex } from "./useColorHex";
 import { Tile } from "@/types/tile";
 
@@ -14,27 +14,29 @@ export default function CanvasInnerTile({
   name,
   tile: { letter },
 }: CanvasInnerTileProps): JSX.Element {
+  const { tileSize } = useCanvasContext();
   const [tileBg] = useColorHex(["yellow.100"]);
 
   return (
     <>
       <Rect
         name={name}
-        width={TILE_SIZE}
-        height={TILE_SIZE}
+        width={tileSize}
+        height={tileSize}
         fill={tileBg}
-        cornerRadius={5}
+        cornerRadius={tileSize * 0.15}
         stroke={color}
+        strokeWidth={tileSize < 20 ? 1 : 2}
       />
 
       <Text
         text={letter}
-        width={TILE_SIZE}
-        height={TILE_SIZE + 1}
+        width={tileSize}
+        height={tileSize + 1}
         fill={color}
         verticalAlign="middle"
         align="center"
-        fontSize={TILE_SIZE / 2}
+        fontSize={tileSize / 2}
         fontStyle="bold"
         listening={false}
       />

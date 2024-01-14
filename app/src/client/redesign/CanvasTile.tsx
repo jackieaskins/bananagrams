@@ -1,6 +1,7 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useState } from "react";
 import { Group } from "react-konva";
+import { useCanvasContext } from "./CanvasContext";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { useSelectedTile } from "./SelectedTileContext";
 import { setCursor } from "./setCursor";
@@ -26,6 +27,7 @@ export default function CanvasTile({
   y,
   onPointerClick,
 }: TileProps): JSX.Element {
+  const { playable } = useCanvasContext();
   const { selectedTile } = useSelectedTile();
   const [startPos, setStartPos] = useState<BoardLocation | null>(null);
   const [canRelease, setCanRelease] = useState(true);
@@ -65,6 +67,7 @@ export default function CanvasTile({
         }
       }}
       opacity={selectedTile?.tile.id === tile.id ? 0.6 : 1}
+      listening={playable}
     >
       <CanvasInnerTile name={name} color={color} tile={tile} />
     </Group>

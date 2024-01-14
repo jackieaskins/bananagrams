@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3001;
+const PORT = process.env.USE_DEV_SERVER ? 3000 : 3001;
 
 export default defineConfig({
   testDir: "./tests",
@@ -32,7 +32,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && PORT=${PORT} npm start`,
+    command: process.env.USE_DEV_SERVER
+      ? "npm run dev"
+      : `npm run build && PORT=${PORT} npm start`,
     cwd: "..",
     port: PORT,
     reuseExistingServer: !process.env.CI,

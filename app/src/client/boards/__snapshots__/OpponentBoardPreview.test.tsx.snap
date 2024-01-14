@@ -3,21 +3,17 @@
 exports[`<OpponentBoardPreview /> does not render if no opponents 1`] = `""`;
 
 exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer 1`] = `
-<Stack>
-  <Flex
-    direction="column"
-  >
-    <PreviewBoard
-      board={{}}
-      tileSize={15}
-    />
-    <PreviewHand
-      hand={[]}
-      tileSize={15}
-    />
-  </Flex>
+<Stack
+  width="300px"
+>
+  <PlayerPreview
+    board={{}}
+    hand={[]}
+    tileSize={15}
+  />
   <HStack
     spacing={4}
+    width="100%"
   >
     <Text
       textAlign="center"
@@ -30,21 +26,17 @@ exports[`<OpponentBoardPreview /> renders current player if includeCurrentPlayer
 `;
 
 exports[`<OpponentBoardPreview /> renders empty board and hand when selectedIndex is out of bounds 1`] = `
-<Stack>
-  <Flex
-    direction="column"
-  >
-    <PreviewBoard
-      board={{}}
-      tileSize={15}
-    />
-    <PreviewHand
-      hand={[]}
-      tileSize={15}
-    />
-  </Flex>
+<Stack
+  width="300px"
+>
+  <PlayerPreview
+    board={{}}
+    hand={[]}
+    tileSize={15}
+  />
   <HStack
     spacing={4}
+    width="100%"
   >
     <Text
       textAlign="center"
@@ -57,30 +49,28 @@ exports[`<OpponentBoardPreview /> renders empty board and hand when selectedInde
 `;
 
 exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] = `
-<Stack>
-  <Flex
-    direction="column"
-  >
-    <PreviewBoard
-      board={{}}
-      tileSize={15}
-    />
-    <PreviewHand
-      hand={[]}
-      tileSize={15}
-    />
-  </Flex>
+<Stack
+  width="300px"
+>
+  <PlayerPreview
+    board={{}}
+    hand={[]}
+    tileSize={15}
+  />
   <HStack
     spacing={4}
+    width="100%"
   >
     <IconButton
       aria-label="See previous opponent's board"
       icon={<FaChevronLeft />}
       onClick={[MockFunction handleLeftClick]}
+      size="sm"
       variant="outline"
     />
     <Select
       onChange={[MockFunction handleSelectedPlayerChange]}
+      size="sm"
       value="opponent"
     >
       <option
@@ -100,6 +90,7 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
       aria-label="See next opponent's board"
       icon={<FaChevronRight />}
       onClick={[MockFunction handleRightClick]}
+      size="sm"
       variant="outline"
     />
   </HStack>
@@ -107,21 +98,17 @@ exports[`<OpponentBoardPreview /> renders properly with multiple opponents 1`] =
 `;
 
 exports[`<OpponentBoardPreview /> renders properly with one opponent 1`] = `
-<Stack>
-  <Flex
-    direction="column"
-  >
-    <PreviewBoard
-      board={{}}
-      tileSize={15}
-    />
-    <PreviewHand
-      hand={[]}
-      tileSize={15}
-    />
-  </Flex>
+<Stack
+  width="300px"
+>
+  <PlayerPreview
+    board={{}}
+    hand={[]}
+    tileSize={15}
+  />
   <HStack
     spacing={4}
+    width="100%"
   >
     <Text
       textAlign="center"

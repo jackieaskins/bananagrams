@@ -13,7 +13,7 @@ export default function Board({ board }: BoardProps): JSX.Element {
       {convertToArray(board).map((row, y) => (
         <Flex key={y}>
           {row.map((boardSquare, x) => (
-            <BoardSquare key={y} x={x} y={y} boardSquare={boardSquare} />
+            <BoardSquare key={x} x={x} y={y} boardSquare={boardSquare} />
           ))}
         </Flex>
       ))}

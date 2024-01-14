@@ -2,8 +2,10 @@ import { useColorModeValue } from "@chakra-ui/react";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Rect, Text } from "react-konva";
+import { useCanvasContext } from "./CanvasContext";
 import { useSelectedTile } from "./SelectedTileContext";
-import { CORNER_RADIUS, CanvasName, DUMP_ZONE_WIDTH } from "./constants";
+import { useOverlayBackgroundColors } from "./colors";
+import { CanvasName, DUMP_ZONE_WIDTH } from "./constants";
 import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 import { useGame } from "@/client/games/GameContext";
@@ -12,15 +14,13 @@ const EXCHANGE_COUNT = 3;
 
 export type CanvasDumpZoneProps = {
   handHeight: number;
-  defaultBgColor: string;
-  activeBgColor: string;
 };
 
 export default function CanvasDumpZone({
-  activeBgColor,
-  defaultBgColor,
   handHeight,
 }: CanvasDumpZoneProps): JSX.Element {
+  const { tileSize } = useCanvasContext();
+  const { defaultBgColor, activeBgColor } = useOverlayBackgroundColors();
   const {
     handleDump,
     gameInfo: { bunch },
@@ -83,7 +83,7 @@ export default function CanvasDumpZone({
         width={DUMP_ZONE_WIDTH}
         height={handHeight}
         opacity={0.8}
-        cornerRadius={CORNER_RADIUS}
+        cornerRadius={tileSize * 0.15}
         onPointerUp={handlePointerClick}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}

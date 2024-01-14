@@ -3,10 +3,10 @@ import { useCallback, useState } from "react";
 import { Group, Layer, Stage } from "react-konva";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
-import CanvasHand from "./CanvasHand";
+import CanvasHandWrapper from "./CanvasHandWrapper";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { SelectedTile, SelectedTileContext } from "./SelectedTileContext";
-import { TILE_SIZE } from "./constants";
+import { useCurrentPlayer } from "./useCurrentPlayer";
 import { SetState } from "@/client/state/types";
 
 type CanvasProps = {
@@ -14,7 +14,8 @@ type CanvasProps = {
 };
 
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
-  const { size, stageRef } = useCanvasContext();
+  const { board } = useCurrentPlayer();
+  const { size, stageRef, tileSize } = useCanvasContext();
   const [selectedTile, setSelectedTile] = useState<SelectedTile | null>(null);
 
   const handlePointerMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
@@ -39,16 +40,16 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
         onPointerMove={handlePointerMove}
       >
         <Layer>
-          <CanvasBoard setOffset={setOffset} />
-          <CanvasHand />
+          <CanvasBoard setOffset={setOffset} board={board} />
+          <CanvasHandWrapper />
         </Layer>
 
         <Layer>
           {selectedTile && (
             <Group
               listening={false}
-              x={selectedTile.followPosition.x - TILE_SIZE / 2}
-              y={selectedTile.followPosition.y - TILE_SIZE / 2}
+              x={selectedTile.followPosition.x - tileSize / 2}
+              y={selectedTile.followPosition.y - tileSize / 2}
             >
               <CanvasInnerTile tile={selectedTile.tile} />
             </Group>

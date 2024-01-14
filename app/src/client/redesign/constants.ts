@@ -1,6 +1,4 @@
-export const TILE_SIZE = 32;
 export const DUMP_ZONE_WIDTH = 100;
-export const CORNER_RADIUS = 10;
 
 export enum CanvasName {
   Board = "board",

@@ -5,18 +5,19 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Button,
+  CloseButton,
   Flex,
   Heading,
   IconButton,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaBars, FaXmark } from "react-icons/fa6";
-import PreviewBoard from "@/client/boards/PreviewBoard";
+import { FaBars } from "react-icons/fa6";
+import PlayerPreview from "./PlayerPreview";
 import { useGame } from "@/client/games/GameContext";
-import PreviewHand from "@/client/hands/PreviewHand";
 import { socket } from "@/client/socket";
 import { SetState } from "@/client/state/types";
+import { PlayerStatus } from "@/types/player";
 
 export type GameSidebarProps = {
   expanded: boolean;
@@ -56,19 +57,22 @@ export default function GameSidebar({
       justifyContent="space-between"
     >
       <Flex direction="column" overflowY="scroll">
-        <Box
-          paddingX="10"
-          paddingY="4"
+        <Flex
+          padding={4}
           borderBottomWidth={1}
           borderBottomColor={borderColor}
+          justifyContent="space-between"
+          alignItems="center"
         >
           <Heading noOfLines={1} size="md" textAlign="center">
             Players
           </Heading>
-        </Box>
 
-        <Accordion defaultIndex={[]} allowMultiple overflowY="scroll">
-          {players.map(({ userId, username, hand, board }, index) => (
+          <CloseButton onClick={() => setExpanded(false)} />
+        </Flex>
+
+        <Accordion allowMultiple overflowY="scroll">
+          {players.map(({ userId, username, hand, board, status }, index) => (
             <AccordionItem
               key={userId}
               isDisabled={userId === socket.id}
@@ -76,41 +80,38 @@ export default function GameSidebar({
               borderBottom={index === players.length - 1 ? 0 : undefined}
               borderColor={borderColor}
             >
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
-                    {username}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
+              {(isExpanded) => (
+                <>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left">
+                        {username}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
 
-              <AccordionPanel pb={4}>
-                <Flex direction="column">
-                  <PreviewBoard board={board} tileSize={15} />
-                  <PreviewHand hand={hand} tileSize={15} />
-                </Flex>
-              </AccordionPanel>
+                  <AccordionPanel>
+                    {isExpanded ? (
+                      status === PlayerStatus.SPECTATING ? (
+                        <Text textAlign="center">{username} is spectating</Text>
+                      ) : (
+                        <Flex direction="column">
+                          <PlayerPreview
+                            board={board}
+                            hand={hand}
+                            tileSize={16}
+                          />
+                        </Flex>
+                      )
+                    ) : null}
+                  </AccordionPanel>
+                </>
+              )}
             </AccordionItem>
           ))}
         </Accordion>
       </Flex>
-
-      <Box
-        paddingY={2}
-        width="100%"
-        borderTopWidth={1}
-        borderColor={borderColor}
-      >
-        <Button
-          borderRadius={0}
-          leftIcon={<FaXmark />}
-          onClick={() => setExpanded(false)}
-          width="100%"
-        >
-          Close
-        </Button>
-      </Box>
     </Flex>
   );
 }

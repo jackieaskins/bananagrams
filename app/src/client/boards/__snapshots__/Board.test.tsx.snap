@@ -40,121 +40,121 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="1"
       x={1}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="2"
       x={2}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="3"
       x={3}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="4"
       x={4}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="5"
       x={5}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="6"
       x={6}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="7"
       x={7}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="8"
       x={8}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="9"
       x={9}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="10"
       x={10}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="11"
       x={11}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="12"
       x={12}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="13"
       x={13}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="14"
       x={14}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="15"
       x={15}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="16"
       x={16}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="17"
       x={17}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="18"
       x={18}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="19"
       x={19}
       y={0}
     />
     <BoardSquare
       boardSquare={null}
-      key="0"
+      key="20"
       x={20}
       y={0}
     />
@@ -164,7 +164,7 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="0"
       x={0}
       y={1}
     />
@@ -176,115 +176,115 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="2"
       x={2}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="3"
       x={3}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="4"
       x={4}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="5"
       x={5}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="6"
       x={6}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="7"
       x={7}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="8"
       x={8}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="9"
       x={9}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="10"
       x={10}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="11"
       x={11}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="12"
       x={12}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="13"
       x={13}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="14"
       x={14}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="15"
       x={15}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="16"
       x={16}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="17"
       x={17}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="18"
       x={18}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="19"
       x={19}
       y={1}
     />
     <BoardSquare
       boardSquare={null}
-      key="1"
+      key="20"
       x={20}
       y={1}
     />
@@ -294,13 +294,13 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="0"
       x={0}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="1"
       x={1}
       y={2}
     />
@@ -312,109 +312,109 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="3"
       x={3}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="4"
       x={4}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="5"
       x={5}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="6"
       x={6}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="7"
       x={7}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="8"
       x={8}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="9"
       x={9}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="10"
       x={10}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="11"
       x={11}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="12"
       x={12}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="13"
       x={13}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="14"
       x={14}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="15"
       x={15}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="16"
       x={16}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="17"
       x={17}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="18"
       x={18}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="19"
       x={19}
       y={2}
     />
     <BoardSquare
       boardSquare={null}
-      key="2"
+      key="20"
       x={20}
       y={2}
     />
@@ -424,19 +424,19 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="0"
       x={0}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="1"
       x={1}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="2"
       x={2}
       y={3}
     />
@@ -448,103 +448,103 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="4"
       x={4}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="5"
       x={5}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="6"
       x={6}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="7"
       x={7}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="8"
       x={8}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="9"
       x={9}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="10"
       x={10}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="11"
       x={11}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="12"
       x={12}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="13"
       x={13}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="14"
       x={14}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="15"
       x={15}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="16"
       x={16}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="17"
       x={17}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="18"
       x={18}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="19"
       x={19}
       y={3}
     />
     <BoardSquare
       boardSquare={null}
-      key="3"
+      key="20"
       x={20}
       y={3}
     />
@@ -554,25 +554,25 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="0"
       x={0}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="1"
       x={1}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="2"
       x={2}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="3"
       x={3}
       y={4}
     />
@@ -584,97 +584,97 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="5"
       x={5}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="6"
       x={6}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="7"
       x={7}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="8"
       x={8}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="9"
       x={9}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="10"
       x={10}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="11"
       x={11}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="12"
       x={12}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="13"
       x={13}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="14"
       x={14}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="15"
       x={15}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="16"
       x={16}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="17"
       x={17}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="18"
       x={18}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="19"
       x={19}
       y={4}
     />
     <BoardSquare
       boardSquare={null}
-      key="4"
+      key="20"
       x={20}
       y={4}
     />
@@ -684,31 +684,31 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="0"
       x={0}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="1"
       x={1}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="2"
       x={2}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="3"
       x={3}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="4"
       x={4}
       y={5}
     />
@@ -720,91 +720,91 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="6"
       x={6}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="7"
       x={7}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="8"
       x={8}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="9"
       x={9}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="10"
       x={10}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="11"
       x={11}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="12"
       x={12}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="13"
       x={13}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="14"
       x={14}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="15"
       x={15}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="16"
       x={16}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="17"
       x={17}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="18"
       x={18}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="19"
       x={19}
       y={5}
     />
     <BoardSquare
       boardSquare={null}
-      key="5"
+      key="20"
       x={20}
       y={5}
     />
@@ -814,37 +814,37 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="0"
       x={0}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="1"
       x={1}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="2"
       x={2}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="3"
       x={3}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="4"
       x={4}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="5"
       x={5}
       y={6}
     />
@@ -856,85 +856,85 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="7"
       x={7}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="8"
       x={8}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="9"
       x={9}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="10"
       x={10}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="11"
       x={11}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="12"
       x={12}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="13"
       x={13}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="14"
       x={14}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="15"
       x={15}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="16"
       x={16}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="17"
       x={17}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="18"
       x={18}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="19"
       x={19}
       y={6}
     />
     <BoardSquare
       boardSquare={null}
-      key="6"
+      key="20"
       x={20}
       y={6}
     />
@@ -944,43 +944,43 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="0"
       x={0}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="1"
       x={1}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="2"
       x={2}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="3"
       x={3}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="4"
       x={4}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="5"
       x={5}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="6"
       x={6}
       y={7}
     />
@@ -992,79 +992,79 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="8"
       x={8}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="9"
       x={9}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="10"
       x={10}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="11"
       x={11}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="12"
       x={12}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="13"
       x={13}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="14"
       x={14}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="15"
       x={15}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="16"
       x={16}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="17"
       x={17}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="18"
       x={18}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="19"
       x={19}
       y={7}
     />
     <BoardSquare
       boardSquare={null}
-      key="7"
+      key="20"
       x={20}
       y={7}
     />
@@ -1074,49 +1074,49 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="0"
       x={0}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="1"
       x={1}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="2"
       x={2}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="3"
       x={3}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="4"
       x={4}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="5"
       x={5}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="6"
       x={6}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="7"
       x={7}
       y={8}
     />
@@ -1128,73 +1128,73 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="9"
       x={9}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="10"
       x={10}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="11"
       x={11}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="12"
       x={12}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="13"
       x={13}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="14"
       x={14}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="15"
       x={15}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="16"
       x={16}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="17"
       x={17}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="18"
       x={18}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="19"
       x={19}
       y={8}
     />
     <BoardSquare
       boardSquare={null}
-      key="8"
+      key="20"
       x={20}
       y={8}
     />
@@ -1204,55 +1204,55 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="0"
       x={0}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="1"
       x={1}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="2"
       x={2}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="3"
       x={3}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="4"
       x={4}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="5"
       x={5}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="6"
       x={6}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="7"
       x={7}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="8"
       x={8}
       y={9}
     />
@@ -1264,67 +1264,67 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="10"
       x={10}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="11"
       x={11}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="12"
       x={12}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="13"
       x={13}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="14"
       x={14}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="15"
       x={15}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="16"
       x={16}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="17"
       x={17}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="18"
       x={18}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="19"
       x={19}
       y={9}
     />
     <BoardSquare
       boardSquare={null}
-      key="9"
+      key="20"
       x={20}
       y={9}
     />
@@ -1334,61 +1334,61 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="0"
       x={0}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="1"
       x={1}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="2"
       x={2}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="3"
       x={3}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="4"
       x={4}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="5"
       x={5}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="6"
       x={6}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="7"
       x={7}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="8"
       x={8}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="9"
       x={9}
       y={10}
     />
@@ -1400,61 +1400,61 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="11"
       x={11}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="12"
       x={12}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="13"
       x={13}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="14"
       x={14}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="15"
       x={15}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="16"
       x={16}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="17"
       x={17}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="18"
       x={18}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="19"
       x={19}
       y={10}
     />
     <BoardSquare
       boardSquare={null}
-      key="10"
+      key="20"
       x={20}
       y={10}
     />
@@ -1464,67 +1464,67 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="0"
       x={0}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="1"
       x={1}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="2"
       x={2}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="3"
       x={3}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="4"
       x={4}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="5"
       x={5}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="6"
       x={6}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="7"
       x={7}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="8"
       x={8}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="9"
       x={9}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="10"
       x={10}
       y={11}
     />
@@ -1536,55 +1536,55 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="12"
       x={12}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="13"
       x={13}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="14"
       x={14}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="15"
       x={15}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="16"
       x={16}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="17"
       x={17}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="18"
       x={18}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="19"
       x={19}
       y={11}
     />
     <BoardSquare
       boardSquare={null}
-      key="11"
+      key="20"
       x={20}
       y={11}
     />
@@ -1594,73 +1594,73 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="0"
       x={0}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="1"
       x={1}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="2"
       x={2}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="3"
       x={3}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="4"
       x={4}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="5"
       x={5}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="6"
       x={6}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="7"
       x={7}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="8"
       x={8}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="9"
       x={9}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="10"
       x={10}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="11"
       x={11}
       y={12}
     />
@@ -1672,49 +1672,49 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="13"
       x={13}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="14"
       x={14}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="15"
       x={15}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="16"
       x={16}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="17"
       x={17}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="18"
       x={18}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="19"
       x={19}
       y={12}
     />
     <BoardSquare
       boardSquare={null}
-      key="12"
+      key="20"
       x={20}
       y={12}
     />
@@ -1724,79 +1724,79 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="0"
       x={0}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="1"
       x={1}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="2"
       x={2}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="3"
       x={3}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="4"
       x={4}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="5"
       x={5}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="6"
       x={6}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="7"
       x={7}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="8"
       x={8}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="9"
       x={9}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="10"
       x={10}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="11"
       x={11}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="12"
       x={12}
       y={13}
     />
@@ -1808,43 +1808,43 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="14"
       x={14}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="15"
       x={15}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="16"
       x={16}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="17"
       x={17}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="18"
       x={18}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="19"
       x={19}
       y={13}
     />
     <BoardSquare
       boardSquare={null}
-      key="13"
+      key="20"
       x={20}
       y={13}
     />
@@ -1854,85 +1854,85 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="0"
       x={0}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="1"
       x={1}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="2"
       x={2}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="3"
       x={3}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="4"
       x={4}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="5"
       x={5}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="6"
       x={6}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="7"
       x={7}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="8"
       x={8}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="9"
       x={9}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="10"
       x={10}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="11"
       x={11}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="12"
       x={12}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="13"
       x={13}
       y={14}
     />
@@ -1944,37 +1944,37 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="15"
       x={15}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="16"
       x={16}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="17"
       x={17}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="18"
       x={18}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="19"
       x={19}
       y={14}
     />
     <BoardSquare
       boardSquare={null}
-      key="14"
+      key="20"
       x={20}
       y={14}
     />
@@ -1984,91 +1984,91 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="0"
       x={0}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="1"
       x={1}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="2"
       x={2}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="3"
       x={3}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="4"
       x={4}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="5"
       x={5}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="6"
       x={6}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="7"
       x={7}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="8"
       x={8}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="9"
       x={9}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="10"
       x={10}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="11"
       x={11}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="12"
       x={12}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="13"
       x={13}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="14"
       x={14}
       y={15}
     />
@@ -2080,31 +2080,31 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="16"
       x={16}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="17"
       x={17}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="18"
       x={18}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="19"
       x={19}
       y={15}
     />
     <BoardSquare
       boardSquare={null}
-      key="15"
+      key="20"
       x={20}
       y={15}
     />
@@ -2114,97 +2114,97 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="0"
       x={0}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="1"
       x={1}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="2"
       x={2}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="3"
       x={3}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="4"
       x={4}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="5"
       x={5}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="6"
       x={6}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="7"
       x={7}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="8"
       x={8}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="9"
       x={9}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="10"
       x={10}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="11"
       x={11}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="12"
       x={12}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="13"
       x={13}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="14"
       x={14}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="15"
       x={15}
       y={16}
     />
@@ -2216,25 +2216,25 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="17"
       x={17}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="18"
       x={18}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="19"
       x={19}
       y={16}
     />
     <BoardSquare
       boardSquare={null}
-      key="16"
+      key="20"
       x={20}
       y={16}
     />
@@ -2244,103 +2244,103 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="0"
       x={0}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="1"
       x={1}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="2"
       x={2}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="3"
       x={3}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="4"
       x={4}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="5"
       x={5}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="6"
       x={6}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="7"
       x={7}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="8"
       x={8}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="9"
       x={9}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="10"
       x={10}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="11"
       x={11}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="12"
       x={12}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="13"
       x={13}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="14"
       x={14}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="15"
       x={15}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="16"
       x={16}
       y={17}
     />
@@ -2352,19 +2352,19 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="18"
       x={18}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="19"
       x={19}
       y={17}
     />
     <BoardSquare
       boardSquare={null}
-      key="17"
+      key="20"
       x={20}
       y={17}
     />
@@ -2374,109 +2374,109 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="0"
       x={0}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="1"
       x={1}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="2"
       x={2}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="3"
       x={3}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="4"
       x={4}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="5"
       x={5}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="6"
       x={6}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="7"
       x={7}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="8"
       x={8}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="9"
       x={9}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="10"
       x={10}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="11"
       x={11}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="12"
       x={12}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="13"
       x={13}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="14"
       x={14}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="15"
       x={15}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="16"
       x={16}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="17"
       x={17}
       y={18}
     />
@@ -2488,13 +2488,13 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="19"
       x={19}
       y={18}
     />
     <BoardSquare
       boardSquare={null}
-      key="18"
+      key="20"
       x={20}
       y={18}
     />
@@ -2504,115 +2504,115 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="0"
       x={0}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="1"
       x={1}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="2"
       x={2}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="3"
       x={3}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="4"
       x={4}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="5"
       x={5}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="6"
       x={6}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="7"
       x={7}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="8"
       x={8}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="9"
       x={9}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="10"
       x={10}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="11"
       x={11}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="12"
       x={12}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="13"
       x={13}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="14"
       x={14}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="15"
       x={15}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="16"
       x={16}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="17"
       x={17}
       y={19}
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="18"
       x={18}
       y={19}
     />
@@ -2624,7 +2624,7 @@ exports[`<Board /> renders properly 1`] = `
     />
     <BoardSquare
       boardSquare={null}
-      key="19"
+      key="20"
       x={20}
       y={19}
     />
@@ -2634,121 +2634,121 @@ exports[`<Board /> renders properly 1`] = `
   >
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="0"
       x={0}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="1"
       x={1}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="2"
       x={2}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="3"
       x={3}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="4"
       x={4}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="5"
       x={5}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="6"
       x={6}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="7"
       x={7}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="8"
       x={8}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="9"
       x={9}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="10"
       x={10}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="11"
       x={11}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="12"
       x={12}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="13"
       x={13}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="14"
       x={14}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="15"
       x={15}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="16"
       x={16}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="17"
       x={17}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="18"
       x={18}
       y={20}
     />
     <BoardSquare
       boardSquare={null}
-      key="20"
+      key="19"
       x={19}
       y={20}
     />

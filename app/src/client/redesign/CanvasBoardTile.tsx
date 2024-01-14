@@ -1,8 +1,9 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo } from "react";
+import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
 import { useSelectedTile } from "./SelectedTileContext";
-import { CanvasName, TILE_SIZE } from "./constants";
+import { CanvasName } from "./constants";
 import { setCursor } from "./setCursor";
 import { useColorHex } from "./useColorHex";
 import { useGame } from "@/client/games/GameContext";
@@ -38,6 +39,7 @@ export default function CanvasBoardTile({
   x,
   y,
 }: CanvasBoardTileProps): JSX.Element {
+  const { tileSize } = useCanvasContext();
   const { selectedTile, setSelectedTile } = useSelectedTile();
   const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
@@ -99,8 +101,8 @@ export default function CanvasBoardTile({
     <CanvasTile
       name={CanvasName.BoardTile}
       tile={tile}
-      x={x * TILE_SIZE}
-      y={y * TILE_SIZE}
+      x={x * tileSize}
+      y={y * tileSize}
       color={color}
       onPointerClick={handlePointerClick}
     />

@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGridLine from "./CanvasGridLine";
-import { TILE_SIZE } from "./constants";
 
 export type GridLinesProp = {
   width: number;
@@ -13,30 +12,30 @@ export default function CanvasGrid({
   width,
   height,
 }: GridLinesProp): JSX.Element {
-  const { offset } = useCanvasContext();
+  const { offset, tileSize } = useCanvasContext();
 
   const { verticalPoints, horizontalPoints } = useMemo(() => {
     const horizontalPoints = [];
 
     for (
-      let y = Math.round(-offset.y / TILE_SIZE) * TILE_SIZE;
-      y <= Math.round((height - offset.y) / TILE_SIZE) * TILE_SIZE;
-      y += TILE_SIZE
+      let y = Math.round(-offset.y / tileSize) * tileSize;
+      y <= Math.round((height - offset.y) / tileSize) * tileSize;
+      y += tileSize
     ) {
       horizontalPoints.push([-offset.x, y, width - offset.x, y]);
     }
 
     const verticalPoints = [];
     for (
-      let x = Math.round(-offset.x / TILE_SIZE) * TILE_SIZE;
-      x <= Math.round((width - offset.x) / TILE_SIZE) * TILE_SIZE;
-      x += TILE_SIZE
+      let x = Math.round(-offset.x / tileSize) * tileSize;
+      x <= Math.round((width - offset.x) / tileSize) * tileSize;
+      x += tileSize
     ) {
       verticalPoints.push([x, -offset.y, x, height - offset.y]);
     }
 
     return { horizontalPoints, verticalPoints };
-  }, [height, offset.x, offset.y, width]);
+  }, [height, offset.x, offset.y, tileSize, width]);
 
   return (
     <Group listening={false}>

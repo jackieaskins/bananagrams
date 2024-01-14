@@ -7,30 +7,33 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
 import { useSelectedTile } from "./SelectedTileContext";
-import { Attrs, CanvasName, TILE_SIZE } from "./constants";
+import { Attrs, CanvasName } from "./constants";
 import { setCursor } from "./setCursor";
-import { useCurrentPlayer } from "./useCurrentPlayer";
 import { parseBoardKey } from "@/client/boards/key";
 import { useGame } from "@/client/games/GameContext";
 import { SetState } from "@/client/state/types";
+import { Board } from "@/types/board";
 
 type BoardProps = {
+  board: Board;
   setOffset: SetState<{ x: number; y: number }>;
 };
 
-export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
-  const { offset, size } = useCanvasContext();
-  const { board } = useCurrentPlayer();
+export default function CanvasBoard({
+  board,
+  setOffset,
+}: BoardProps): JSX.Element {
+  const { offset, size, playable, tileSize } = useCanvasContext();
   const { selectedTile, setSelectedTile } = useSelectedTile();
   const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
 
   const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
-      if (!selectedTile) return;
+      if (!playable || !selectedTile) return;
 
       const toLocation = {
-        x: Math.floor((e.evt.x - offset.x) / TILE_SIZE),
-        y: Math.floor((e.evt.y - offset.y) / TILE_SIZE),
+        x: Math.floor((e.evt.x - offset.x) / tileSize),
+        y: Math.floor((e.evt.y - offset.y) / tileSize),
       };
 
       if (selectedTile.location) {
@@ -47,8 +50,10 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
       handleMoveTileOnBoard,
       offset.x,
       offset.y,
+      playable,
       selectedTile,
       setSelectedTile,
+      tileSize,
     ],
   );
 
@@ -87,8 +92,8 @@ export default function CanvasBoard({ setOffset }: BoardProps): JSX.Element {
         );
       })}
 
-      <CanvasBoardDragOverlay />
-      <CanvasOffScreenIndicators />
+      {playable && <CanvasBoardDragOverlay />}
+      <CanvasOffScreenIndicators board={board} />
     </Group>
   );
 }

@@ -1,12 +1,12 @@
 import { Line } from "react-konva";
-import { useColorModeHex } from "./useColorHex";
+import { useLineColorHex } from "./colors";
 
 type GridLineProps = {
   points: number[];
 };
 
 export default function CanvasGridLine({ points }: GridLineProps): JSX.Element {
-  const gridColor = useColorModeHex("gray.400", "gray.700");
+  const gridColor = useLineColorHex();
 
   return (
     <Line

@@ -124,7 +124,9 @@ exports[`<Game /> renders properly with more than one active player 1`] = `
           <SpectateButton />
           <GameSettings />
         </Stack>
-        <Stack>
+        <Stack
+          alignItems="center"
+        >
           <Text
             textAlign="center"
           >

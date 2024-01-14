@@ -11,15 +11,17 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Canvas from "./Canvas";
 import { CanvasContext } from "./CanvasContext";
 import GameSidebar from "./GameSidebar";
-import { useColorModeHex } from "./useColorHex";
+import { useLineColorHex } from "./colors";
 import { useGame } from "@/client/games/GameContext";
 import PeelButton from "@/client/games/PeelButton";
 import SpectateButton from "@/client/games/SpectateButton";
 import ShuffleHandButton from "@/client/hands/ShuffleHandButton";
 import { useNavMenu } from "@/client/menus/NavMenuContext";
 
+const TILE_SIZE = 32;
+
 export default function GameRedesign(): JSX.Element {
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [, setRenderNavMenu] = useNavMenu();
   const [parent] = useAutoAnimate();
 
@@ -35,7 +37,7 @@ export default function GameRedesign(): JSX.Element {
   });
   const gameSidebarRef = useRef<HTMLDivElement>(null);
   const gameBarRef = useRef<HTMLDivElement>(null);
-  const borderColor = useColorModeHex("gray.400", "gray.700");
+  const borderColor = useLineColorHex();
   const {
     gameInfo: { bunch },
   } = useGame();
@@ -73,9 +75,17 @@ export default function GameRedesign(): JSX.Element {
   }, []);
 
   return (
-    <Flex height="100vh" direction="row">
+    <Flex height="100vh" width="100vw" direction="row">
       <Box>
-        <CanvasContext.Provider value={{ size, stageRef, offset }}>
+        <CanvasContext.Provider
+          value={{
+            offset,
+            playable: true,
+            size,
+            stageRef,
+            tileSize: TILE_SIZE,
+          }}
+        >
           <Canvas setOffset={setOffset} />
         </CanvasContext.Provider>
 

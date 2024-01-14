@@ -58,7 +58,7 @@ export default function Game(): JSX.Element {
             </Stack>
 
             {activePlayers.length > 1 && (
-              <Stack>
+              <Stack alignItems="center">
                 <Text textAlign="center">Opponent board(s):</Text>
                 <OpponentBoardPreview players={activePlayers} />
               </Stack>
