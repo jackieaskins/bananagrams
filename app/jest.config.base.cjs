@@ -9,4 +9,8 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": ["ts-jest", { diagnostics: false }],
   },
+  watchPlugins: [
+    "jest-watch-typeahead/filename",
+    "jest-watch-typeahead/testname",
+  ],
 };

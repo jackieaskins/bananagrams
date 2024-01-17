@@ -8,6 +8,7 @@ import JoinGame from "./games/JoinGame";
 import SocketGameProvider from "./games/SocketGameProvider";
 import GameRedesign from "./redesign/GameRedesign";
 import useSocketManager from "./socket/useSocketManager";
+import Tutorial from "./tutorial/Tutorial";
 
 function getGameRoutes(topLevelPath: string, game: JSX.Element) {
   return (
@@ -33,6 +34,7 @@ export default function AppRoutes(): JSX.Element {
     <Routes>
       {getGameRoutes("/", <Game />)}
       {getGameRoutes("/redesign/", <GameRedesign />)}
+      <Route path="/tutorial" element={<Tutorial />} />
       <Route path="/changelog" element={<Changelog />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

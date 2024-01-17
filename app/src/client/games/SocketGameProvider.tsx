@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Location,
   useLocation,
@@ -10,6 +10,7 @@ import { GameLocationState } from "./types";
 import { socket } from "@/client/socket";
 import { BoardLocation } from "@/types/board";
 import { Game } from "@/types/game";
+import { PlayerStatus } from "@/types/player";
 import {
   ClientToServerEventName,
   ServerToClientEventName,
@@ -38,7 +39,7 @@ export default function SocketGameProvider({
 
     navigate(pathname, { replace: true });
 
-    return (): void => {
+    return () => {
       socket.emit(ClientToServerEventName.LeaveGame, null);
     };
   }, [gameId, isInGame, navigate, pathname]);
@@ -48,48 +49,67 @@ export default function SocketGameProvider({
       setGameInfo(gameInfo);
     });
 
-    return (): void => {
+    return () => {
       socket.off(ServerToClientEventName.GameInfo);
     };
   }, []);
 
-  const handleDump = ({
-    boardLocation,
-    id,
-  }: {
-    boardLocation: BoardLocation | null;
-    id: string;
-  }): void => {
-    socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
-  };
-  const handleMoveTileFromBoardToHand = (
-    boardLocation: BoardLocation,
-  ): void => {
-    socket.emit(ClientToServerEventName.MoveTileFromBoardToHand, {
+  const handleDump = useCallback(
+    ({
       boardLocation,
-    });
-  };
-  const handleMoveTileFromHandToBoard = (
-    tileId: string,
-    boardLocation: BoardLocation,
-  ): void => {
-    socket.emit(ClientToServerEventName.MoveTileFromHandToBoard, {
-      tileId,
-      boardLocation,
-    });
-  };
-  const handleMoveTileOnBoard = (
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation,
-  ): void => {
-    socket.emit(ClientToServerEventName.MoveTileOnBoard, {
-      fromLocation,
-      toLocation,
-    });
-  };
-  const handlePeel = (): void => {
+      id,
+    }: {
+      boardLocation: BoardLocation | null;
+      id: string;
+    }) => {
+      socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
+    },
+    [],
+  );
+
+  const handleMoveTileFromBoardToHand = useCallback(
+    (boardLocation: BoardLocation) => {
+      socket.emit(ClientToServerEventName.MoveTileFromBoardToHand, {
+        boardLocation,
+      });
+    },
+    [],
+  );
+
+  const handleMoveTileFromHandToBoard = useCallback(
+    (tileId: string, boardLocation: BoardLocation) => {
+      socket.emit(ClientToServerEventName.MoveTileFromHandToBoard, {
+        tileId,
+        boardLocation,
+      });
+    },
+    [],
+  );
+
+  const handleMoveTileOnBoard = useCallback(
+    (fromLocation: BoardLocation, toLocation: BoardLocation) => {
+      socket.emit(ClientToServerEventName.MoveTileOnBoard, {
+        fromLocation,
+        toLocation,
+      });
+    },
+    [],
+  );
+
+  const handlePeel = useCallback(() => {
     socket.emit(ClientToServerEventName.Peel, null);
-  };
+  }, []);
+
+  const handleShuffleHand = useCallback(() => {
+    socket.emit(ClientToServerEventName.ShuffleHand, null);
+  }, []);
+
+  const handleSpectate = useCallback(() => {
+    socket.emit(ClientToServerEventName.SetStatus, {
+      status: PlayerStatus.SPECTATING,
+    });
+  }, []);
+
   return (
     <GameContext.Provider
       value={{
@@ -99,6 +119,8 @@ export default function SocketGameProvider({
         handleMoveTileFromHandToBoard,
         handleMoveTileOnBoard,
         handlePeel,
+        handleShuffleHand,
+        handleSpectate,
         isInGame,
       }}
     >

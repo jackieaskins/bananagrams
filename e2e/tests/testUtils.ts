@@ -5,6 +5,10 @@ import { JoinGamePage } from "./pages/join-game-page";
 import { SpectatorPage } from "./pages/spectator-page";
 import { WaitingRoomPage } from "./pages/waiting-room-page";
 
+export const TILE_SIZE = 32;
+export const FIRST_HAND_TILE_POSITION = { x: 284, y: 562 };
+export const FIRST_BOARD_POSITION = { x: 304, y: 400 };
+
 export interface PageFixtures {
   gamePage: GamePage;
   homePage: HomePage;

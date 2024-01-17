@@ -1,8 +1,14 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import SpectateButton from "./SpectateButton";
-import { socket } from "@/client/socket";
 import { renderComponent } from "@/client/testUtils";
-import { PlayerStatus } from "@/types/player";
+
+const mockHandleSpectate = jest.fn();
+jest.mock("./GameContext", () => ({
+  ...jest.requireActual("./GameContext"),
+  useGame: () => ({
+    handleSpectate: mockHandleSpectate,
+  }),
+}));
 
 describe.each([{ hideText: true }, { hideText: false }])(
   "<SpectateButton hideText={$hideText} />",
@@ -11,7 +17,7 @@ describe.each([{ hideText: true }, { hideText: false }])(
       return renderComponent(<SpectateButton hideText={hideText} />);
     }
 
-    it("emits setStatus on confirmation", async () => {
+    it("emits handleSpectate event", async () => {
       const { user } = renderButton();
 
       await user.click(
@@ -27,9 +33,7 @@ describe.each([{ hideText: true }, { hideText: false }])(
       });
 
       await waitFor(() => {
-        expect(socket.emit).toHaveBeenCalledWith("setStatus", {
-          status: PlayerStatus.SPECTATING,
-        });
+        expect(mockHandleSpectate).toHaveBeenCalled();
       });
     });
 

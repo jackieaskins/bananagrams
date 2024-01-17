@@ -39,6 +39,10 @@ exports[`<AppRoutes /> renders correct routes 1`] = `
     path="/redesign/game/:gameId/join"
   />
   <Route
+    element={<Tutorial />}
+    path="/tutorial"
+  />
+  <Route
     element={<Changelog />}
     path="/changelog"
   />

@@ -6,4 +6,5 @@ export const socket = {
   on: jest.fn(),
   off: jest.fn(),
   id: CURRENT_PLAYER_ID,
+  connected: true,
 };

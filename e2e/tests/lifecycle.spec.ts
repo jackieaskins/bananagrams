@@ -1,12 +1,14 @@
 import { expect } from "@playwright/test";
-import { test } from "./testUtils";
+import {
+  FIRST_BOARD_POSITION,
+  FIRST_HAND_TILE_POSITION,
+  TILE_SIZE,
+  test,
+} from "./testUtils";
 
 const GAME_NAME = "GAME_NAME";
 const USERNAME = "my_username";
 
-const TILE_SIZE = 32;
-const FIRST_HAND_TILE_POSITION = { x: 284, y: 562 };
-const FIRST_BOARD_POSITION = { x: 304, y: 177 };
 const SECOND_BOARD_POSITION = {
   x: FIRST_BOARD_POSITION.x + TILE_SIZE,
   y: FIRST_BOARD_POSITION.y,

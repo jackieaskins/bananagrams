@@ -17,6 +17,8 @@ export type GameState = {
     toLocation: BoardLocation,
   ) => void;
   handlePeel: () => void;
+  handleShuffleHand: () => void;
+  handleSpectate: () => void;
   isInGame: boolean;
 };
 

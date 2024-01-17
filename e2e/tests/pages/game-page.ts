@@ -36,6 +36,14 @@ export class GamePage {
     return this.page.getByRole("button", { name: "Spectate" });
   }
 
+  async dumpTileDrag(position: Position): Promise<void> {
+    await this.dragTile(position, { x: 204, y: 562 });
+  }
+
+  async drumpTileClick(position: Position): Promise<void> {
+    await this.clickAndMoveTile(position, { x: 204, y: 562 });
+  }
+
   async dragTile(from: Position, to: Position): Promise<void> {
     await this.page.mouse.move(from.x, from.y);
     await this.page.mouse.down();

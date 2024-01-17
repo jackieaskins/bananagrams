@@ -11,6 +11,7 @@ import {
   FaBars,
   FaBookOpen,
   FaBug,
+  FaGraduationCap,
   FaHouse,
   FaLightbulb,
   FaList,
@@ -49,6 +50,10 @@ export default function NavMenu(): JSX.Element {
         </MenuItem>
 
         <MenuDivider />
+
+        <MenuItem as={Link} to="/tutorial" icon={<FaGraduationCap />}>
+          Play tutorial
+        </MenuItem>
 
         <ExternalMenuItemLink
           href="https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started"

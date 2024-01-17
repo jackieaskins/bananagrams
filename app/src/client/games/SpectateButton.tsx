@@ -12,9 +12,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { FaEye } from "react-icons/fa6";
-import { socket } from "@/client/socket";
-import { PlayerStatus } from "@/types/player";
-import { ClientToServerEventName } from "@/types/socket";
+import { useGame } from "./GameContext";
 
 export interface SpectateButtonProps extends ButtonProps {
   hideText?: boolean;
@@ -24,6 +22,8 @@ export default function SpectateButton({
   hideText,
   ...buttonProps
 }: SpectateButtonProps): JSX.Element {
+  const { handleSpectate } = useGame();
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -52,15 +52,7 @@ export default function SpectateButton({
         </PopoverBody>
 
         <PopoverFooter display="flex" justifyContent="flex-end">
-          <Button
-            colorScheme="blue"
-            size="sm"
-            onClick={() =>
-              socket.emit(ClientToServerEventName.SetStatus, {
-                status: PlayerStatus.SPECTATING,
-              })
-            }
-          >
+          <Button colorScheme="blue" size="sm" onClick={handleSpectate}>
             Spectate
           </Button>
         </PopoverFooter>
