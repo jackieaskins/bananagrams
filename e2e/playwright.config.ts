@@ -12,8 +12,8 @@ export default defineConfig({
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
     colorScheme: "dark",
-    trace: "on-first-retry",
-    video: "on-first-retry",
+    trace: process.env.CI ? "on-first-retry" : "retain-on-failure",
+    video: process.env.CI ? "on-first-retry" : "retain-on-failure",
   },
   projects: [
     {
