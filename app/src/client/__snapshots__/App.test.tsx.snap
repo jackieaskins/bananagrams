@@ -2627,6 +2627,7 @@ exports[`<App /> renders properly 1`] = `
         <AppRoutes />
         <NavMenu />
         <BraveBrowserDialog />
+        <TutorialModal />
       </BrowserRouter>
     </ContextProvider>
   </ChakraProvider2>

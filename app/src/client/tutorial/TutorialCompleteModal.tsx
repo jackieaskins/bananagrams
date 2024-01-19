@@ -33,7 +33,7 @@ export default function TutorialCompleteModal(): JSX.Element {
         </ModalBody>
 
         <ModalFooter>
-          <Button as={Link} to="/redesign" colorScheme="blue">
+          <Button as={Link} to="/" colorScheme="blue">
             Take me home
           </Button>
         </ModalFooter>

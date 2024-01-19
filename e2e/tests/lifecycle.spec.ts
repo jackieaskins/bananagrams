@@ -23,6 +23,7 @@ const LEADING_BOARD_POSITION = {
 };
 
 test("game lifecycle", async ({
+  gotoAndDismissTutorialModal,
   page,
   gamePage,
   homePage,
@@ -31,7 +32,7 @@ test("game lifecycle", async ({
   //------------------------------------------------------------------//
   //                           Create game                            //
   //------------------------------------------------------------------//
-  await page.goto("/redesign?isShortenedGame");
+  await gotoAndDismissTutorialModal("/?isShortenedGame");
   await homePage.createGame(GAME_NAME, USERNAME);
 
   await expect(waitingRoomPage.gameHeader).toHaveText(GAME_NAME);

@@ -10,7 +10,6 @@ async function renderMenu(pathname = "/some-page") {
 
       <Routes>
         <Route path={pathname} element="Current page" />
-        <Route path="/redesign" element="Redesign home" />
         <Route path="/" element="Home" />
         <Route path="changelog" element="Changelog" />
       </Routes>
@@ -31,29 +30,13 @@ describe("<NavMenu />", () => {
     });
   });
 
-  it("does not link to home if on redesign homepage", async () => {
-    await renderMenu("/redesign");
-
-    expect(screen.getByRole("menu")).not.toHaveTextContent("Return home");
-  });
-
-  it("links to home if not on a redesign or homepage", async () => {
+  it("links to home if not on homepage", async () => {
     const { user } = await renderMenu("/some-page");
 
     await user.click(screen.getByRole("menuitem", { name: "Return home" }));
 
     await waitFor(() => {
       expect(screen.getByText(/^Home$/)).toBeInTheDocument();
-    });
-  });
-
-  it("links to redesign home if on redesign page", async () => {
-    const { user } = await renderMenu("/redesign/some-page");
-
-    await user.click(screen.getByRole("menuitem", { name: "Return home" }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/^Redesign home$/)).toBeInTheDocument();
     });
   });
 

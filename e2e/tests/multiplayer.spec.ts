@@ -6,7 +6,7 @@ const GAME_NAME = "game name";
 test.beforeEach(
   "create and join game",
   async ({ firstPlayerPages, secondPlayerPages }) => {
-    await firstPlayerPages.page.goto("/redesign");
+    await firstPlayerPages.gotoAndDismissTutorialModal("/");
     await firstPlayerPages.homePage.createGame(GAME_NAME, "player1");
     await expect(firstPlayerPages.waitingRoomPage.gameHeader).toHaveText(
       GAME_NAME,

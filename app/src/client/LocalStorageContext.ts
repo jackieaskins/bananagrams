@@ -1,11 +1,13 @@
 import { createContext, useContext } from "react";
 import { SetState } from "./state/types";
 
+type LocalStorageState<T> = [T, SetState<T>];
 type LocalStorageContextState = {
   gameSettings: {
-    enableTileSwap: [boolean, SetState<boolean>];
+    enableTileSwap: LocalStorageState<boolean>;
   };
-  savedUsername: [string, SetState<string>];
+  savedUsername: LocalStorageState<string>;
+  showTutorialPrompt: LocalStorageState<boolean>;
 };
 
 export const LocalStorageContext = createContext<LocalStorageContextState>(
@@ -16,10 +18,14 @@ function useLocalStorageContext(): LocalStorageContextState {
   return useContext(LocalStorageContext);
 }
 
-export function useEnableTileSwap(): [boolean, SetState<boolean>] {
+export function useEnableTileSwap(): LocalStorageState<boolean> {
   return useLocalStorageContext().gameSettings.enableTileSwap;
 }
 
-export function useSavedUsername(): [string, SetState<string>] {
+export function useSavedUsername(): LocalStorageState<string> {
   return useLocalStorageContext().savedUsername;
+}
+
+export function useShowTutorialPrompt(): LocalStorageState<boolean> {
+  return useLocalStorageContext().showTutorialPrompt;
 }

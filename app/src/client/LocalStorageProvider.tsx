@@ -33,13 +33,15 @@ export default function LocalStorageProvider({
 }): JSX.Element {
   const enableTileSwap = useLocalStorage("gameSettings.enableTileSwap", false);
   const savedUsername = useLocalStorage("savedUsername", "");
+  const showTutorialPrompt = useLocalStorage("showTutorialPrompt", true);
 
   const value = useMemo(
     () => ({
       gameSettings: { enableTileSwap },
       savedUsername,
+      showTutorialPrompt,
     }),
-    [enableTileSwap, savedUsername],
+    [enableTileSwap, savedUsername, showTutorialPrompt],
   );
 
   return (

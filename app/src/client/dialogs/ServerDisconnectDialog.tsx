@@ -9,18 +9,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
 import { socket } from "@/client/socket";
 
 export default function ServerDisconnectDialog(): JSX.Element {
   const { isOpen, onClose, onOpen } = useDisclosure({
     onClose: () => {
-      window.location.assign(
-        pathname.startsWith("/redesign") ? "/redesign" : "/",
-      );
+      window.location.assign("/");
     },
   });
-  const { pathname } = useLocation();
 
   useEffect(() => {
     socket.on("disconnect", onOpen);

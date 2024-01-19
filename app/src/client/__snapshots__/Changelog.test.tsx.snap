@@ -27,6 +27,22 @@ exports[`<Changelog /> renders table of changes 1`] = `
       </ForwardRef>
       <ForwardRef>
         <ForwardRef
+          key="redesign"
+        >
+          <ForwardRef
+            overflowWrap="break-word"
+            textAlign="right"
+            verticalAlign="top"
+          >
+            Jan 18, 2024
+          </ForwardRef>
+          <ForwardRef
+            whiteSpace="normal"
+          >
+            Gameplay has been completely redesigned! Give it a try, report bugs, and provide feedback.
+          </ForwardRef>
+        </ForwardRef>
+        <ForwardRef
           key="swap-tiles"
         >
           <ForwardRef

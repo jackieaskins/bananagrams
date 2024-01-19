@@ -10,7 +10,7 @@ exports[`<AppRoutes /> renders correct routes 1`] = `
     element={
       <SocketGameProvider>
         <GameManager
-          game={<Game />}
+          game={<GameRedesign />}
         />
       </SocketGameProvider>
     }
@@ -19,24 +19,6 @@ exports[`<AppRoutes /> renders correct routes 1`] = `
   <Route
     element={<JoinGame />}
     path="/game/:gameId/join"
-  />
-  <Route
-    element={<CreateGame />}
-    path="/redesign/"
-  />
-  <Route
-    element={
-      <SocketGameProvider>
-        <GameManager
-          game={<GameRedesign />}
-        />
-      </SocketGameProvider>
-    }
-    path="/redesign/game/:gameId"
-  />
-  <Route
-    element={<JoinGame />}
-    path="/redesign/game/:gameId/join"
   />
   <Route
     element={<Tutorial />}

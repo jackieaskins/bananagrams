@@ -23,6 +23,12 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-us", {
 
 const MAJOR_CHANGES: Change[] = [
   {
+    id: "redesign",
+    date: "2024-01-18",
+    description:
+      "Gameplay has been completely redesigned! Give it a try, report bugs, and provide feedback.",
+  },
+  {
     id: "swap-tiles",
     date: "2023-12-02",
     description:

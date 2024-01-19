@@ -1,7 +1,7 @@
 import {
+  Box,
   ChakraProvider,
   Spinner,
-  Text,
   ThemeConfig,
   ToastProviderProps,
   extendTheme,
@@ -16,6 +16,7 @@ import CenteredLayout from "./layouts/CenteredLayout";
 import NavMenu from "./menus/NavMenu";
 import { NavMenuContext } from "./menus/NavMenuContext";
 import { socket } from "./socket";
+import TutorialModal from "./tutorial/TutorialModal";
 
 const config: ThemeConfig = {
   initialColorMode: "system",
@@ -56,13 +57,14 @@ export default function App(): JSX.Element {
               <AppRoutes />
               {renderNavMenu && <NavMenu />}
               <BraveBrowserDialog />
+              <TutorialModal />
             </BrowserRouter>
           </NavMenuContext.Provider>
         ) : (
           <CenteredLayout>
-            <Text textAlign="center">
+            <Box textAlign="center">
               <Spinner />
-            </Text>
+            </Box>
           </CenteredLayout>
         )}
       </ChakraProvider>

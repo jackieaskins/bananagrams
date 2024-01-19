@@ -9,13 +9,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { PROD } from "@/client/env";
 
 export default function BraveBrowserDialog(): JSX.Element {
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { pathname } = useLocation();
   const { isOpen, onClose, onOpen } = useDisclosure({
     onOpen: () => {
       setHasBeenOpened(true);
@@ -29,13 +27,12 @@ export default function BraveBrowserDialog(): JSX.Element {
         !hasBeenOpened &&
         // @ts-expect-error brave object is included on navigator in Brave Browser
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        (await navigator.brave?.isBrave()) &&
-        pathname.startsWith("/redesign")
+        (await navigator.brave?.isBrave())
       ) {
         onOpen();
       }
     })();
-  }, [hasBeenOpened, onOpen, pathname]);
+  }, [hasBeenOpened, onOpen]);
 
   return (
     <AlertDialog

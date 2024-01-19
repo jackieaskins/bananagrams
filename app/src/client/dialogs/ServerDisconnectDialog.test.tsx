@@ -10,13 +10,12 @@ function emitDisconnect() {
   mockOn.mockImplementation((_event, callback) => callback());
 }
 
-function renderDialog(pathname: string = "/not-redesign") {
+function renderDialog(pathname: string = "/some-page") {
   return renderComponent(
     <MemoryRouter initialEntries={[pathname]}>
       <Routes>
         <Route path={pathname} element="Current page" />
         <Route path="/" element="Home" />
-        <Route path="/redesign" element="Redesigned home" />
       </Routes>
       <ServerDisconnectDialog />
     </MemoryRouter>,
@@ -45,17 +44,6 @@ describe("<ServerDisconnectDialog />", () => {
 
     await waitFor(() => {
       expect(window.location).toBeAt("/");
-    });
-  });
-
-  it("redirects to redesign when return home is clicked", async () => {
-    emitDisconnect();
-    const { user } = renderDialog("/redesign/other-route");
-
-    await user.click(screen.getByRole("button", { name: "Return home" }));
-
-    await waitFor(() => {
-      expect(window.location).toBeAt("/redesign");
     });
   });
 });

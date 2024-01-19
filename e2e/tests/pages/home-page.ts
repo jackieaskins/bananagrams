@@ -7,6 +7,10 @@ export class HomePage {
     this.page = page;
   }
 
+  get header(): Locator {
+    return this.page.getByRole("heading");
+  }
+
   get gameNameInput(): Locator {
     return this.page.getByLabel("Game name");
   }

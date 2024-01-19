@@ -13,14 +13,16 @@ function boardDestination({ x, y }: { x: number; y: number }) {
   };
 }
 
-test("tutorial", async ({ page, gamePage }) => {
+test("tutorial", async ({ page, gamePage, baseURL }) => {
   async function expectStep(stepNumber: number) {
     await expect(page.getByText("Tutorial step")).toContainText(
       `${stepNumber} / 7`,
     );
   }
 
-  await page.goto("/tutorial");
+  await page.goto("/");
+  await page.getByRole("link", { name: "I'd love to!" }).click();
+  await expect(page).toHaveURL(`${baseURL}/tutorial`);
 
   //------------------------------------------------------------------//
   //                     Welcome to Bananagrams!                      //
@@ -87,5 +89,5 @@ test("tutorial", async ({ page, gamePage }) => {
   //                    Tutorial complete modal                    //
   //------------------------------------------------------------------//
   await page.getByRole("link", { name: "Take me home" }).click();
-  await expect(page).toHaveURL(/\/redesign$/);
+  await expect(page).toHaveURL(baseURL ?? "");
 });

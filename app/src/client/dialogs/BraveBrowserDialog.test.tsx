@@ -3,9 +3,8 @@ import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import BraveBrowserDialog from "./BraveBrowserDialog";
 import { renderComponent } from "@/client/testUtils";
 
-const NON_REDESIGN_ROUTE = "/some-route";
-const MAIN_REDESIGN_ROUTE = "/redesign/main";
-const OTHER_REDESIGN_ROUTE = "/redesign/other";
+const MAIN_ROUTE = "/";
+const OTHER_ROUTE = "/other-page";
 
 jest.mock("../env", () => ({
   PROD: true,
@@ -29,16 +28,15 @@ function renderDialog(pathname: string) {
   return renderComponent(
     <MemoryRouter initialEntries={[pathname]}>
       <Routes>
-        <Route path={NON_REDESIGN_ROUTE} element="Not redesign" />
         <Route
-          path={MAIN_REDESIGN_ROUTE}
+          path={MAIN_ROUTE}
           element={
             <>
-              Main redesign <Link to={OTHER_REDESIGN_ROUTE}>Other</Link>
+              Main redesign <Link to={OTHER_ROUTE}>Other</Link>
             </>
           }
         />
-        <Route path={OTHER_REDESIGN_ROUTE} element="Other redesign" />
+        <Route path={OTHER_ROUTE} element="Other route" />
       </Routes>
       <BraveBrowserDialog />
     </MemoryRouter>,
@@ -64,29 +62,22 @@ describe("<BraveBrowserDialog />", () => {
     window.navigator = windowNavigator;
   });
 
-  it("does not render on non-redesign routes", async () => {
-    mockBrave(true);
-    renderDialog(NON_REDESIGN_ROUTE);
+  it("does not render when not in brave", async () => {
+    renderDialog(MAIN_ROUTE);
 
     await assertDialogNotInDocument();
   });
 
-  it("does not render when on redesign route but not in brave", async () => {
-    renderDialog(MAIN_REDESIGN_ROUTE);
-
-    await assertDialogNotInDocument();
-  });
-
-  it("renders when in brave and on a redesign route", async () => {
+  it("renders when in brave", async () => {
     mockBrave(true);
-    renderDialog(MAIN_REDESIGN_ROUTE);
+    renderDialog(MAIN_ROUTE);
 
     await assertDialogInDocument();
   });
 
   it("does not render when dialog has been opened before", async () => {
     mockBrave(true);
-    const { user } = renderDialog(MAIN_REDESIGN_ROUTE);
+    const { user } = renderDialog(MAIN_ROUTE);
 
     await assertDialogInDocument();
 

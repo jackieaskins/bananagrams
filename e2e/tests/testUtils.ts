@@ -1,4 +1,4 @@
-import { Page, test as base } from "@playwright/test";
+import { Page, test as base, expect } from "@playwright/test";
 import { GamePage } from "./pages/game-page";
 import { HomePage } from "./pages/home-page";
 import { JoinGamePage } from "./pages/join-game-page";
@@ -10,6 +10,7 @@ export const FIRST_HAND_TILE_POSITION = { x: 284, y: 562 };
 export const FIRST_BOARD_POSITION = { x: 304, y: 400 };
 
 export interface PageFixtures {
+  gotoAndDismissTutorialModal: (path: string) => Promise<void>;
   gamePage: GamePage;
   homePage: HomePage;
   joinGamePage: JoinGamePage;
@@ -21,7 +22,18 @@ interface MultiPageFixtures extends PageFixtures {
   page: Page;
 }
 
+function gotoAndDismissTutorialModal(page: Page) {
+  return async (path: string) => {
+    await page.goto(path);
+    await page.getByRole("button", { name: "No thanks" }).click();
+    await expect(page.getByRole("dialog")).not.toBeInViewport();
+  };
+}
+
 export const test = base.extend<PageFixtures>({
+  gotoAndDismissTutorialModal: async ({ page }, use) => {
+    await use(gotoAndDismissTutorialModal(page));
+  },
   gamePage: async ({ page }, use) => {
     await use(new GamePage(page));
   },
@@ -46,6 +58,7 @@ export const multiplayerTest = base.extend<{
   firstPlayerPages: async ({ context }, use) => {
     const page = await context.newPage();
     await use({
+      gotoAndDismissTutorialModal: gotoAndDismissTutorialModal(page),
       page,
       gamePage: new GamePage(page),
       homePage: new HomePage(page),
@@ -57,6 +70,7 @@ export const multiplayerTest = base.extend<{
   secondPlayerPages: async ({ context }, use) => {
     const page = await context.newPage();
     await use({
+      gotoAndDismissTutorialModal: gotoAndDismissTutorialModal(page),
       page,
       gamePage: new GamePage(page),
       homePage: new HomePage(page),
