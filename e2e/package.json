@@ -1,12 +1,14 @@
 {
   "name": "e2e",
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "check-types": "tsc",
     "format": "prettier --write .",
     "lint": "eslint --ext .ts --max-warnings 0 tests",
+    "lint:fix": "npm run lint -- --fix",
     "prepare": "playwright install",
     "report": "playwright show-report",
     "test": "playwright test",

@@ -6,10 +6,12 @@
   "scripts": {
     "build": "npm run -w app build",
     "check-types": "npm run -ws --if-present check-types",
+    "commit-msg": "commitlint --edit",
     "dev": "npm run -w app dev",
     "e2e": "npm run -w e2e test",
     "format": "npm run --ws --if-present format",
     "lint": "npm run --ws --if-present lint",
+    "lint:fix": "npm run --ws --if-present lint:fix",
     "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test",
     "prepare": "husky install && npm run --ws --if-present prepare",
     "start": "npm run -w app start",
