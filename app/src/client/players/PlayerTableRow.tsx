@@ -30,11 +30,10 @@ export type PlayerTableRowProps = {
   playerCount: number;
 };
 
-// TODO: Figure out why the eslint rule isn ot detecting these as IconType
 const STATUS_TO_ICON: Record<PlayerStatus, IconType> = {
-  [PlayerStatus.NOT_READY]: FaXmark as IconType,
-  [PlayerStatus.SPECTATING]: FaRegEye as IconType,
-  [PlayerStatus.READY]: FaCheck as IconType,
+  [PlayerStatus.NOT_READY]: FaXmark,
+  [PlayerStatus.SPECTATING]: FaRegEye,
+  [PlayerStatus.READY]: FaCheck,
 };
 
 const STATUS_TO_COLOR: Record<PlayerStatus, string> = {
@@ -109,13 +108,13 @@ export default function PlayerTableRow({
           <span>{username}</span>
           {isAdmin && (
             <ForwardedTooltip label="Admin" hasArrow>
-              <Icon as={FaKey as IconType} boxSize={3} aria-label="Admin" />
+              <Icon as={FaKey} boxSize={3} aria-label="Admin" />
             </ForwardedTooltip>
           )}
           {isTopBanana && (
             <ForwardedTooltip label="Previous round winner" hasArrow>
               <Icon
-                as={FaCrown as IconType}
+                as={FaCrown}
                 boxSize={3}
                 aria-label="Previous round winner"
               />
