@@ -1,2635 +1,319 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> renders properly 1`] = `
-<LocalStorageProvider>
-  <ChakraProvider2
-    theme={
-      {
-        "blur": {
-          "2xl": "40px",
-          "3xl": "64px",
-          "base": "8px",
-          "lg": "16px",
-          "md": "12px",
-          "none": 0,
-          "sm": "4px",
-          "xl": "24px",
-        },
-        "borders": {
-          "1px": "1px solid",
-          "2px": "2px solid",
-          "4px": "4px solid",
-          "8px": "8px solid",
-          "none": 0,
-        },
-        "breakpoints": {
-          "2xl": "96em",
-          "base": "0em",
-          "lg": "62em",
-          "md": "48em",
-          "sm": "30em",
-          "xl": "80em",
-        },
-        "colors": {
-          "black": "#000000",
-          "blackAlpha": {
-            "100": "rgba(0, 0, 0, 0.06)",
-            "200": "rgba(0, 0, 0, 0.08)",
-            "300": "rgba(0, 0, 0, 0.16)",
-            "400": "rgba(0, 0, 0, 0.24)",
-            "50": "rgba(0, 0, 0, 0.04)",
-            "500": "rgba(0, 0, 0, 0.36)",
-            "600": "rgba(0, 0, 0, 0.48)",
-            "700": "rgba(0, 0, 0, 0.64)",
-            "800": "rgba(0, 0, 0, 0.80)",
-            "900": "rgba(0, 0, 0, 0.92)",
-          },
-          "blue": {
-            "100": "#bee3f8",
-            "200": "#90cdf4",
-            "300": "#63b3ed",
-            "400": "#4299e1",
-            "50": "#ebf8ff",
-            "500": "#3182ce",
-            "600": "#2b6cb0",
-            "700": "#2c5282",
-            "800": "#2a4365",
-            "900": "#1A365D",
-          },
-          "current": "currentColor",
-          "cyan": {
-            "100": "#C4F1F9",
-            "200": "#9DECF9",
-            "300": "#76E4F7",
-            "400": "#0BC5EA",
-            "50": "#EDFDFD",
-            "500": "#00B5D8",
-            "600": "#00A3C4",
-            "700": "#0987A0",
-            "800": "#086F83",
-            "900": "#065666",
-          },
-          "facebook": {
-            "100": "#D9DEE9",
-            "200": "#B7C2DA",
-            "300": "#6482C0",
-            "400": "#4267B2",
-            "50": "#E8F4F9",
-            "500": "#385898",
-            "600": "#314E89",
-            "700": "#29487D",
-            "800": "#223B67",
-            "900": "#1E355B",
-          },
-          "gray": {
-            "100": "#EDF2F7",
-            "200": "#E2E8F0",
-            "300": "#CBD5E0",
-            "400": "#A0AEC0",
-            "50": "#F7FAFC",
-            "500": "#718096",
-            "600": "#4A5568",
-            "700": "#2D3748",
-            "800": "#1A202C",
-            "900": "#171923",
-          },
-          "green": {
-            "100": "#C6F6D5",
-            "200": "#9AE6B4",
-            "300": "#68D391",
-            "400": "#48BB78",
-            "50": "#F0FFF4",
-            "500": "#38A169",
-            "600": "#2F855A",
-            "700": "#276749",
-            "800": "#22543D",
-            "900": "#1C4532",
-          },
-          "linkedin": {
-            "100": "#CFEDFB",
-            "200": "#9BDAF3",
-            "300": "#68C7EC",
-            "400": "#34B3E4",
-            "50": "#E8F4F9",
-            "500": "#00A0DC",
-            "600": "#008CC9",
-            "700": "#0077B5",
-            "800": "#005E93",
-            "900": "#004471",
-          },
-          "messenger": {
-            "100": "#B9DAFF",
-            "200": "#A2CDFF",
-            "300": "#7AB8FF",
-            "400": "#2E90FF",
-            "50": "#D0E6FF",
-            "500": "#0078FF",
-            "600": "#0063D1",
-            "700": "#0052AC",
-            "800": "#003C7E",
-            "900": "#002C5C",
-          },
-          "orange": {
-            "100": "#FEEBC8",
-            "200": "#FBD38D",
-            "300": "#F6AD55",
-            "400": "#ED8936",
-            "50": "#FFFAF0",
-            "500": "#DD6B20",
-            "600": "#C05621",
-            "700": "#9C4221",
-            "800": "#7B341E",
-            "900": "#652B19",
-          },
-          "pink": {
-            "100": "#FED7E2",
-            "200": "#FBB6CE",
-            "300": "#F687B3",
-            "400": "#ED64A6",
-            "50": "#FFF5F7",
-            "500": "#D53F8C",
-            "600": "#B83280",
-            "700": "#97266D",
-            "800": "#702459",
-            "900": "#521B41",
-          },
-          "purple": {
-            "100": "#E9D8FD",
-            "200": "#D6BCFA",
-            "300": "#B794F4",
-            "400": "#9F7AEA",
-            "50": "#FAF5FF",
-            "500": "#805AD5",
-            "600": "#6B46C1",
-            "700": "#553C9A",
-            "800": "#44337A",
-            "900": "#322659",
-          },
-          "red": {
-            "100": "#FED7D7",
-            "200": "#FEB2B2",
-            "300": "#FC8181",
-            "400": "#F56565",
-            "50": "#FFF5F5",
-            "500": "#E53E3E",
-            "600": "#C53030",
-            "700": "#9B2C2C",
-            "800": "#822727",
-            "900": "#63171B",
-          },
-          "teal": {
-            "100": "#B2F5EA",
-            "200": "#81E6D9",
-            "300": "#4FD1C5",
-            "400": "#38B2AC",
-            "50": "#E6FFFA",
-            "500": "#319795",
-            "600": "#2C7A7B",
-            "700": "#285E61",
-            "800": "#234E52",
-            "900": "#1D4044",
-          },
-          "telegram": {
-            "100": "#C5E4F3",
-            "200": "#A2D4EC",
-            "300": "#7AC1E4",
-            "400": "#47A9DA",
-            "50": "#E3F2F9",
-            "500": "#0088CC",
-            "600": "#007AB8",
-            "700": "#006BA1",
-            "800": "#005885",
-            "900": "#003F5E",
-          },
-          "transparent": "transparent",
-          "twitter": {
-            "100": "#C8E9FB",
-            "200": "#A8DCFA",
-            "300": "#83CDF7",
-            "400": "#57BBF5",
-            "50": "#E5F4FD",
-            "500": "#1DA1F2",
-            "600": "#1A94DA",
-            "700": "#1681BF",
-            "800": "#136B9E",
-            "900": "#0D4D71",
-          },
-          "whatsapp": {
-            "100": "#b9f5d0",
-            "200": "#90edb3",
-            "300": "#65e495",
-            "400": "#3cdd78",
-            "50": "#dffeec",
-            "500": "#22c35e",
-            "600": "#179848",
-            "700": "#0c6c33",
-            "800": "#01421c",
-            "900": "#001803",
-          },
-          "white": "#FFFFFF",
-          "whiteAlpha": {
-            "100": "rgba(255, 255, 255, 0.06)",
-            "200": "rgba(255, 255, 255, 0.08)",
-            "300": "rgba(255, 255, 255, 0.16)",
-            "400": "rgba(255, 255, 255, 0.24)",
-            "50": "rgba(255, 255, 255, 0.04)",
-            "500": "rgba(255, 255, 255, 0.36)",
-            "600": "rgba(255, 255, 255, 0.48)",
-            "700": "rgba(255, 255, 255, 0.64)",
-            "800": "rgba(255, 255, 255, 0.80)",
-            "900": "rgba(255, 255, 255, 0.92)",
-          },
-          "yellow": {
-            "100": "#FEFCBF",
-            "200": "#FAF089",
-            "300": "#F6E05E",
-            "400": "#ECC94B",
-            "50": "#FFFFF0",
-            "500": "#D69E2E",
-            "600": "#B7791F",
-            "700": "#975A16",
-            "800": "#744210",
-            "900": "#5F370E",
-          },
-        },
-        "components": {
-          "Accordion": {
-            "baseStyle": {
-              "button": {
-                "_disabled": {
-                  "cursor": "not-allowed",
-                  "opacity": 0.4,
-                },
-                "_focusVisible": {
-                  "boxShadow": "outline",
-                },
-                "_hover": {
-                  "bg": "blackAlpha.50",
-                },
-                "fontSize": "md",
-                "px": "4",
-                "py": "2",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-              },
-              "container": {
-                "_last": {
-                  "borderBottomWidth": "1px",
-                },
-                "borderColor": "inherit",
-                "borderTopWidth": "1px",
-              },
-              "icon": {
-                "fontSize": "1.25em",
-              },
-              "panel": {
-                "pb": "5",
-                "pt": "2",
-                "px": "4",
-              },
-            },
-            "parts": [
-              "root",
-              "container",
-              "button",
-              "panel",
-              "icon",
-            ],
-          },
-          "Alert": {
-            "baseStyle": {
-              "container": {
-                "bg": "var(--alert-bg)",
-                "px": "4",
-                "py": "3",
-              },
-              "description": {
-                "lineHeight": "6",
-              },
-              "icon": {
-                "color": "var(--alert-fg)",
-                "flexShrink": 0,
-                "h": "6",
-                "marginEnd": "3",
-                "w": "5",
-              },
-              "spinner": {
-                "color": "var(--alert-fg)",
-                "flexShrink": 0,
-                "h": "5",
-                "marginEnd": "3",
-                "w": "5",
-              },
-              "title": {
-                "fontWeight": "bold",
-                "lineHeight": "6",
-                "marginEnd": "2",
-              },
-            },
-            "defaultProps": {
-              "colorScheme": "blue",
-              "variant": "subtle",
-            },
-            "parts": [
-              "title",
-              "description",
-              "container",
-              "icon",
-              "spinner",
-            ],
-            "variants": {
-              "left-accent": [Function],
-              "solid": [Function],
-              "subtle": [Function],
-              "top-accent": [Function],
-            },
-          },
-          "Avatar": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "size": "md",
-            },
-            "parts": [
-              "label",
-              "badge",
-              "container",
-              "excessLabel",
-              "group",
-            ],
-            "sizes": {
-              "2xl": {
-                "container": {
-                  "--avatar-font-size": "calc(8rem / 2.5)",
-                  "--avatar-size": "8rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(8rem / 2.5)",
-                  "--avatar-size": "8rem",
-                },
-              },
-              "2xs": {
-                "container": {
-                  "--avatar-font-size": "calc(1rem / 2.5)",
-                  "--avatar-size": "1rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(1rem / 2.5)",
-                  "--avatar-size": "1rem",
-                },
-              },
-              "full": {
-                "container": {
-                  "--avatar-font-size": "calc(100% / 2.5)",
-                  "--avatar-size": "100%",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(100% / 2.5)",
-                  "--avatar-size": "100%",
-                },
-              },
-              "lg": {
-                "container": {
-                  "--avatar-font-size": "calc(4rem / 2.5)",
-                  "--avatar-size": "4rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(4rem / 2.5)",
-                  "--avatar-size": "4rem",
-                },
-              },
-              "md": {
-                "container": {
-                  "--avatar-font-size": "calc(3rem / 2.5)",
-                  "--avatar-size": "3rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(3rem / 2.5)",
-                  "--avatar-size": "3rem",
-                },
-              },
-              "sm": {
-                "container": {
-                  "--avatar-font-size": "calc(2rem / 2.5)",
-                  "--avatar-size": "2rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(2rem / 2.5)",
-                  "--avatar-size": "2rem",
-                },
-              },
-              "xl": {
-                "container": {
-                  "--avatar-font-size": "calc(6rem / 2.5)",
-                  "--avatar-size": "6rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(6rem / 2.5)",
-                  "--avatar-size": "6rem",
-                },
-              },
-              "xs": {
-                "container": {
-                  "--avatar-font-size": "calc(1.5rem / 2.5)",
-                  "--avatar-size": "1.5rem",
-                },
-                "excessLabel": {
-                  "--avatar-font-size": "calc(1.5rem / 2.5)",
-                  "--avatar-size": "1.5rem",
-                },
-              },
-            },
-          },
-          "Badge": {
-            "baseStyle": {
-              "bg": "var(--badge-bg)",
-              "borderRadius": "sm",
-              "boxShadow": "var(--badge-shadow)",
-              "color": "var(--badge-color)",
-              "fontSize": "xs",
-              "fontWeight": "bold",
-              "px": 1,
-              "textTransform": "uppercase",
-            },
-            "defaultProps": {
-              "colorScheme": "gray",
-              "variant": "subtle",
-            },
-            "variants": {
-              "outline": [Function],
-              "solid": [Function],
-              "subtle": [Function],
-            },
-          },
-          "Breadcrumb": {
-            "baseStyle": {
-              "link": {
-                "&:not([aria-current=page])": {
-                  "_focusVisible": {
-                    "boxShadow": "outline",
-                  },
-                  "_hover": {
-                    "--breadcrumb-link-decor": "underline",
-                  },
-                  "cursor": "pointer",
-                },
-                "--breadcrumb-link-decor": "none",
-                "color": "inherit",
-                "outline": "none",
-                "textDecoration": "var(--breadcrumb-link-decor)",
-                "transitionDuration": "fast",
-                "transitionProperty": "common",
-                "transitionTimingFunction": "ease-out",
-              },
-            },
-            "parts": [
-              "link",
-              "item",
-              "container",
-              "separator",
-            ],
-          },
-          "Button": {
-            "baseStyle": {
-              "_disabled": {
-                "boxShadow": "none",
-                "cursor": "not-allowed",
-                "opacity": 0.4,
-              },
-              "_focusVisible": {
-                "boxShadow": "outline",
-              },
-              "_hover": {
-                "_disabled": {
-                  "bg": "initial",
-                },
-              },
-              "borderRadius": "md",
-              "fontWeight": "semibold",
-              "lineHeight": "1.2",
-              "transitionDuration": "normal",
-              "transitionProperty": "common",
-            },
-            "defaultProps": {
-              "colorScheme": "gray",
-              "size": "md",
-              "variant": "solid",
-            },
-            "sizes": {
-              "lg": {
-                "fontSize": "lg",
-                "h": "12",
-                "minW": "12",
-                "px": "6",
-              },
-              "md": {
-                "fontSize": "md",
-                "h": "10",
-                "minW": "10",
-                "px": "4",
-              },
-              "sm": {
-                "fontSize": "sm",
-                "h": "8",
-                "minW": "8",
-                "px": "3",
-              },
-              "xs": {
-                "fontSize": "xs",
-                "h": "6",
-                "minW": "6",
-                "px": "2",
-              },
-            },
-            "variants": {
-              "ghost": [Function],
-              "link": [Function],
-              "outline": [Function],
-              "solid": [Function],
-              "unstyled": {
-                "bg": "none",
-                "color": "inherit",
-                "display": "inline",
-                "lineHeight": "inherit",
-                "m": "0",
-                "p": "0",
-              },
-            },
-          },
-          "Card": {
-            "baseStyle": {
-              "body": {
-                "flex": "1 1 0%",
-                "padding": "var(--card-padding)",
-              },
-              "container": {
-                "--card-bg": "colors.chakra-body-bg",
-                "backgroundColor": "var(--card-bg)",
-                "borderColor": "var(--card-border-color)",
-                "borderRadius": "var(--card-radius)",
-                "borderWidth": "var(--card-border-width, 0)",
-                "boxShadow": "var(--card-shadow)",
-                "color": "chakra-body-text",
-              },
-              "footer": {
-                "padding": "var(--card-padding)",
-              },
-              "header": {
-                "padding": "var(--card-padding)",
-              },
-            },
-            "defaultProps": {
-              "size": "md",
-              "variant": "elevated",
-            },
-            "parts": [
-              "container",
-              "header",
-              "body",
-              "footer",
-            ],
-            "sizes": {
-              "lg": {
-                "container": {
-                  "--card-padding": "space.7",
-                  "--card-radius": "radii.xl",
-                },
-              },
-              "md": {
-                "container": {
-                  "--card-padding": "space.5",
-                  "--card-radius": "radii.md",
-                },
-              },
-              "sm": {
-                "container": {
-                  "--card-padding": "space.3",
-                  "--card-radius": "radii.base",
-                },
-              },
-            },
-            "variants": {
-              "elevated": {
-                "container": {
-                  "--card-shadow": "shadows.base",
-                  "_dark": {
-                    "--card-bg": "colors.gray.700",
-                  },
-                },
-              },
-              "filled": {
-                "container": {
-                  "--card-bg": "colors.chakra-subtle-bg",
-                },
-              },
-              "outline": {
-                "container": {
-                  "--card-border-color": "colors.chakra-border-color",
-                  "--card-border-width": "1px",
-                },
-              },
-              "unstyled": {
-                "body": {
-                  "--card-padding": 0,
-                },
-                "footer": {
-                  "--card-padding": 0,
-                },
-                "header": {
-                  "--card-padding": 0,
-                },
-              },
-            },
-          },
-          "Checkbox": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "control",
-              "icon",
-              "container",
-              "label",
-            ],
-            "sizes": {
-              "lg": {
-                "control": {
-                  "--checkbox-size": "sizes.5",
-                },
-                "icon": {
-                  "fontSize": "2xs",
-                },
-                "label": {
-                  "fontSize": "lg",
-                },
-              },
-              "md": {
-                "control": {
-                  "--checkbox-size": "sizes.4",
-                },
-                "icon": {
-                  "fontSize": "2xs",
-                },
-                "label": {
-                  "fontSize": "md",
-                },
-              },
-              "sm": {
-                "control": {
-                  "--checkbox-size": "sizes.3",
-                },
-                "icon": {
-                  "fontSize": "3xs",
-                },
-                "label": {
-                  "fontSize": "sm",
-                },
-              },
-            },
-          },
-          "CloseButton": {
-            "baseStyle": {
-              "_active": {
-                "--close-button-bg": "colors.blackAlpha.200",
-                "_dark": {
-                  "--close-button-bg": "colors.whiteAlpha.200",
-                },
-              },
-              "_disabled": {
-                "boxShadow": "none",
-                "cursor": "not-allowed",
-                "opacity": 0.4,
-              },
-              "_focusVisible": {
-                "boxShadow": "outline",
-              },
-              "_hover": {
-                "--close-button-bg": "colors.blackAlpha.100",
-                "_dark": {
-                  "--close-button-bg": "colors.whiteAlpha.100",
-                },
-              },
-              "bg": "var(--close-button-bg)",
-              "borderRadius": "md",
-              "h": [
-                "var(--close-button-size)",
-              ],
-              "transitionDuration": "normal",
-              "transitionProperty": "common",
-              "w": [
-                "var(--close-button-size)",
-              ],
-            },
-            "defaultProps": {
-              "size": "md",
-            },
-            "sizes": {
-              "lg": {
-                "--close-button-size": "sizes.10",
-                "fontSize": "md",
-              },
-              "md": {
-                "--close-button-size": "sizes.8",
-                "fontSize": "xs",
-              },
-              "sm": {
-                "--close-button-size": "sizes.6",
-                "fontSize": "2xs",
-              },
-            },
-          },
-          "Code": {
-            "baseStyle": {
-              "bg": "var(--badge-bg)",
-              "borderRadius": "sm",
-              "boxShadow": "var(--badge-shadow)",
-              "color": "var(--badge-color)",
-              "fontFamily": "mono",
-              "fontSize": "sm",
-              "px": "0.2em",
-            },
-            "defaultProps": {
-              "colorScheme": "gray",
-              "variant": "subtle",
-            },
-            "variants": {
-              "outline": [Function],
-              "solid": [Function],
-              "subtle": [Function],
-            },
-          },
-          "Container": {
-            "baseStyle": {
-              "maxW": "prose",
-              "mx": "auto",
-              "px": "4",
-              "w": "100%",
-            },
-          },
-          "Divider": {
-            "baseStyle": {
-              "borderColor": "inherit",
-              "opacity": 0.6,
-            },
-            "defaultProps": {
-              "variant": "solid",
-            },
-            "variants": {
-              "dashed": {
-                "borderStyle": "dashed",
-              },
-              "solid": {
-                "borderStyle": "solid",
-              },
-            },
-          },
-          "Drawer": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "size": "xs",
-            },
-            "parts": [
-              "overlay",
-              "dialogContainer",
-              "dialog",
-              "header",
-              "closeButton",
-              "body",
-              "footer",
-            ],
-            "sizes": {
-              "full": {
-                "dialog": {
-                  "h": "100vh",
-                  "maxW": "100vw",
-                },
-              },
-              "lg": {
-                "dialog": {
-                  "maxW": "2xl",
-                },
-              },
-              "md": {
-                "dialog": {
-                  "maxW": "lg",
-                },
-              },
-              "sm": {
-                "dialog": {
-                  "maxW": "md",
-                },
-              },
-              "xl": {
-                "dialog": {
-                  "maxW": "4xl",
-                },
-              },
-              "xs": {
-                "dialog": {
-                  "maxW": "xs",
-                },
-              },
-            },
-          },
-          "Editable": {
-            "baseStyle": {
-              "input": {
-                "_focusVisible": {
-                  "boxShadow": "outline",
-                },
-                "_placeholder": {
-                  "opacity": 0.6,
-                },
-                "borderRadius": "md",
-                "py": "1",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-                "width": "full",
-              },
-              "preview": {
-                "borderRadius": "md",
-                "py": "1",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-              },
-              "textarea": {
-                "_focusVisible": {
-                  "boxShadow": "outline",
-                },
-                "_placeholder": {
-                  "opacity": 0.6,
-                },
-                "borderRadius": "md",
-                "py": "1",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-                "width": "full",
-              },
-            },
-            "parts": [
-              "preview",
-              "input",
-              "textarea",
-            ],
-          },
-          "Form": {
-            "baseStyle": {
-              "container": {
-                "position": "relative",
-                "width": "100%",
-              },
-              "helperText": {
-                "--form-control-color": "colors.gray.600",
-                "_dark": {
-                  "--form-control-color": "colors.whiteAlpha.600",
-                },
-                "color": "var(--form-control-color)",
-                "fontSize": "sm",
-                "lineHeight": "normal",
-                "mt": "2",
-              },
-              "requiredIndicator": {
-                "--form-control-color": "colors.red.500",
-                "_dark": {
-                  "--form-control-color": "colors.red.300",
-                },
-                "color": "var(--form-control-color)",
-                "marginStart": "1",
-              },
-            },
-            "parts": [
-              "container",
-              "requiredIndicator",
-              "helperText",
-            ],
-          },
-          "FormError": {
-            "baseStyle": {
-              "icon": {
-                "--form-error-color": "colors.red.500",
-                "_dark": {
-                  "--form-error-color": "colors.red.300",
-                },
-                "color": "var(--form-error-color)",
-                "marginEnd": "0.5em",
-              },
-              "text": {
-                "--form-error-color": "colors.red.500",
-                "_dark": {
-                  "--form-error-color": "colors.red.300",
-                },
-                "color": "var(--form-error-color)",
-                "fontSize": "sm",
-                "lineHeight": "normal",
-                "mt": "2",
-              },
-            },
-            "parts": [
-              "text",
-              "icon",
-            ],
-          },
-          "FormLabel": {
-            "baseStyle": {
-              "_disabled": {
-                "opacity": 0.4,
-              },
-              "fontSize": "md",
-              "fontWeight": "medium",
-              "marginEnd": "3",
-              "mb": "2",
-              "opacity": 1,
-              "transitionDuration": "normal",
-              "transitionProperty": "common",
-            },
-          },
-          "Heading": {
-            "baseStyle": {
-              "fontFamily": "heading",
-              "fontWeight": "bold",
-            },
-            "defaultProps": {
-              "size": "xl",
-            },
-            "sizes": {
-              "2xl": {
-                "fontSize": [
-                  "4xl",
-                  null,
-                  "5xl",
-                ],
-                "lineHeight": [
-                  1.2,
-                  null,
-                  1,
-                ],
-              },
-              "3xl": {
-                "fontSize": [
-                  "5xl",
-                  null,
-                  "6xl",
-                ],
-                "lineHeight": 1,
-              },
-              "4xl": {
-                "fontSize": [
-                  "6xl",
-                  null,
-                  "7xl",
-                ],
-                "lineHeight": 1,
-              },
-              "lg": {
-                "fontSize": [
-                  "2xl",
-                  null,
-                  "3xl",
-                ],
-                "lineHeight": [
-                  1.33,
-                  null,
-                  1.2,
-                ],
-              },
-              "md": {
-                "fontSize": "xl",
-                "lineHeight": 1.2,
-              },
-              "sm": {
-                "fontSize": "md",
-                "lineHeight": 1.2,
-              },
-              "xl": {
-                "fontSize": [
-                  "3xl",
-                  null,
-                  "4xl",
-                ],
-                "lineHeight": [
-                  1.33,
-                  null,
-                  1.2,
-                ],
-              },
-              "xs": {
-                "fontSize": "sm",
-                "lineHeight": 1.2,
-              },
-            },
-          },
-          "Input": {
-            "baseStyle": {
-              "addon": {
-                "borderRadius": "var(--input-border-radius)",
-                "fontSize": "var(--input-font-size)",
-                "height": "var(--input-height)",
-                "px": "var(--input-padding)",
-              },
-              "field": {
-                "_disabled": {
-                  "cursor": "not-allowed",
-                  "opacity": 0.4,
-                },
-                "appearance": "none",
-                "borderRadius": "var(--input-border-radius)",
-                "fontSize": "var(--input-font-size)",
-                "height": "var(--input-height)",
-                "minWidth": 0,
-                "outline": 0,
-                "position": "relative",
-                "px": "var(--input-padding)",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-                "width": "100%",
-              },
-            },
-            "defaultProps": {
-              "size": "md",
-              "variant": "outline",
-            },
-            "parts": [
-              "addon",
-              "field",
-              "element",
-              "group",
-            ],
-            "sizes": {
-              "lg": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.lg",
-                  "--input-height": "sizes.12",
-                  "--input-padding": "space.4",
-                },
-                "group": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.lg",
-                  "--input-height": "sizes.12",
-                  "--input-padding": "space.4",
-                },
-              },
-              "md": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.md",
-                  "--input-height": "sizes.10",
-                  "--input-padding": "space.4",
-                },
-                "group": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.md",
-                  "--input-height": "sizes.10",
-                  "--input-padding": "space.4",
-                },
-              },
-              "sm": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.sm",
-                  "--input-height": "sizes.8",
-                  "--input-padding": "space.3",
-                },
-                "group": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.sm",
-                  "--input-height": "sizes.8",
-                  "--input-padding": "space.3",
-                },
-              },
-              "xs": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.xs",
-                  "--input-height": "sizes.6",
-                  "--input-padding": "space.2",
-                },
-                "group": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.xs",
-                  "--input-height": "sizes.6",
-                  "--input-padding": "space.2",
-                },
-              },
-            },
-            "variants": {
-              "filled": [Function],
-              "flushed": [Function],
-              "outline": [Function],
-              "unstyled": {
-                "addon": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-                "field": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-              },
-            },
-          },
-          "Kbd": {
-            "baseStyle": {
-              "--kbd-bg": "colors.gray.100",
-              "_dark": {
-                "--kbd-bg": "colors.whiteAlpha.100",
-              },
-              "bg": "var(--kbd-bg)",
-              "borderBottomWidth": "3px",
-              "borderRadius": "md",
-              "borderWidth": "1px",
-              "fontSize": "0.8em",
-              "fontWeight": "bold",
-              "lineHeight": "normal",
-              "px": "0.4em",
-              "whiteSpace": "nowrap",
-            },
-          },
-          "Link": {
-            "baseStyle": {
-              "_focusVisible": {
-                "boxShadow": "outline",
-              },
-              "_hover": {
-                "textDecoration": "underline",
-              },
-              "color": "inherit",
-              "cursor": "pointer",
-              "outline": "none",
-              "textDecoration": "none",
-              "transitionDuration": "fast",
-              "transitionProperty": "common",
-              "transitionTimingFunction": "ease-out",
-            },
-          },
-          "List": {
-            "baseStyle": {
-              "icon": {
-                "display": "inline",
-                "marginEnd": "2",
-                "verticalAlign": "text-bottom",
-              },
-            },
-            "parts": [
-              "container",
-              "item",
-              "icon",
-            ],
-          },
-          "Menu": {
-            "baseStyle": {
-              "button": {
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-              },
-              "command": {
-                "opacity": 0.6,
-              },
-              "divider": {
-                "border": 0,
-                "borderBottom": "1px solid",
-                "borderColor": "inherit",
-                "my": "2",
-                "opacity": 0.6,
-              },
-              "groupTitle": {
-                "fontSize": "sm",
-                "fontWeight": "semibold",
-                "mx": 4,
-                "my": 2,
-              },
-              "icon": {
-                "alignItems": "center",
-                "display": "inline-flex",
-                "flexShrink": 0,
-                "justifyContent": "center",
-              },
-              "item": {
-                "_active": {
-                  "--menu-bg": "colors.gray.200",
-                  "_dark": {
-                    "--menu-bg": "colors.whiteAlpha.200",
-                  },
-                },
-                "_disabled": {
-                  "cursor": "not-allowed",
-                  "opacity": 0.4,
-                },
-                "_expanded": {
-                  "--menu-bg": "colors.gray.100",
-                  "_dark": {
-                    "--menu-bg": "colors.whiteAlpha.100",
-                  },
-                },
-                "_focus": {
-                  "--menu-bg": "colors.gray.100",
-                  "_dark": {
-                    "--menu-bg": "colors.whiteAlpha.100",
-                  },
-                },
-                "bg": "var(--menu-bg)",
-                "px": "3",
-                "py": "1.5",
-                "transitionDuration": "ultra-fast",
-                "transitionProperty": "background",
-                "transitionTimingFunction": "ease-in",
-              },
-              "list": {
-                "--menu-bg": "#fff",
-                "--menu-shadow": "shadows.sm",
-                "_dark": {
-                  "--menu-bg": "colors.gray.700",
-                  "--menu-shadow": "shadows.dark-lg",
-                },
-                "bg": "var(--menu-bg)",
-                "borderRadius": "md",
-                "borderWidth": "1px",
-                "boxShadow": "var(--menu-shadow)",
-                "color": "inherit",
-                "minW": "3xs",
-                "py": "2",
-                "zIndex": 1,
-              },
-            },
-            "parts": [
-              "button",
-              "list",
-              "item",
-              "groupTitle",
-              "icon",
-              "command",
-              "divider",
-            ],
-          },
-          "Modal": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "size": "md",
-            },
-            "parts": [
-              "overlay",
-              "dialogContainer",
-              "dialog",
-              "header",
-              "closeButton",
-              "body",
-              "footer",
-            ],
-            "sizes": {
-              "2xl": {
-                "dialog": {
-                  "maxW": "2xl",
-                },
-              },
-              "3xl": {
-                "dialog": {
-                  "maxW": "3xl",
-                },
-              },
-              "4xl": {
-                "dialog": {
-                  "maxW": "4xl",
-                },
-              },
-              "5xl": {
-                "dialog": {
-                  "maxW": "5xl",
-                },
-              },
-              "6xl": {
-                "dialog": {
-                  "maxW": "6xl",
-                },
-              },
-              "full": {
-                "dialog": {
-                  "borderRadius": "0",
-                  "maxW": "100vw",
-                  "minH": "$100vh",
-                  "my": "0",
-                },
-              },
-              "lg": {
-                "dialog": {
-                  "maxW": "lg",
-                },
-              },
-              "md": {
-                "dialog": {
-                  "maxW": "md",
-                },
-              },
-              "sm": {
-                "dialog": {
-                  "maxW": "sm",
-                },
-              },
-              "xl": {
-                "dialog": {
-                  "maxW": "xl",
-                },
-              },
-              "xs": {
-                "dialog": {
-                  "maxW": "xs",
-                },
-              },
-            },
-          },
-          "NumberInput": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "size": "md",
-              "variant": "outline",
-            },
-            "parts": [
-              "root",
-              "field",
-              "stepperGroup",
-              "stepper",
-            ],
-            "sizes": {
-              "lg": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.lg",
-                  "--input-height": "sizes.12",
-                  "--input-padding": "space.4",
-                  "paddingInlineEnd": "var(--number-input-input-padding)",
-                  "verticalAlign": "top",
-                },
-                "stepper": {
-                  "_first": {
-                    "borderTopEndRadius": "md",
-                  },
-                  "_last": {
-                    "borderBottomEndRadius": "md",
-                    "borderTopWidth": 1,
-                    "mt": "-1px",
-                  },
-                  "fontSize": "calc(1rem * 0.75)",
-                },
-              },
-              "md": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.md",
-                  "--input-height": "sizes.10",
-                  "--input-padding": "space.4",
-                  "paddingInlineEnd": "var(--number-input-input-padding)",
-                  "verticalAlign": "top",
-                },
-                "stepper": {
-                  "_first": {
-                    "borderTopEndRadius": "md",
-                  },
-                  "_last": {
-                    "borderBottomEndRadius": "md",
-                    "borderTopWidth": 1,
-                    "mt": "-1px",
-                  },
-                  "fontSize": "calc(1rem * 0.75)",
-                },
-              },
-              "sm": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.sm",
-                  "--input-height": "sizes.8",
-                  "--input-padding": "space.3",
-                  "paddingInlineEnd": "var(--number-input-input-padding)",
-                  "verticalAlign": "top",
-                },
-                "stepper": {
-                  "_first": {
-                    "borderTopEndRadius": "sm",
-                  },
-                  "_last": {
-                    "borderBottomEndRadius": "sm",
-                    "borderTopWidth": 1,
-                    "mt": "-1px",
-                  },
-                  "fontSize": "calc(1rem * 0.75)",
-                },
-              },
-              "xs": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.xs",
-                  "--input-height": "sizes.6",
-                  "--input-padding": "space.2",
-                  "paddingInlineEnd": "var(--number-input-input-padding)",
-                  "verticalAlign": "top",
-                },
-                "stepper": {
-                  "_first": {
-                    "borderTopEndRadius": "sm",
-                  },
-                  "_last": {
-                    "borderBottomEndRadius": "sm",
-                    "borderTopWidth": 1,
-                    "mt": "-1px",
-                  },
-                  "fontSize": "calc(1rem * 0.75)",
-                },
-              },
-            },
-            "variants": {
-              "filled": [Function],
-              "flushed": [Function],
-              "outline": [Function],
-              "unstyled": {
-                "addon": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-                "field": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-              },
-            },
-          },
-          "PinInput": {
-            "baseStyle": {
-              "_disabled": {
-                "cursor": "not-allowed",
-                "opacity": 0.4,
-              },
-              "appearance": "none",
-              "borderRadius": "var(--input-border-radius)",
-              "fontSize": "var(--input-font-size)",
-              "height": "var(--input-height)",
-              "minWidth": 0,
-              "outline": 0,
-              "position": "relative",
-              "px": "var(--input-padding)",
-              "textAlign": "center",
-              "transitionDuration": "normal",
-              "transitionProperty": "common",
-              "width": "100%",
-            },
-            "defaultProps": {
-              "size": "md",
-              "variant": "outline",
-            },
-            "sizes": {
-              "lg": {
-                "borderRadius": "md",
-                "fontSize": "lg",
-                "h": 12,
-                "w": 12,
-              },
-              "md": {
-                "borderRadius": "md",
-                "fontSize": "md",
-                "h": 10,
-                "w": 10,
-              },
-              "sm": {
-                "borderRadius": "sm",
-                "fontSize": "sm",
-                "h": 8,
-                "w": 8,
-              },
-              "xs": {
-                "borderRadius": "sm",
-                "fontSize": "xs",
-                "h": 6,
-                "w": 6,
-              },
-            },
-            "variants": {
-              "filled": [Function],
-              "flushed": [Function],
-              "outline": [Function],
-              "unstyled": {
-                "bg": "transparent",
-                "height": "auto",
-                "px": "0",
-              },
-            },
-          },
-          "Popover": {
-            "baseStyle": {
-              "body": {
-                "px": 3,
-                "py": 2,
-              },
-              "closeButton": {
-                "borderRadius": "md",
-                "insetEnd": 2,
-                "padding": 2,
-                "position": "absolute",
-                "top": 1,
-              },
-              "content": {
-                "--popper-arrow-bg": "var(--popper-bg)",
-                "--popper-arrow-shadow-color": "colors.gray.200",
-                "--popper-bg": "colors.white",
-                "_dark": {
-                  "--popper-arrow-shadow-color": "colors.whiteAlpha.300",
-                  "--popper-bg": "colors.gray.700",
-                },
-                "_focusVisible": {
-                  "boxShadow": "outline",
-                  "outline": 0,
-                },
-                "bg": "var(--popper-bg)",
-                "border": "1px solid",
-                "borderColor": "inherit",
-                "borderRadius": "md",
-                "boxShadow": "sm",
-                "width": "xs",
-                "zIndex": "inherit",
-              },
-              "footer": {
-                "borderTopWidth": "1px",
-                "px": 3,
-                "py": 2,
-              },
-              "header": {
-                "borderBottomWidth": "1px",
-                "px": 3,
-                "py": 2,
-              },
-              "popper": {
-                "zIndex": 10,
-              },
-            },
-            "parts": [
-              "content",
-              "header",
-              "body",
-              "footer",
-              "popper",
-              "arrow",
-              "closeButton",
-            ],
-          },
-          "Progress": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "label",
-              "filledTrack",
-              "track",
-            ],
-            "sizes": {
-              "lg": {
-                "track": {
-                  "h": "4",
-                },
-              },
-              "md": {
-                "track": {
-                  "h": "3",
-                },
-              },
-              "sm": {
-                "track": {
-                  "h": "2",
-                },
-              },
-              "xs": {
-                "track": {
-                  "h": "1",
-                },
-              },
-            },
-          },
-          "Radio": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "container",
-              "control",
-              "label",
-            ],
-            "sizes": {
-              "lg": {
-                "control": {
-                  "h": "5",
-                  "w": "5",
-                },
-                "label": {
-                  "fontSize": "lg",
-                },
-              },
-              "md": {
-                "control": {
-                  "h": "4",
-                  "w": "4",
-                },
-                "label": {
-                  "fontSize": "md",
-                },
-              },
-              "sm": {
-                "control": {
-                  "height": "3",
-                  "width": "3",
-                },
-                "label": {
-                  "fontSize": "sm",
-                },
-              },
-            },
-          },
-          "Select": {
-            "baseStyle": {
-              "field": {
-                "--select-bg": "colors.white",
-                "> option, > optgroup": {
-                  "bg": "var(--select-bg)",
-                },
-                "_dark": {
-                  "--select-bg": "colors.gray.700",
-                },
-                "_disabled": {
-                  "cursor": "not-allowed",
-                  "opacity": 0.4,
-                },
-                "appearance": "none",
-                "bg": "var(--select-bg)",
-                "borderRadius": "var(--input-border-radius)",
-                "fontSize": "var(--input-font-size)",
-                "height": "var(--input-height)",
-                "lineHeight": "normal",
-                "minWidth": 0,
-                "outline": 0,
-                "paddingBottom": "1px",
-                "position": "relative",
-                "px": "var(--input-padding)",
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-                "width": "100%",
-              },
-              "icon": {
-                "_disabled": {
-                  "opacity": 0.5,
-                },
-                "color": "currentColor",
-                "fontSize": "xl",
-                "height": "100%",
-                "insetEnd": "2",
-                "position": "relative",
-                "width": "6",
-              },
-            },
-            "defaultProps": {
-              "size": "md",
-              "variant": "outline",
-            },
-            "parts": [
-              "field",
-              "icon",
-            ],
-            "sizes": {
-              "lg": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.lg",
-                  "--input-height": "sizes.12",
-                  "--input-padding": "space.4",
-                  "paddingInlineEnd": "8",
-                },
-                "group": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.lg",
-                  "--input-height": "sizes.12",
-                  "--input-padding": "space.4",
-                },
-              },
-              "md": {
-                "field": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.md",
-                  "--input-height": "sizes.10",
-                  "--input-padding": "space.4",
-                  "paddingInlineEnd": "8",
-                },
-                "group": {
-                  "--input-border-radius": "radii.md",
-                  "--input-font-size": "fontSizes.md",
-                  "--input-height": "sizes.10",
-                  "--input-padding": "space.4",
-                },
-              },
-              "sm": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.sm",
-                  "--input-height": "sizes.8",
-                  "--input-padding": "space.3",
-                  "paddingInlineEnd": "8",
-                },
-                "group": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.sm",
-                  "--input-height": "sizes.8",
-                  "--input-padding": "space.3",
-                },
-              },
-              "xs": {
-                "field": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.xs",
-                  "--input-height": "sizes.6",
-                  "--input-padding": "space.2",
-                  "paddingInlineEnd": "8",
-                },
-                "group": {
-                  "--input-border-radius": "radii.sm",
-                  "--input-font-size": "fontSizes.xs",
-                  "--input-height": "sizes.6",
-                  "--input-padding": "space.2",
-                },
-                "icon": {
-                  "insetEnd": "1",
-                },
-              },
-            },
-            "variants": {
-              "filled": [Function],
-              "flushed": [Function],
-              "outline": [Function],
-              "unstyled": {
-                "addon": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-                "field": {
-                  "bg": "transparent",
-                  "height": "auto",
-                  "px": "0",
-                },
-              },
-            },
-          },
-          "Skeleton": {
-            "baseStyle": {
-              "--skeleton-end-color": "colors.gray.400",
-              "--skeleton-start-color": "colors.gray.100",
-              "_dark": {
-                "--skeleton-end-color": "colors.gray.600",
-                "--skeleton-start-color": "colors.gray.800",
-              },
-              "background": "var(--skeleton-start-color)",
-              "borderColor": "var(--skeleton-end-color)",
-              "borderRadius": "sm",
-              "opacity": 0.7,
-            },
-          },
-          "SkipLink": {
-            "baseStyle": {
-              "_focusVisible": {
-                "--skip-link-bg": "colors.white",
-                "_dark": {
-                  "--skip-link-bg": "colors.gray.700",
-                },
-                "bg": "var(--skip-link-bg)",
-                "boxShadow": "outline",
-                "insetStart": "6",
-                "padding": "4",
-                "position": "fixed",
-                "top": "6",
-              },
-              "borderRadius": "md",
-              "fontWeight": "semibold",
-            },
-          },
-          "Slider": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "container",
-              "track",
-              "thumb",
-              "filledTrack",
-              "mark",
-            ],
-            "sizes": {
-              "lg": {
-                "container": {
-                  "--slider-thumb-size": "sizes.4",
-                  "--slider-track-size": "sizes.1",
-                },
-              },
-              "md": {
-                "container": {
-                  "--slider-thumb-size": "sizes.3.5",
-                  "--slider-track-size": "sizes.1",
-                },
-              },
-              "sm": {
-                "container": {
-                  "--slider-thumb-size": "sizes.2.5",
-                  "--slider-track-size": "sizes.0.5",
-                },
-              },
-            },
-          },
-          "Spinner": {
-            "baseStyle": {
-              "height": [
-                "var(--spinner-size)",
-              ],
-              "width": [
-                "var(--spinner-size)",
-              ],
-            },
-            "defaultProps": {
-              "size": "md",
-            },
-            "sizes": {
-              "lg": {
-                "--spinner-size": "sizes.8",
-              },
-              "md": {
-                "--spinner-size": "sizes.6",
-              },
-              "sm": {
-                "--spinner-size": "sizes.4",
-              },
-              "xl": {
-                "--spinner-size": "sizes.12",
-              },
-              "xs": {
-                "--spinner-size": "sizes.3",
-              },
-            },
-          },
-          "Stat": {
-            "baseStyle": {
-              "container": {},
-              "helpText": {
-                "marginBottom": "2",
-                "opacity": 0.8,
-              },
-              "icon": {
-                "h": "3.5",
-                "marginEnd": 1,
-                "verticalAlign": "middle",
-                "w": "3.5",
-              },
-              "label": {
-                "fontWeight": "medium",
-              },
-              "number": {
-                "fontWeight": "semibold",
-                "verticalAlign": "baseline",
-              },
-            },
-            "defaultProps": {
-              "size": "md",
-            },
-            "parts": [
-              "container",
-              "label",
-              "helpText",
-              "number",
-              "icon",
-            ],
-            "sizes": {
-              "md": {
-                "helpText": {
-                  "fontSize": "sm",
-                },
-                "label": {
-                  "fontSize": "sm",
-                },
-                "number": {
-                  "fontSize": "2xl",
-                },
-              },
-            },
-          },
-          "Stepper": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "stepper",
-              "step",
-              "title",
-              "description",
-              "indicator",
-              "separator",
-              "icon",
-              "number",
-            ],
-            "sizes": {
-              "lg": {
-                "stepper": {
-                  "--stepper-description-font-size": "fontSizes.md",
-                  "--stepper-icon-size": "sizes.6",
-                  "--stepper-indicator-size": "sizes.10",
-                  "--stepper-title-font-size": "fontSizes.lg",
-                },
-              },
-              "md": {
-                "stepper": {
-                  "--stepper-description-font-size": "fontSizes.sm",
-                  "--stepper-icon-size": "sizes.5",
-                  "--stepper-indicator-size": "sizes.8",
-                  "--stepper-title-font-size": "fontSizes.md",
-                },
-              },
-              "sm": {
-                "stepper": {
-                  "--stepper-description-font-size": "fontSizes.xs",
-                  "--stepper-icon-size": "sizes.4",
-                  "--stepper-indicator-size": "sizes.6",
-                  "--stepper-title-font-size": "fontSizes.sm",
-                },
-              },
-              "xs": {
-                "stepper": {
-                  "--stepper-description-font-size": "fontSizes.xs",
-                  "--stepper-icon-size": "sizes.3",
-                  "--stepper-indicator-size": "sizes.4",
-                  "--stepper-title-font-size": "fontSizes.xs",
-                },
-              },
-            },
-          },
-          "Switch": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-            },
-            "parts": [
-              "container",
-              "track",
-              "thumb",
-              "label",
-            ],
-            "sizes": {
-              "lg": {
-                "container": {
-                  "--switch-track-height": "sizes.6",
-                  "--switch-track-width": "2.875rem",
-                },
-              },
-              "md": {
-                "container": {
-                  "--switch-track-height": "sizes.4",
-                  "--switch-track-width": "1.875rem",
-                },
-              },
-              "sm": {
-                "container": {
-                  "--switch-track-height": "sizes.3",
-                  "--switch-track-width": "1.375rem",
-                },
-              },
-            },
-          },
-          "Table": {
-            "baseStyle": {
-              "caption": {
-                "fontFamily": "heading",
-                "fontWeight": "medium",
-                "mt": 4,
-                "textAlign": "center",
-              },
-              "table": {
-                "borderCollapse": "collapse",
-                "fontVariantNumeric": "lining-nums tabular-nums",
-                "width": "full",
-              },
-              "td": {
-                "textAlign": "start",
-              },
-              "th": {
-                "fontFamily": "heading",
-                "fontWeight": "bold",
-                "letterSpacing": "wider",
-                "textAlign": "start",
-                "textTransform": "uppercase",
-              },
-            },
-            "defaultProps": {
-              "colorScheme": "gray",
-              "size": "md",
-              "variant": "simple",
-            },
-            "parts": [
-              "table",
-              "thead",
-              "tbody",
-              "tr",
-              "th",
-              "td",
-              "tfoot",
-              "caption",
-            ],
-            "sizes": {
-              "lg": {
-                "caption": {
-                  "fontSize": "md",
-                  "px": "6",
-                  "py": "2",
-                },
-                "td": {
-                  "lineHeight": "6",
-                  "px": "8",
-                  "py": "5",
-                },
-                "th": {
-                  "fontSize": "sm",
-                  "lineHeight": "5",
-                  "px": "8",
-                  "py": "4",
-                },
-              },
-              "md": {
-                "caption": {
-                  "fontSize": "sm",
-                  "px": "6",
-                  "py": "2",
-                },
-                "td": {
-                  "lineHeight": "5",
-                  "px": "6",
-                  "py": "4",
-                },
-                "th": {
-                  "fontSize": "xs",
-                  "lineHeight": "4",
-                  "px": "6",
-                  "py": "3",
-                },
-              },
-              "sm": {
-                "caption": {
-                  "fontSize": "xs",
-                  "px": "4",
-                  "py": "2",
-                },
-                "td": {
-                  "fontSize": "sm",
-                  "lineHeight": "4",
-                  "px": "4",
-                  "py": "2",
-                },
-                "th": {
-                  "fontSize": "xs",
-                  "lineHeight": "4",
-                  "px": "4",
-                  "py": "1",
-                },
-              },
-            },
-            "variants": {
-              "simple": [Function],
-              "striped": [Function],
-              "unstyled": {},
-            },
-          },
-          "Tabs": {
-            "baseStyle": [Function],
-            "defaultProps": {
-              "colorScheme": "blue",
-              "size": "md",
-              "variant": "line",
-            },
-            "parts": [
-              "root",
-              "tab",
-              "tablist",
-              "tabpanel",
-              "tabpanels",
-              "indicator",
-            ],
-            "sizes": {
-              "lg": {
-                "tab": {
-                  "fontSize": "lg",
-                  "px": 4,
-                  "py": 3,
-                },
-              },
-              "md": {
-                "tab": {
-                  "fontSize": "md",
-                  "px": 4,
-                  "py": 2,
-                },
-              },
-              "sm": {
-                "tab": {
-                  "fontSize": "sm",
-                  "px": 4,
-                  "py": 1,
-                },
-              },
-            },
-            "variants": {
-              "enclosed": [Function],
-              "enclosed-colored": [Function],
-              "line": [Function],
-              "soft-rounded": [Function],
-              "solid-rounded": [Function],
-              "unstyled": {},
-            },
-          },
-          "Tag": {
-            "baseStyle": {
-              "closeButton": {
-                "_active": {
-                  "opacity": 1,
-                },
-                "_disabled": {
-                  "opacity": 0.4,
-                },
-                "_focusVisible": {
-                  "bg": "rgba(0, 0, 0, 0.14)",
-                  "boxShadow": "outline",
-                },
-                "_hover": {
-                  "opacity": 0.8,
-                },
-                "borderRadius": "full",
-                "fontSize": "lg",
-                "h": "5",
-                "marginEnd": "-1",
-                "marginStart": "1.5",
-                "opacity": 0.5,
-                "transitionDuration": "normal",
-                "transitionProperty": "common",
-                "w": "5",
-              },
-              "container": {
-                "--tag-bg": "var(--badge-bg)",
-                "--tag-color": "var(--badge-color)",
-                "--tag-shadow": "var(--badge-shadow)",
-                "_focusVisible": {
-                  "--tag-shadow": "shadows.outline",
-                },
-                "bg": "var(--tag-bg)",
-                "borderRadius": "md",
-                "boxShadow": "var(--tag-shadow)",
-                "color": "var(--tag-color)",
-                "fontSize": "var(--tag-font-size)",
-                "fontWeight": "medium",
-                "lineHeight": 1.2,
-                "minH": "var(--tag-min-height)",
-                "minW": "var(--tag-min-width)",
-                "outline": 0,
-                "px": "var(--tag-padding-inline)",
-              },
-              "label": {
-                "lineHeight": 1.2,
-                "overflow": "visible",
-              },
-            },
-            "defaultProps": {
-              "colorScheme": "gray",
-              "size": "md",
-              "variant": "subtle",
-            },
-            "parts": [
-              "container",
-              "label",
-              "closeButton",
-            ],
-            "sizes": {
-              "lg": {
-                "container": {
-                  "--tag-font-size": "fontSizes.md",
-                  "--tag-min-height": "sizes.8",
-                  "--tag-min-width": "sizes.8",
-                  "--tag-padding-inline": "space.3",
-                },
-              },
-              "md": {
-                "container": {
-                  "--tag-font-size": "fontSizes.sm",
-                  "--tag-min-height": "sizes.6",
-                  "--tag-min-width": "sizes.6",
-                  "--tag-padding-inline": "space.2",
-                },
-              },
-              "sm": {
-                "closeButton": {
-                  "marginEnd": "-2px",
-                  "marginStart": "0.35rem",
-                },
-                "container": {
-                  "--tag-font-size": "fontSizes.xs",
-                  "--tag-min-height": "sizes.5",
-                  "--tag-min-width": "sizes.5",
-                  "--tag-padding-inline": "space.2",
-                },
-              },
-            },
-            "variants": {
-              "outline": [Function],
-              "solid": [Function],
-              "subtle": [Function],
-            },
-          },
-          "Textarea": {
-            "baseStyle": {
-              "_disabled": {
-                "cursor": "not-allowed",
-                "opacity": 0.4,
-              },
-              "appearance": "none",
-              "borderRadius": "var(--input-border-radius)",
-              "fontSize": "var(--input-font-size)",
-              "height": "var(--input-height)",
-              "lineHeight": "short",
-              "minHeight": "20",
-              "minWidth": 0,
-              "outline": 0,
-              "paddingY": "2",
-              "position": "relative",
-              "px": "var(--input-padding)",
-              "transitionDuration": "normal",
-              "transitionProperty": "common",
-              "verticalAlign": "top",
-              "width": "100%",
-            },
-            "defaultProps": {
-              "size": "md",
-              "variant": "outline",
-            },
-            "sizes": {
-              "lg": {
-                "--input-border-radius": "radii.md",
-                "--input-font-size": "fontSizes.lg",
-                "--input-height": "sizes.12",
-                "--input-padding": "space.4",
-              },
-              "md": {
-                "--input-border-radius": "radii.md",
-                "--input-font-size": "fontSizes.md",
-                "--input-height": "sizes.10",
-                "--input-padding": "space.4",
-              },
-              "sm": {
-                "--input-border-radius": "radii.sm",
-                "--input-font-size": "fontSizes.sm",
-                "--input-height": "sizes.8",
-                "--input-padding": "space.3",
-              },
-              "xs": {
-                "--input-border-radius": "radii.sm",
-                "--input-font-size": "fontSizes.xs",
-                "--input-height": "sizes.6",
-                "--input-padding": "space.2",
-              },
-            },
-            "variants": {
-              "filled": [Function],
-              "flushed": [Function],
-              "outline": [Function],
-              "unstyled": {
-                "bg": "transparent",
-                "height": "auto",
-                "px": "0",
-              },
-            },
-          },
-          "Tooltip": {
-            "baseStyle": {
-              "--popper-arrow-bg": "var(--tooltip-bg)",
-              "--tooltip-bg": "colors.gray.700",
-              "--tooltip-fg": "colors.whiteAlpha.900",
-              "_dark": {
-                "--tooltip-bg": "colors.gray.300",
-                "--tooltip-fg": "colors.gray.900",
-              },
-              "bg": "var(--tooltip-bg)",
-              "borderRadius": "sm",
-              "boxShadow": "md",
-              "color": "var(--tooltip-fg)",
-              "fontSize": "sm",
-              "fontWeight": "medium",
-              "maxW": "xs",
-              "px": "2",
-              "py": "0.5",
-              "zIndex": "tooltip",
-            },
-          },
-        },
-        "config": {
-          "cssVarPrefix": "chakra",
-          "initialColorMode": "system",
-          "useSystemColorMode": true,
-        },
-        "direction": "ltr",
-        "fontSizes": {
-          "2xl": "1.5rem",
-          "2xs": "0.625rem",
-          "3xl": "1.875rem",
-          "3xs": "0.45rem",
-          "4xl": "2.25rem",
-          "5xl": "3rem",
-          "6xl": "3.75rem",
-          "7xl": "4.5rem",
-          "8xl": "6rem",
-          "9xl": "8rem",
-          "lg": "1.125rem",
-          "md": "1rem",
-          "sm": "0.875rem",
-          "xl": "1.25rem",
-          "xs": "0.75rem",
-        },
-        "fontWeights": {
-          "black": 900,
-          "bold": 700,
-          "extrabold": 800,
-          "hairline": 100,
-          "light": 300,
-          "medium": 500,
-          "normal": 400,
-          "semibold": 600,
-          "thin": 200,
-        },
-        "fonts": {
-          "body": "-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"",
-          "heading": "-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"",
-          "mono": "SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace",
-        },
-        "letterSpacings": {
-          "normal": "0",
-          "tight": "-0.025em",
-          "tighter": "-0.05em",
-          "wide": "0.025em",
-          "wider": "0.05em",
-          "widest": "0.1em",
-        },
-        "lineHeights": {
-          "10": "2.5rem",
-          "3": ".75rem",
-          "4": "1rem",
-          "5": "1.25rem",
-          "6": "1.5rem",
-          "7": "1.75rem",
-          "8": "2rem",
-          "9": "2.25rem",
-          "base": 1.5,
-          "none": 1,
-          "normal": "normal",
-          "short": 1.375,
-          "shorter": 1.25,
-          "tall": 1.625,
-          "taller": "2",
-        },
-        "radii": {
-          "2xl": "1rem",
-          "3xl": "1.5rem",
-          "base": "0.25rem",
-          "full": "9999px",
-          "lg": "0.5rem",
-          "md": "0.375rem",
-          "none": "0",
-          "sm": "0.125rem",
-          "xl": "0.75rem",
-        },
-        "semanticTokens": {
-          "colors": {
-            "chakra-body-bg": {
-              "_dark": "gray.800",
-              "_light": "white",
-            },
-            "chakra-body-text": {
-              "_dark": "whiteAlpha.900",
-              "_light": "gray.800",
-            },
-            "chakra-border-color": {
-              "_dark": "whiteAlpha.300",
-              "_light": "gray.200",
-            },
-            "chakra-inverse-text": {
-              "_dark": "gray.800",
-              "_light": "white",
-            },
-            "chakra-placeholder-color": {
-              "_dark": "whiteAlpha.400",
-              "_light": "gray.500",
-            },
-            "chakra-subtle-bg": {
-              "_dark": "gray.700",
-              "_light": "gray.100",
-            },
-            "chakra-subtle-text": {
-              "_dark": "gray.400",
-              "_light": "gray.600",
-            },
-          },
-        },
-        "shadows": {
-          "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-          "base": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
-          "dark-lg": "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px",
-          "inner": "inset 0 2px 4px 0 rgba(0,0,0,0.06)",
-          "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-          "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          "none": "none",
-          "outline": "0 0 0 3px rgba(66, 153, 225, 0.6)",
-          "sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-          "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-          "xs": "0 0 0 1px rgba(0, 0, 0, 0.05)",
-        },
-        "sizes": {
-          "0.5": "0.125rem",
-          "1": "0.25rem",
-          "1.5": "0.375rem",
-          "10": "2.5rem",
-          "12": "3rem",
-          "14": "3.5rem",
-          "16": "4rem",
-          "2": "0.5rem",
-          "2.5": "0.625rem",
-          "20": "5rem",
-          "24": "6rem",
-          "28": "7rem",
-          "2xl": "42rem",
-          "2xs": "16rem",
-          "3": "0.75rem",
-          "3.5": "0.875rem",
-          "32": "8rem",
-          "36": "9rem",
-          "3xl": "48rem",
-          "3xs": "14rem",
-          "4": "1rem",
-          "40": "10rem",
-          "44": "11rem",
-          "48": "12rem",
-          "4xl": "56rem",
-          "5": "1.25rem",
-          "52": "13rem",
-          "56": "14rem",
-          "5xl": "64rem",
-          "6": "1.5rem",
-          "60": "15rem",
-          "64": "16rem",
-          "6xl": "72rem",
-          "7": "1.75rem",
-          "72": "18rem",
-          "7xl": "80rem",
-          "8": "2rem",
-          "80": "20rem",
-          "8xl": "90rem",
-          "9": "2.25rem",
-          "96": "24rem",
-          "container": {
-            "lg": "1024px",
-            "md": "768px",
-            "sm": "640px",
-            "xl": "1280px",
-          },
-          "full": "100%",
-          "lg": "32rem",
-          "max": "max-content",
-          "md": "28rem",
-          "min": "min-content",
-          "prose": "60ch",
-          "px": "1px",
-          "sm": "24rem",
-          "xl": "36rem",
-          "xs": "20rem",
-        },
-        "space": {
-          "0.5": "0.125rem",
-          "1": "0.25rem",
-          "1.5": "0.375rem",
-          "10": "2.5rem",
-          "12": "3rem",
-          "14": "3.5rem",
-          "16": "4rem",
-          "2": "0.5rem",
-          "2.5": "0.625rem",
-          "20": "5rem",
-          "24": "6rem",
-          "28": "7rem",
-          "3": "0.75rem",
-          "3.5": "0.875rem",
-          "32": "8rem",
-          "36": "9rem",
-          "4": "1rem",
-          "40": "10rem",
-          "44": "11rem",
-          "48": "12rem",
-          "5": "1.25rem",
-          "52": "13rem",
-          "56": "14rem",
-          "6": "1.5rem",
-          "60": "15rem",
-          "64": "16rem",
-          "7": "1.75rem",
-          "72": "18rem",
-          "8": "2rem",
-          "80": "20rem",
-          "9": "2.25rem",
-          "96": "24rem",
-          "px": "1px",
-        },
-        "styles": {
-          "global": {
-            "*, *::before, &::after": {
-              "borderColor": "chakra-border-color",
-            },
-            "*::placeholder": {
-              "color": "chakra-placeholder-color",
-            },
-            "body": {
-              "bg": "chakra-body-bg",
-              "color": "chakra-body-text",
-              "fontFamily": "body",
-              "lineHeight": "base",
-              "transitionDuration": "normal",
-              "transitionProperty": "background-color",
-            },
-          },
-        },
-        "transition": {
-          "duration": {
-            "fast": "150ms",
-            "faster": "100ms",
-            "normal": "200ms",
-            "slow": "300ms",
-            "slower": "400ms",
-            "ultra-fast": "50ms",
-            "ultra-slow": "500ms",
-          },
-          "easing": {
-            "ease-in": "cubic-bezier(0.4, 0, 1, 1)",
-            "ease-in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
-            "ease-out": "cubic-bezier(0, 0, 0.2, 1)",
-          },
-          "property": {
-            "background": "background-color, background-image, background-position",
-            "colors": "background-color, border-color, color, fill, stroke",
-            "common": "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
-            "dimensions": "width, height",
-            "position": "left, right, top, bottom",
-          },
-        },
-        "zIndices": {
-          "auto": "auto",
-          "banner": 1200,
-          "base": 0,
-          "docked": 10,
-          "dropdown": 1000,
-          "hide": -1,
-          "modal": 1400,
-          "overlay": 1300,
-          "popover": 1500,
-          "skipLink": 1600,
-          "sticky": 1100,
-          "toast": 1700,
-          "tooltip": 1800,
-        },
-      }
-    }
-    toastOptions={
-      {
-        "defaultOptions": {
-          "position": "top-left",
-        },
-      }
-    }
+<DocumentFragment>
+  <div
+    class="css-h74a88"
   >
-    <ContextProvider
-      value={
-        [
-          true,
-          [Function],
-        ]
-      }
+    <div
+      class="chakra-container css-vhc7ah"
     >
-      <BrowserRouter>
-        <ServerDisconnectDialog />
-        <AppRoutes />
-        <NavMenu />
-        <BraveBrowserDialog />
-        <TutorialModal />
-      </BrowserRouter>
-    </ContextProvider>
-  </ChakraProvider2>
-</LocalStorageProvider>
+      <form
+        autocomplete="off"
+        class="css-0"
+      >
+        <div
+          class="chakra-stack css-ahthbn"
+        >
+          <h1
+            class="chakra-heading css-xrxou1"
+          >
+            Start a new game
+          </h1>
+          <div
+            class="chakra-stack css-8g8ihq"
+          >
+            <div
+              class="chakra-form-control css-1kxonj9"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-g6pte"
+                for="gameName"
+                id="field-:r2:-label"
+              >
+                Game name
+                <span
+                  aria-hidden="true"
+                  class="chakra-form__required-indicator css-1tfjd1n"
+                  role="presentation"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-required="true"
+                class="chakra-input css-1cjy4zv"
+                id="gameName"
+                name="gameName"
+                required=""
+                value=""
+              />
+            </div>
+            <div
+              class="chakra-form-control css-1kxonj9"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-g6pte"
+                for="username"
+                id="field-:r3:-label"
+              >
+                Username
+                <span
+                  aria-hidden="true"
+                  class="chakra-form__required-indicator css-1tfjd1n"
+                  role="presentation"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-required="true"
+                autocomplete="username"
+                class="chakra-input css-1cjy4zv"
+                id="username"
+                name="username"
+                required=""
+                value=""
+              />
+            </div>
+          </div>
+          <button
+            class="chakra-button css-jut409"
+            type="submit"
+          >
+            Create game
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <button
+    aria-controls="menu-list-:r5:"
+    aria-expanded="false"
+    aria-haspopup="menu"
+    class="chakra-button chakra-menu__menu-button css-17ocm81"
+    id="menu-button-:r5:"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      fill="currentColor"
+      focusable="false"
+      height="1em"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 448 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
+      />
+    </svg>
+  </button>
+  <div
+    class="css-r6z5ec"
+    style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+  >
+    <div
+      aria-orientation="vertical"
+      class="chakra-menu__menu-list css-1kfu8nn"
+      id="menu-list-:r5:"
+      role="menu"
+      style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+      tabindex="-1"
+    >
+      <a
+        class="chakra-menu__menuitem css-18esm8n"
+        data-index="0"
+        href="/changelog"
+        id="menu-list-:r5:-menuitem-:r6:"
+        role="menuitem"
+        tabindex="-1"
+      >
+        <span
+          class="chakra-menu__icon-wrapper css-7halv9"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-menu__icon"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"
+            />
+          </svg>
+        </span>
+        <span
+          style="pointer-events: none; flex: 1;"
+        >
+          View changelog
+        </span>
+      </a>
+      <hr
+        aria-orientation="horizontal"
+        class="chakra-menu__divider css-12vdn2q"
+      />
+      <a
+        class="chakra-menu__menuitem css-18esm8n"
+        data-index="1"
+        href="/tutorial"
+        id="menu-list-:r5:-menuitem-:r7:"
+        role="menuitem"
+        tabindex="-1"
+      >
+        <span
+          class="chakra-menu__icon-wrapper css-7halv9"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-menu__icon"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 640 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160s6.3 19.1 15.8 22.6l57.9 20.9C57.3 229.3 48 259.8 48 291.9v28.1c0 28.4-10.8 57.7-22.3 80.8c-6.5 13-13.9 25.8-22.5 37.6C0 442.7-.9 448.3 .9 453.4s6 8.9 11.2 10.2l64 16c4.2 1.1 8.7 .3 12.4-2s6.3-6.1 7.1-10.4c8.6-42.8 4.3-81.2-2.1-108.7C90.3 344.3 86 329.8 80 316.5V291.9c0-30.2 10.2-58.7 27.9-81.5c12.9-15.5 29.6-28 49.2-35.7l157-61.7c8.2-3.2 17.5 .8 20.7 9s-.8 17.5-9 20.7l-157 61.7c-12.4 4.9-23.3 12.4-32.2 21.6l159.6 57.6c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.5-3.4 15.8-12.5 15.8-22.6s-6.3-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 408c0 35.3 86 72 192 72s192-36.7 192-72L496.7 262.6 354.5 314c-11.1 4-22.8 6-34.5 6s-23.5-2-34.5-6L143.3 262.6 128 408z"
+            />
+          </svg>
+        </span>
+        <span
+          style="pointer-events: none; flex: 1;"
+        >
+          Play tutorial
+        </span>
+      </a>
+      <a
+        class="chakra-menu__menuitem css-18esm8n"
+        data-index="2"
+        href="https://bananagrams.com/blogs/news/how-to-play-bananagrams-instructions-for-getting-started"
+        id="menu-list-:r5:-menuitem-:r8:"
+        rel="noreferrer"
+        role="menuitem"
+        tabindex="-1"
+        target="_blank"
+      >
+        <span
+          class="chakra-menu__icon-wrapper css-7halv9"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-menu__icon"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 576 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8V454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V83.8c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5z"
+            />
+          </svg>
+        </span>
+        <span
+          style="pointer-events: none; flex: 1;"
+        >
+          Read official instructions
+        </span>
+      </a>
+      <hr
+        aria-orientation="horizontal"
+        class="chakra-menu__divider css-12vdn2q"
+      />
+      <a
+        class="chakra-menu__menuitem css-18esm8n"
+        data-index="3"
+        href="https://github.com/jackieaskins/bananagrams/issues/new?template=bug_report.md"
+        id="menu-list-:r5:-menuitem-:r9:"
+        rel="noreferrer"
+        role="menuitem"
+        tabindex="-1"
+        target="_blank"
+      >
+        <span
+          class="chakra-menu__icon-wrapper css-7halv9"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-menu__icon"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 0c53 0 96 43 96 96v3.6c0 15.7-12.7 28.4-28.4 28.4H188.4c-15.7 0-28.4-12.7-28.4-28.4V96c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4H312c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H416c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6V240c0-8.8-7.2-16-16-16s-16 7.2-16 16V479.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96.3c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"
+            />
+          </svg>
+        </span>
+        <span
+          style="pointer-events: none; flex: 1;"
+        >
+          Report bug
+        </span>
+      </a>
+      <a
+        class="chakra-menu__menuitem css-18esm8n"
+        data-index="4"
+        href="https://github.com/jackieaskins/bananagrams/issues/new?template=feature_request.md"
+        id="menu-list-:r5:-menuitem-:ra:"
+        rel="noreferrer"
+        role="menuitem"
+        tabindex="-1"
+        target="_blank"
+      >
+        <span
+          class="chakra-menu__icon-wrapper css-7halv9"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-menu__icon"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 384 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"
+            />
+          </svg>
+        </span>
+        <span
+          style="pointer-events: none; flex: 1;"
+        >
+          Suggest new feature
+        </span>
+      </a>
+    </div>
+  </div>
+  <span
+    hidden=""
+    id="__chakra_env"
+  />
+</DocumentFragment>
 `;

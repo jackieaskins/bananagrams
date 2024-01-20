@@ -1,12 +1,23 @@
-import Adapter from "@cfaester/enzyme-adapter-react-18";
 import "@testing-library/jest-dom";
-import { configure } from "enzyme";
 import "jest-location-mock";
 import ResizeObserverPolyfill from "resize-observer-polyfill";
 
-configure({ adapter: new Adapter() });
-
 jest.mock("./env");
 jest.mock("./socket");
+
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query: any) => ({
+    matches: false,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
 
 global.ResizeObserver = ResizeObserverPolyfill;

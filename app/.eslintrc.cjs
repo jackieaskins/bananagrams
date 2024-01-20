@@ -39,6 +39,7 @@ module.exports = {
       "error",
       { alias: { "@": "./src" } },
     ],
+    "jest/consistent-test-it": "error",
     "jest/expect-expect": [
       "error",
       { assertFunctionNames: ["expect", "assert*"] },

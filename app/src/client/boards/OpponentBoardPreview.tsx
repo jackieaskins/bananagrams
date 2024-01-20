@@ -1,6 +1,6 @@
 import { HStack, IconButton, Select, Stack, Text } from "@chakra-ui/react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { useOpponentBoardPreview } from "./OpponentBoardPreviewState";
 import PlayerPreview from "@/client/redesign/PlayerPreview";
 import { socket } from "@/client/socket";
 import { Board } from "@/types/board";
@@ -24,13 +24,41 @@ export default function OpponentBoardPreview({
   const opponents = includeCurrentPlayer
     ? players
     : players.filter((player) => player.userId !== socket.id);
-  const {
-    handleLeftClick,
-    handleRightClick,
-    handleSelectedPlayerChange,
-    selectedPlayerIndex,
-    selectedUserId,
-  } = useOpponentBoardPreview(opponents, initialPlayerIndex);
+  const [selectedUserId, setSelectedUserId] = useState<string | undefined>(
+    opponents[initialPlayerIndex]?.userId,
+  );
+
+  useEffect(() => {
+    if (!opponents.some(({ userId }) => userId === selectedUserId)) {
+      setSelectedUserId(opponents[0]?.userId);
+    }
+  }, [opponents, selectedUserId]);
+
+  const selectedPlayerIndex = useMemo(() => {
+    const foundIndex = opponents.findIndex(
+      ({ userId }) => userId === selectedUserId,
+    );
+    return foundIndex < 0 ? 0 : foundIndex;
+  }, [opponents, selectedUserId]);
+
+  const handleLeftClick = useCallback(() => {
+    const index =
+      selectedPlayerIndex <= 0 ? opponents.length - 1 : selectedPlayerIndex - 1;
+    setSelectedUserId(opponents[index]?.userId);
+  }, [opponents, selectedPlayerIndex]);
+
+  const handleRightClick = useCallback(() => {
+    const index =
+      selectedPlayerIndex >= opponents.length - 1 ? 0 : selectedPlayerIndex + 1;
+    setSelectedUserId(opponents[index]?.userId);
+  }, [opponents, selectedPlayerIndex]);
+
+  const handleSelectedPlayerChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedUserId(e.target.value);
+    },
+    [],
+  );
 
   if (opponents.length === 0) {
     return null;

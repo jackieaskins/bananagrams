@@ -13,6 +13,5 @@ module.exports = {
   displayName: "CLIENT",
   rootDir: "./src/client",
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
-  snapshotSerializers: ["enzyme-to-json/serializer"],
   testEnvironment: "jsdom",
 };

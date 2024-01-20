@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NotFound /> renders not found header 1`] = `
-<CenteredLayout>
-  <Heading
-    as="h1"
-    textAlign="center"
+<DocumentFragment>
+  <div
+    class="css-h74a88"
   >
-    404: Page Not Found
-  </Heading>
-</CenteredLayout>
+    <div
+      class="chakra-container css-0"
+    >
+      <h1
+        class="chakra-heading css-xi606m"
+      >
+        404: Page Not Found
+      </h1>
+    </div>
+  </div>
+</DocumentFragment>
 `;

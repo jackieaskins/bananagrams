@@ -129,7 +129,7 @@ describe("<SocketGameProvider />", () => {
     const getGameState = () => renderProviderWithHook().result.current;
 
     it("emits dump event on handleDump", () => {
-      getGameState().handleDump({ boardLocation, id, type: "tile" });
+      getGameState().handleDump({ boardLocation, id });
 
       expect(mockEmit).toHaveBeenCalledWith("dump", {
         boardLocation,

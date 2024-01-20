@@ -1,16 +1,12 @@
-import { shallow } from "enzyme";
 import CenteredLayout from "./CenteredLayout";
+import { renderComponent } from "@/client/testUtils";
 
 describe("<CeneteredLayout />", () => {
-  test("renders properly with default width", () => {
-    expect(
-      shallow(<CenteredLayout>Children</CenteredLayout>),
-    ).toMatchSnapshot();
-  });
+  it("renders properly", () => {
+    const { asFragment } = renderComponent(
+      <CenteredLayout>Children</CenteredLayout>,
+    );
 
-  test("renders properly with passed in width", () => {
-    expect(
-      shallow(<CenteredLayout width={2}>Children</CenteredLayout>),
-    ).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

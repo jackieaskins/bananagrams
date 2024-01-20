@@ -24,7 +24,7 @@ jest.mock("./dictionary/Dictionary", () => {
 
   return {
     initialize: jest.fn(),
-    isWord: jest.fn().mockImplementation((word) => words.includes(word)),
+    isWord: jest.fn((word: string) => words.includes(word)),
   };
 });
 

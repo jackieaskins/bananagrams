@@ -27,20 +27,20 @@ describe("Bunch Model", () => {
   });
 
   describe("getTiles", () => {
-    test("returns empty array by default", () => {
+    it("returns empty array by default", () => {
       expect(bunch.getTiles()).toHaveLength(0);
     });
   });
 
   describe("toJSON", () => {
-    test("returns fields converted to JSON", () => {
+    it("returns fields converted to JSON", () => {
       bunch.addTiles([new TileModel("A1", "A")]);
       expect(bunch.toJSON()).toMatchSnapshot();
     });
   });
 
   describe("reset", () => {
-    test("creates bunch with 3 tiles if shortened game", () => {
+    it("creates bunch with 3 tiles if shortened game", () => {
       const shortenedGame = new GameModel("gameId", "gameName", true);
       const shortenedBunch = new BunchModel(shortenedGame);
 
@@ -49,7 +49,7 @@ describe("Bunch Model", () => {
       expect(shortenedBunch.getTiles()).toMatchSnapshot();
     });
 
-    test("generates tiles with multiplier of 1 when <= 4 players", () => {
+    it("generates tiles with multiplier of 1 when <= 4 players", () => {
       addPlayersToGame(game, 4);
 
       bunch.reset();
@@ -59,7 +59,7 @@ describe("Bunch Model", () => {
       expect(tiles).toHaveLength(7);
     });
 
-    test("generates tiles with multiplier of 2 when > 4 players", () => {
+    it("generates tiles with multiplier of 2 when > 4 players", () => {
       addPlayersToGame(game, 7);
 
       bunch.reset();
@@ -71,7 +71,7 @@ describe("Bunch Model", () => {
   });
 
   describe("addTiles", () => {
-    test("adds tiles to bunch", () => {
+    it("adds tiles to bunch", () => {
       const tiles = [new TileModel("A1", "A"), new TileModel("B1", "B")];
       bunch.addTiles(tiles);
 
@@ -93,16 +93,16 @@ describe("Bunch Model", () => {
       jest.spyOn(global.Math, "random").mockRestore();
     });
 
-    test("throws an error if there is less than 1 requested tile", () => {
+    it("throws an error if there is less than 1 requested tile", () => {
       expect(() => bunch.removeTiles(1)).toThrowErrorMatchingSnapshot();
     });
 
-    test("throws an error if there are less than number of requested tiles", () => {
+    it("throws an error if there are less than number of requested tiles", () => {
       bunch.addTiles(tiles);
       expect(() => bunch.removeTiles(4)).toThrowErrorMatchingSnapshot();
     });
 
-    test("returns number of tiles requested", () => {
+    it("returns number of tiles requested", () => {
       bunch.addTiles(tiles);
       expect(bunch.removeTiles(2)).toEqual([tileA1, tileB1]);
     });

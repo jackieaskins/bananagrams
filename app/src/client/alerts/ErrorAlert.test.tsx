@@ -1,20 +1,22 @@
-import { shallow } from "enzyme";
+import { screen } from "@testing-library/react";
 import ErrorAlert from "./ErrorAlert";
+import { renderComponent } from "@/client/testUtils";
 
 describe("<ErrorAlert />", () => {
-  test("renders Alert when visible", () => {
-    expect(
-      shallow(
-        <ErrorAlert title="Title" visible>
-          Children
-        </ErrorAlert>,
-      ),
-    ).toMatchSnapshot();
+  it("renders Alert when visible", () => {
+    const { asFragment } = renderComponent(
+      <ErrorAlert title="Title" visible>
+        Children
+      </ErrorAlert>,
+    );
+
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  test("returns null when not visible", () => {
-    expect(
-      shallow(<ErrorAlert visible={false}>Error</ErrorAlert>),
-    ).toMatchSnapshot();
+  it("returns null when not visible", () => {
+    renderComponent(<ErrorAlert visible={false}>Error</ErrorAlert>);
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 });

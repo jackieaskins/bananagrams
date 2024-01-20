@@ -1,8 +1,10 @@
-import { shallow } from "enzyme";
 import NotFound from "./NotFound";
+import { renderComponent } from "./testUtils";
 
 describe("<NotFound />", () => {
-  test("renders not found header", () => {
-    expect(shallow(<NotFound />)).toMatchSnapshot();
+  it("renders not found header", () => {
+    const { asFragment } = renderComponent(<NotFound />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

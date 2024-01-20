@@ -14,26 +14,26 @@ describe("Hand Model", () => {
   });
 
   describe("set/getTiles", () => {
-    test("updates tiles", () => {
+    it("updates tiles", () => {
       hand.setTiles(defaultTiles);
       expect(hand.getTiles()).toEqual(defaultTiles);
     });
 
-    test("returns a copy of the tiles", () => {
+    it("returns a copy of the tiles", () => {
       hand.setTiles(defaultTiles);
       expect(hand.getTiles()).not.toBe(defaultTiles);
     });
   });
 
   describe("toJSON", () => {
-    test("returns array of JSON tiles", () => {
+    it("returns array of JSON tiles", () => {
       hand.setTiles(defaultTiles);
       expect(hand.toJSON()).toMatchSnapshot();
     });
   });
 
   describe("reset", () => {
-    test("clears tiles", () => {
+    it("clears tiles", () => {
       hand.setTiles(defaultTiles);
 
       hand.reset();
@@ -43,7 +43,7 @@ describe("Hand Model", () => {
   });
 
   describe("addTiles", () => {
-    test("adds tiles to hand", () => {
+    it("adds tiles to hand", () => {
       const tiles = [tileA1, tileB1];
 
       hand.addTiles(tiles);
@@ -55,7 +55,7 @@ describe("Hand Model", () => {
   });
 
   describe("removeTile", () => {
-    test("removes tile from hand", () => {
+    it("removes tile from hand", () => {
       hand.setTiles(defaultTiles);
 
       const removedTile = hand.removeTile("A1");
@@ -63,7 +63,7 @@ describe("Hand Model", () => {
       expect(hand.getTiles()).toEqual([tileB1, tileC1]);
     });
 
-    test("throws an error when tile is not in hand", () => {
+    it("throws an error when tile is not in hand", () => {
       expect(() => hand.removeTile("A1")).toThrowErrorMatchingSnapshot();
     });
   });
@@ -77,7 +77,7 @@ describe("Hand Model", () => {
       jest.spyOn(global.Math, "random").mockRestore();
     });
 
-    test("shuffles tiles", () => {
+    it("shuffles tiles", () => {
       hand.setTiles(defaultTiles);
 
       hand.shuffle();

@@ -6,6 +6,8 @@ const mockHandleMoveTileFromHandToBoard = jest.fn();
 const mockHandleMoveTileFromBoardToHand = jest.fn();
 const mockHandleMoveTileOnBoard = jest.fn();
 const mockHandlePeel = jest.fn();
+const mockHandleShuffleHand = jest.fn();
+const mockHandleSpectate = jest.fn();
 
 const gameInfo = getEmptyGameInfo("gameId");
 
@@ -19,6 +21,8 @@ function GameProvider({ children }: { children: React.ReactNode }) {
         handleMoveTileFromBoardToHand: mockHandleMoveTileFromBoardToHand,
         handleMoveTileOnBoard: mockHandleMoveTileOnBoard,
         handlePeel: mockHandlePeel,
+        handleShuffleHand: mockHandleShuffleHand,
+        handleSpectate: mockHandleSpectate,
         isInGame: true,
       }}
     >
@@ -39,13 +43,13 @@ describe("GameContext", () => {
   });
 
   it("provides dump handler", () => {
-    const tileItem = { id: "A1", boardLocation: { x: 0, y: 0 }, type: "tile" };
+    const tile = { id: "A1", boardLocation: { x: 0, y: 0 } };
 
     const { result } = renderGameWithHook();
 
-    result.current.handleDump(tileItem);
+    result.current.handleDump(tile);
 
-    expect(mockHandleDump).toHaveBeenCalledWith(tileItem);
+    expect(mockHandleDump).toHaveBeenCalledWith(tile);
   });
 
   it("provides moveTileFromHandToBoard handler", () => {
@@ -94,6 +98,22 @@ describe("GameContext", () => {
     result.current.handlePeel();
 
     expect(mockHandlePeel).toHaveBeenCalledWith();
+  });
+
+  it("provides shuffleHand handler", () => {
+    const { result } = renderGameWithHook();
+
+    result.current.handleShuffleHand();
+
+    expect(mockHandleShuffleHand).toHaveBeenCalledWith();
+  });
+
+  it("provides spectate handler", () => {
+    const { result } = renderGameWithHook();
+
+    result.current.handleSpectate();
+
+    expect(mockHandleSpectate).toHaveBeenCalledWith();
   });
 
   it("provides in game status", () => {

@@ -1,161 +1,157 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Changelog /> renders table of changes 1`] = `
-<Container>
-  <Heading
-    as="h1"
-    marginY="35px"
-    textAlign="center"
+<DocumentFragment>
+  <div
+    class="chakra-container css-0"
   >
-    Changelog
-  </Heading>
-  <ForwardRef>
-    <Table
-      variant="striped"
+    <h1
+      class="chakra-heading css-1d5appq"
     >
-      <ForwardRef>
-        <ForwardRef>
-          <ForwardRef
-            textAlign="right"
-          >
-            Date
-          </ForwardRef>
-          <ForwardRef>
-            Description
-          </ForwardRef>
-        </ForwardRef>
-      </ForwardRef>
-      <ForwardRef>
-        <ForwardRef
-          key="redesign"
+      Changelog
+    </h1>
+    <div
+      class="chakra-table__container css-zipzvv"
+    >
+      <table
+        class="chakra-table css-0"
+      >
+        <thead
+          class="css-0"
         >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
+          <tr
+            class="css-0"
           >
-            Jan 18, 2024
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
-          >
-            Gameplay has been completely redesigned! Give it a try, report bugs, and provide feedback.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="swap-tiles"
+            <th
+              class="css-s2uf1z"
+            >
+              Date
+            </th>
+            <th
+              class="css-0"
+            >
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="css-0"
         >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
+          <tr
+            class="css-0"
           >
-            Dec 2, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
+            <td
+              class="css-1c4xtpu"
+            >
+              Jan 18, 2024
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Gameplay has been completely redesigned! Give it a try, report bugs, and provide feedback.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Added the ability to swap tiles on the board by placing one tile on top of another.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="leave-game-tiles"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
+            <td
+              class="css-1c4xtpu"
+            >
+              Dec 2, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Added the ability to swap tiles on the board by placing one tile on top of another.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Nov 30, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 30, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Tiles will no longer return to the bunch when a player leaves the game.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Tiles will no longer return to the bunch when a player leaves the game.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="game-start"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 25, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Added start game button. The game will no longer automatically start when all players are ready.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Nov 25, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 24, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Added spectator mode. Players can now join in-progress games as spectators!
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Added start game button. The game will no longer automatically start when all players are ready.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="spectator-view"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 17, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Added changelog.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Nov 24, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 11, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              Added dark mode.
+            </td>
+          </tr>
+          <tr
+            class="css-0"
           >
-            Added spectator mode. Players can now join in-progress games as spectators!
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="changelog"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
-          >
-            Nov 17, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
-          >
-            Added changelog.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="dark-mode"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
-          >
-            Nov 11, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
-          >
-            Added dark mode.
-          </ForwardRef>
-        </ForwardRef>
-        <ForwardRef
-          key="and-we-back"
-        >
-          <ForwardRef
-            overflowWrap="break-word"
-            textAlign="right"
-            verticalAlign="top"
-          >
-            Nov 10, 2023
-          </ForwardRef>
-          <ForwardRef
-            whiteSpace="normal"
-          >
-            We're back!
-          </ForwardRef>
-        </ForwardRef>
-      </ForwardRef>
-    </Table>
-  </ForwardRef>
-</Container>
+            <td
+              class="css-1c4xtpu"
+            >
+              Nov 10, 2023
+            </td>
+            <td
+              class="css-xs9fqv"
+            >
+              We're back!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
 `;

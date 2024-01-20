@@ -1,8 +1,10 @@
-import { shallow } from "enzyme";
 import App from "./App";
+import { renderComponent } from "./testUtils";
 
 describe("<App />", () => {
-  test("renders properly", () => {
-    expect(shallow(<App />)).toMatchSnapshot();
+  it("renders properly", () => {
+    const { asFragment } = renderComponent(<App />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });
