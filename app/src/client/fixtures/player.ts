@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 import { Player, PlayerStatus } from "@/types/player";
 
 export function playerFixture(overrides: Partial<Player> = {}): Player {
   return {
-    userId: uuidv4(),
+    userId: randomUUID(),
     username: "username",
     status: PlayerStatus.NOT_READY,
     isTopBanana: false,

@@ -23,7 +23,7 @@ The project is managed using [NPM Workspaces](https://docs.npmjs.com/cli/v10/usi
 - `app`: Server and client code
 - `e2e`: Playwright integration tests
 
-This package enforces [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), be sure to follow the standards when creating commit messages.
+This package enforces [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), be sure to follow the standards when creating commit messages. Playwright CI will run whenever a commit is pushed to a repo and a new version of the website will be deployed on success. To avoid running CI (and deploying) for a commit, append `[skip ci]` to the end of the commit message. This should only be used for commits that don't have the potential to impact production.
 
 ### Commands
 

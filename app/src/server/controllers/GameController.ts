@@ -1,5 +1,5 @@
+import { randomUUID } from "crypto";
 import { Server, Socket } from "socket.io";
-import { v4 as uuidv4 } from "uuid";
 import GameModel from "@/server/models/GameModel";
 import PlayerModel from "@/server/models/PlayerModel";
 import { BoardLocation } from "@/types/board";
@@ -68,7 +68,7 @@ export default class GameController {
     let gameId: string;
 
     do {
-      gameId = uuidv4();
+      gameId = randomUUID();
     } while (this.games[gameId]);
 
     const game = new GameModel(gameId, gameName, isShortenedGame);
