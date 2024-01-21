@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import TutorialCompleteModal from "./TutorialCompleteModal";
 import { TutorialContext, TutorialStep } from "./TutorialContext";
 import TutorialGameProvider from "./TutorialGameProvider";
-import GameRedesign from "@/client/redesign/GameRedesign";
+import Game from "@/client/games/Game";
 
 export default function Tutorial(): JSX.Element {
   const [activeStep, setActiveStep] = useState<TutorialStep>(0);
@@ -14,7 +14,7 @@ export default function Tutorial(): JSX.Element {
   return (
     <TutorialContext.Provider value={{ activeStep, goToNextStep }}>
       <TutorialGameProvider>
-        <GameRedesign />
+        <Game />
         <TutorialCompleteModal />
       </TutorialGameProvider>
     </TutorialContext.Provider>

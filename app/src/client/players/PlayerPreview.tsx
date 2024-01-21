@@ -2,11 +2,11 @@ import { Box } from "@chakra-ui/react";
 import Konva from "konva";
 import { useState, useRef, useEffect } from "react";
 import { Layer, Stage } from "react-konva";
-import CanvasBoard from "./CanvasBoard";
-import { CanvasContext } from "./CanvasContext";
-import CanvasHand from "./CanvasHand";
-import { useLineColorHex } from "./colors";
-import { useHandCalculations } from "./useHandCalculations";
+import CanvasBoard from "@/client/canvas/CanvasBoard";
+import { CanvasContext } from "@/client/canvas/CanvasContext";
+import CanvasHand from "@/client/canvas/CanvasHand";
+import { useHandCalculations } from "@/client/hands/useHandCalculations";
+import { useLineColorHex } from "@/client/utils/colors";
 import { Board } from "@/types/board";
 import { Hand } from "@/types/hand";
 

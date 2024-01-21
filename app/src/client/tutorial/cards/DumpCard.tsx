@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import TutorialCard from "./TutorialCard";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { useTutorial } from "@/client/tutorial/TutorialContext";
 
 export default function DumpCard(): JSX.Element {

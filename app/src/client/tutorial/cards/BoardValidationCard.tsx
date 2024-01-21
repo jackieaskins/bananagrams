@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import TutorialCard from "./TutorialCard";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
 import { useTutorial } from "@/client/tutorial/TutorialContext";
 import { ValidationStatus } from "@/types/board";

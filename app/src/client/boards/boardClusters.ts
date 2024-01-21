@@ -1,4 +1,4 @@
-import { generateBoardKey, parseBoardKey } from "@/client/boards/key";
+import { generateBoardKey, parseBoardKey } from "./key";
 import { Board, BoardLocation } from "@/types/board";
 
 type BoardCluster = {

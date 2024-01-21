@@ -1,6 +1,6 @@
 import { Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
-import { useColorHex } from "./useColorHex";
+import { useColorHex } from "@/client/utils/useColorHex";
 import { Tile } from "@/types/tile";
 
 type CanvasInnerTileProps = {

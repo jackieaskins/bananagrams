@@ -13,8 +13,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa6";
-import PlayerPreview from "./PlayerPreview";
-import { useGame } from "@/client/games/GameContext";
+import { useGame } from "./GameContext";
+import PlayerPreview from "@/client/players/PlayerPreview";
 import { socket } from "@/client/socket";
 import { PlayerStatus } from "@/types/player";
 

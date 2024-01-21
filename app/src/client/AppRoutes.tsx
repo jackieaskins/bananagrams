@@ -2,10 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import Changelog from "./Changelog";
 import NotFound from "./NotFound";
 import CreateGame from "./games/CreateGame";
+import Game from "./games/Game";
 import GameManager from "./games/GameManager";
 import JoinGame from "./games/JoinGame";
 import SocketGameProvider from "./games/SocketGameProvider";
-import GameRedesign from "./redesign/GameRedesign";
 import useSocketManager from "./socket/useSocketManager";
 import Tutorial from "./tutorial/Tutorial";
 
@@ -19,7 +19,7 @@ export default function AppRoutes(): JSX.Element {
         path={`/game/:gameId`}
         element={
           <SocketGameProvider>
-            <GameManager game={<GameRedesign />} />
+            <GameManager game={<Game />} />
           </SocketGameProvider>
         }
       />

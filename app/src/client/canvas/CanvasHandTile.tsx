@@ -1,10 +1,10 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback } from "react";
 import CanvasTile from "./CanvasTile";
-import { useSelectedTile } from "./SelectedTileContext";
 import { CanvasName } from "./constants";
-import { setCursor } from "./setCursor";
 import { useGame } from "@/client/games/GameContext";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { setCursor } from "@/client/utils/setCursor";
 import { Tile } from "@/types/tile";
 
 type CanvasHandTileProps = {

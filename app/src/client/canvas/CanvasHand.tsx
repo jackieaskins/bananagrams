@@ -3,11 +3,11 @@ import { useCallback, useMemo, useState } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHandTile from "./CanvasHandTile";
-import { useSelectedTile } from "./SelectedTileContext";
-import { useOverlayBackgroundColors } from "./colors";
 import { CanvasName } from "./constants";
-import { setCursor } from "./setCursor";
 import { useGame } from "@/client/games/GameContext";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useOverlayBackgroundColors } from "@/client/utils/colors";
+import { setCursor } from "@/client/utils/setCursor";
 import { Hand } from "@/types/hand";
 
 type CanvasHandProps = {

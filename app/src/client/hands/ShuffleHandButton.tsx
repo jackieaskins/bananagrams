@@ -2,7 +2,7 @@ import { Button, ButtonProps, IconButton } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { FaShuffle } from "react-icons/fa6";
 import { useGame } from "@/client/games/GameContext";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 
 export interface ShuffleHandButtonProps extends ButtonProps {
   hideText?: boolean;

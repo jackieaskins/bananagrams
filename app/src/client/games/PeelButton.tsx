@@ -9,7 +9,7 @@ import { useMemo } from "react";
 import { FaPlay } from "react-icons/fa6";
 import { useGame } from "./GameContext";
 import { isValidConnectedBoard } from "@/client/boards/validate";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { PlayerStatus } from "@/types/player";
 
 export interface PeelButtonProps extends ButtonProps {

@@ -4,7 +4,7 @@ import PeelButton from "./PeelButton";
 import { isValidConnectedBoard } from "@/client/boards/validate";
 import { gameInfoFixture } from "@/client/fixtures/game";
 import { playerFixture } from "@/client/fixtures/player";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { renderComponent } from "@/client/testUtils";
 import { Board } from "@/types/board";
 import { Bunch } from "@/types/bunch";
@@ -19,7 +19,7 @@ jest.mock("../boards/validate", () => ({
 }));
 
 const mockUseCurrentPlayer = useCurrentPlayer as jest.Mock;
-jest.mock("../redesign/useCurrentPlayer", () => ({
+jest.mock("@/client/players/useCurrentPlayer", () => ({
   useCurrentPlayer: jest.fn(),
 }));
 

@@ -1,4 +1,4 @@
-import { useCanvasContext } from "./CanvasContext";
+import { useCanvasContext } from "@/client/canvas/CanvasContext";
 import { Hand } from "@/types/hand";
 
 type HandCalculationsInput = {

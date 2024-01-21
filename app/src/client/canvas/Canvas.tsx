@@ -5,9 +5,12 @@ import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHandWrapper from "./CanvasHandWrapper";
 import CanvasInnerTile from "./CanvasInnerTile";
-import { SelectedTile, SelectedTileContext } from "./SelectedTileContext";
-import { useCurrentPlayer } from "./useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
+import {
+  SelectedTile,
+  SelectedTileContext,
+} from "@/client/tiles/SelectedTileContext";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;

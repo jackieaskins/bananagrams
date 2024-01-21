@@ -4,8 +4,8 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasDumpZone from "./CanvasDumpZone";
 import CanvasHand from "./CanvasHand";
 import { DUMP_ZONE_WIDTH } from "./constants";
-import { useCurrentPlayer } from "./useCurrentPlayer";
-import { useHandCalculations } from "./useHandCalculations";
+import { useHandCalculations } from "@/client/hands/useHandCalculations";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 
 const PADDING = 15;
 const SPACING = 7;

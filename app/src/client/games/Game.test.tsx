@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import Konva from "konva";
-import GameRedesign from "./GameRedesign";
+import Game from "./Game";
 import { gameInfoFixture } from "@/client/fixtures/game";
 import { playerFixture } from "@/client/fixtures/player";
 import { renderComponent } from "@/client/testUtils";
@@ -10,7 +10,7 @@ jest.mock("@chakra-ui/react", () => ({
   useBreakpointValue: jest.fn((val, { fallback }) => val[fallback]),
 }));
 
-jest.mock("./useCurrentPlayer", () => ({
+jest.mock("@/client/players/useCurrentPlayer", () => ({
   useCurrentPlayer: () =>
     playerFixture({
       hand: [
@@ -33,10 +33,10 @@ jest.mock("../games/GameContext", () => ({
 }));
 
 function renderGame() {
-  return renderComponent(<GameRedesign />);
+  return renderComponent(<Game />);
 }
 
-describe("<GameRedesign />", () => {
+describe("<Game />", () => {
   it("renders canvas", () => {
     renderGame();
 

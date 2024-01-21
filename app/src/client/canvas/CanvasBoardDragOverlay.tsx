@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
-import { useSelectedTile } from "./SelectedTileContext";
 import { Attrs, CanvasName } from "./constants";
-import { useColorModeHex } from "./useColorHex";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useColorModeHex } from "@/client/utils/useColorHex";
 
 const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
 

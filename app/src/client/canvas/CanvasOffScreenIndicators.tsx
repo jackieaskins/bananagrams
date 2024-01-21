@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { Arrow, Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
-import { getBoardClusters } from "./boardClusters";
-import { useColorHex } from "./useColorHex";
+import { getBoardClusters } from "@/client/boards/boardClusters";
+import { useColorHex } from "@/client/utils/useColorHex";
 import { Board, BoardLocation } from "@/types/board";
 
 const EDGE_OFFSET = 0.5;

@@ -3,12 +3,12 @@ import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
-import { useSelectedTile } from "./SelectedTileContext";
-import { useOverlayBackgroundColors } from "./colors";
 import { CanvasName, DUMP_ZONE_WIDTH } from "./constants";
-import { setCursor } from "./setCursor";
-import { useColorHex } from "./useColorHex";
 import { useGame } from "@/client/games/GameContext";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useOverlayBackgroundColors } from "@/client/utils/colors";
+import { setCursor } from "@/client/utils/setCursor";
+import { useColorHex } from "@/client/utils/useColorHex";
 
 const EXCHANGE_COUNT = 3;
 

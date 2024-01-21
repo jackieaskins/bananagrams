@@ -1,11 +1,11 @@
 import { screen } from "@testing-library/react";
 import ShuffleHandButton from "./ShuffleHandButton";
-import { useCurrentPlayer } from "@/client/redesign/useCurrentPlayer";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { renderComponent } from "@/client/testUtils";
 import { Hand } from "@/types/hand";
 
 const mockUseCurrentPlayer = useCurrentPlayer as jest.Mock;
-jest.mock("../redesign/useCurrentPlayer", () => ({
+jest.mock("@/client/players/useCurrentPlayer", () => ({
   useCurrentPlayer: jest.fn(),
 }));
 

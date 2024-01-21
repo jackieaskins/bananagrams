@@ -3,8 +3,8 @@ import { useCallback, useState } from "react";
 import { Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasInnerTile from "./CanvasInnerTile";
-import { useSelectedTile } from "./SelectedTileContext";
-import { setCursor } from "./setCursor";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { setCursor } from "@/client/utils/setCursor";
 import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
 

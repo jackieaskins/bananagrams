@@ -32,7 +32,7 @@ function renderDialog(pathname: string) {
           path={MAIN_ROUTE}
           element={
             <>
-              Main redesign <Link to={OTHER_ROUTE}>Other</Link>
+              Main route <Link to={OTHER_ROUTE}>Other</Link>
             </>
           }
         />

@@ -6,12 +6,12 @@ import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
-import { useSelectedTile } from "./SelectedTileContext";
 import { Attrs, CanvasName } from "./constants";
-import { setCursor } from "./setCursor";
 import { parseBoardKey } from "@/client/boards/key";
 import { useGame } from "@/client/games/GameContext";
 import { SetState } from "@/client/state/types";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { setCursor } from "@/client/utils/setCursor";
 import { Board } from "@/types/board";
 
 type BoardProps = {

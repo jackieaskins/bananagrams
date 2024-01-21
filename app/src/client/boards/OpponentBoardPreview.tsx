@@ -1,7 +1,7 @@
 import { HStack, IconButton, Select, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import PlayerPreview from "@/client/redesign/PlayerPreview";
+import PlayerPreview from "@/client/players/PlayerPreview";
 import { socket } from "@/client/socket";
 import { Board } from "@/types/board";
 import { Player } from "@/types/player";

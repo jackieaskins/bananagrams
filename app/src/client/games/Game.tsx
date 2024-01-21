@@ -7,15 +7,15 @@ import {
   useRef,
   useState,
 } from "react";
-import Canvas from "./Canvas";
-import { CanvasContext } from "./CanvasContext";
 import GameFooter from "./GameFooter";
 import GameSidebar from "./GameSidebar";
+import Canvas from "@/client/canvas/Canvas";
+import { CanvasContext } from "@/client/canvas/CanvasContext";
 import { useNavMenu } from "@/client/menus/NavMenuContext";
 
 const TILE_SIZE = 32;
 
-export default function GameRedesign(): JSX.Element {
+export default function Game(): JSX.Element {
   const gameSidebarRef = useRef<HTMLDivElement>(null);
   const gameBarRef = useRef<HTMLDivElement>(null);
 

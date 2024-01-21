@@ -1,9 +1,9 @@
 import { ButtonGroup, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
-import { useLineColor } from "./colors";
-import { useGame } from "@/client/games/GameContext";
-import PeelButton from "@/client/games/PeelButton";
-import SpectateButton from "@/client/games/SpectateButton";
+import { useGame } from "./GameContext";
+import PeelButton from "./PeelButton";
+import SpectateButton from "./SpectateButton";
 import ShuffleHandButton from "@/client/hands/ShuffleHandButton";
+import { useLineColor } from "@/client/utils/colors";
 
 export type GameFooterProps = {
   sidebarExpanded: boolean;

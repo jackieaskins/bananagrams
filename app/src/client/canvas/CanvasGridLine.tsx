@@ -1,5 +1,5 @@
 import { Line } from "react-konva";
-import { useLineColorHex } from "./colors";
+import { useLineColorHex } from "@/client/utils/colors";
 
 type GridLineProps = {
   points: number[];

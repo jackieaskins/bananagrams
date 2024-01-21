@@ -1,7 +1,7 @@
 import { Container, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { useGame } from "./GameContext";
-import PlayerPreview from "@/client/redesign/PlayerPreview";
+import PlayerPreview from "@/client/players/PlayerPreview";
 import { PlayerStatus } from "@/types/player";
 
 const TILE_SIZE = 16;

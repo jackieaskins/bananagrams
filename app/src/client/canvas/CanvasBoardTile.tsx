@@ -2,11 +2,11 @@ import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo } from "react";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
-import { useSelectedTile } from "./SelectedTileContext";
 import { CanvasName } from "./constants";
-import { setCursor } from "./setCursor";
-import { useColorHex } from "./useColorHex";
 import { useGame } from "@/client/games/GameContext";
+import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { setCursor } from "@/client/utils/setCursor";
+import { useColorHex } from "@/client/utils/useColorHex";
 import {
   BoardSquare,
   Direction,
