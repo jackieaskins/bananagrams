@@ -1,4 +1,4 @@
-export const DUMP_ZONE_WIDTH = 100;
+export const DUMP_ZONE_WIDTH = 120;
 
 export enum CanvasName {
   Board = "board",

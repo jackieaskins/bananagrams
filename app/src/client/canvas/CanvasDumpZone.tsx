@@ -1,7 +1,7 @@
 import { useColorModeValue } from "@chakra-ui/react";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
-import { Group, Rect, Text } from "react-konva";
+import { Group, Line, Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { CanvasName, DUMP_ZONE_WIDTH } from "./constants";
 import { useGame } from "@/client/games/GameContext";
@@ -11,6 +11,11 @@ import { setCursor } from "@/client/utils/setCursor";
 import { useColorHex } from "@/client/utils/useColorHex";
 
 const EXCHANGE_COUNT = 3;
+const TITLE_FONT_SIZE = 20;
+const DESCRIPTION_FONT_SIZE = 14;
+const VERTICAL_SPACING = 20;
+const DESCRIPTION_NUM_LINES = 3;
+const DESCRIPTION_HORIZONTAL_PADDING = 16;
 
 export type CanvasDumpZoneProps = {
   handHeight: number;
@@ -33,6 +38,16 @@ export default function CanvasDumpZone({
   const bgColor = useMemo(
     () => (isActive ? activeBgColor : defaultBgColor),
     [activeBgColor, defaultBgColor, isActive],
+  );
+
+  const textY = useMemo(
+    () =>
+      (handHeight -
+        (TITLE_FONT_SIZE +
+          VERTICAL_SPACING +
+          DESCRIPTION_FONT_SIZE * DESCRIPTION_NUM_LINES)) /
+      2,
+    [handHeight],
   );
 
   const handlePointerEnter = useCallback(
@@ -89,16 +104,39 @@ export default function CanvasDumpZone({
         onPointerLeave={handlePointerLeave}
       />
 
-      <Text
-        width={DUMP_ZONE_WIDTH}
-        height={handHeight}
-        text="Dump"
-        fontSize={20}
-        fill={textColor}
-        verticalAlign="middle"
-        align="center"
-        listening={false}
-      />
+      <Group y={textY} listening={false}>
+        <Text
+          width={DUMP_ZONE_WIDTH}
+          height={TITLE_FONT_SIZE}
+          fontSize={TITLE_FONT_SIZE}
+          fontStyle="bold"
+          text="Dump"
+          fill={textColor}
+          align="center"
+        />
+
+        <Line
+          stroke={textColor}
+          strokeWidth={1}
+          opacity={0.6}
+          points={[
+            DESCRIPTION_HORIZONTAL_PADDING,
+            TITLE_FONT_SIZE + VERTICAL_SPACING / 2,
+            DUMP_ZONE_WIDTH - DESCRIPTION_HORIZONTAL_PADDING,
+            TITLE_FONT_SIZE + VERTICAL_SPACING / 2,
+          ]}
+        />
+
+        <Text
+          y={TITLE_FONT_SIZE + VERTICAL_SPACING}
+          x={DESCRIPTION_HORIZONTAL_PADDING}
+          width={DUMP_ZONE_WIDTH - DESCRIPTION_HORIZONTAL_PADDING * 2}
+          text={`Drop tile here to swap it for ${EXCHANGE_COUNT} new ones`}
+          fontSize={DESCRIPTION_FONT_SIZE}
+          align="center"
+          fill={textColor}
+        />
+      </Group>
     </Group>
   );
 }
