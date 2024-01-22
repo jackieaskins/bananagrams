@@ -1,13 +1,16 @@
 import { act, screen, waitFor } from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import BraveBrowserDialog from "./BraveBrowserDialog";
+import { useShowBravePrompt } from "@/client/LocalStorageContext";
 import { renderComponent } from "@/client/testUtils";
 
 const MAIN_ROUTE = "/";
 const OTHER_ROUTE = "/other-page";
 
-jest.mock("../env", () => ({
-  PROD: true,
+const mockSetShowBravePrompt = jest.fn();
+const mockUseShowBravePrompt = useShowBravePrompt as jest.Mock;
+jest.mock("@/client/LocalStorageContext", () => ({
+  useShowBravePrompt: jest.fn(),
 }));
 
 async function assertDialogNotInDocument() {
@@ -24,7 +27,9 @@ async function assertDialogInDocument() {
   });
 }
 
-function renderDialog(pathname: string) {
+function renderDialog(pathname: string, shouldShow = true) {
+  mockUseShowBravePrompt.mockReturnValue([shouldShow, mockSetShowBravePrompt]);
+
   return renderComponent(
     <MemoryRouter initialEntries={[pathname]}>
       <Routes>
@@ -70,9 +75,30 @@ describe("<BraveBrowserDialog />", () => {
 
   it("renders when in brave", async () => {
     mockBrave(true);
-    renderDialog(MAIN_ROUTE);
+    renderDialog(MAIN_ROUTE, true);
 
     await assertDialogInDocument();
+  });
+
+  it("does not render when dont show is set in local storage", async () => {
+    mockBrave(true);
+    renderDialog(MAIN_ROUTE, false);
+
+    await assertDialogNotInDocument();
+  });
+
+  it("updates local storage on close when checkbox is selected", async () => {
+    mockBrave(true);
+    const { user } = renderDialog(MAIN_ROUTE, true);
+
+    await assertDialogInDocument();
+
+    await act(async () => {
+      await user.click(screen.getByLabelText("Don't show again"));
+      await user.click(screen.getByRole("button", { name: "Close" }));
+    });
+
+    expect(mockSetShowBravePrompt).toHaveBeenCalledWith(false);
   });
 
   it("does not render when dialog has been opened before", async () => {

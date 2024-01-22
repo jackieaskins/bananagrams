@@ -8,6 +8,7 @@ type LocalStorageContextState = {
   };
   savedUsername: LocalStorageState<string>;
   showTutorialPrompt: LocalStorageState<boolean>;
+  showBravePrompt: LocalStorageState<boolean>;
 };
 
 export const LocalStorageContext = createContext<LocalStorageContextState>(
@@ -28,4 +29,8 @@ export function useSavedUsername(): LocalStorageState<string> {
 
 export function useShowTutorialPrompt(): LocalStorageState<boolean> {
   return useLocalStorageContext().showTutorialPrompt;
+}
+
+export function useShowBravePrompt(): LocalStorageState<boolean> {
+  return useLocalStorageContext().showBravePrompt;
 }

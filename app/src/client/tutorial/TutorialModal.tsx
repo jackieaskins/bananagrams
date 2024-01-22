@@ -41,6 +41,7 @@ export default function TutorialModal(): JSX.Element {
           </Text>
 
           <Checkbox
+            name="dontShowAgain"
             isChecked={dontShowAgain}
             onChange={(e) => setDontShowAgain(e.target.checked)}
           >
