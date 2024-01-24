@@ -1,6 +1,10 @@
 import { Box, Button, Heading, Stack } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  Link as ReactRouterLink,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { GameLocationState } from "./types";
 import { useSavedUsername } from "@/client/LocalStorageContext";
 import ErrorAlert from "@/client/alerts/ErrorAlert";
@@ -78,14 +82,20 @@ export default function CreateGame(): JSX.Element {
             />
           </Stack>
 
-          <Button
-            colorScheme="blue"
-            isLoading={isCreatingGame}
-            loadingText="Creating game"
-            type="submit"
-          >
-            Create game
-          </Button>
+          <Stack>
+            <Button
+              colorScheme="blue"
+              isLoading={isCreatingGame}
+              loadingText="Creating game"
+              type="submit"
+            >
+              Create game
+            </Button>
+
+            <Button as={ReactRouterLink} to="/tutorial">
+              Play tutorial
+            </Button>
+          </Stack>
         </Stack>
       </Box>
     </CenteredLayout>

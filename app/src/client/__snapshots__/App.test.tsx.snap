@@ -79,12 +79,22 @@ exports[`<App /> renders properly 1`] = `
               />
             </div>
           </div>
-          <button
-            class="chakra-button css-jut409"
-            type="submit"
+          <div
+            class="chakra-stack css-8g8ihq"
           >
-            Create game
-          </button>
+            <button
+              class="chakra-button css-jut409"
+              type="submit"
+            >
+              Create game
+            </button>
+            <a
+              class="chakra-button css-ez23ye"
+              href="/tutorial"
+            >
+              Play tutorial
+            </a>
+          </div>
         </div>
       </form>
     </div>

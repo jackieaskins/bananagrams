@@ -92,21 +92,22 @@ export default function JoinGame(): JSX.Element {
             </CheckboxField>
           </Stack>
 
-          <Button
-            colorScheme="blue"
-            isLoading={isJoiningGame}
-            loadingText="Joining game"
-            type="submit"
-          >
-            Join game
-          </Button>
+          <Stack>
+            <Button
+              colorScheme="blue"
+              isLoading={isJoiningGame}
+              loadingText="Joining game"
+              type="submit"
+            >
+              Join game
+            </Button>
 
-          <ChakraLink
-            as={ReactRouterLink}
-            to="../../.."
-            textAlign="center"
-            relative="path"
-          >
+            <Button as={ReactRouterLink} to="/tutorial">
+              Play tutorial
+            </Button>
+          </Stack>
+
+          <ChakraLink as={ReactRouterLink} to="/" textAlign="center">
             Go home
           </ChakraLink>
         </Stack>

@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router";
 import JoinGame from "./JoinGame";
@@ -10,6 +10,7 @@ import { Game } from "@/types/game";
 
 const GAME_ID = "GAME_ID";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
+const TUTORIAL_TEXT = "TUTORIAL";
 
 const mockSetSavedUsername = jest.fn();
 const mockUseSavedUsername = useSavedUsername as jest.Mock;
@@ -26,6 +27,7 @@ function renderForm() {
         <Route path="/" element={<div>Home</div>} />
         <Route path="/game/:gameId/join" element={<JoinGame />} />
         <Route path="/game/:gameId" element={<div>{GAME_SCREEN_TEXT}</div>} />
+        <Route path="/tutorial" element={<div>{TUTORIAL_TEXT}</div>} />
       </Routes>
     </MemoryRouter>,
   );
@@ -156,10 +158,22 @@ describe("<JoinGame />", () => {
     });
   });
 
+  it("has link to tutorial", async () => {
+    const { user } = renderForm();
+
+    await act(async () => {
+      await user.click(screen.getByRole("link", { name: "Play tutorial" }));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(TUTORIAL_TEXT)).toBeInTheDocument();
+    });
+  });
+
   it("returns to the homepage when home link is clicked", async () => {
     const { user } = renderForm();
 
-    await user.click(screen.getByRole("link"));
+    await user.click(screen.getByRole("link", { name: "Go home" }));
 
     await waitFor(() => {
       expect(screen.getByText(/^Home$/)).toBeInTheDocument();

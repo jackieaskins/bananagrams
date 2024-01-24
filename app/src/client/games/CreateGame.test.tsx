@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { UserEvent } from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import CreateGame from "./CreateGame";
@@ -9,6 +9,7 @@ import { renderComponent } from "@/client/testUtils";
 import { Game } from "@/types/game";
 
 const GAME_ID = "GAME_ID";
+const TUTORIAL_TEXT = "TUTORIAL";
 const GAME_SCREEN_TEXT = `game id: ${GAME_ID}`;
 
 const mockSetSavedUsername = jest.fn();
@@ -26,6 +27,7 @@ function renderForm(isShortenedGame: boolean = false) {
     >
       <Routes>
         <Route path="/" element={<CreateGame />} />
+        <Route path="/tutorial" element={<div>{TUTORIAL_TEXT}</div>} />
         <Route path="/game/:gameId" element={<div>{GAME_SCREEN_TEXT}</div>} />
       </Routes>
     </MemoryRouter>,
@@ -166,6 +168,18 @@ describe("<CreateGame />", () => {
       expect(screen.getByRole("alert")).toHaveTextContent(
         /^Unable to create game$/,
       );
+    });
+  });
+
+  it("has link to tutorial", async () => {
+    const { user } = renderForm();
+
+    await act(async () => {
+      await user.click(screen.getByRole("link", { name: "Play tutorial" }));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(TUTORIAL_TEXT)).toBeInTheDocument();
     });
   });
 });
