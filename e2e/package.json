@@ -20,7 +20,7 @@
   "devDependencies": {
     "@playwright/test": "^1.41.1",
     "@types/node": "^18.19.4",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
     "eslint": "^8.56.0",
     "eslint-config-bananagrams": "^0.0.1",
     "eslint-plugin-import": "^2.29.1",
