@@ -25,7 +25,7 @@ export default function CanvasBoard({
 }: BoardProps): JSX.Element {
   const { offset, size, playable, tileSize } = useCanvasContext();
   const { selectedTile, setSelectedTile } = useSelectedTile();
-  const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
+  const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
 
   const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
@@ -37,17 +37,21 @@ export default function CanvasBoard({
       };
 
       if (selectedTile.location) {
-        handleMoveTileOnBoard(selectedTile.location, toLocation);
+        handleMoveTilesOnBoard([
+          { fromLocation: selectedTile.location, toLocation },
+        ]);
       } else {
-        handleMoveTileFromHandToBoard(selectedTile.tile.id, toLocation);
+        handleMoveTilesFromHandToBoard([
+          { tileId: selectedTile.tile.id, boardLocation: toLocation },
+        ]);
       }
 
       setSelectedTile(null);
       setCursor(e, "grab");
     },
     [
-      handleMoveTileFromHandToBoard,
-      handleMoveTileOnBoard,
+      handleMoveTilesFromHandToBoard,
+      handleMoveTilesOnBoard,
       offset.x,
       offset.y,
       playable,

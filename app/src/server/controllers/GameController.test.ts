@@ -533,23 +533,21 @@ describe("GameController", () => {
     });
   });
 
-  describe("moveTileFromHandToBoard", () => {
+  describe("moveTilesFromHandToBoard", () => {
     const tile = new TileModel("H1", "H");
     const boardLocation = { x: 0, y: 0 };
+    const tiles = [{ tileId: tile.getId(), boardLocation }];
 
     beforeEach(() => {
       player.getHand().addTiles([tile]);
 
-      jest.spyOn(player, "moveTileFromHandToBoard");
+      jest.spyOn(player, "moveTilesFromHandToBoard");
 
-      gameController.moveTileFromHandToBoard(tile.getId(), boardLocation);
+      gameController.moveTilesFromHandToBoard(tiles);
     });
 
     it("moves tile from player hand to board", () => {
-      expect(player.moveTileFromHandToBoard).toHaveBeenCalledWith(
-        tile.getId(),
-        boardLocation,
-      );
+      expect(player.moveTilesFromHandToBoard).toHaveBeenCalledWith(tiles);
     });
 
     it("emits game info", () => {
@@ -557,22 +555,22 @@ describe("GameController", () => {
     });
   });
 
-  describe("moveTileFromBoardToHand", () => {
+  describe("moveTilesFromBoardToHand", () => {
     const tile = new TileModel("B1", "B");
     const boardLocation = { x: 0, y: 0 };
 
     beforeEach(() => {
       player.getBoard().addTile(boardLocation, tile);
 
-      jest.spyOn(player, "moveTileFromBoardToHand");
+      jest.spyOn(player, "moveTilesFromBoardToHand");
 
-      gameController.moveTileFromBoardToHand(boardLocation);
+      gameController.moveTilesFromBoardToHand([boardLocation]);
     });
 
     it("moves tile from player board to hand", () => {
-      expect(player.moveTileFromBoardToHand).toHaveBeenCalledWith(
+      expect(player.moveTilesFromBoardToHand).toHaveBeenCalledWith([
         boardLocation,
-      );
+      ]);
     });
 
     it("emits game info", () => {
@@ -580,24 +578,22 @@ describe("GameController", () => {
     });
   });
 
-  describe("moveTileOnBoard", () => {
+  describe("moveTilesOnBoard", () => {
     const tile = new TileModel("B1", "B");
     const fromLocation = { x: 0, y: 0 };
     const toLocation = { x: 1, y: 1 };
+    const locations = [{ fromLocation, toLocation }];
 
     beforeEach(() => {
       player.getBoard().addTile(fromLocation, tile);
 
-      jest.spyOn(player, "moveTileOnBoard");
+      jest.spyOn(player, "moveTilesOnBoard");
 
-      gameController.moveTileOnBoard(fromLocation, toLocation);
+      gameController.moveTilesOnBoard(locations);
     });
 
     it("moves tile from player board to hand", () => {
-      expect(player.moveTileOnBoard).toHaveBeenCalledWith(
-        fromLocation,
-        toLocation,
-      );
+      expect(player.moveTilesOnBoard).toHaveBeenCalledWith(locations);
     });
 
     it("emits game info", () => {

@@ -59,9 +59,9 @@ describe("socket", () => {
         split: jest.fn(),
         peel: jest.fn(),
         dump: jest.fn(),
-        moveTileFromHandToBoard: jest.fn(),
-        moveTileFromBoardToHand: jest.fn(),
-        moveTileOnBoard: jest.fn(),
+        moveTilesFromHandToBoard: jest.fn(),
+        moveTilesFromBoardToHand: jest.fn(),
+        moveTilesOnBoard: jest.fn(),
         shuffleHand: jest.fn(),
       };
 
@@ -406,132 +406,127 @@ describe("socket", () => {
       });
     });
 
-    describe("moveTileFromHandToBoard", () => {
+    describe("moveTilesFromHandToBoard", () => {
       const tileId = "tileId";
       const boardLocation = { x: 0, y: 0 };
+      const tiles = [{ tileId, boardLocation }];
 
-      const moveTileFromHandToBoard = (callback?: () => void): void => {
-        socketCalls.moveTileFromHandToBoard(
-          { tileId, boardLocation },
-          callback,
-        );
+      const moveTilesFromHandToBoard = (callback?: () => void): void => {
+        socketCalls.moveTilesFromHandToBoard({ tiles }, callback);
       };
 
       it("throws an error when not in a game", () => {
-        moveTileFromHandToBoard(callback);
+        moveTilesFromHandToBoard(callback);
         assertThrowsNoGameError();
       });
 
       it("calls move tile from hand to board on game", () => {
         createGame();
-        moveTileFromHandToBoard(callback);
-        expect(gameController.moveTileFromHandToBoard).toHaveBeenCalledWith(
-          tileId,
-          boardLocation,
+        moveTilesFromHandToBoard(callback);
+        expect(gameController.moveTilesFromHandToBoard).toHaveBeenCalledWith(
+          tiles,
         );
       });
 
       it("calls callback with null", () => {
         createGame();
-        moveTileFromHandToBoard(callback);
+        moveTilesFromHandToBoard(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
       it("works without callback", () => {
         createGame();
-        expect(() => moveTileFromHandToBoard()).not.toThrow();
+        expect(() => moveTilesFromHandToBoard()).not.toThrow();
       });
 
       it("calls callback with error when move tile fails", () => {
-        gameController.moveTileFromHandToBoard.mockImplementation(() => {
+        gameController.moveTilesFromHandToBoard.mockImplementation(() => {
           throw new Error("Error");
         });
         createGame();
-        moveTileFromHandToBoard(callback);
+        moveTilesFromHandToBoard(callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe("moveTileFromBoardToHand", () => {
-      const boardLocation = { x: 0, y: 0 };
+    describe("moveTilesFromBoardToHand", () => {
+      const boardLocations = [{ x: 0, y: 0 }];
 
-      const moveTileFromBoardToHand = (callback?: () => void): void => {
-        socketCalls.moveTileFromBoardToHand({ boardLocation }, callback);
+      const moveTilesFromBoardToHand = (callback?: () => void): void => {
+        socketCalls.moveTilesFromBoardToHand({ boardLocations }, callback);
       };
 
       it("throws an error when not in a game", () => {
-        moveTileFromBoardToHand(callback);
+        moveTilesFromBoardToHand(callback);
         assertThrowsNoGameError();
       });
 
       it("calls move tile from hand to board on game", () => {
         createGame();
-        moveTileFromBoardToHand(callback);
-        expect(gameController.moveTileFromBoardToHand).toHaveBeenCalledWith(
-          boardLocation,
+        moveTilesFromBoardToHand(callback);
+        expect(gameController.moveTilesFromBoardToHand).toHaveBeenCalledWith(
+          boardLocations,
         );
       });
 
       it("calls callback with null", () => {
         createGame();
-        moveTileFromBoardToHand(callback);
+        moveTilesFromBoardToHand(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
       it("works without callback", () => {
         createGame();
-        expect(() => moveTileFromBoardToHand()).not.toThrow();
+        expect(() => moveTilesFromBoardToHand()).not.toThrow();
       });
 
       it("calls callback with error when move tile fails", () => {
-        gameController.moveTileFromBoardToHand.mockImplementation(() => {
+        gameController.moveTilesFromBoardToHand.mockImplementation(() => {
           throw new Error("Error");
         });
         createGame();
-        moveTileFromBoardToHand(callback);
+        moveTilesFromBoardToHand(callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });
 
-    describe("moveTileOnBoard", () => {
+    describe("moveTilesOnBoard", () => {
       const fromLocation = { x: 0, y: 0 };
       const toLocation = { x: 1, y: 0 };
+      const locations = [{ fromLocation, toLocation }];
 
-      const moveTileOnBoard = (callback?: () => void): void => {
-        socketCalls.moveTileOnBoard({ fromLocation, toLocation }, callback);
+      const moveTilesOnBoard = (callback?: () => void): void => {
+        socketCalls.moveTilesOnBoard({ locations }, callback);
       };
 
       it("throws an error when not in a game", () => {
-        moveTileOnBoard(callback);
+        moveTilesOnBoard(callback);
         assertThrowsNoGameError();
       });
 
       it("calls move tile from hand to board on game", () => {
         createGame();
-        moveTileOnBoard(callback);
-        expect(gameController.moveTileOnBoard).toHaveBeenCalledWith(
-          fromLocation,
-          toLocation,
-        );
+        moveTilesOnBoard(callback);
+        expect(gameController.moveTilesOnBoard).toHaveBeenCalledWith(locations);
       });
 
       it("calls callback with null", () => {
         createGame();
-        moveTileOnBoard(callback);
+        moveTilesOnBoard(callback);
         expect(callback).toHaveBeenCalledWith(null, null);
       });
 
       it("works without callback", () => {
         createGame();
-        expect(() => moveTileOnBoard()).not.toThrow();
+        expect(() => moveTilesOnBoard()).not.toThrow();
       });
 
       it("calls callback with error when move tile fails", () => {
-        gameController.moveTileOnBoard.mockImplementation(() => {
+        gameController.moveTilesOnBoard.mockImplementation(() => {
           throw new Error("Error");
         });
         createGame();
-        moveTileOnBoard(callback);
+        moveTilesOnBoard(callback);
         expect(callback).toHaveBeenCalledWith({ message: "Error" }, null);
       });
     });

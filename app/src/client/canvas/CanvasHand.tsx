@@ -33,7 +33,7 @@ export default function CanvasHand({
 }: CanvasHandProps): JSX.Element {
   const { tileSize, playable } = useCanvasContext();
   const { selectedTile, setSelectedTile } = useSelectedTile();
-  const { handleMoveTileFromBoardToHand } = useGame();
+  const { handleMoveTilesFromBoardToHand } = useGame();
 
   const [isActive, setActive] = useState(false);
   const { defaultBgColor, activeBgColor } = useOverlayBackgroundColors();
@@ -47,14 +47,14 @@ export default function CanvasHand({
       if (!selectedTile) return;
 
       if (selectedTile.location) {
-        handleMoveTileFromBoardToHand(selectedTile.location);
+        handleMoveTilesFromBoardToHand([selectedTile.location]);
       }
 
       setSelectedTile(null);
       setActive(false);
       setCursor(evt, "default");
     },
-    [handleMoveTileFromBoardToHand, selectedTile, setSelectedTile],
+    [handleMoveTilesFromBoardToHand, selectedTile, setSelectedTile],
   );
 
   return (

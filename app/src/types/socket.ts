@@ -11,9 +11,9 @@ export enum ClientToServerEventName {
   Split = "split",
   Peel = "peel",
   Dump = "dump",
-  MoveTileFromHandToBoard = "moveTileFromHandToBoard",
-  MoveTileFromBoardToHand = "moveTileFromBoardToHand",
-  MoveTileOnBoard = "moveTileOnBoard",
+  MoveTilesFromHandToBoard = "moveTilesFromHandToBoard",
+  MoveTilesFromBoardToHand = "moveTilesFromBoardToHand",
+  MoveTilesOnBoard = "moveTilesOnBoard",
   ShuffleHand = "shuffleHand",
 }
 
@@ -57,16 +57,17 @@ export type ClientToServerEvents = {
 
   [ClientToServerEventName.ShuffleHand]: SocketEventHandler;
 
-  [ClientToServerEventName.MoveTileFromHandToBoard]: SocketEventHandler<{
-    tileId: string;
-    boardLocation: BoardLocation;
+  [ClientToServerEventName.MoveTilesFromHandToBoard]: SocketEventHandler<{
+    tiles: Array<{ tileId: string; boardLocation: BoardLocation }>;
   }>;
-  [ClientToServerEventName.MoveTileFromBoardToHand]: SocketEventHandler<{
-    boardLocation: BoardLocation;
+  [ClientToServerEventName.MoveTilesFromBoardToHand]: SocketEventHandler<{
+    boardLocations: BoardLocation[];
   }>;
-  [ClientToServerEventName.MoveTileOnBoard]: SocketEventHandler<{
-    fromLocation: BoardLocation;
-    toLocation: BoardLocation;
+  [ClientToServerEventName.MoveTilesOnBoard]: SocketEventHandler<{
+    locations: Array<{
+      fromLocation: BoardLocation;
+      toLocation: BoardLocation;
+    }>;
   }>;
 };
 

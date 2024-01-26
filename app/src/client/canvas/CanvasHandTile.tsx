@@ -21,7 +21,7 @@ export default function CanvasHandTile({
   onPointerEnter,
 }: CanvasHandTileProps): JSX.Element {
   const { selectedTile, setSelectedTile } = useSelectedTile();
-  const { handleMoveTileFromBoardToHand } = useGame();
+  const { handleMoveTilesFromBoardToHand } = useGame();
 
   const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
@@ -35,7 +35,7 @@ export default function CanvasHandTile({
        * - Set cursor to grab
        *
        * Current tile is on the board:
-       * - Call moveTileFromBoardToHand
+       * - Call moveTilesFromBoardToHand
        * - ~~Select the tile under the cursor with board location~~ Deslect tile
        * - Set the cursor to ~~grabbing~~ grab
        *
@@ -54,13 +54,13 @@ export default function CanvasHandTile({
       }
 
       if (selectedTile.location) {
-        handleMoveTileFromBoardToHand(selectedTile.location);
+        handleMoveTilesFromBoardToHand([selectedTile.location]);
       }
 
       setSelectedTile(null);
       setCursor(e, "grab");
     },
-    [handleMoveTileFromBoardToHand, selectedTile, setSelectedTile, tile],
+    [handleMoveTilesFromBoardToHand, selectedTile, setSelectedTile, tile],
   );
 
   return (

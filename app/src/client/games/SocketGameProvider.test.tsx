@@ -137,29 +137,32 @@ describe("<SocketGameProvider />", () => {
       });
     });
 
-    it("emits moveTileFromHandToBoard event on handleMoveTileFromHandToBoard", () => {
-      getGameState().handleMoveTileFromHandToBoard(id, boardLocation);
+    it("emits moveTilesFromHandToBoard event on handleMoveTilesFromHandToBoard", () => {
+      const tiles = [{ tileId: id, boardLocation }];
+      getGameState().handleMoveTilesFromHandToBoard(tiles);
 
-      expect(mockEmit).toHaveBeenCalledWith("moveTileFromHandToBoard", {
-        tileId: id,
-        boardLocation,
+      expect(mockEmit).toHaveBeenCalledWith("moveTilesFromHandToBoard", {
+        tiles,
       });
     });
 
-    it("emits moveTileFromBoardTo event on handleMoveTileFromBoardToHand", () => {
-      getGameState().handleMoveTileFromBoardToHand(boardLocation);
+    it("emits moveTilesFromBoardToHand event on handleMoveTilesFromBoardToHand", () => {
+      const boardLocations = [boardLocation];
+      getGameState().handleMoveTilesFromBoardToHand(boardLocations);
 
-      expect(mockEmit).toHaveBeenCalledWith("moveTileFromBoardToHand", {
-        boardLocation,
+      expect(mockEmit).toHaveBeenCalledWith("moveTilesFromBoardToHand", {
+        boardLocations,
       });
     });
 
-    it("emits moveTileOnBoard event on handleMoveTileOnBoard", () => {
-      getGameState().handleMoveTileOnBoard(boardLocation, boardLocation);
+    it("emits moveTilesOnBoard event on handleMoveTilesOnBoard", () => {
+      const locations = [
+        { fromLocation: boardLocation, toLocation: boardLocation },
+      ];
+      getGameState().handleMoveTilesOnBoard(locations);
 
-      expect(mockEmit).toHaveBeenCalledWith("moveTileOnBoard", {
-        fromLocation: boardLocation,
-        toLocation: boardLocation,
+      expect(mockEmit).toHaveBeenCalledWith("moveTilesOnBoard", {
+        locations,
       });
     });
 

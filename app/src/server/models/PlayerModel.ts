@@ -104,25 +104,31 @@ export default class PlayerModel implements BaseModel<Player> {
    *   Remove handTile from hand
    *   Add handTile to location
    */
-  moveTileFromHandToBoard(
-    tileId: string,
-    location: BoardLocation,
-  ): TileModel | null {
-    let boardTile: TileModel | null = null;
-    if (!this.board.isEmptySquare(location)) {
-      boardTile = this.board.removeTile(location);
-      this.hand.addTiles([boardTile]);
+  moveTilesFromHandToBoard(
+    tiles: Array<{ tileId: string; boardLocation: BoardLocation }>,
+  ): void {
+    const boardLocationsWithTiles = tiles.filter(
+      ({ boardLocation }) => !this.board.isEmptySquare(boardLocation),
+    );
+
+    if (boardLocationsWithTiles.length) {
+      this.hand.addTiles(
+        boardLocationsWithTiles.map(({ boardLocation }) =>
+          this.board.removeTile(boardLocation),
+        ),
+      );
     }
 
-    const handTile = this.hand.removeTile(tileId);
-    this.board.addTile(location, handTile);
-
-    return boardTile;
+    tiles.forEach(({ tileId, boardLocation }) => {
+      this.board.addTile(boardLocation, this.hand.removeTile(tileId));
+    });
   }
 
-  moveTileFromBoardToHand(location: BoardLocation): void {
-    const tile = this.board.removeTile(location);
-    this.hand.addTiles([tile]);
+  moveTilesFromBoardToHand(boardLocations: BoardLocation[]): void {
+    const tiles = boardLocations.map((boardLocation) =>
+      this.board.removeTile(boardLocation),
+    );
+    this.hand.addTiles(tiles);
   }
 
   /*
@@ -136,27 +142,29 @@ export default class PlayerModel implements BaseModel<Player> {
    *  Add fromTile to toLocation
    *  Add toTile to fromLocation
    */
-  moveTileOnBoard(
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation,
-  ): TileModel | null {
-    if (fromLocation.x === toLocation.x && fromLocation.y === toLocation.y) {
-      return null;
-    }
+  moveTilesOnBoard(
+    locations: Array<{
+      fromLocation: BoardLocation;
+      toLocation: BoardLocation;
+    }>,
+  ): void {
+    locations.forEach(({ fromLocation, toLocation }) => {
+      if (fromLocation.x === toLocation.x && fromLocation.y === toLocation.y) {
+        return;
+      }
 
-    let toTile: TileModel | null = null;
+      let toTile: TileModel | null = null;
 
-    if (!this.board.isEmptySquare(toLocation)) {
-      toTile = this.board.removeTile(toLocation);
-    }
+      if (!this.board.isEmptySquare(toLocation)) {
+        toTile = this.board.removeTile(toLocation);
+      }
 
-    const fromTile = this.board.removeTile(fromLocation);
-    this.board.addTile(toLocation, fromTile);
+      const fromTile = this.board.removeTile(fromLocation);
+      this.board.addTile(toLocation, fromTile);
 
-    if (toTile) {
-      this.board.addTile(fromLocation, toTile);
-    }
-
-    return toTile;
+      if (toTile) {
+        this.board.addTile(fromLocation, toTile);
+      }
+    });
   }
 }

@@ -2,9 +2,9 @@ import { renderHook } from "@testing-library/react";
 import { GameContext, getEmptyGameInfo, useGame } from "./GameContext";
 
 const mockHandleDump = jest.fn();
-const mockHandleMoveTileFromHandToBoard = jest.fn();
-const mockHandleMoveTileFromBoardToHand = jest.fn();
-const mockHandleMoveTileOnBoard = jest.fn();
+const mockHandleMoveTilesFromHandToBoard = jest.fn();
+const mockHandleMoveTilesFromBoardToHand = jest.fn();
+const mockHandleMoveTilesOnBoard = jest.fn();
 const mockHandlePeel = jest.fn();
 const mockHandleShuffleHand = jest.fn();
 const mockHandleSpectate = jest.fn();
@@ -17,9 +17,9 @@ function GameProvider({ children }: { children: React.ReactNode }) {
       value={{
         gameInfo,
         handleDump: mockHandleDump,
-        handleMoveTileFromHandToBoard: mockHandleMoveTileFromHandToBoard,
-        handleMoveTileFromBoardToHand: mockHandleMoveTileFromBoardToHand,
-        handleMoveTileOnBoard: mockHandleMoveTileOnBoard,
+        handleMoveTilesFromHandToBoard: mockHandleMoveTilesFromHandToBoard,
+        handleMoveTilesFromBoardToHand: mockHandleMoveTilesFromBoardToHand,
+        handleMoveTilesOnBoard: mockHandleMoveTilesOnBoard,
         handlePeel: mockHandlePeel,
         handleShuffleHand: mockHandleShuffleHand,
         handleSpectate: mockHandleSpectate,
@@ -52,44 +52,40 @@ describe("GameContext", () => {
     expect(mockHandleDump).toHaveBeenCalledWith(tile);
   });
 
-  it("provides moveTileFromHandToBoard handler", () => {
+  it("provides moveTilesFromHandToBoard handler", () => {
     const tileId = "A1";
     const boardLocation = { x: 0, y: 0 };
+    const tiles = [{ tileId, boardLocation }];
 
     const { result } = renderGameWithHook();
 
-    result.current.handleMoveTileFromHandToBoard(tileId, boardLocation);
+    result.current.handleMoveTilesFromHandToBoard(tiles);
 
-    expect(mockHandleMoveTileFromHandToBoard).toHaveBeenCalledWith(
-      tileId,
-      boardLocation,
-    );
+    expect(mockHandleMoveTilesFromHandToBoard).toHaveBeenCalledWith(tiles);
   });
 
-  it("provides moveTileFromBoardToHand handler", () => {
-    const boardLocation = { x: 0, y: 0 };
+  it("provides moveTilesFromBoardToHand handler", () => {
+    const boardLocations = [{ x: 0, y: 0 }];
 
     const { result } = renderGameWithHook();
 
-    result.current.handleMoveTileFromBoardToHand(boardLocation);
+    result.current.handleMoveTilesFromBoardToHand(boardLocations);
 
-    expect(mockHandleMoveTileFromBoardToHand).toHaveBeenCalledWith(
-      boardLocation,
+    expect(mockHandleMoveTilesFromBoardToHand).toHaveBeenCalledWith(
+      boardLocations,
     );
   });
 
-  it("provides moveTileOnBoard handler", () => {
+  it("provides moveTilesOnBoard handler", () => {
     const fromLocation = { x: 0, y: 0 };
     const toLocation = { x: 1, y: 1 };
+    const tiles = [{ fromLocation, toLocation }];
 
     const { result } = renderGameWithHook();
 
-    result.current.handleMoveTileOnBoard(fromLocation, toLocation);
+    result.current.handleMoveTilesOnBoard(tiles);
 
-    expect(mockHandleMoveTileOnBoard).toHaveBeenCalledWith(
-      fromLocation,
-      toLocation,
-    );
+    expect(mockHandleMoveTilesOnBoard).toHaveBeenCalledWith(tiles);
   });
 
   it("provides peel handler", () => {

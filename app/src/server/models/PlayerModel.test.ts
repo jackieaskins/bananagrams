@@ -108,7 +108,7 @@ describe("Player Model", () => {
     });
   });
 
-  describe("moveTileFromHandToBoard", () => {
+  describe("moveTilesFromHandToBoard", () => {
     const tile = new TileModel("A1", "A");
     const location = { x: 0, y: 0 };
 
@@ -126,7 +126,9 @@ describe("Player Model", () => {
 
       beforeEach(() => {
         player.getBoard().addTile(location, otherTile);
-        player.moveTileFromHandToBoard(tile.getId(), location);
+        player.moveTilesFromHandToBoard([
+          { tileId: tile.getId(), boardLocation: location },
+        ]);
       });
 
       it("removes the current tile from the location", () => {
@@ -140,19 +142,23 @@ describe("Player Model", () => {
     });
 
     it("removes tile from hand", () => {
-      player.moveTileFromHandToBoard(tile.getId(), location);
+      player.moveTilesFromHandToBoard([
+        { tileId: tile.getId(), boardLocation: location },
+      ]);
 
       expect(player.getHand().removeTile).toHaveBeenCalledWith(tile.getId());
     });
 
     it("adds removed tile to board", () => {
-      player.moveTileFromHandToBoard(tile.getId(), location);
+      player.moveTilesFromHandToBoard([
+        { tileId: tile.getId(), boardLocation: location },
+      ]);
 
       expect(player.getBoard().addTile).toHaveBeenCalledWith(location, tile);
     });
   });
 
-  describe("moveTileFromBoardToHand", () => {
+  describe("moveTilesFromBoardToHand", () => {
     const location = { x: 0, y: 0 };
     const tile = new TileModel("A1", "A");
 
@@ -161,7 +167,7 @@ describe("Player Model", () => {
       jest.spyOn(player.getHand(), "addTiles");
 
       player.getBoard().addTile(location, tile);
-      player.moveTileFromBoardToHand(location);
+      player.moveTilesFromBoardToHand([location]);
     });
 
     it("removes tile from board", () => {
@@ -173,7 +179,7 @@ describe("Player Model", () => {
     });
   });
 
-  describe("moveTileOnBoard", () => {
+  describe("moveTilesOnBoard", () => {
     const from = { x: 0, y: 0 };
     const to = { x: 1, y: 1 };
     const tile = new TileModel("A1", "A");
@@ -189,7 +195,7 @@ describe("Player Model", () => {
     it("does not move any tiles if from and to locations are the same", () => {
       jest.clearAllMocks();
 
-      player.moveTileOnBoard(to, to);
+      player.moveTilesOnBoard([{ fromLocation: to, toLocation: to }]);
 
       expect(player.getBoard().addTile).not.toHaveBeenCalled();
       expect(player.getBoard().removeTile).not.toHaveBeenCalled();
@@ -200,7 +206,7 @@ describe("Player Model", () => {
 
       beforeEach(() => {
         player.getBoard().addTile(to, otherTile);
-        player.moveTileOnBoard(from, to);
+        player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
       });
 
       it("removes the tile currently at to location", () => {
@@ -213,13 +219,13 @@ describe("Player Model", () => {
     });
 
     it("removes tile from from location", () => {
-      player.moveTileOnBoard(from, to);
+      player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
 
       expect(player.getBoard().removeTile).toHaveBeenCalledWith(from);
     });
 
     it("adds removed tile to to location", () => {
-      player.moveTileOnBoard(from, to);
+      player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
 
       expect(player.getBoard().addTile).toHaveBeenCalledWith(to, tile);
     });

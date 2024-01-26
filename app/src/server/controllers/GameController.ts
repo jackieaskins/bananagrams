@@ -292,21 +292,25 @@ export default class GameController {
     this.emitGameInfo(true);
   }
 
-  moveTileFromHandToBoard(tileId: string, boardLocation: BoardLocation): void {
-    this.currentPlayer.moveTileFromHandToBoard(tileId, boardLocation);
-    this.emitGameInfo(true);
-  }
-
-  moveTileFromBoardToHand(boardLocation: BoardLocation): void {
-    this.currentPlayer.moveTileFromBoardToHand(boardLocation);
-    this.emitGameInfo(true);
-  }
-
-  moveTileOnBoard(
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation,
+  moveTilesFromHandToBoard(
+    tiles: Array<{ tileId: string; boardLocation: BoardLocation }>,
   ): void {
-    this.currentPlayer.moveTileOnBoard(fromLocation, toLocation);
+    this.currentPlayer.moveTilesFromHandToBoard(tiles);
+    this.emitGameInfo(true);
+  }
+
+  moveTilesFromBoardToHand(boardLocations: BoardLocation[]): void {
+    this.currentPlayer.moveTilesFromBoardToHand(boardLocations);
+    this.emitGameInfo(true);
+  }
+
+  moveTilesOnBoard(
+    locations: Array<{
+      fromLocation: BoardLocation;
+      toLocation: BoardLocation;
+    }>,
+  ): void {
+    this.currentPlayer.moveTilesOnBoard(locations);
     this.emitGameInfo(true);
   }
 

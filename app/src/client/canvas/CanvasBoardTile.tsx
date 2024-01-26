@@ -41,7 +41,7 @@ export default function CanvasBoardTile({
 }: CanvasBoardTileProps): JSX.Element {
   const { tileSize } = useCanvasContext();
   const { selectedTile, setSelectedTile } = useSelectedTile();
-  const { handleMoveTileOnBoard, handleMoveTileFromHandToBoard } = useGame();
+  const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
@@ -57,12 +57,12 @@ export default function CanvasBoardTile({
        * - Set the cursor to grab
        *
        * Current tile is also on the board:
-       * - Call moveTileOnBoard
+       * - Call moveTilesOnBoard
        * - ~~Select the tile under the cursor at its new position~~ Deselect tile
        * - Set the cursor to ~~grabbing~~ grab
        *
        * Current tile is in the hand:
-       * - Call moveTileFromHandToBoard
+       * - Call moveTilesFromHandToBoard
        * - ~~Select the tile under the cursor with no position~~ Deselect tile
        * - Set the cursor to ~~grabbing~~ grab
        */
@@ -78,17 +78,21 @@ export default function CanvasBoardTile({
       }
 
       if (selectedTile.location && selectedTile.tile.id !== tile.id) {
-        handleMoveTileOnBoard(selectedTile.location, { x, y });
+        handleMoveTilesOnBoard([
+          { fromLocation: selectedTile.location, toLocation: { x, y } },
+        ]);
       } else if (!selectedTile.location) {
-        handleMoveTileFromHandToBoard(selectedTile.tile.id, { x, y });
+        handleMoveTilesFromHandToBoard([
+          { tileId: selectedTile.tile.id, boardLocation: { x, y } },
+        ]);
       }
 
       setSelectedTile(null);
       setCursor(e, "grab");
     },
     [
-      handleMoveTileFromHandToBoard,
-      handleMoveTileOnBoard,
+      handleMoveTilesFromHandToBoard,
+      handleMoveTilesOnBoard,
       selectedTile,
       setSelectedTile,
       tile,

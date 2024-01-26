@@ -67,31 +67,30 @@ export default function SocketGameProvider({
     [],
   );
 
-  const handleMoveTileFromBoardToHand = useCallback(
-    (boardLocation: BoardLocation) => {
-      socket.emit(ClientToServerEventName.MoveTileFromBoardToHand, {
-        boardLocation,
+  const handleMoveTilesFromBoardToHand = useCallback(
+    (boardLocations: BoardLocation[]) => {
+      socket.emit(ClientToServerEventName.MoveTilesFromBoardToHand, {
+        boardLocations,
       });
     },
     [],
   );
 
-  const handleMoveTileFromHandToBoard = useCallback(
-    (tileId: string, boardLocation: BoardLocation) => {
-      socket.emit(ClientToServerEventName.MoveTileFromHandToBoard, {
-        tileId,
-        boardLocation,
-      });
+  const handleMoveTilesFromHandToBoard = useCallback(
+    (tiles: Array<{ tileId: string; boardLocation: BoardLocation }>) => {
+      socket.emit(ClientToServerEventName.MoveTilesFromHandToBoard, { tiles });
     },
     [],
   );
 
-  const handleMoveTileOnBoard = useCallback(
-    (fromLocation: BoardLocation, toLocation: BoardLocation) => {
-      socket.emit(ClientToServerEventName.MoveTileOnBoard, {
-        fromLocation,
-        toLocation,
-      });
+  const handleMoveTilesOnBoard = useCallback(
+    (
+      locations: Array<{
+        fromLocation: BoardLocation;
+        toLocation: BoardLocation;
+      }>,
+    ) => {
+      socket.emit(ClientToServerEventName.MoveTilesOnBoard, { locations });
     },
     [],
   );
@@ -115,9 +114,9 @@ export default function SocketGameProvider({
       value={{
         gameInfo,
         handleDump,
-        handleMoveTileFromBoardToHand,
-        handleMoveTileFromHandToBoard,
-        handleMoveTileOnBoard,
+        handleMoveTilesFromBoardToHand,
+        handleMoveTilesFromHandToBoard,
+        handleMoveTilesOnBoard,
         handlePeel,
         handleShuffleHand,
         handleSpectate,

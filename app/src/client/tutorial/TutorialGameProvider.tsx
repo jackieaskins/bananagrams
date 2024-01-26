@@ -61,10 +61,11 @@ export default function TutorialGameProvider({
     board: tutorialRobotBoard,
   });
 
-  const handleMoveTileFromHandToBoard = useCallback(
-    (tileId: string, boardLocation: BoardLocation) => {
+  const handleMoveTilesFromHandToBoard = useCallback(
+    (tiles: Array<{ tileId: string; boardLocation: BoardLocation }>) => {
       setCurrentPlayer((player) => {
         const { hand, board } = player;
+        const [{ tileId, boardLocation }] = tiles;
         const tileIndex = hand.findIndex(({ id }) => id === tileId);
 
         if (tileIndex === -1) return player;
@@ -88,11 +89,11 @@ export default function TutorialGameProvider({
     [],
   );
 
-  const handleMoveTileFromBoardToHand = useCallback(
-    (boardLocation: BoardLocation) => {
+  const handleMoveTilesFromBoardToHand = useCallback(
+    (boardLocations: BoardLocation[]) => {
       setCurrentPlayer((player) => {
         const { hand, board } = player;
-        const boardKey = generateBoardKey(boardLocation);
+        const boardKey = generateBoardKey(boardLocations[0]);
 
         const { [boardKey]: toRemove, ...otherSquares } = board;
 
@@ -106,8 +107,15 @@ export default function TutorialGameProvider({
     [],
   );
 
-  const handleMoveTileOnBoard = useCallback(
-    (fromLocation: BoardLocation, toLocation: BoardLocation) => {
+  const handleMoveTilesOnBoard = useCallback(
+    (
+      locations: Array<{
+        fromLocation: BoardLocation;
+        toLocation: BoardLocation;
+      }>,
+    ) => {
+      const [{ fromLocation, toLocation }] = locations;
+
       setCurrentPlayer((player) => {
         const { board } = player;
         const fromLocationKey = generateBoardKey(fromLocation);
@@ -219,9 +227,9 @@ export default function TutorialGameProvider({
           previousSnapshot: null,
         },
         handleDump,
-        handleMoveTileFromBoardToHand,
-        handleMoveTileFromHandToBoard,
-        handleMoveTileOnBoard,
+        handleMoveTilesFromBoardToHand,
+        handleMoveTilesFromHandToBoard,
+        handleMoveTilesOnBoard,
         handlePeel,
         handleShuffleHand,
         handleSpectate,

@@ -7,14 +7,15 @@ export type GameState = {
     id: string;
     boardLocation: BoardLocation | null;
   }) => void;
-  handleMoveTileFromHandToBoard: (
-    tileId: string,
-    boardLocation: BoardLocation,
+  handleMoveTilesFromHandToBoard: (
+    tiles: Array<{ tileId: string; boardLocation: BoardLocation }>,
   ) => void;
-  handleMoveTileFromBoardToHand: (boardLocation: BoardLocation) => void;
-  handleMoveTileOnBoard: (
-    fromLocation: BoardLocation,
-    toLocation: BoardLocation,
+  handleMoveTilesFromBoardToHand: (boardLocations: BoardLocation[]) => void;
+  handleMoveTilesOnBoard: (
+    locations: Array<{
+      fromLocation: BoardLocation;
+      toLocation: BoardLocation;
+    }>,
   ) => void;
   handlePeel: () => void;
   handleShuffleHand: () => void;

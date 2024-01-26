@@ -105,23 +105,23 @@ export function configureSocket(
     );
 
     socket.on(
-      ClientToServerEventName.MoveTileFromHandToBoard,
-      withController(({ tileId, boardLocation }, controller) =>
-        controller.moveTileFromHandToBoard(tileId, boardLocation),
+      ClientToServerEventName.MoveTilesFromHandToBoard,
+      withController(({ tiles }, controller) =>
+        controller.moveTilesFromHandToBoard(tiles),
       ),
     );
 
     socket.on(
-      ClientToServerEventName.MoveTileFromBoardToHand,
-      withController(({ boardLocation }, controller) =>
-        controller.moveTileFromBoardToHand(boardLocation),
+      ClientToServerEventName.MoveTilesFromBoardToHand,
+      withController(({ boardLocations }, controller) =>
+        controller.moveTilesFromBoardToHand(boardLocations),
       ),
     );
 
     socket.on(
-      ClientToServerEventName.MoveTileOnBoard,
-      withController(({ fromLocation, toLocation }, controller) =>
-        controller.moveTileOnBoard(fromLocation, toLocation),
+      ClientToServerEventName.MoveTilesOnBoard,
+      withController(({ locations }, controller) =>
+        controller.moveTilesOnBoard(locations),
       ),
     );
 
