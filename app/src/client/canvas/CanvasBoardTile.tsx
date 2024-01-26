@@ -4,7 +4,7 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
 import { useGame } from "@/client/games/GameContext";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
 import { useColorHex } from "@/client/utils/useColorHex";
 import {
@@ -40,7 +40,7 @@ export default function CanvasBoardTile({
   y,
 }: CanvasBoardTileProps): JSX.Element {
   const { tileSize } = useCanvasContext();
-  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
@@ -67,34 +67,48 @@ export default function CanvasBoardTile({
        * - Set the cursor to ~~grabbing~~ grab
        */
 
-      if (!selectedTile) {
-        setSelectedTile({
-          tile,
-          location: { x, y },
+      if (!selectedTiles) {
+        setSelectedTiles({
+          tiles: [{ tile, location: { x, y }, followOffset: { x: 0, y: 0 } }],
           followPosition: { x: e.evt.x, y: e.evt.y },
         });
         setCursor(e, "grabbing");
         return;
       }
 
-      if (selectedTile.location && selectedTile.tile.id !== tile.id) {
-        handleMoveTilesOnBoard([
-          { fromLocation: selectedTile.location, toLocation: { x, y } },
-        ]);
-      } else if (!selectedTile.location) {
-        handleMoveTilesFromHandToBoard([
-          { tileId: selectedTile.tile.id, boardLocation: { x, y } },
-        ]);
+      const { tiles } = selectedTiles;
+
+      // Making an assumption that all selected tiles will either be in hand or board, but never a mix of both
+      if (tiles[0].location) {
+        handleMoveTilesOnBoard(
+          tiles.map(({ followOffset, location }) => ({
+            fromLocation: location!,
+            toLocation: {
+              x: x + followOffset.x,
+              y: y + followOffset.y,
+            },
+          })),
+        );
+      } else {
+        handleMoveTilesFromHandToBoard(
+          tiles.map(({ followOffset, tile }) => ({
+            tileId: tile.id,
+            boardLocation: {
+              x: x + followOffset.x,
+              y: y + followOffset.y,
+            },
+          })),
+        );
       }
 
-      setSelectedTile(null);
+      setSelectedTiles(null);
       setCursor(e, "grab");
     },
     [
       handleMoveTilesFromHandToBoard,
       handleMoveTilesOnBoard,
-      selectedTile,
-      setSelectedTile,
+      selectedTiles,
+      setSelectedTiles,
       tile,
       x,
       y,

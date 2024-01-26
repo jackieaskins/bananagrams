@@ -1,16 +1,16 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useState } from "react";
-import { Group, Layer, Stage } from "react-konva";
+import { Layer, Stage } from "react-konva";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHandWrapper from "./CanvasHandWrapper";
-import CanvasInnerTile from "./CanvasInnerTile";
+import CanvasSelectedTiles from "./CanvasSelectedTiles";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
 import {
-  SelectedTile,
-  SelectedTileContext,
-} from "@/client/tiles/SelectedTileContext";
+  SelectedTiles,
+  SelectedTilesContext,
+} from "@/client/tiles/SelectedTilesContext";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
@@ -18,14 +18,16 @@ type CanvasProps = {
 
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
   const { board } = useCurrentPlayer();
-  const { size, stageRef, tileSize } = useCanvasContext();
-  const [selectedTile, setSelectedTile] = useState<SelectedTile | null>(null);
+  const { size, stageRef } = useCanvasContext();
+  const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | null>(
+    null,
+  );
 
   const handlePointerMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
-    setSelectedTile((selectedTile) => {
-      if (selectedTile) {
+    setSelectedTiles((selectedTiles) => {
+      if (selectedTiles) {
         return {
-          ...selectedTile,
+          ...selectedTiles,
           followPosition: { x: e.evt.x, y: e.evt.y },
         };
       }
@@ -35,7 +37,7 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
   }, []);
 
   return (
-    <SelectedTileContext.Provider value={{ selectedTile, setSelectedTile }}>
+    <SelectedTilesContext.Provider value={{ selectedTiles, setSelectedTiles }}>
       <Stage
         width={size.width}
         height={size.height}
@@ -47,18 +49,10 @@ export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
           <CanvasHandWrapper />
         </Layer>
 
-        <Layer>
-          {selectedTile && (
-            <Group
-              listening={false}
-              x={selectedTile.followPosition.x - tileSize / 2}
-              y={selectedTile.followPosition.y - tileSize / 2}
-            >
-              <CanvasInnerTile tile={selectedTile.tile} />
-            </Group>
-          )}
+        <Layer listening={false}>
+          <CanvasSelectedTiles />
         </Layer>
       </Stage>
-    </SelectedTileContext.Provider>
+    </SelectedTilesContext.Provider>
   );
 }

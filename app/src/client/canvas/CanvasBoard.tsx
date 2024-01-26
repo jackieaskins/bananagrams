@@ -10,7 +10,7 @@ import { Attrs, CanvasName } from "./constants";
 import { parseBoardKey } from "@/client/boards/key";
 import { useGame } from "@/client/games/GameContext";
 import { SetState } from "@/client/state/types";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
 import { Board } from "@/types/board";
 
@@ -24,29 +24,44 @@ export default function CanvasBoard({
   setOffset,
 }: BoardProps): JSX.Element {
   const { offset, size, playable, tileSize } = useCanvasContext();
-  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
 
   const handlePointerClick = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
-      if (!playable || !selectedTile) return;
+      if (!playable || !selectedTiles) return;
 
       const toLocation = {
         x: Math.floor((e.evt.x - offset.x) / tileSize),
         y: Math.floor((e.evt.y - offset.y) / tileSize),
       };
 
-      if (selectedTile.location) {
-        handleMoveTilesOnBoard([
-          { fromLocation: selectedTile.location, toLocation },
-        ]);
+      const { tiles } = selectedTiles;
+
+      // Making an assumption that all selected tiles will either be in hand or board, but never a mix of both
+      if (tiles[0].location) {
+        handleMoveTilesOnBoard(
+          tiles.map(({ followOffset, location }) => ({
+            fromLocation: location!,
+            toLocation: {
+              x: toLocation.x + followOffset.x,
+              y: toLocation.y + followOffset.y,
+            },
+          })),
+        );
       } else {
-        handleMoveTilesFromHandToBoard([
-          { tileId: selectedTile.tile.id, boardLocation: toLocation },
-        ]);
+        handleMoveTilesFromHandToBoard(
+          tiles.map(({ followOffset, tile }) => ({
+            tileId: tile.id,
+            boardLocation: {
+              x: toLocation.x + followOffset.x,
+              y: toLocation.y + followOffset.y,
+            },
+          })),
+        );
       }
 
-      setSelectedTile(null);
+      setSelectedTiles(null);
       setCursor(e, "grab");
     },
     [
@@ -55,15 +70,15 @@ export default function CanvasBoard({
       offset.x,
       offset.y,
       playable,
-      selectedTile,
-      setSelectedTile,
+      selectedTiles,
+      setSelectedTiles,
       tileSize,
     ],
   );
 
   return (
     <Group
-      draggable={!selectedTile}
+      draggable={!selectedTiles}
       onDragMove={(event) => {
         const { x, y } = event.target.attrs as Attrs;
         setOffset({ x, y });
@@ -76,7 +91,7 @@ export default function CanvasBoard({
         width={size.width}
         height={size.height}
         onPointerEnter={(evt) => {
-          if (!selectedTile) setCursor(evt, "move");
+          if (!selectedTiles) setCursor(evt, "move");
         }}
         onPointerUp={handlePointerClick}
       />

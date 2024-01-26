@@ -2,20 +2,20 @@ import { useMemo } from "react";
 import { Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { Attrs, CanvasName } from "./constants";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useColorModeHex } from "@/client/utils/useColorHex";
 
 const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
 
 export default function CanvasBoardDragOverlay(): JSX.Element | null {
   const { offset, stageRef, tileSize } = useCanvasContext();
-  const { selectedTile } = useSelectedTile();
+  const { selectedTiles } = useSelectedTiles();
   const hoverColor = useColorModeHex("gray.300", "gray.500");
 
   const position = useMemo(() => {
     const pointerPos = stageRef.current?.pointerPos;
 
-    if (!selectedTile || !pointerPos) {
+    if (!selectedTiles || !pointerPos) {
       return null;
     }
 
@@ -29,7 +29,7 @@ export default function CanvasBoardDragOverlay(): JSX.Element | null {
     }
 
     return null;
-  }, [offset.x, offset.y, selectedTile, stageRef, tileSize]);
+  }, [offset.x, offset.y, selectedTiles, stageRef, tileSize]);
 
   if (!position) {
     return null;

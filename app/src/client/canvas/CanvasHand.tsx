@@ -5,9 +5,10 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasHandTile from "./CanvasHandTile";
 import { CanvasName } from "./constants";
 import { useGame } from "@/client/games/GameContext";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useOverlayBackgroundColors } from "@/client/utils/colors";
 import { setCursor } from "@/client/utils/setCursor";
+import { BoardLocation } from "@/types/board";
 import { Hand } from "@/types/hand";
 
 type CanvasHandProps = {
@@ -32,7 +33,7 @@ export default function CanvasHand({
   tilesPerRow,
 }: CanvasHandProps): JSX.Element {
   const { tileSize, playable } = useCanvasContext();
-  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
   const { handleMoveTilesFromBoardToHand } = useGame();
 
   const [isActive, setActive] = useState(false);
@@ -44,17 +45,20 @@ export default function CanvasHand({
 
   const handlePointerClick = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
-      if (!selectedTile) return;
+      if (!selectedTiles) return;
 
-      if (selectedTile.location) {
-        handleMoveTilesFromBoardToHand([selectedTile.location]);
+      const boardLocations = selectedTiles.tiles
+        .map(({ location }) => location)
+        .filter((location) => !!location) as BoardLocation[];
+      if (boardLocations.length) {
+        handleMoveTilesFromBoardToHand(boardLocations);
       }
 
-      setSelectedTile(null);
+      setSelectedTiles(null);
       setActive(false);
       setCursor(evt, "default");
     },
-    [handleMoveTilesFromBoardToHand, selectedTile, setSelectedTile],
+    [handleMoveTilesFromBoardToHand, selectedTiles, setSelectedTiles],
   );
 
   return (
@@ -67,11 +71,11 @@ export default function CanvasHand({
         cornerRadius={tileSize * 0.15}
         opacity={0.8}
         onPointerEnter={(evt) => {
-          if (selectedTile?.location) {
+          if (selectedTiles?.tiles[0].location) {
             setActive(true);
           }
 
-          if (!selectedTile) {
+          if (!selectedTiles) {
             setCursor(evt, "default");
           }
         }}
@@ -82,7 +86,7 @@ export default function CanvasHand({
       {hand.map((tile, index) => (
         <CanvasHandTile
           onPointerEnter={() => {
-            if (selectedTile?.location) {
+            if (selectedTiles?.tiles[0].location) {
               setActive(true);
             }
           }}

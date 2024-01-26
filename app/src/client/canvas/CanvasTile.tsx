@@ -1,9 +1,9 @@
 import { KonvaEventObject } from "konva/lib/Node";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasInnerTile from "./CanvasInnerTile";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
 import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
@@ -30,7 +30,7 @@ export default function CanvasTile({
   onPointerEnter,
 }: TileProps): JSX.Element {
   const { playable } = useCanvasContext();
-  const { selectedTile } = useSelectedTile();
+  const { selectedTiles } = useSelectedTiles();
   const [startPos, setStartPos] = useState<BoardLocation | null>(null);
   const [canRelease, setCanRelease] = useState(true);
 
@@ -41,6 +41,12 @@ export default function CanvasTile({
       onPointerClick(e);
     },
     [onPointerClick],
+  );
+
+  const isTileSelected = useMemo(
+    () =>
+      new Set(selectedTiles?.tiles.map(({ tile: { id } }) => id)).has(tile.id),
+    [selectedTiles?.tiles, tile.id],
   );
 
   return (
@@ -59,17 +65,17 @@ export default function CanvasTile({
         }
       }}
       onPointerUp={(e) => {
-        if (selectedTile && canRelease) {
+        if (selectedTiles && canRelease) {
           handlePointerClick(e);
         }
       }}
       onPointerEnter={(e) => {
-        if (!selectedTile) {
+        if (!selectedTiles) {
           setCursor(e, "grab");
         }
         onPointerEnter?.(e);
       }}
-      opacity={selectedTile?.tile.id === tile.id ? 0.6 : 1}
+      opacity={isTileSelected ? 0.6 : 1}
       listening={playable}
     >
       <CanvasInnerTile name={name} color={color} tile={tile} />

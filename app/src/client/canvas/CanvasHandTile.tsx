@@ -3,8 +3,9 @@ import { useCallback } from "react";
 import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
 import { useGame } from "@/client/games/GameContext";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
+import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
 
 type CanvasHandTileProps = {
@@ -20,7 +21,7 @@ export default function CanvasHandTile({
   y,
   onPointerEnter,
 }: CanvasHandTileProps): JSX.Element {
-  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
   const { handleMoveTilesFromBoardToHand } = useGame();
 
   const handlePointerClick = useCallback(
@@ -43,24 +44,26 @@ export default function CanvasHandTile({
        * - ~~Select the tile under the cursor with no location~~ Deselect tile
        * - Set cursor to ~~grabbing~~ grab
        */
-      if (!selectedTile) {
-        setSelectedTile({
-          tile,
-          location: null,
+      if (!selectedTiles) {
+        setSelectedTiles({
+          tiles: [{ tile, location: null, followOffset: { x: 0, y: 0 } }],
           followPosition: { x: e.evt.x, y: e.evt.y },
         });
         setCursor(e, "grabbing");
         return;
       }
 
-      if (selectedTile.location) {
-        handleMoveTilesFromBoardToHand([selectedTile.location]);
+      const boardLocations = selectedTiles.tiles
+        .map(({ location }) => location)
+        .filter((location) => !!location) as BoardLocation[];
+      if (boardLocations.length) {
+        handleMoveTilesFromBoardToHand(boardLocations);
       }
 
-      setSelectedTile(null);
+      setSelectedTiles(null);
       setCursor(e, "grab");
     },
-    [handleMoveTilesFromBoardToHand, selectedTile, setSelectedTile, tile],
+    [handleMoveTilesFromBoardToHand, selectedTiles, setSelectedTiles, tile],
   );
 
   return (

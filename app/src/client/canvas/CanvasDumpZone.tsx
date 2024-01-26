@@ -5,7 +5,7 @@ import { Group, Line, Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { CanvasName, DUMP_ZONE_WIDTH } from "./constants";
 import { useGame } from "@/client/games/GameContext";
-import { useSelectedTile } from "@/client/tiles/SelectedTileContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useOverlayBackgroundColors } from "@/client/utils/colors";
 import { setCursor } from "@/client/utils/setCursor";
 import { useColorHex } from "@/client/utils/useColorHex";
@@ -30,7 +30,7 @@ export default function CanvasDumpZone({
     handleDump,
     gameInfo: { bunch },
   } = useGame();
-  const { selectedTile, setSelectedTile } = useSelectedTile();
+  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
   const [textColor] = useColorHex([useColorModeValue("gray.500", "gray.300")]);
   const [isActive, setActive] = useState(false);
 
@@ -50,44 +50,45 @@ export default function CanvasDumpZone({
     [handHeight],
   );
 
+  // TODO: Add support for dumping multiple tiles
   const handlePointerEnter = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
-      if (selectedTile && canDrop) {
+      if (selectedTiles?.tiles.length === 1 && canDrop) {
         setActive(true);
-      } else if (selectedTile && !canDrop) {
+      } else if (selectedTiles?.tiles.length === 1 && !canDrop) {
         setCursor(evt, "no-drop");
       } else {
         setCursor(evt, "default");
       }
     },
-    [canDrop, selectedTile],
+    [canDrop, selectedTiles],
   );
 
   const handlePointerLeave = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
-      if (selectedTile) {
+      if (selectedTiles) {
         setCursor(evt, "grabbing");
       }
 
       setActive(false);
     },
-    [selectedTile],
+    [selectedTiles],
   );
 
   const handlePointerClick = useCallback(
     (evt: KonvaEventObject<MouseEvent>) => {
-      if (bunch.length < EXCHANGE_COUNT || !selectedTile) return;
+      if (bunch.length < EXCHANGE_COUNT || !selectedTiles) return;
 
       handleDump({
-        id: selectedTile.tile.id,
-        boardLocation: selectedTile?.location,
+        id: selectedTiles.tiles[0].tile.id,
+        boardLocation: selectedTiles.tiles[0].location,
       });
 
-      setSelectedTile(null);
+      setSelectedTiles(null);
       setActive(false);
       setCursor(evt, "default");
     },
-    [bunch.length, handleDump, selectedTile, setSelectedTile],
+    [bunch.length, handleDump, selectedTiles, setSelectedTiles],
   );
 
   return (
