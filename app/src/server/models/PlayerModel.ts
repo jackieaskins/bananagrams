@@ -2,6 +2,7 @@ import BaseModel from "./BaseModel";
 import BoardModel from "./BoardModel";
 import HandModel from "./HandModel";
 import TileModel from "./TileModel";
+import { generateBoardKey } from "@/server/boardKey";
 import { BoardLocation } from "@/types/board";
 import { Player, PlayerStatus } from "@/types/player";
 
@@ -132,15 +133,24 @@ export default class PlayerModel implements BaseModel<Player> {
   }
 
   /*
-   * If toLocation is empty:
-   *  Remove fromTile from fromLocation
-   *  Add fromTile to toLocation
+   * If one tile is provided:
+   *  If toLocation is empty:
+   *   Remove fromTile from fromLocation
+   *   Add fromTile to toLocation
+   *  If toLocation is not empty:
+   *   Remove toTile from toLocation
+   *   Remove fromTile from fromLocation
+   *   Add fromTile to toLocation
+   *   Add toTile to fromLocation
    *
-   * If toLocation is not empty:
-   *  Remove toTile from toLocation
-   *  Remove fromTile from fromLocation
-   *  Add fromTile to toLocation
-   *  Add toTile to fromLocation
+   * If multiple tiles are provided:
+   *  For every fromLocation:
+   *   Remove fromTile from fromLocation
+   *  For every toLocation:
+   *   Remove toTile from toLocation
+   *   Add toTile to hand
+   *  For every fromLocation:
+   *   Add fromTile to toLocation
    */
   moveTilesOnBoard(
     locations: Array<{
@@ -148,7 +158,11 @@ export default class PlayerModel implements BaseModel<Player> {
       toLocation: BoardLocation;
     }>,
   ): void {
-    locations.forEach(({ fromLocation, toLocation }) => {
+    if (!locations.length) return;
+
+    if (locations.length === 1) {
+      const [{ fromLocation, toLocation }] = locations;
+
       if (fromLocation.x === toLocation.x && fromLocation.y === toLocation.y) {
         return;
       }
@@ -165,6 +179,37 @@ export default class PlayerModel implements BaseModel<Player> {
       if (toTile) {
         this.board.addTile(fromLocation, toTile);
       }
+
+      return;
+    }
+
+    const uniqueFromLocations = new Set(
+      locations.map(({ fromLocation }) => generateBoardKey(fromLocation)),
+    );
+    const uniqueToLocations = new Set(
+      locations.map(({ toLocation }) => generateBoardKey(toLocation)),
+    );
+
+    if (uniqueFromLocations.size !== locations.length)
+      throw new Error("All fromLocations must be unique");
+    if (uniqueToLocations.size !== locations.length)
+      throw new Error("All toLocations must be unique");
+
+    const locationTargets = locations
+      .filter(({ fromLocation }) => !this.board.isEmptySquare(fromLocation))
+      .map(({ fromLocation, toLocation }) => ({
+        tile: this.board.removeTile(fromLocation),
+        toLocation,
+      }));
+
+    this.hand.addTiles(
+      locations
+        .filter(({ toLocation }) => !this.board.isEmptySquare(toLocation))
+        .map(({ toLocation }) => this.board.removeTile(toLocation)),
+    );
+
+    locationTargets.forEach(({ tile, toLocation }) => {
+      this.board.addTile(toLocation, tile);
     });
   }
 }

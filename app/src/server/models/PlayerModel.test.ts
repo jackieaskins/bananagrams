@@ -180,8 +180,8 @@ describe("Player Model", () => {
   });
 
   describe("moveTilesOnBoard", () => {
-    const from = { x: 0, y: 0 };
-    const to = { x: 1, y: 1 };
+    const fromLocation = { x: 0, y: 0 };
+    const toLocation = { x: 1, y: 1 };
     const tile = new TileModel("A1", "A");
 
     beforeEach(() => {
@@ -189,45 +189,127 @@ describe("Player Model", () => {
       jest.spyOn(player.getBoard(), "removeTile");
       jest.spyOn(player.getBoard(), "addTile");
 
-      player.getBoard().addTile(from, tile);
+      player.getBoard().addTile(fromLocation, tile);
     });
 
-    it("does not move any tiles if from and to locations are the same", () => {
-      jest.clearAllMocks();
+    describe("when one tile is provided", () => {
+      it("does not move any tiles if from and to locations are the same", () => {
+        jest.clearAllMocks();
 
-      player.moveTilesOnBoard([{ fromLocation: to, toLocation: to }]);
+        player.moveTilesOnBoard([{ fromLocation: toLocation, toLocation }]);
 
-      expect(player.getBoard().addTile).not.toHaveBeenCalled();
-      expect(player.getBoard().removeTile).not.toHaveBeenCalled();
+        expect(player.getBoard().addTile).not.toHaveBeenCalled();
+        expect(player.getBoard().removeTile).not.toHaveBeenCalled();
+      });
+
+      describe("when there is a tile at the to location", () => {
+        const otherTile = new TileModel("B1", "B");
+
+        beforeEach(() => {
+          player.getBoard().addTile(toLocation, otherTile);
+          player.moveTilesOnBoard([{ fromLocation, toLocation }]);
+        });
+
+        it("removes the tile currently at to location", () => {
+          expect(player.getBoard().removeTile).toHaveBeenCalledWith(toLocation);
+        });
+
+        it("adds the tile that was at the to location to the from location", () => {
+          expect(player.getBoard().addTile).toHaveBeenCalledWith(
+            fromLocation,
+            otherTile,
+          );
+        });
+      });
+
+      it("removes tile from from location", () => {
+        player.moveTilesOnBoard([{ fromLocation, toLocation }]);
+
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(fromLocation);
+      });
+
+      it("adds removed tile to to location", () => {
+        player.moveTilesOnBoard([{ fromLocation, toLocation }]);
+
+        expect(player.getBoard().addTile).toHaveBeenCalledWith(
+          toLocation,
+          tile,
+        );
+      });
     });
 
-    describe("when there is a tile at the to location", () => {
+    describe("when multiple tiles are provided", () => {
+      const otherLocation = { x: 2, y: 2 };
       const otherTile = new TileModel("B1", "B");
 
       beforeEach(() => {
-        player.getBoard().addTile(to, otherTile);
-        player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
+        player.getBoard().addTile(otherLocation, otherTile);
       });
 
-      it("removes the tile currently at to location", () => {
-        expect(player.getBoard().removeTile).toHaveBeenCalledWith(to);
+      it("throws an error when fromLocation is duplicated", () => {
+        expect(() =>
+          player.moveTilesOnBoard([
+            { fromLocation, toLocation },
+            { fromLocation, toLocation: otherLocation },
+          ]),
+        ).toThrow("All fromLocations must be unique");
       });
 
-      it("adds the tile that was at the to location to the from location", () => {
-        expect(player.getBoard().addTile).toHaveBeenCalledWith(from, otherTile);
+      it("throws an error when toLocation is duplicated", () => {
+        expect(() =>
+          player.moveTilesOnBoard([
+            { fromLocation, toLocation },
+            { fromLocation: otherLocation, toLocation },
+          ]),
+        ).toThrow("All toLocations must be unique");
       });
-    });
 
-    it("removes tile from from location", () => {
-      player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
+      it("moves tiles to empty squares", () => {
+        player.moveTilesOnBoard([
+          { fromLocation, toLocation },
+          { fromLocation: otherLocation, toLocation: { x: 5, y: 5 } },
+        ]);
 
-      expect(player.getBoard().removeTile).toHaveBeenCalledWith(from);
-    });
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(fromLocation);
+        expect(player.getBoard().addTile).toHaveBeenCalledWith(
+          toLocation,
+          tile,
+        );
 
-    it("adds removed tile to to location", () => {
-      player.moveTilesOnBoard([{ fromLocation: from, toLocation: to }]);
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(
+          otherLocation,
+        );
+        expect(player.getBoard().addTile).toHaveBeenCalledWith(
+          { x: 5, y: 5 },
+          otherTile,
+        );
+      });
 
-      expect(player.getBoard().addTile).toHaveBeenCalledWith(to, tile);
+      it("moves non-empty square tiles to hand", () => {
+        const toHandTile = new TileModel("Z1", "Z");
+        const nonEmptyLocation = { x: 5, y: 5 };
+
+        jest.spyOn(player.getHand(), "addTiles");
+
+        player.getBoard().addTile(nonEmptyLocation, toHandTile);
+
+        player.moveTilesOnBoard([
+          { fromLocation, toLocation },
+          { fromLocation: otherLocation, toLocation: nonEmptyLocation },
+        ]);
+
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(
+          otherLocation,
+        );
+        expect(player.getBoard().removeTile).toHaveBeenCalledWith(
+          nonEmptyLocation,
+        );
+        expect(player.getBoard().addTile).toHaveBeenCalledWith(
+          nonEmptyLocation,
+          otherTile,
+        );
+        expect(player.getHand().addTiles).toHaveBeenCalledWith([toHandTile]);
+      });
     });
   });
 });
