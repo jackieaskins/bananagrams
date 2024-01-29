@@ -11,7 +11,9 @@ import GameFooter from "./GameFooter";
 import GameSidebar from "./GameSidebar";
 import Canvas from "@/client/canvas/Canvas";
 import { CanvasContext } from "@/client/canvas/CanvasContext";
+import KeysProvider from "@/client/keys/KeysProvider";
 import { useNavMenu } from "@/client/menus/NavMenuContext";
+import SelectedTilesProvider from "@/client/tiles/SelectedTilesProvider";
 
 const TILE_SIZE = 32;
 
@@ -88,7 +90,11 @@ export default function Game(): JSX.Element {
             tileSize: TILE_SIZE,
           }}
         >
-          <Canvas setOffset={setOffset} />
+          <SelectedTilesProvider>
+            <KeysProvider>
+              <Canvas setOffset={setOffset} />
+            </KeysProvider>
+          </SelectedTilesProvider>
         </CanvasContext.Provider>
 
         <Box ref={gameBarRef}>

@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Group } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasInnerTile from "./CanvasInnerTile";
+import { CanvasName } from "./constants";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
 import { BoardLocation } from "@/types/board";
@@ -11,13 +12,13 @@ import { Tile } from "@/types/tile";
 const delta = 5;
 
 export type TileProps = {
-  name: string;
+  name: CanvasName;
   color?: string;
   tile: Tile;
   x: number;
   y: number;
-  onPointerClick: (event: KonvaEventObject<MouseEvent>) => void;
-  onPointerEnter?: (event: KonvaEventObject<MouseEvent>) => void;
+  onPointerClick: (event: KonvaEventObject<PointerEvent>) => void;
+  onPointerEnter?: (event: KonvaEventObject<PointerEvent>) => void;
 };
 
 export default function CanvasTile({
@@ -35,7 +36,7 @@ export default function CanvasTile({
   const [canRelease, setCanRelease] = useState(true);
 
   const handlePointerClick = useCallback(
-    (e: KonvaEventObject<MouseEvent>) => {
+    (e: KonvaEventObject<PointerEvent>) => {
       setStartPos({ x: e.evt.x, y: e.evt.y });
       setCanRelease(false);
       onPointerClick(e);

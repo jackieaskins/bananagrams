@@ -3,6 +3,7 @@ import { useCallback, useMemo } from "react";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
+import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
@@ -40,13 +41,13 @@ export default function CanvasBoardTile({
   y,
 }: CanvasBoardTileProps): JSX.Element {
   const { tileSize } = useCanvasContext();
-  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
+  const { clearSelectedTiles, selectedTiles, selectTiles } = useSelectedTiles();
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
   const handlePointerClick = useCallback(
-    (e: KonvaEventObject<MouseEvent>) => {
+    (e: KonvaEventObject<PointerEvent>) => {
       /*
        * No selected tile:
        * - Select the tile under the cursor at current location
@@ -68,47 +69,38 @@ export default function CanvasBoardTile({
        */
 
       if (!selectedTiles) {
-        setSelectedTiles({
-          tiles: [{ tile, location: { x, y }, followOffset: { x: 0, y: 0 } }],
-          followPosition: { x: e.evt.x, y: e.evt.y },
-        });
+        selectTiles(e, [{ tile, boardLocation: { x, y } }]);
         setCursor(e, "grabbing");
         return;
       }
 
-      const { tiles } = selectedTiles;
+      const { tiles, boardLocation } = selectedTiles;
 
-      // Making an assumption that all selected tiles will either be in hand or board, but never a mix of both
-      if (tiles[0].location) {
+      if (boardLocation) {
         handleMoveTilesOnBoard(
-          tiles.map(({ followOffset, location }) => ({
-            fromLocation: location!,
-            toLocation: {
-              x: x + followOffset.x,
-              y: y + followOffset.y,
-            },
+          tiles.map(({ followOffset }) => ({
+            fromLocation: vectorSum(boardLocation, followOffset),
+            toLocation: vectorSum({ x, y }, followOffset),
           })),
         );
       } else {
         handleMoveTilesFromHandToBoard(
           tiles.map(({ followOffset, tile }) => ({
             tileId: tile.id,
-            boardLocation: {
-              x: x + followOffset.x,
-              y: y + followOffset.y,
-            },
+            boardLocation: vectorSum({ x, y }, followOffset),
           })),
         );
       }
 
-      setSelectedTiles(null);
+      clearSelectedTiles();
       setCursor(e, "grab");
     },
     [
+      clearSelectedTiles,
       handleMoveTilesFromHandToBoard,
       handleMoveTilesOnBoard,
+      selectTiles,
       selectedTiles,
-      setSelectedTiles,
       tile,
       x,
       y,

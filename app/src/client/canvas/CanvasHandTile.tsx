@@ -2,17 +2,17 @@ import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback } from "react";
 import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
+import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
-import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
 
 type CanvasHandTileProps = {
   tile: Tile;
   x: number;
   y: number;
-  onPointerEnter: (event: KonvaEventObject<MouseEvent>) => void;
+  onPointerEnter: (event: KonvaEventObject<PointerEvent>) => void;
 };
 
 export default function CanvasHandTile({
@@ -21,11 +21,11 @@ export default function CanvasHandTile({
   y,
   onPointerEnter,
 }: CanvasHandTileProps): JSX.Element {
-  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
+  const { selectedTiles, clearSelectedTiles, selectTiles } = useSelectedTiles();
   const { handleMoveTilesFromBoardToHand } = useGame();
 
   const handlePointerClick = useCallback(
-    (e: KonvaEventObject<MouseEvent>) => {
+    (e: KonvaEventObject<PointerEvent>) => {
       /**
        * No tile is selected:
        * - Select the tile under the cursor with no location
@@ -45,25 +45,31 @@ export default function CanvasHandTile({
        * - Set cursor to ~~grabbing~~ grab
        */
       if (!selectedTiles) {
-        setSelectedTiles({
-          tiles: [{ tile, location: null, followOffset: { x: 0, y: 0 } }],
-          followPosition: { x: e.evt.x, y: e.evt.y },
-        });
+        selectTiles(e, [{ tile, boardLocation: null }]);
         setCursor(e, "grabbing");
         return;
       }
 
-      const boardLocations = selectedTiles.tiles
-        .map(({ location }) => location)
-        .filter((location) => !!location) as BoardLocation[];
-      if (boardLocations.length) {
-        handleMoveTilesFromBoardToHand(boardLocations);
+      const { boardLocation, tiles } = selectedTiles;
+
+      if (boardLocation) {
+        handleMoveTilesFromBoardToHand(
+          tiles.map(({ followOffset }) =>
+            vectorSum(boardLocation, followOffset),
+          ),
+        );
       }
 
-      setSelectedTiles(null);
+      clearSelectedTiles();
       setCursor(e, "grab");
     },
-    [handleMoveTilesFromBoardToHand, selectedTiles, setSelectedTiles, tile],
+    [
+      clearSelectedTiles,
+      handleMoveTilesFromBoardToHand,
+      selectTiles,
+      selectedTiles,
+      tile,
+    ],
   );
 
   return (

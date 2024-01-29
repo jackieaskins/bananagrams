@@ -1,10 +1,12 @@
-import { Rect, Text } from "react-konva";
+import { Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
+import CanvasTileRect from "./CanvasTileRect";
+import { CanvasName } from "./constants";
 import { useColorHex } from "@/client/utils/useColorHex";
 import { Tile } from "@/types/tile";
 
 type CanvasInnerTileProps = {
-  name?: string;
+  name?: CanvasName;
   color?: string;
   tile: Tile;
 };
@@ -19,15 +21,7 @@ export default function CanvasInnerTile({
 
   return (
     <>
-      <Rect
-        name={name}
-        width={tileSize}
-        height={tileSize}
-        fill={tileBg}
-        cornerRadius={tileSize * 0.15}
-        stroke={color}
-        strokeWidth={tileSize < 20 ? 1 : 2}
-      />
+      <CanvasTileRect name={name} fill={tileBg} stroke={color} />
 
       <Text
         text={letter}

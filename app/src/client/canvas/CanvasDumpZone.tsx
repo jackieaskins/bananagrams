@@ -30,7 +30,7 @@ export default function CanvasDumpZone({
     handleDump,
     gameInfo: { bunch },
   } = useGame();
-  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
+  const { clearSelectedTiles, selectedTiles } = useSelectedTiles();
   const [textColor] = useColorHex([useColorModeValue("gray.500", "gray.300")]);
   const [isActive, setActive] = useState(false);
 
@@ -52,7 +52,7 @@ export default function CanvasDumpZone({
 
   // TODO: Add support for dumping multiple tiles
   const handlePointerEnter = useCallback(
-    (evt: KonvaEventObject<MouseEvent>) => {
+    (evt: KonvaEventObject<PointerEvent>) => {
       if (selectedTiles?.tiles.length === 1 && canDrop) {
         setActive(true);
       } else if (selectedTiles?.tiles.length === 1 && !canDrop) {
@@ -65,7 +65,7 @@ export default function CanvasDumpZone({
   );
 
   const handlePointerLeave = useCallback(
-    (evt: KonvaEventObject<MouseEvent>) => {
+    (evt: KonvaEventObject<PointerEvent>) => {
       if (selectedTiles) {
         setCursor(evt, "grabbing");
       }
@@ -76,19 +76,19 @@ export default function CanvasDumpZone({
   );
 
   const handlePointerClick = useCallback(
-    (evt: KonvaEventObject<MouseEvent>) => {
+    (evt: KonvaEventObject<PointerEvent>) => {
       if (bunch.length < EXCHANGE_COUNT || !selectedTiles) return;
 
       handleDump({
         id: selectedTiles.tiles[0].tile.id,
-        boardLocation: selectedTiles.tiles[0].location,
+        boardLocation: selectedTiles.boardLocation,
       });
 
-      setSelectedTiles(null);
+      clearSelectedTiles();
       setActive(false);
       setCursor(evt, "default");
     },
-    [bunch.length, handleDump, selectedTiles, setSelectedTiles],
+    [bunch.length, clearSelectedTiles, handleDump, selectedTiles],
   );
 
   return (

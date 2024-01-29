@@ -4,13 +4,11 @@ import { Layer, Stage } from "react-konva";
 import CanvasBoard from "./CanvasBoard";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasHandWrapper from "./CanvasHandWrapper";
+import CanvasSelectRect, { Selection } from "./CanvasSelectRect";
 import CanvasSelectedTiles from "./CanvasSelectedTiles";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
-import {
-  SelectedTiles,
-  SelectedTilesContext,
-} from "@/client/tiles/SelectedTilesContext";
+import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 
 type CanvasProps = {
   setOffset: SetState<{ x: number; y: number }>;
@@ -19,40 +17,32 @@ type CanvasProps = {
 export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
   const { board } = useCurrentPlayer();
   const { size, stageRef } = useCanvasContext();
-  const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | null>(
-    null,
+  const [selection, setSelection] = useState<Selection | null>(null);
+  const { updateFollowPosition } = useSelectedTiles();
+
+  const handlePointerMove = useCallback(
+    (e: KonvaEventObject<PointerEvent>) => {
+      updateFollowPosition(e);
+    },
+    [updateFollowPosition],
   );
 
-  const handlePointerMove = useCallback((e: KonvaEventObject<MouseEvent>) => {
-    setSelectedTiles((selectedTiles) => {
-      if (selectedTiles) {
-        return {
-          ...selectedTiles,
-          followPosition: { x: e.evt.x, y: e.evt.y },
-        };
-      }
-
-      return null;
-    });
-  }, []);
-
   return (
-    <SelectedTilesContext.Provider value={{ selectedTiles, setSelectedTiles }}>
-      <Stage
-        width={size.width}
-        height={size.height}
-        ref={stageRef}
-        onPointerMove={handlePointerMove}
-      >
-        <Layer>
-          <CanvasBoard setOffset={setOffset} board={board} />
-          <CanvasHandWrapper />
-        </Layer>
+    <Stage
+      width={size.width}
+      height={size.height}
+      ref={stageRef}
+      onPointerMove={handlePointerMove}
+    >
+      <Layer>
+        <CanvasBoard setOffset={setOffset} board={board} />
+        <CanvasSelectRect selection={selection} setSelection={setSelection} />
+        <CanvasHandWrapper listening={!selection} />
+      </Layer>
 
-        <Layer listening={false}>
-          <CanvasSelectedTiles />
-        </Layer>
-      </Stage>
-    </SelectedTilesContext.Provider>
+      <Layer listening={false}>
+        <CanvasSelectedTiles />
+      </Layer>
+    </Stage>
   );
 }

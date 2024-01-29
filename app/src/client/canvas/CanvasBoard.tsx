@@ -8,7 +8,9 @@ import CanvasGrid from "./CanvasGrid";
 import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
 import { Attrs, CanvasName } from "./constants";
 import { parseBoardKey } from "@/client/boards/key";
+import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
+import { useKeys } from "@/client/keys/KeysContext";
 import { SetState } from "@/client/state/types";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { setCursor } from "@/client/utils/setCursor";
@@ -24,11 +26,12 @@ export default function CanvasBoard({
   setOffset,
 }: BoardProps): JSX.Element {
   const { offset, size, playable, tileSize } = useCanvasContext();
-  const { selectedTiles, setSelectedTiles } = useSelectedTiles();
+  const { clearSelectedTiles, selectedTiles } = useSelectedTiles();
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
+  const { shiftDown } = useKeys();
 
   const handlePointerClick = useCallback(
-    (e: KonvaEventObject<MouseEvent>) => {
+    (e: KonvaEventObject<PointerEvent>) => {
       if (!playable || !selectedTiles) return;
 
       const toLocation = {
@@ -36,49 +39,41 @@ export default function CanvasBoard({
         y: Math.floor((e.evt.y - offset.y) / tileSize),
       };
 
-      const { tiles } = selectedTiles;
+      const { tiles, boardLocation } = selectedTiles;
 
-      // Making an assumption that all selected tiles will either be in hand or board, but never a mix of both
-      if (tiles[0].location) {
+      if (boardLocation) {
         handleMoveTilesOnBoard(
-          tiles.map(({ followOffset, location }) => ({
-            fromLocation: location!,
-            toLocation: {
-              x: toLocation.x + followOffset.x,
-              y: toLocation.y + followOffset.y,
-            },
+          tiles.map(({ followOffset }) => ({
+            fromLocation: vectorSum(boardLocation, followOffset),
+            toLocation: vectorSum(toLocation, followOffset),
           })),
         );
       } else {
         handleMoveTilesFromHandToBoard(
           tiles.map(({ followOffset, tile }) => ({
             tileId: tile.id,
-            boardLocation: {
-              x: toLocation.x + followOffset.x,
-              y: toLocation.y + followOffset.y,
-            },
+            boardLocation: vectorSum(toLocation, followOffset),
           })),
         );
       }
 
-      setSelectedTiles(null);
+      clearSelectedTiles();
       setCursor(e, "grab");
     },
     [
+      clearSelectedTiles,
       handleMoveTilesFromHandToBoard,
       handleMoveTilesOnBoard,
-      offset.x,
-      offset.y,
+      offset,
       playable,
       selectedTiles,
-      setSelectedTiles,
       tileSize,
     ],
   );
 
   return (
     <Group
-      draggable={!selectedTiles}
+      draggable={!playable || (!shiftDown && !selectedTiles)}
       onDragMove={(event) => {
         const { x, y } = event.target.attrs as Attrs;
         setOffset({ x, y });

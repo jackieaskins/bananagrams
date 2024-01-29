@@ -11,7 +11,13 @@ const PADDING = 15;
 const SPACING = 7;
 const GAP = 10;
 
-export default function CanvasHandWrapper(): JSX.Element {
+type CanvasHandWrapperProps = {
+  listening: boolean;
+};
+
+export default function CanvasHandWrapper({
+  listening,
+}: CanvasHandWrapperProps): JSX.Element {
   const { size, tileSize } = useCanvasContext();
   const { hand } = useCurrentPlayer();
 
@@ -30,6 +36,7 @@ export default function CanvasHandWrapper(): JSX.Element {
     <Group
       x={size.width / 2 - (handWidth + DUMP_ZONE_WIDTH + GAP) / 2}
       y={size.height - handHeight - tileSize}
+      listening={listening}
     >
       <CanvasDumpZone handHeight={handHeight} />
       <CanvasHand

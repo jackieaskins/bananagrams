@@ -19,7 +19,11 @@ export default function CanvasSelectedTiles(): JSX.Element | null {
       y={followPosition.y - tileSize / 2}
     >
       {tiles.map(({ tile, followOffset }) => (
-        <Group key={tile.id} x={followOffset.x} y={followOffset.y}>
+        <Group
+          key={tile.id}
+          x={followOffset.x * tileSize}
+          y={followOffset.y * tileSize}
+        >
           <CanvasInnerTile tile={tile} />
         </Group>
       ))}

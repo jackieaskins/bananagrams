@@ -1,49 +1,72 @@
 import { useMemo } from "react";
-import { Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
+import CanvasTileRect from "./CanvasTileRect";
 import { Attrs, CanvasName } from "./constants";
+import { generateBoardKey } from "@/client/boards/key";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useColorModeHex } from "@/client/utils/useColorHex";
 
 const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
 
-export default function CanvasBoardDragOverlay(): JSX.Element | null {
+export default function CanvasBoardDragOverlay(): JSX.Element[] {
   const { offset, stageRef, tileSize } = useCanvasContext();
   const { selectedTiles } = useSelectedTiles();
+  const { board } = useCurrentPlayer();
   const hoverColor = useColorModeHex("gray.300", "gray.500");
 
-  const position = useMemo(() => {
+  const overlays = useMemo(() => {
     const pointerPos = stageRef.current?.pointerPos;
 
     if (!selectedTiles || !pointerPos) {
-      return null;
+      return [];
     }
 
     const intersection = stageRef.current?.getIntersection(pointerPos);
     const name = (intersection?.attrs as Attrs).name;
     if (!intersection || (name && SUPPORTED_OVERLAY_NAMES.includes(name))) {
-      return {
-        x: Math.floor((pointerPos.x - offset.x) / tileSize) * tileSize,
-        y: Math.floor((pointerPos.y - offset.y) / tileSize) * tileSize,
+      const position = {
+        x: Math.floor((pointerPos.x - offset.x) / tileSize),
+        y: Math.floor((pointerPos.y - offset.y) / tileSize),
       };
+
+      const selectedTileIds = new Set(
+        selectedTiles.tiles.map(({ tile: { id } }) => id),
+      );
+
+      return selectedTiles.tiles.map(({ followOffset }) => {
+        const x = position.x + followOffset.x;
+        const y = position.y + followOffset.y;
+
+        const key = generateBoardKey({ x, y });
+        const tileAtSquare = board[key];
+
+        return {
+          key,
+          x: x * tileSize,
+          y: y * tileSize,
+          color:
+            tileAtSquare &&
+            selectedTileIds.size > 1 &&
+            !selectedTileIds.has(tileAtSquare.tile.id)
+              ? "red"
+              : hoverColor,
+        };
+      });
     }
 
-    return null;
-  }, [offset.x, offset.y, selectedTiles, stageRef, tileSize]);
+    return [];
+  }, [board, hoverColor, offset, selectedTiles, stageRef, tileSize]);
 
-  if (!position) {
-    return null;
-  }
-
-  return (
-    <Rect
-      x={position.x}
-      y={position.y}
-      width={tileSize}
-      height={tileSize}
-      fill={hoverColor}
+  return overlays.map(({ x, y, key, color }) => (
+    <CanvasTileRect
+      key={key}
+      x={x}
+      y={y}
+      fill={color}
+      stroke={color}
       opacity={0.5}
       listening={false}
     />
-  );
+  ));
 }
