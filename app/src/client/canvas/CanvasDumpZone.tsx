@@ -4,15 +4,16 @@ import { useCallback, useMemo, useState } from "react";
 import { Group, Line, Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
 import { CanvasName, DUMP_ZONE_WIDTH } from "./constants";
+import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useOverlayBackgroundColors } from "@/client/utils/colors";
 import { setCursor } from "@/client/utils/setCursor";
+import useCanDump, { EXCHANGE_COUNT } from "@/client/utils/useCanDump";
 import { useColorHex } from "@/client/utils/useColorHex";
 
-const EXCHANGE_COUNT = 3;
 const TITLE_FONT_SIZE = 20;
-const DESCRIPTION_FONT_SIZE = 14;
+const DESCRIPTION_FONT_SIZE = 13;
 const VERTICAL_SPACING = 20;
 const DESCRIPTION_NUM_LINES = 3;
 const DESCRIPTION_HORIZONTAL_PADDING = 16;
@@ -26,15 +27,12 @@ export default function CanvasDumpZone({
 }: CanvasDumpZoneProps): JSX.Element {
   const { tileSize } = useCanvasContext();
   const { defaultBgColor, activeBgColor } = useOverlayBackgroundColors();
-  const {
-    handleDump,
-    gameInfo: { bunch },
-  } = useGame();
+  const { handleDump } = useGame();
   const { clearSelectedTiles, selectedTiles } = useSelectedTiles();
   const [textColor] = useColorHex([useColorModeValue("gray.500", "gray.300")]);
   const [isActive, setActive] = useState(false);
 
-  const canDrop = useMemo(() => bunch.length >= EXCHANGE_COUNT, [bunch.length]);
+  const canDump = useCanDump();
   const bgColor = useMemo(
     () => (isActive ? activeBgColor : defaultBgColor),
     [activeBgColor, defaultBgColor, isActive],
@@ -50,18 +48,17 @@ export default function CanvasDumpZone({
     [handHeight],
   );
 
-  // TODO: Add support for dumping multiple tiles
   const handlePointerEnter = useCallback(
     (evt: KonvaEventObject<PointerEvent>) => {
-      if (selectedTiles?.tiles.length === 1 && canDrop) {
+      if (canDump) {
         setActive(true);
-      } else if (selectedTiles?.tiles.length === 1 && !canDrop) {
+      } else if (selectedTiles && !canDump) {
         setCursor(evt, "no-drop");
       } else {
         setCursor(evt, "default");
       }
     },
-    [canDrop, selectedTiles],
+    [canDump, selectedTiles],
   );
 
   const handlePointerLeave = useCallback(
@@ -77,18 +74,24 @@ export default function CanvasDumpZone({
 
   const handlePointerClick = useCallback(
     (evt: KonvaEventObject<PointerEvent>) => {
-      if (bunch.length < EXCHANGE_COUNT || !selectedTiles) return;
+      if (!selectedTiles || !canDump) return;
 
-      handleDump({
-        id: selectedTiles.tiles[0].tile.id,
-        boardLocation: selectedTiles.boardLocation,
-      });
+      const { tiles, boardLocation } = selectedTiles;
+
+      handleDump(
+        tiles.map(({ tile: { id: tileId }, followOffset }) => ({
+          tileId,
+          boardLocation: boardLocation
+            ? vectorSum(boardLocation, followOffset)
+            : null,
+        })),
+      );
 
       clearSelectedTiles();
       setActive(false);
       setCursor(evt, "default");
     },
-    [bunch.length, clearSelectedTiles, handleDump, selectedTiles],
+    [canDump, clearSelectedTiles, handleDump, selectedTiles],
   );
 
   return (
@@ -132,7 +135,7 @@ export default function CanvasDumpZone({
           y={TITLE_FONT_SIZE + VERTICAL_SPACING}
           x={DESCRIPTION_HORIZONTAL_PADDING}
           width={DUMP_ZONE_WIDTH - DESCRIPTION_HORIZONTAL_PADDING * 2}
-          text={`Drop tile here to swap it for ${EXCHANGE_COUNT} new ones`}
+          text={`Drop tile(s) here to swap for ${EXCHANGE_COUNT} new ones`}
           fontSize={DESCRIPTION_FONT_SIZE}
           align="center"
           fill={textColor}

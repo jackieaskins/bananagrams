@@ -43,13 +43,13 @@ describe("GameContext", () => {
   });
 
   it("provides dump handler", () => {
-    const tile = { id: "A1", boardLocation: { x: 0, y: 0 } };
+    const tiles = [{ tileId: "A1", boardLocation: { x: 0, y: 0 } }];
 
     const { result } = renderGameWithHook();
 
-    result.current.handleDump(tile);
+    result.current.handleDump(tiles);
 
-    expect(mockHandleDump).toHaveBeenCalledWith(tile);
+    expect(mockHandleDump).toHaveBeenCalledWith(tiles);
   });
 
   it("provides moveTilesFromHandToBoard handler", () => {

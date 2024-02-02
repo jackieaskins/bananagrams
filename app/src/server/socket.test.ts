@@ -371,7 +371,7 @@ describe("socket", () => {
       const boardLocation = { x: 0, y: 0 };
 
       const dump = (callback?: () => void): void => {
-        socketCalls.dump({ tileId, boardLocation }, callback);
+        socketCalls.dump({ tiles: [{ tileId, boardLocation }] }, callback);
       };
 
       it("throws an error when not in a game", () => {
@@ -382,7 +382,9 @@ describe("socket", () => {
       it("calls dump on game", () => {
         createGame();
         dump(callback);
-        expect(gameController.dump).toHaveBeenCalledWith(tileId, boardLocation);
+        expect(gameController.dump).toHaveBeenCalledWith([
+          { tileId, boardLocation },
+        ]);
       });
 
       it("calls callback with null", () => {

@@ -3,10 +3,12 @@ import { Game } from "@/types/game";
 
 export type GameState = {
   gameInfo: Game;
-  handleDump: (tile: {
-    id: string;
-    boardLocation: BoardLocation | null;
-  }) => void;
+  handleDump: (
+    tiles: Array<{
+      tileId: string;
+      boardLocation: BoardLocation | null;
+    }>,
+  ) => void;
   handleMoveTilesFromHandToBoard: (
     tiles: Array<{ tileId: string; boardLocation: BoardLocation }>,
   ) => void;

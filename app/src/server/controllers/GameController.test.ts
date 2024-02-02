@@ -462,6 +462,11 @@ describe("GameController", () => {
       new TileModel("U1", "U"),
       new TileModel("M1", "M"),
     ];
+    const extraDumpTiles = [
+      new TileModel("P1", "P"),
+      new TileModel("I1", "I"),
+      new TileModel("N1", "N"),
+    ];
 
     beforeEach(() => {
       player.getHand().addTiles([handTile]);
@@ -470,48 +475,36 @@ describe("GameController", () => {
       game.getBunch().addTiles(dumpTiles);
     });
 
-    it("emits tile dump notification", () => {
-      gameController.dump(handTile.getId(), null);
-
-      assertEmitsGameNotification(socketEmit, "username dumped a tile.");
+    it("throws an error when there are not enough tiles remaining", () => {
+      expect(() =>
+        gameController.dump([
+          { tileId: handTile.getId(), boardLocation: null },
+          { tileId: handTile.getId(), boardLocation: null },
+        ]),
+      ).toThrow("Not enough tiles remaining to dump.");
     });
 
-    describe("dumped tile is on board", () => {
+    describe("when dumping multiple tiles", () => {
       beforeEach(() => {
         jest.spyOn(player.getBoard(), "removeTile");
+        jest.spyOn(player.getHand(), "removeTile");
 
-        gameController.dump(boardTile.getId(), boardLocation);
+        game.getBunch().addTiles(extraDumpTiles);
+
+        gameController.dump([
+          { tileId: boardTile.getId(), boardLocation },
+          { tileId: handTile.getId(), boardLocation: null },
+        ]);
       });
 
-      it("removes tile from board location", () => {
+      it("emits tile dump notification", () => {
+        assertEmitsGameNotification(socketEmit, "username dumped 2 tile(s).");
+      });
+
+      it("removes tiles from hand and board", () => {
         expect(player.getBoard().removeTile).toHaveBeenCalledWith(
           boardLocation,
         );
-      });
-
-      it("adds tiles from bunch to player hand", () => {
-        expect(player.getHand().getTiles()).toEqual(
-          expect.arrayContaining(dumpTiles),
-        );
-      });
-
-      it("adds dumped tile to bunch", () => {
-        expect(game.getBunch().getTiles()).toEqual([boardTile]);
-      });
-
-      it("emits game info", () => {
-        assertEmitsGameInfo(ioEmit);
-      });
-    });
-
-    describe("dumped tile is in hand", () => {
-      beforeEach(() => {
-        jest.spyOn(player.getHand(), "removeTile");
-
-        gameController.dump(handTile.getId(), null);
-      });
-
-      it("removes tile from board location", () => {
         expect(player.getHand().removeTile).toHaveBeenCalledWith(
           handTile.getId(),
         );
@@ -519,16 +512,86 @@ describe("GameController", () => {
 
       it("adds tiles from bunch to player hand", () => {
         expect(player.getHand().getTiles()).toEqual(
-          expect.arrayContaining(dumpTiles),
+          expect.arrayContaining([...dumpTiles, ...extraDumpTiles]),
         );
       });
 
-      it("adds dumped tile to bunch", () => {
-        expect(game.getBunch().getTiles()).toEqual([handTile]);
+      it("adds dumped tiles to bunch", () => {
+        expect(game.getBunch().getTiles()).toEqual(
+          expect.arrayContaining([handTile, boardTile]),
+        );
       });
 
       it("emits game info", () => {
         assertEmitsGameInfo(ioEmit);
+      });
+    });
+
+    describe("when dumping one tile", () => {
+      it("emits tile dump notification", () => {
+        gameController.dump([
+          { tileId: handTile.getId(), boardLocation: null },
+        ]);
+
+        assertEmitsGameNotification(socketEmit, "username dumped 1 tile(s).");
+      });
+
+      describe("dumped tile is on board", () => {
+        beforeEach(() => {
+          jest.spyOn(player.getBoard(), "removeTile");
+
+          gameController.dump([{ tileId: boardTile.getId(), boardLocation }]);
+        });
+
+        it("removes tile from board location", () => {
+          expect(player.getBoard().removeTile).toHaveBeenCalledWith(
+            boardLocation,
+          );
+        });
+
+        it("adds tiles from bunch to player hand", () => {
+          expect(player.getHand().getTiles()).toEqual(
+            expect.arrayContaining(dumpTiles),
+          );
+        });
+
+        it("adds dumped tile to bunch", () => {
+          expect(game.getBunch().getTiles()).toEqual([boardTile]);
+        });
+
+        it("emits game info", () => {
+          assertEmitsGameInfo(ioEmit);
+        });
+      });
+
+      describe("dumped tile is in hand", () => {
+        beforeEach(() => {
+          jest.spyOn(player.getHand(), "removeTile");
+
+          gameController.dump([
+            { tileId: handTile.getId(), boardLocation: null },
+          ]);
+        });
+
+        it("removes tile from board location", () => {
+          expect(player.getHand().removeTile).toHaveBeenCalledWith(
+            handTile.getId(),
+          );
+        });
+
+        it("adds tiles from bunch to player hand", () => {
+          expect(player.getHand().getTiles()).toEqual(
+            expect.arrayContaining(dumpTiles),
+          );
+        });
+
+        it("adds dumped tile to bunch", () => {
+          expect(game.getBunch().getTiles()).toEqual([handTile]);
+        });
+
+        it("emits game info", () => {
+          assertEmitsGameInfo(ioEmit);
+        });
       });
     });
   });

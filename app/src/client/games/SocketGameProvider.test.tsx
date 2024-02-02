@@ -124,21 +124,20 @@ describe("<SocketGameProvider />", () => {
 
   describe("handle methods", () => {
     const boardLocation = { x: 0, y: 0 };
-    const id = "id";
+    const tileId = "id";
 
     const getGameState = () => renderProviderWithHook().result.current;
 
     it("emits dump event on handleDump", () => {
-      getGameState().handleDump({ boardLocation, id });
+      getGameState().handleDump([{ boardLocation, tileId }]);
 
       expect(mockEmit).toHaveBeenCalledWith("dump", {
-        boardLocation,
-        tileId: id,
+        tiles: [{ boardLocation, tileId }],
       });
     });
 
     it("emits moveTilesFromHandToBoard event on handleMoveTilesFromHandToBoard", () => {
-      const tiles = [{ tileId: id, boardLocation }];
+      const tiles = [{ tileId, boardLocation }];
       getGameState().handleMoveTilesFromHandToBoard(tiles);
 
       expect(mockEmit).toHaveBeenCalledWith("moveTilesFromHandToBoard", {

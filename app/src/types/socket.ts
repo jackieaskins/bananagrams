@@ -51,8 +51,10 @@ export type ClientToServerEvents = {
   [ClientToServerEventName.Split]: SocketEventHandler;
   [ClientToServerEventName.Peel]: SocketEventHandler;
   [ClientToServerEventName.Dump]: SocketEventHandler<{
-    tileId: string;
-    boardLocation: BoardLocation | null;
+    tiles: Array<{
+      tileId: string;
+      boardLocation: BoardLocation | null;
+    }>;
   }>;
 
   [ClientToServerEventName.ShuffleHand]: SocketEventHandler;

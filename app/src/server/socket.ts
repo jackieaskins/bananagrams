@@ -99,9 +99,7 @@ export function configureSocket(
 
     socket.on(
       ClientToServerEventName.Dump,
-      withController(({ tileId, boardLocation }, controller) =>
-        controller.dump(tileId, boardLocation),
-      ),
+      withController(({ tiles }, controller) => controller.dump(tiles)),
     );
 
     socket.on(

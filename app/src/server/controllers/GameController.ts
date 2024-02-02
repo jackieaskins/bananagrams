@@ -273,21 +273,33 @@ export default class GameController {
     this.emitGameInfo(true);
   }
 
-  dump(tileId: string, boardLocation: BoardLocation | null): void {
+  dump(
+    tiles: Array<{ tileId: string; boardLocation: BoardLocation | null }>,
+  ): void {
     const { currentGame, currentPlayer } = this;
+
+    const tileCount = tiles.length * 3;
+
+    if (currentGame.getBunch().getTiles().length < tileCount) {
+      throw new Error("Not enough tiles remaining to dump.");
+    }
 
     this.emitNotification(
       currentGame.getId(),
-      `${currentPlayer.getUsername()} dumped a tile.`,
+      `${currentPlayer.getUsername()} dumped ${tiles.length} tile(s).`,
       false,
     );
 
-    const dumpedTile = boardLocation
-      ? currentPlayer.getBoard().removeTile(boardLocation)
-      : currentPlayer.getHand().removeTile(tileId);
+    const dumpedTiles = tiles.map(({ boardLocation, tileId }) =>
+      boardLocation
+        ? currentPlayer.getBoard().removeTile(boardLocation)
+        : currentPlayer.getHand().removeTile(tileId),
+    );
 
-    currentPlayer.getHand().addTiles(currentGame.getBunch().removeTiles(3));
-    currentGame.getBunch().addTiles([dumpedTile]);
+    currentPlayer
+      .getHand()
+      .addTiles(currentGame.getBunch().removeTiles(tileCount));
+    currentGame.getBunch().addTiles(dumpedTiles);
 
     this.emitGameInfo(true);
   }

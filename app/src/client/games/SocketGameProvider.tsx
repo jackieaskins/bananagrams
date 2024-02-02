@@ -55,14 +55,13 @@ export default function SocketGameProvider({
   }, []);
 
   const handleDump = useCallback(
-    ({
-      boardLocation,
-      id,
-    }: {
-      boardLocation: BoardLocation | null;
-      id: string;
-    }) => {
-      socket.emit(ClientToServerEventName.Dump, { boardLocation, tileId: id });
+    (
+      tiles: Array<{
+        boardLocation: BoardLocation | null;
+        tileId: string;
+      }>,
+    ) => {
+      socket.emit(ClientToServerEventName.Dump, { tiles });
     },
     [],
   );

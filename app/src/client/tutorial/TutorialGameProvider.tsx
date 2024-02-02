@@ -159,34 +159,45 @@ export default function TutorialGameProvider({
   }, [activeStep, toast]);
 
   const handleDump = useCallback(
-    (tile: { id: string; boardLocation: BoardLocation | null }) => {
-      if (activeStep === TutorialStep.DUMP && tile.id === "Z1") {
-        setBunch([BUNCH_TILE]);
-        setCurrentPlayer((player) => {
-          const { board } = player;
+    (tiles: Array<{ tileId: string; boardLocation: BoardLocation | null }>) => {
+      if (activeStep === TutorialStep.DUMP) {
+        if (tiles.length === 1 && tiles[0].tileId === "Z1") {
+          const tile = tiles[0];
 
-          const {
-            [tile.boardLocation ? generateBoardKey(tile.boardLocation) : ""]:
-              toRemove,
-            ...otherSquares
-          } = board;
+          setBunch([BUNCH_TILE]);
+          setCurrentPlayer((player) => {
+            const { board } = player;
 
-          const boardSquares = Object.fromEntries(
-            Object.entries(otherSquares).map(([key, { tile }]) => [key, tile]),
-          );
+            const {
+              [tile.boardLocation ? generateBoardKey(tile.boardLocation) : ""]:
+                toRemove,
+              ...otherSquares
+            } = board;
 
-          return {
-            ...player,
-            hand: [
-              { id: "R1", letter: "R" },
-              { id: "T1", letter: "T" },
-              { id: "S1", letter: "S" },
-            ],
-            board: tile.boardLocation
-              ? validateBoardSquares(boardSquares)
-              : board,
-          };
-        });
+            const boardSquares = Object.fromEntries(
+              Object.entries(otherSquares).map(([key, { tile }]) => [
+                key,
+                tile,
+              ]),
+            );
+
+            return {
+              ...player,
+              hand: [
+                { id: "R1", letter: "R" },
+                { id: "T1", letter: "T" },
+                { id: "S1", letter: "S" },
+              ],
+              board: tile.boardLocation
+                ? validateBoardSquares(boardSquares)
+                : board,
+            };
+          });
+        } else {
+          toast({
+            description: "Sorry, you can only dump the Z tile on this step.",
+          });
+        }
       } else {
         toast({ description: "Sorry, you can't dump on this step." });
       }
