@@ -1,10 +1,12 @@
 import Konva from "konva";
+import { Vector2d } from "konva/lib/types";
 import { createContext, createRef, useContext } from "react";
 
 export type Size = { width: number; height: number };
 export type Offset = { x: number; y: number };
 
 type CanvasContextState = {
+  cursorPosition: Vector2d;
   offset: Offset;
   playable: boolean;
   size: Size;
@@ -13,6 +15,7 @@ type CanvasContextState = {
 };
 
 export const CanvasContext = createContext<CanvasContextState>({
+  cursorPosition: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
   playable: true,
   size: { width: 0, height: 0 },

@@ -1,5 +1,4 @@
 import { useColorModeValue } from "@chakra-ui/react";
-import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Line, Rect, Text } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
@@ -8,7 +7,6 @@ import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useOverlayBackgroundColors } from "@/client/utils/colors";
-import { setCursor } from "@/client/utils/setCursor";
 import useCanDump, { EXCHANGE_COUNT } from "@/client/utils/useCanDump";
 import { useColorHex } from "@/client/utils/useColorHex";
 
@@ -48,51 +46,33 @@ export default function CanvasDumpZone({
     [handHeight],
   );
 
-  const handlePointerEnter = useCallback(
-    (evt: KonvaEventObject<PointerEvent>) => {
-      if (canDump) {
-        setActive(true);
-      } else if (selectedTiles && !canDump) {
-        setCursor(evt, "no-drop");
-      } else {
-        setCursor(evt, "default");
-      }
-    },
-    [canDump, selectedTiles],
-  );
+  const handlePointerEnter = useCallback(() => {
+    if (canDump) {
+      setActive(true);
+    }
+  }, [canDump]);
 
-  const handlePointerLeave = useCallback(
-    (evt: KonvaEventObject<PointerEvent>) => {
-      if (selectedTiles) {
-        setCursor(evt, "grabbing");
-      }
+  const handlePointerLeave = useCallback(() => {
+    setActive(false);
+  }, []);
 
-      setActive(false);
-    },
-    [selectedTiles],
-  );
+  const handlePointerClick = useCallback(() => {
+    if (!selectedTiles || !canDump) return;
 
-  const handlePointerClick = useCallback(
-    (evt: KonvaEventObject<PointerEvent>) => {
-      if (!selectedTiles || !canDump) return;
+    const { tiles, boardLocation } = selectedTiles;
 
-      const { tiles, boardLocation } = selectedTiles;
+    handleDump(
+      tiles.map(({ tile: { id: tileId }, followOffset }) => ({
+        tileId,
+        boardLocation: boardLocation
+          ? vectorSum(boardLocation, followOffset)
+          : null,
+      })),
+    );
 
-      handleDump(
-        tiles.map(({ tile: { id: tileId }, followOffset }) => ({
-          tileId,
-          boardLocation: boardLocation
-            ? vectorSum(boardLocation, followOffset)
-            : null,
-        })),
-      );
-
-      clearSelectedTiles();
-      setActive(false);
-      setCursor(evt, "default");
-    },
-    [canDump, clearSelectedTiles, handleDump, selectedTiles],
-  );
+    clearSelectedTiles();
+    setActive(false);
+  }, [canDump, clearSelectedTiles, handleDump, selectedTiles]);
 
   return (
     <Group>

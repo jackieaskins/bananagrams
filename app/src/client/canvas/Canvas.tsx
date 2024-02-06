@@ -1,30 +1,39 @@
 import { KonvaEventObject } from "konva/lib/Node";
+import { Vector2d } from "konva/lib/types";
 import { useCallback, useState } from "react";
 import { Layer, Stage } from "react-konva";
 import CanvasBoard from "./CanvasBoard";
-import { useCanvasContext } from "./CanvasContext";
+import { Offset, useCanvasContext } from "./CanvasContext";
 import CanvasHandWrapper from "./CanvasHandWrapper";
 import CanvasSelectRect, { Selection } from "./CanvasSelectRect";
 import CanvasSelectedTiles from "./CanvasSelectedTiles";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
+import useSetCursor from "@/client/utils/useSetCursor";
 
 type CanvasProps = {
-  setOffset: SetState<{ x: number; y: number }>;
+  setCursorPosition: SetState<Vector2d>;
+  setOffset: SetState<Offset>;
 };
 
-export default function Canvas({ setOffset }: CanvasProps): JSX.Element {
+export default function Canvas({
+  setCursorPosition,
+  setOffset,
+}: CanvasProps): JSX.Element {
   const { board } = useCurrentPlayer();
   const { size, stageRef } = useCanvasContext();
   const [selection, setSelection] = useState<Selection | null>(null);
   const { updateFollowPosition } = useSelectedTiles();
 
+  useSetCursor(selection);
+
   const handlePointerMove = useCallback(
     (e: KonvaEventObject<PointerEvent>) => {
       updateFollowPosition(e);
+      setCursorPosition({ x: e.evt.x, y: e.evt.y });
     },
-    [updateFollowPosition],
+    [setCursorPosition, updateFollowPosition],
   );
 
   return (

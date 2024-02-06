@@ -5,7 +5,6 @@ import { CanvasName } from "./constants";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
-import { setCursor } from "@/client/utils/setCursor";
 import { Tile } from "@/types/tile";
 
 type CanvasHandTileProps = {
@@ -46,7 +45,6 @@ export default function CanvasHandTile({
        */
       if (!selectedTiles) {
         selectTiles(e, [{ tile, boardLocation: null }]);
-        setCursor(e, "grabbing");
         return;
       }
 
@@ -61,7 +59,6 @@ export default function CanvasHandTile({
       }
 
       clearSelectedTiles();
-      setCursor(e, "grab");
     },
     [
       clearSelectedTiles,

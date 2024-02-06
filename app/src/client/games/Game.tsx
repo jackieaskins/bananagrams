@@ -38,6 +38,7 @@ export default function Game(): JSX.Element {
     }
   }, [hasManuallyToggledSidebar, shouldDefaultSidebarOpen]);
 
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const stageRef = useRef<Konva.Stage>(null);
   const [size, setSize] = useState({
@@ -83,6 +84,7 @@ export default function Game(): JSX.Element {
       <Box>
         <CanvasContext.Provider
           value={{
+            cursorPosition,
             offset,
             playable: true,
             size,
@@ -92,7 +94,10 @@ export default function Game(): JSX.Element {
         >
           <SelectedTilesProvider>
             <KeysProvider>
-              <Canvas setOffset={setOffset} />
+              <Canvas
+                setOffset={setOffset}
+                setCursorPosition={setCursorPosition}
+              />
             </KeysProvider>
           </SelectedTilesProvider>
         </CanvasContext.Provider>

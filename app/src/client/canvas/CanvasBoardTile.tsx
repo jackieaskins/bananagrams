@@ -6,7 +6,6 @@ import { CanvasName } from "./constants";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
-import { setCursor } from "@/client/utils/setCursor";
 import { useColorHex } from "@/client/utils/useColorHex";
 import {
   BoardSquare,
@@ -70,7 +69,6 @@ export default function CanvasBoardTile({
 
       if (!selectedTiles) {
         selectTiles(e, [{ tile, boardLocation: { x, y } }]);
-        setCursor(e, "grabbing");
         return;
       }
 
@@ -93,7 +91,6 @@ export default function CanvasBoardTile({
       }
 
       clearSelectedTiles();
-      setCursor(e, "grab");
     },
     [
       clearSelectedTiles,

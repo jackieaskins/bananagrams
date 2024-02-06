@@ -1,4 +1,3 @@
-import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo, useState } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
@@ -8,7 +7,6 @@ import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { useOverlayBackgroundColors } from "@/client/utils/colors";
-import { setCursor } from "@/client/utils/setCursor";
 import { Hand } from "@/types/hand";
 
 type CanvasHandProps = {
@@ -43,26 +41,20 @@ export default function CanvasHand({
     [activeBgColor, defaultBgColor, isActive],
   );
 
-  const handlePointerClick = useCallback(
-    (evt: KonvaEventObject<PointerEvent>) => {
-      if (!selectedTiles) return;
+  const handlePointerClick = useCallback(() => {
+    if (!selectedTiles) return;
 
-      const { boardLocation, tiles } = selectedTiles;
+    const { boardLocation, tiles } = selectedTiles;
 
-      if (boardLocation) {
-        handleMoveTilesFromBoardToHand(
-          tiles.map(({ followOffset }) =>
-            vectorSum(boardLocation, followOffset),
-          ),
-        );
-      }
+    if (boardLocation) {
+      handleMoveTilesFromBoardToHand(
+        tiles.map(({ followOffset }) => vectorSum(boardLocation, followOffset)),
+      );
+    }
 
-      clearSelectedTiles();
-      setActive(false);
-      setCursor(evt, "default");
-    },
-    [clearSelectedTiles, handleMoveTilesFromBoardToHand, selectedTiles],
-  );
+    clearSelectedTiles();
+    setActive(false);
+  }, [clearSelectedTiles, handleMoveTilesFromBoardToHand, selectedTiles]);
 
   return (
     <Group x={x} y={y} listening={playable}>
@@ -73,13 +65,9 @@ export default function CanvasHand({
         height={height}
         cornerRadius={tileSize * 0.15}
         opacity={0.8}
-        onPointerEnter={(evt) => {
+        onPointerEnter={() => {
           if (selectedTiles?.boardLocation) {
             setActive(true);
-          }
-
-          if (!selectedTiles) {
-            setCursor(evt, "default");
           }
         }}
         onPointerLeave={() => setActive(false)}

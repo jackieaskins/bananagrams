@@ -5,7 +5,6 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasInnerTile from "./CanvasInnerTile";
 import { CanvasName } from "./constants";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
-import { setCursor } from "@/client/utils/setCursor";
 import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
 
@@ -71,9 +70,6 @@ export default function CanvasTile({
         }
       }}
       onPointerEnter={(e) => {
-        if (!selectedTiles) {
-          setCursor(e, "grab");
-        }
         onPointerEnter?.(e);
       }}
       opacity={isTileSelected ? 0.6 : 1}

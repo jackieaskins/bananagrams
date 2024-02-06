@@ -13,7 +13,6 @@ import { useGame } from "@/client/games/GameContext";
 import { useKeys } from "@/client/keys/KeysContext";
 import { SetState } from "@/client/state/types";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
-import { setCursor } from "@/client/utils/setCursor";
 import { Board } from "@/types/board";
 
 type BoardProps = {
@@ -58,7 +57,6 @@ export default function CanvasBoard({
       }
 
       clearSelectedTiles();
-      setCursor(e, "grab");
     },
     [
       clearSelectedTiles,
@@ -85,9 +83,6 @@ export default function CanvasBoard({
         y={-offset.y}
         width={size.width}
         height={size.height}
-        onPointerEnter={(evt) => {
-          if (!selectedTiles) setCursor(evt, "move");
-        }}
         onPointerUp={handlePointerClick}
       />
 

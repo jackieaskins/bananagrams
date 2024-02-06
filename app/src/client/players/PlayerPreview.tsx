@@ -51,11 +51,25 @@ export default function PlayerPreview({
     };
   }, []);
 
+  useEffect(() => {
+    const container = stageRef.current?.container();
+    if (container) {
+      container.style.cursor = "move";
+    }
+  }, []);
+
   return (
     <Box ref={containerRef} borderColor={borderColor} borderWidth={1}>
       {size.width > 0 && size.height > 0 ? (
         <CanvasContext.Provider
-          value={{ offset, playable: false, size, stageRef, tileSize }}
+          value={{
+            offset,
+            playable: false,
+            size,
+            stageRef,
+            tileSize,
+            cursorPosition: { x: 0, y: 0 },
+          }}
         >
           <Stage ref={stageRef} width={size.width} height={size.height}>
             <Layer>
