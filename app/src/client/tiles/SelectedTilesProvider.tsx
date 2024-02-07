@@ -55,35 +55,28 @@ export default function SelectedTilesProvider({
               ? vectorDiff(boardLocation, nearestTileBoardLocation)
               : { x: index, y: 0 };
 
-          return { tile, followOffset };
+          return { tile, followOffset, relativePosition: followOffset };
         }),
       });
     },
     [cursorPosition.x, cursorPosition.y, offset.x, offset.y, tileSize],
   );
 
-  const expandSelection = useCallback((tiles: SelectedTile[]) => {
+  const rotatedSelectedTiles = useCallback(() => {
     setSelectedTiles((selectedTiles) => {
-      if (!selectedTiles) return null;
-
-      const { followOffset: lastFollowOffset } =
-        selectedTiles.tiles[selectedTiles.tiles.length - 1];
+      if (!selectedTiles) {
+        return null;
+      }
 
       return {
         ...selectedTiles,
-        tiles: [
-          ...selectedTiles.tiles,
-          ...tiles.map(({ tile, boardLocation }) => ({
+        tiles: selectedTiles.tiles.map(
+          ({ followOffset, relativePosition, tile }) => ({
             tile,
-            followOffset:
-              boardLocation && selectedTiles.boardLocation
-                ? vectorDiff(boardLocation, selectedTiles.boardLocation)
-                : {
-                    x: lastFollowOffset.x === 0 ? 0 : lastFollowOffset.x + 1,
-                    y: lastFollowOffset.y === 0 ? 0 : lastFollowOffset.y + 1,
-                  },
-          })),
-        ],
+            relativePosition,
+            followOffset: { x: -followOffset.y, y: followOffset.x },
+          }),
+        ),
       };
     });
   }, []);
@@ -91,11 +84,11 @@ export default function SelectedTilesProvider({
   const value = useMemo(
     () => ({
       clearSelectedTiles,
-      expandSelection,
       selectTiles,
+      rotatedSelectedTiles,
       selectedTiles,
     }),
-    [clearSelectedTiles, expandSelection, selectTiles, selectedTiles],
+    [clearSelectedTiles, rotatedSelectedTiles, selectTiles, selectedTiles],
   );
 
   return (

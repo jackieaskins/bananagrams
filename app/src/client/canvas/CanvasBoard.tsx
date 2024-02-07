@@ -42,8 +42,8 @@ export default function CanvasBoard({
 
       if (boardLocation) {
         handleMoveTilesOnBoard(
-          tiles.map(({ followOffset }) => ({
-            fromLocation: vectorSum(boardLocation, followOffset),
+          tiles.map(({ relativePosition, followOffset }) => ({
+            fromLocation: vectorSum(boardLocation, relativePosition),
             toLocation: vectorSum(toLocation, followOffset),
           })),
         );

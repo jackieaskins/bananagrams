@@ -74,16 +74,16 @@ export default function CanvasBoardTile({
 
     if (boardLocation) {
       handleMoveTilesOnBoard(
-        tiles.map(({ followOffset }) => ({
-          fromLocation: vectorSum(boardLocation, followOffset),
+        tiles.map(({ followOffset, relativePosition }) => ({
+          fromLocation: vectorSum(boardLocation, relativePosition),
           toLocation: vectorSum({ x, y }, followOffset),
         })),
       );
     } else {
       handleMoveTilesFromHandToBoard(
-        tiles.map(({ followOffset, tile }) => ({
+        tiles.map(({ relativePosition, tile }) => ({
           tileId: tile.id,
-          boardLocation: vectorSum({ x, y }, followOffset),
+          boardLocation: vectorSum({ x, y }, relativePosition),
         })),
       );
     }

@@ -8,15 +8,19 @@ export type SelectedTile = {
   boardLocation: BoardLocation | null;
 };
 export type SelectedTiles = {
-  tiles: Array<{ tile: Tile; followOffset: Vector2d }>;
+  tiles: Array<{
+    tile: Tile;
+    followOffset: Vector2d;
+    relativePosition: Vector2d;
+  }>;
   boardLocation: BoardLocation | null;
 };
 
 type SelectedTilesState = {
-  expandSelection: (tiles: SelectedTile[]) => void;
   selectedTiles: SelectedTiles | null;
   clearSelectedTiles: () => void;
   selectTiles: (tiles: SelectedTile[]) => void;
+  rotatedSelectedTiles: () => void;
 };
 
 export const SelectedTilesContext = createContext<SelectedTilesState>(
