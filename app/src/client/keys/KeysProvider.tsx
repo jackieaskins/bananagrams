@@ -9,7 +9,7 @@ type KeysProviderProps = {
 export default function KeysProvider({
   children,
 }: KeysProviderProps): JSX.Element {
-  const { clearSelectedTiles, rotatedSelectedTiles } = useSelectedTiles();
+  const { clearSelectedTiles, rotateSelectedTiles } = useSelectedTiles();
   const [keys, setKeys] = useState<KeysState>({
     altDown: false,
     ctrlDown: false,
@@ -30,17 +30,17 @@ export default function KeysProvider({
   );
 
   const handleKeyup = useCallback(
-    ({ key }: KeyboardEvent) => {
+    ({ key, shiftKey }: KeyboardEvent) => {
       switch (key) {
         case "Escape":
           clearSelectedTiles();
           break;
         case " ":
-          rotatedSelectedTiles();
+          rotateSelectedTiles(shiftKey ? -1 : 1);
           break;
       }
     },
-    [clearSelectedTiles, rotatedSelectedTiles],
+    [clearSelectedTiles, rotateSelectedTiles],
   );
 
   useEffect(() => {

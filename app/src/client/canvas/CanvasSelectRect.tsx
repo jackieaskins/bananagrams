@@ -4,6 +4,7 @@ import { Vector2d } from "konva/lib/types";
 import { useCallback, useMemo, useRef } from "react";
 import { Group, Rect } from "react-konva";
 import { useCanvasContext } from "./CanvasContext";
+import { CanvasName } from "./constants";
 import { parseBoardKey } from "@/client/boards/key";
 import { useKeys } from "@/client/keys/KeysContext";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
@@ -107,6 +108,7 @@ export default function CanvasSelectRect({
       <Rect
         x={0}
         y={0}
+        name={CanvasName.SelectRect}
         width={size.width}
         height={size.height}
         onPointerDown={handlePointerDown}

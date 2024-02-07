@@ -48,8 +48,8 @@ export default function CanvasHand({
 
     if (boardLocation) {
       handleMoveTilesFromBoardToHand(
-        tiles.map(({ relativePosition }) =>
-          vectorSum(boardLocation, relativePosition),
+        tiles.map(({ relativeLocation }) =>
+          vectorSum(boardLocation, relativeLocation),
         ),
       );
     }

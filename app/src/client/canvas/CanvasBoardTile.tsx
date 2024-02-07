@@ -5,6 +5,7 @@ import { CanvasName } from "./constants";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
+import getRotatedLocation from "@/client/tiles/getRotatedLocation";
 import { useColorHex } from "@/client/utils/useColorHex";
 import {
   BoardSquare,
@@ -70,20 +71,23 @@ export default function CanvasBoardTile({
       return;
     }
 
-    const { tiles, boardLocation } = selectedTiles;
+    const { tiles, boardLocation, rotation } = selectedTiles;
 
     if (boardLocation) {
       handleMoveTilesOnBoard(
-        tiles.map(({ followOffset, relativePosition }) => ({
-          fromLocation: vectorSum(boardLocation, relativePosition),
-          toLocation: vectorSum({ x, y }, followOffset),
+        tiles.map(({ relativeLocation }) => ({
+          fromLocation: vectorSum(boardLocation, relativeLocation),
+          toLocation: vectorSum(
+            { x, y },
+            getRotatedLocation(rotation, relativeLocation),
+          ),
         })),
       );
     } else {
       handleMoveTilesFromHandToBoard(
-        tiles.map(({ relativePosition, tile }) => ({
+        tiles.map(({ relativeLocation, tile }) => ({
           tileId: tile.id,
-          boardLocation: vectorSum({ x, y }, relativePosition),
+          boardLocation: vectorSum({ x, y }, relativeLocation),
         })),
       );
     }

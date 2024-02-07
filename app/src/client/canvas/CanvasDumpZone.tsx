@@ -62,10 +62,10 @@ export default function CanvasDumpZone({
     const { tiles, boardLocation } = selectedTiles;
 
     handleDump(
-      tiles.map(({ tile: { id: tileId }, relativePosition }) => ({
+      tiles.map(({ tile: { id: tileId }, relativeLocation }) => ({
         tileId,
         boardLocation: boardLocation
-          ? vectorSum(boardLocation, relativePosition)
+          ? vectorSum(boardLocation, relativeLocation)
           : null,
       })),
     );

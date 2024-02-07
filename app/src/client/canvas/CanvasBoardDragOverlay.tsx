@@ -5,6 +5,7 @@ import { Attrs, CanvasName } from "./constants";
 import { generateBoardKey } from "@/client/boards/key";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
+import getRotatedLocation from "@/client/tiles/getRotatedLocation";
 import { useColorModeHex } from "@/client/utils/useColorHex";
 
 const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
@@ -28,13 +29,14 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
         y: Math.floor((cursorPosition.y - offset.y) / tileSize),
       };
 
-      const selectedTileIds = new Set(
-        selectedTiles.tiles.map(({ tile: { id } }) => id),
-      );
+      const { tiles, rotation } = selectedTiles;
 
-      return selectedTiles.tiles.map(({ followOffset }) => {
-        const x = position.x + followOffset.x;
-        const y = position.y + followOffset.y;
+      const selectedTileIds = new Set(tiles.map(({ tile: { id } }) => id));
+
+      return tiles.map(({ relativeLocation }) => {
+        const rotatedLocation = getRotatedLocation(rotation, relativeLocation);
+        const x = position.x + rotatedLocation.x;
+        const y = position.y + rotatedLocation.y;
 
         const key = generateBoardKey({ x, y });
         const tileAtSquare = board[key];

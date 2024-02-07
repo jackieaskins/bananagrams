@@ -6,6 +6,7 @@ export enum CanvasName {
   DumpZone = "dumpZone",
   Hand = "hand",
   HandTile = "handTile",
+  SelectRect = "selectRect",
 }
 
 export type Attrs = {

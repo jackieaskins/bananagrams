@@ -1,4 +1,3 @@
-import { Vector2d } from "konva/lib/types";
 import { createContext, useContext } from "react";
 import { BoardLocation } from "@/types/board";
 import { Tile } from "@/types/tile";
@@ -10,17 +9,17 @@ export type SelectedTile = {
 export type SelectedTiles = {
   tiles: Array<{
     tile: Tile;
-    followOffset: Vector2d;
-    relativePosition: Vector2d;
+    relativeLocation: BoardLocation;
   }>;
   boardLocation: BoardLocation | null;
+  rotation: number;
 };
 
 type SelectedTilesState = {
   selectedTiles: SelectedTiles | null;
   clearSelectedTiles: () => void;
   selectTiles: (tiles: SelectedTile[]) => void;
-  rotatedSelectedTiles: () => void;
+  rotateSelectedTiles: (diff: -1 | 1) => void;
 };
 
 export const SelectedTilesContext = createContext<SelectedTilesState>(

@@ -50,34 +50,26 @@ export default function SelectedTilesProvider({
       setSelectedTiles({
         boardLocation: nearestTileBoardLocation,
         tiles: tiles.map(({ boardLocation, tile }, index) => {
-          const followOffset =
+          const relativeLocation =
             nearestTileBoardLocation && boardLocation
               ? vectorDiff(boardLocation, nearestTileBoardLocation)
               : { x: index, y: 0 };
 
-          return { tile, followOffset, relativePosition: followOffset };
+          return { tile, relativeLocation };
         }),
+        rotation: 0,
       });
     },
     [cursorPosition.x, cursorPosition.y, offset.x, offset.y, tileSize],
   );
 
-  const rotatedSelectedTiles = useCallback(() => {
+  const rotateSelectedTiles = useCallback((diff: -1 | 1) => {
     setSelectedTiles((selectedTiles) => {
       if (!selectedTiles) {
         return null;
       }
 
-      return {
-        ...selectedTiles,
-        tiles: selectedTiles.tiles.map(
-          ({ followOffset, relativePosition, tile }) => ({
-            tile,
-            relativePosition,
-            followOffset: { x: -followOffset.y, y: followOffset.x },
-          }),
-        ),
-      };
+      return { ...selectedTiles, rotation: selectedTiles.rotation + diff };
     });
   }, []);
 
@@ -85,10 +77,10 @@ export default function SelectedTilesProvider({
     () => ({
       clearSelectedTiles,
       selectTiles,
-      rotatedSelectedTiles,
+      rotateSelectedTiles,
       selectedTiles,
     }),
-    [clearSelectedTiles, rotatedSelectedTiles, selectTiles, selectedTiles],
+    [clearSelectedTiles, rotateSelectedTiles, selectTiles, selectedTiles],
   );
 
   return (

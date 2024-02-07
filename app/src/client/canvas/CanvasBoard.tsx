@@ -13,6 +13,7 @@ import { useGame } from "@/client/games/GameContext";
 import { useKeys } from "@/client/keys/KeysContext";
 import { SetState } from "@/client/state/types";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
+import getRotatedLocation from "@/client/tiles/getRotatedLocation";
 import { Board } from "@/types/board";
 
 type BoardProps = {
@@ -38,20 +39,26 @@ export default function CanvasBoard({
         y: Math.floor((e.evt.y - offset.y) / tileSize),
       };
 
-      const { tiles, boardLocation } = selectedTiles;
+      const { tiles, boardLocation, rotation } = selectedTiles;
 
       if (boardLocation) {
         handleMoveTilesOnBoard(
-          tiles.map(({ relativePosition, followOffset }) => ({
-            fromLocation: vectorSum(boardLocation, relativePosition),
-            toLocation: vectorSum(toLocation, followOffset),
+          tiles.map(({ relativeLocation }) => ({
+            fromLocation: vectorSum(boardLocation, relativeLocation),
+            toLocation: vectorSum(
+              toLocation,
+              getRotatedLocation(rotation, relativeLocation),
+            ),
           })),
         );
       } else {
         handleMoveTilesFromHandToBoard(
-          tiles.map(({ followOffset, tile }) => ({
+          tiles.map(({ relativeLocation, tile }) => ({
             tileId: tile.id,
-            boardLocation: vectorSum(toLocation, followOffset),
+            boardLocation: vectorSum(
+              toLocation,
+              getRotatedLocation(rotation, relativeLocation),
+            ),
           })),
         );
       }
