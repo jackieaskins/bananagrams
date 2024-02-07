@@ -8,7 +8,11 @@ import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import getRotatedLocation from "@/client/tiles/getRotatedLocation";
 import { useColorModeHex } from "@/client/utils/useColorHex";
 
-const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
+const SUPPORTED_OVERLAY_NAMES = [
+  CanvasName.Board,
+  CanvasName.BoardTile,
+  CanvasName.SelectRect,
+];
 
 export default function CanvasBoardDragOverlay(): JSX.Element[] {
   const { offset, stageRef, tileSize, cursorPosition } = useCanvasContext();
