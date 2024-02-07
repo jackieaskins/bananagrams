@@ -13,7 +13,7 @@
     "lint": "npm run --ws --if-present lint",
     "lint:fix": "npm run --ws --if-present lint:fix",
     "pre-commit": "npm run check-types && lint-staged && npm run lint && npm test",
-    "prepare": "husky install && npm run --ws --if-present prepare",
+    "prepare": "husky && npm run --ws --if-present prepare",
     "start": "npm run -w app start",
     "test": "npm run -ws --if-present test"
   },
@@ -24,10 +24,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^18.5.0",
-    "@commitlint/config-conventional": "^18.5.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
