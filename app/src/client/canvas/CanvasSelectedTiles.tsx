@@ -4,19 +4,19 @@ import CanvasInnerTile from "./CanvasInnerTile";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 
 export default function CanvasSelectedTiles(): JSX.Element | null {
-  const { tileSize } = useCanvasContext();
+  const { cursorPosition, tileSize } = useCanvasContext();
   const { selectedTiles } = useSelectedTiles();
 
   if (!selectedTiles) {
     return null;
   }
 
-  const { tiles, followPosition } = selectedTiles;
+  const { tiles } = selectedTiles;
 
   return (
     <Group
-      x={followPosition.x - tileSize / 2}
-      y={followPosition.y - tileSize / 2}
+      x={cursorPosition.x - tileSize / 2}
+      y={cursorPosition.y - tileSize / 2}
     >
       {tiles.map(({ tile, followOffset }) => (
         <Group

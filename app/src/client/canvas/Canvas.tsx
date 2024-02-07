@@ -9,7 +9,6 @@ import CanvasSelectRect, { Selection } from "./CanvasSelectRect";
 import CanvasSelectedTiles from "./CanvasSelectedTiles";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { SetState } from "@/client/state/types";
-import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import useSetCursor from "@/client/utils/useSetCursor";
 
 type CanvasProps = {
@@ -24,16 +23,14 @@ export default function Canvas({
   const { board } = useCurrentPlayer();
   const { size, stageRef } = useCanvasContext();
   const [selection, setSelection] = useState<Selection | null>(null);
-  const { updateFollowPosition } = useSelectedTiles();
 
   useSetCursor(selection);
 
   const handlePointerMove = useCallback(
     (e: KonvaEventObject<PointerEvent>) => {
-      updateFollowPosition(e);
       setCursorPosition({ x: e.evt.x, y: e.evt.y });
     },
-    [setCursorPosition, updateFollowPosition],
+    [setCursorPosition],
   );
 
   return (

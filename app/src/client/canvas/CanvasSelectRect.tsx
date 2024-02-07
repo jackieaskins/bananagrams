@@ -66,44 +66,41 @@ export default function CanvasSelectRect({
     [setSelection],
   );
 
-  const handlePointerUp = useCallback(
-    (e: KonvaEventObject<PointerEvent>) => {
-      if (rectDimensions) {
-        const { rectX, rectY, rectWidth, rectHeight } = {
-          rectX: (rectDimensions.x - offset.x) / tileSize,
-          rectY: (rectDimensions.y - offset.y) / tileSize,
-          rectWidth: rectDimensions.width / tileSize,
-          rectHeight: rectDimensions.height / tileSize,
-        };
+  const handlePointerUp = useCallback(() => {
+    if (rectDimensions) {
+      const { rectX, rectY, rectWidth, rectHeight } = {
+        rectX: (rectDimensions.x - offset.x) / tileSize,
+        rectY: (rectDimensions.y - offset.y) / tileSize,
+        rectWidth: rectDimensions.width / tileSize,
+        rectHeight: rectDimensions.height / tileSize,
+      };
 
-        const tiles = Object.entries(board)
-          .map(([boardKey, { tile }]) => ({
-            boardLocation: parseBoardKey(boardKey),
-            tile,
-          }))
-          .filter(
-            ({ boardLocation: { x, y } }) =>
-              rectX + rectWidth >= x &&
-              rectX <= x + 1 &&
-              rectY + rectHeight >= y &&
-              rectY <= y + 1,
-          );
+      const tiles = Object.entries(board)
+        .map(([boardKey, { tile }]) => ({
+          boardLocation: parseBoardKey(boardKey),
+          tile,
+        }))
+        .filter(
+          ({ boardLocation: { x, y } }) =>
+            rectX + rectWidth >= x &&
+            rectX <= x + 1 &&
+            rectY + rectHeight >= y &&
+            rectY <= y + 1,
+        );
 
-        selectTiles(e, tiles);
-      }
+      selectTiles(tiles);
+    }
 
-      setSelection(null);
-    },
-    [
-      board,
-      offset.x,
-      offset.y,
-      rectDimensions,
-      selectTiles,
-      setSelection,
-      tileSize,
-    ],
-  );
+    setSelection(null);
+  }, [
+    board,
+    offset.x,
+    offset.y,
+    rectDimensions,
+    selectTiles,
+    setSelection,
+    tileSize,
+  ]);
 
   return (
     <Group visible={shiftDown || !!selection}>

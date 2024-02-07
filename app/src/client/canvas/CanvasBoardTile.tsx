@@ -1,4 +1,3 @@
-import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useMemo } from "react";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
@@ -45,64 +44,61 @@ export default function CanvasBoardTile({
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
 
-  const handlePointerClick = useCallback(
-    (e: KonvaEventObject<PointerEvent>) => {
-      /*
-       * No selected tile:
-       * - Select the tile under the cursor at current location
-       * - Set the cursor to grabbing
-       *
-       * Current tile is selected:
-       * - Deselect tile
-       * - Set the cursor to grab
-       *
-       * Current tile is also on the board:
-       * - Call moveTilesOnBoard
-       * - ~~Select the tile under the cursor at its new position~~ Deselect tile
-       * - Set the cursor to ~~grabbing~~ grab
-       *
-       * Current tile is in the hand:
-       * - Call moveTilesFromHandToBoard
-       * - ~~Select the tile under the cursor with no position~~ Deselect tile
-       * - Set the cursor to ~~grabbing~~ grab
-       */
+  const handlePointerClick = useCallback(() => {
+    /*
+     * No selected tile:
+     * - Select the tile under the cursor at current location
+     * - Set the cursor to grabbing
+     *
+     * Current tile is selected:
+     * - Deselect tile
+     * - Set the cursor to grab
+     *
+     * Current tile is also on the board:
+     * - Call moveTilesOnBoard
+     * - ~~Select the tile under the cursor at its new position~~ Deselect tile
+     * - Set the cursor to ~~grabbing~~ grab
+     *
+     * Current tile is in the hand:
+     * - Call moveTilesFromHandToBoard
+     * - ~~Select the tile under the cursor with no position~~ Deselect tile
+     * - Set the cursor to ~~grabbing~~ grab
+     */
 
-      if (!selectedTiles) {
-        selectTiles(e, [{ tile, boardLocation: { x, y } }]);
-        return;
-      }
+    if (!selectedTiles) {
+      selectTiles([{ tile, boardLocation: { x, y } }]);
+      return;
+    }
 
-      const { tiles, boardLocation } = selectedTiles;
+    const { tiles, boardLocation } = selectedTiles;
 
-      if (boardLocation) {
-        handleMoveTilesOnBoard(
-          tiles.map(({ followOffset }) => ({
-            fromLocation: vectorSum(boardLocation, followOffset),
-            toLocation: vectorSum({ x, y }, followOffset),
-          })),
-        );
-      } else {
-        handleMoveTilesFromHandToBoard(
-          tiles.map(({ followOffset, tile }) => ({
-            tileId: tile.id,
-            boardLocation: vectorSum({ x, y }, followOffset),
-          })),
-        );
-      }
+    if (boardLocation) {
+      handleMoveTilesOnBoard(
+        tiles.map(({ followOffset }) => ({
+          fromLocation: vectorSum(boardLocation, followOffset),
+          toLocation: vectorSum({ x, y }, followOffset),
+        })),
+      );
+    } else {
+      handleMoveTilesFromHandToBoard(
+        tiles.map(({ followOffset, tile }) => ({
+          tileId: tile.id,
+          boardLocation: vectorSum({ x, y }, followOffset),
+        })),
+      );
+    }
 
-      clearSelectedTiles();
-    },
-    [
-      clearSelectedTiles,
-      handleMoveTilesFromHandToBoard,
-      handleMoveTilesOnBoard,
-      selectTiles,
-      selectedTiles,
-      tile,
-      x,
-      y,
-    ],
-  );
+    clearSelectedTiles();
+  }, [
+    clearSelectedTiles,
+    handleMoveTilesFromHandToBoard,
+    handleMoveTilesOnBoard,
+    selectTiles,
+    selectedTiles,
+    tile,
+    x,
+    y,
+  ]);
 
   return (
     <CanvasTile

@@ -10,24 +10,22 @@ import { useColorModeHex } from "@/client/utils/useColorHex";
 const SUPPORTED_OVERLAY_NAMES = [CanvasName.Board, CanvasName.BoardTile];
 
 export default function CanvasBoardDragOverlay(): JSX.Element[] {
-  const { offset, stageRef, tileSize } = useCanvasContext();
+  const { offset, stageRef, tileSize, cursorPosition } = useCanvasContext();
   const { selectedTiles } = useSelectedTiles();
   const { board } = useCurrentPlayer();
   const hoverColor = useColorModeHex("gray.300", "gray.500");
 
   const overlays = useMemo(() => {
-    const pointerPos = stageRef.current?.pointerPos;
-
-    if (!selectedTiles || !pointerPos) {
+    if (!selectedTiles) {
       return [];
     }
 
-    const intersection = stageRef.current?.getIntersection(pointerPos);
+    const intersection = stageRef.current?.getIntersection(cursorPosition);
     const name = (intersection?.attrs as Attrs).name;
     if (!intersection || (name && SUPPORTED_OVERLAY_NAMES.includes(name))) {
       const position = {
-        x: Math.floor((pointerPos.x - offset.x) / tileSize),
-        y: Math.floor((pointerPos.y - offset.y) / tileSize),
+        x: Math.floor((cursorPosition.x - offset.x) / tileSize),
+        y: Math.floor((cursorPosition.y - offset.y) / tileSize),
       };
 
       const selectedTileIds = new Set(
@@ -56,7 +54,15 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
     }
 
     return [];
-  }, [board, hoverColor, offset, selectedTiles, stageRef, tileSize]);
+  }, [
+    board,
+    cursorPosition,
+    hoverColor,
+    offset,
+    selectedTiles,
+    stageRef,
+    tileSize,
+  ]);
 
   return overlays.map(({ x, y, key, color }) => (
     <CanvasTileRect
