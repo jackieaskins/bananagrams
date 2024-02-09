@@ -40,7 +40,6 @@ export default function Canvas({
       ref={stageRef}
       onPointerMove={updateCursorPosition}
       onPointerDown={updateCursorPosition}
-      onPointerClick={(e) => console.log(e.evt.x, e.evt.y)}
     >
       <Layer>
         <CanvasBoard setOffset={setOffset} board={board} />
