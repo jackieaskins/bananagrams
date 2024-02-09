@@ -27,20 +27,16 @@ export default function CanvasHandTile({
     /**
      * No tile is selected:
      * - Select the tile under the cursor with no location
-     * - Set cursor to grabbing
      *
      * Current tile is selected:
      * - Deselect tile
-     * - Set cursor to grab
      *
      * Current tile is on the board:
      * - Call moveTilesFromBoardToHand
      * - ~~Select the tile under the cursor with board location~~ Deslect tile
-     * - Set the cursor to ~~grabbing~~ grab
      *
      * Current tile is in the hand:
      * - ~~Select the tile under the cursor with no location~~ Deselect tile
-     * - Set cursor to ~~grabbing~~ grab
      */
     if (!selectedTiles) {
       selectTiles([{ tile, boardLocation: null }]);

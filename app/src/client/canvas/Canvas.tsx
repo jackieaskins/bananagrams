@@ -26,7 +26,7 @@ export default function Canvas({
 
   useSetCursor(selection);
 
-  const handlePointerMove = useCallback(
+  const updateCursorPosition = useCallback(
     (e: KonvaEventObject<PointerEvent>) => {
       setCursorPosition({ x: e.evt.x, y: e.evt.y });
     },
@@ -38,7 +38,9 @@ export default function Canvas({
       width={size.width}
       height={size.height}
       ref={stageRef}
-      onPointerMove={handlePointerMove}
+      onPointerMove={updateCursorPosition}
+      onPointerDown={updateCursorPosition}
+      onPointerClick={(e) => console.log(e.evt.x, e.evt.y)}
     >
       <Layer>
         <CanvasBoard setOffset={setOffset} board={board} />

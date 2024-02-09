@@ -1,115 +1,42 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
   CloseButton,
   Flex,
   Heading,
-  IconButton,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaBars } from "react-icons/fa6";
-import { useGame } from "./GameContext";
-import PlayerPreview from "@/client/players/PlayerPreview";
-import { socket } from "@/client/socket";
-import { PlayerStatus } from "@/types/player";
+import PlayerAccordion from "@/client/players/PlayerAccordion";
 
 export type GameSidebarProps = {
-  expanded: boolean;
-  setExpanded: (expanded: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 export default function GameSidebar({
-  expanded,
-  setExpanded,
+  isOpen,
+  onClose,
 }: GameSidebarProps): JSX.Element {
   const borderColor = useColorModeValue("gray.400", "gray.700");
-  const {
-    gameInfo: { players },
-  } = useGame();
-
-  if (!expanded) {
-    return (
-      <IconButton
-        height="100vh"
-        borderRadius={0}
-        aria-label="Expand game sidebar"
-        alignItems="start"
-        paddingTop="16px"
-        icon={<FaBars />}
-        onClick={() => setExpanded(true)}
-      />
-    );
-  }
 
   return (
     <Flex
       height="100vh"
-      width="350px"
+      width={isOpen ? "350px" : "0px"}
+      transition="ease-in-out 0.2s"
       borderLeftWidth={1}
       borderLeftColor={borderColor}
       direction="column"
       justifyContent="space-between"
     >
       <Flex direction="column" overflowY="scroll">
-        <Flex
-          padding={4}
-          borderBottomWidth={1}
-          borderBottomColor={borderColor}
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Flex padding={4} justifyContent="space-between" alignItems="center">
           <Heading noOfLines={1} size="md" textAlign="center">
             Players
           </Heading>
 
-          <CloseButton onClick={() => setExpanded(false)} />
+          <CloseButton onClick={onClose} />
         </Flex>
 
-        <Accordion allowMultiple overflowY="scroll">
-          {players.map(({ userId, username, hand, board, status }, index) => (
-            <AccordionItem
-              key={userId}
-              isDisabled={userId === socket.id}
-              borderTop={index === 0 ? 0 : undefined}
-              borderBottom={index === players.length - 1 ? 0 : undefined}
-              borderColor={borderColor}
-            >
-              {(isExpanded) => (
-                <>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
-                        {username}
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-
-                  <AccordionPanel>
-                    {isExpanded ? (
-                      status === PlayerStatus.SPECTATING ? (
-                        <Text textAlign="center">{username} is spectating</Text>
-                      ) : (
-                        <Flex direction="column">
-                          <PlayerPreview
-                            board={board}
-                            hand={hand}
-                            tileSize={16}
-                          />
-                        </Flex>
-                      )
-                    ) : null}
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <PlayerAccordion borderColor={borderColor} />
       </Flex>
     </Flex>
   );
