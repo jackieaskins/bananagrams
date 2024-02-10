@@ -63,7 +63,7 @@ export default function CanvasBoardTile({
      */
 
     if (!selectedTiles) {
-      selectTiles([{ tile, boardLocation: { x, y } }]);
+      selectTiles([{ tile, boardLocation: { x, y } }], false);
       return;
     }
 

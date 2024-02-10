@@ -89,7 +89,7 @@ export default function CanvasSelectRect({
             rectY <= y + 1,
         );
 
-      selectTiles(tiles);
+      selectTiles(tiles, true);
     }
 
     setSelection(null);

@@ -15,10 +15,7 @@ export default function CanvasSelectedTiles(): JSX.Element | null {
   const { rotation, tiles } = selectedTiles;
 
   return (
-    <Group
-      x={cursorPosition.x - tileSize / 2}
-      y={cursorPosition.y - tileSize / 2}
-    >
+    <Group x={cursorPosition.x} y={cursorPosition.y}>
       {tiles.map(({ tile, relativeLocation }) => {
         const rotatedLocation = getRotatedLocation(rotation, relativeLocation);
         return (

@@ -4,6 +4,7 @@ import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
+import { useKeys } from "@/client/keys/KeysContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import { Tile } from "@/types/tile";
 
@@ -22,6 +23,7 @@ export default function CanvasHandTile({
 }: CanvasHandTileProps): JSX.Element {
   const { selectedTiles, clearSelectedTiles, selectTiles } = useSelectedTiles();
   const { handleMoveTilesFromBoardToHand } = useGame();
+  const { shiftDown } = useKeys();
 
   const handlePointerClick = useCallback(() => {
     /**
@@ -38,8 +40,8 @@ export default function CanvasHandTile({
      * Current tile is in the hand:
      * - ~~Select the tile under the cursor with no location~~ Deselect tile
      */
-    if (!selectedTiles) {
-      selectTiles([{ tile, boardLocation: null }]);
+    if (!selectedTiles || shiftDown) {
+      selectTiles([{ tile, boardLocation: null }], shiftDown);
       return;
     }
 
@@ -59,6 +61,7 @@ export default function CanvasHandTile({
     handleMoveTilesFromBoardToHand,
     selectTiles,
     selectedTiles,
+    shiftDown,
     tile,
   ]);
 

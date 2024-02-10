@@ -1,11 +1,11 @@
+import { useToast } from "@chakra-ui/react";
 import { useCallback, useMemo, useState } from "react";
 import {
   SelectedTile,
   SelectedTiles,
   SelectedTilesContext,
 } from "./SelectedTilesContext";
-import { vectorDiff, vectorDist } from "@/client/boards/vectorMath";
-import { useCanvasContext } from "@/client/canvas/CanvasContext";
+import { vectorDiff } from "@/client/boards/vectorMath";
 
 type SelectedTilesProviderProps = {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ type SelectedTilesProviderProps = {
 export default function SelectedTilesProvider({
   children,
 }: SelectedTilesProviderProps): JSX.Element {
-  const { cursorPosition, offset, tileSize } = useCanvasContext();
+  const toast = useToast();
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | null>(
     null,
   );
@@ -25,42 +25,63 @@ export default function SelectedTilesProvider({
 
   // This makes an assumption that all tiles will be in hand or on board, but never both
   const selectTiles = useCallback(
-    (tiles: SelectedTile[]) => {
+    (tiles: SelectedTile[], expand: boolean) => {
       if (!tiles.length) return;
 
-      const tileDistances = tiles.map((tile) => ({
-        ...tile,
-        distance: tile.boardLocation
-          ? vectorDist(tile.boardLocation, {
-              x: (cursorPosition.x - offset.x) / tileSize,
-              y: (cursorPosition.y - offset.y) / tileSize,
-            })
-          : -1,
-      }));
-      const minDistance = Math.min(
-        ...tileDistances.map(({ distance }) => distance),
-      );
+      setSelectedTiles((selectedTiles) => {
+        if (selectedTiles) {
+          if (
+            selectedTiles.boardLocation &&
+            tiles.some(({ boardLocation }) => !boardLocation)
+          ) {
+            toast({
+              description:
+                "Current selection contains board tiles and cannot be expanded with tiles from your hand",
+              status: "error",
+            });
+            return selectedTiles;
+          }
 
-      const nearestTileBoardLocation =
-        minDistance === -1
-          ? null
-          : tileDistances.find(({ distance }) => distance === minDistance)
-              ?.boardLocation ?? null;
+          if (
+            !selectedTiles.boardLocation &&
+            tiles.some(({ boardLocation }) => boardLocation)
+          ) {
+            toast({
+              description:
+                "Current selection contains hand tiles and cannot be expanded with tiles from your board",
+              status: "error",
+            });
+            return selectedTiles;
+          }
+        }
 
-      setSelectedTiles({
-        boardLocation: nearestTileBoardLocation,
-        tiles: tiles.map(({ boardLocation, tile }, index) => {
-          const relativeLocation =
-            nearestTileBoardLocation && boardLocation
-              ? vectorDiff(boardLocation, nearestTileBoardLocation)
-              : { x: index, y: 0 };
+        const existingTiles =
+          expand && selectedTiles ? selectedTiles.tiles : [];
 
-          return { tile, relativeLocation };
-        }),
-        rotation: 0,
+        const newTiles = tiles.filter(({ tile: { id } }) =>
+          existingTiles.every(({ tile }) => tile.id !== id),
+        );
+
+        const anchorBoardLocation =
+          selectedTiles?.boardLocation ?? tiles[0].boardLocation;
+
+        return {
+          boardLocation: anchorBoardLocation,
+          rotation: selectedTiles?.rotation ?? 0,
+          tiles: [
+            ...existingTiles,
+            ...newTiles.map(({ boardLocation, tile }, index) => ({
+              tile,
+              relativeLocation:
+                anchorBoardLocation && boardLocation
+                  ? vectorDiff(boardLocation, anchorBoardLocation)
+                  : { x: existingTiles.length + index, y: 0 },
+            })),
+          ],
+        };
       });
     },
-    [cursorPosition.x, cursorPosition.y, offset.x, offset.y, tileSize],
+    [toast],
   );
 
   const rotateSelectedTiles = useCallback((diff: -1 | 1) => {

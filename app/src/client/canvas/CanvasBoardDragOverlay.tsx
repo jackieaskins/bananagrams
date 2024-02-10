@@ -3,6 +3,7 @@ import { useCanvasContext } from "./CanvasContext";
 import CanvasTileRect from "./CanvasTileRect";
 import { Attrs, CanvasName } from "./constants";
 import { generateBoardKey } from "@/client/boards/key";
+import { useKeys } from "@/client/keys/KeysContext";
 import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import getRotatedLocation from "@/client/tiles/getRotatedLocation";
@@ -19,6 +20,7 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
   const { selectedTiles } = useSelectedTiles();
   const { board } = useCurrentPlayer();
   const hoverColor = useColorModeHex("gray.300", "gray.500");
+  const { shiftDown } = useKeys();
 
   const overlays = useMemo(() => {
     if (!selectedTiles) {
@@ -51,6 +53,7 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
           y: y * tileSize,
           color:
             tileAtSquare &&
+            !shiftDown &&
             selectedTileIds.size > 1 &&
             !selectedTileIds.has(tileAtSquare.tile.id)
               ? "red"
@@ -64,8 +67,10 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
     board,
     cursorPosition,
     hoverColor,
-    offset,
+    offset.x,
+    offset.y,
     selectedTiles,
+    shiftDown,
     stageRef,
     tileSize,
   ]);

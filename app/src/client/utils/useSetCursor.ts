@@ -36,6 +36,15 @@ export default function useSetCursor(selection: Selection | null): void {
         return "no-drop";
       }
 
+      if (
+        shiftDown &&
+        intersectionName === CanvasName.HandTile &&
+        selectedTiles &&
+        !selectedTiles.boardLocation
+      ) {
+        return "pointer";
+      }
+
       if (selectedTiles) {
         return "grabbing";
       }

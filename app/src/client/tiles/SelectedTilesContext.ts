@@ -18,7 +18,7 @@ export type SelectedTiles = {
 type SelectedTilesState = {
   selectedTiles: SelectedTiles | null;
   clearSelectedTiles: () => void;
-  selectTiles: (tiles: SelectedTile[]) => void;
+  selectTiles: (tiles: SelectedTile[], expand: boolean) => void;
   rotateSelectedTiles: (diff: -1 | 1) => void;
 };
 
