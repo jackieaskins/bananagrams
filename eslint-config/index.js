@@ -24,6 +24,7 @@ module.exports = {
         "newlines-between": "never",
       },
     ],
+    "no-console": "error",
     "no-debugger": "error",
     "no-useless-rename": "error",
     "object-shorthand": "error",

@@ -8,8 +8,7 @@ import {
 import { useMemo } from "react";
 import { FaPlay } from "react-icons/fa6";
 import { useGame } from "./GameContext";
-import { isValidConnectedBoard } from "@/client/boards/validate";
-import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
+import useCanPeel from "@/client/utils/useCanPeel";
 import { PlayerStatus } from "@/types/player";
 
 export interface PeelButtonProps extends ButtonProps {
@@ -24,14 +23,12 @@ export default function PeelButton({
     gameInfo: { bunch, players },
     handlePeel,
   } = useGame();
-  const { board, hand } = useCurrentPlayer();
-
   const activePlayers = useMemo(
     () => players.filter(({ status }) => status === PlayerStatus.READY),
     [players],
   );
 
-  const canPeel = hand.length === 0 && isValidConnectedBoard(board);
+  const canPeel = useCanPeel();
   const peelWinsGame = bunch.length < activePlayers.length;
 
   const peelButtonHint = useMemo(() => {

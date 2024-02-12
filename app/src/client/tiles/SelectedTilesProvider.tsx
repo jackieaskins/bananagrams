@@ -5,6 +5,7 @@ import {
   SelectedTiles,
   SelectedTilesContext,
 } from "./SelectedTilesContext";
+import useGetNearestTileLocation from "./useGetNearestTileLocation";
 import { vectorDiff } from "@/client/boards/vectorMath";
 
 type SelectedTilesProviderProps = {
@@ -18,6 +19,7 @@ export default function SelectedTilesProvider({
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | null>(
     null,
   );
+  const getNearestTileLocation = useGetNearestTileLocation();
 
   const clearSelectedTiles = useCallback(() => {
     setSelectedTiles(null);
@@ -63,7 +65,7 @@ export default function SelectedTilesProvider({
         );
 
         const anchorBoardLocation =
-          selectedTiles?.boardLocation ?? tiles[0].boardLocation;
+          selectedTiles?.boardLocation ?? getNearestTileLocation(tiles);
 
         return {
           boardLocation: anchorBoardLocation,
@@ -79,6 +81,60 @@ export default function SelectedTilesProvider({
             })),
           ],
         };
+      });
+    },
+    [getNearestTileLocation, toast],
+  );
+
+  const deselectTiles = useCallback(
+    (tileIds: string[]) => {
+      setSelectedTiles((selectedTiles) => {
+        if (!selectedTiles) {
+          toast({
+            description: "Nothing to remove, you haven't selected any tiles",
+            status: "error",
+          });
+          return selectedTiles;
+        }
+
+        const selectedTileIds = new Set(
+          selectedTiles.tiles.map(({ tile: { id } }) => id),
+        );
+        if (tileIds.some((id) => !selectedTileIds.has(id))) {
+          toast({
+            description: "You don't currently have this tile selected",
+            status: "error",
+          });
+          return selectedTiles;
+        }
+
+        const tileIdsToRemove = new Set(tileIds);
+
+        if (!selectedTiles.boardLocation) {
+          const newTiles = selectedTiles.tiles.filter(
+            ({ tile: { id } }) => !tileIdsToRemove.has(id),
+          );
+
+          if (!newTiles.length) {
+            return null;
+          }
+
+          return {
+            ...selectedTiles,
+            tiles: newTiles.map(({ tile }, index) => ({
+              tile,
+              relativeLocation: { x: index, y: 0 },
+            })),
+          };
+        }
+
+        const newTiles = selectedTiles.tiles.filter(
+          ({ tile: { id } }) => !tileIdsToRemove.has(id),
+        );
+
+        if (!newTiles.length) return null;
+
+        return { ...selectedTiles, tiles: newTiles };
       });
     },
     [toast],
@@ -98,10 +154,17 @@ export default function SelectedTilesProvider({
     () => ({
       clearSelectedTiles,
       selectTiles,
+      deselectTiles,
       rotateSelectedTiles,
       selectedTiles,
     }),
-    [clearSelectedTiles, rotateSelectedTiles, selectTiles, selectedTiles],
+    [
+      clearSelectedTiles,
+      deselectTiles,
+      rotateSelectedTiles,
+      selectTiles,
+      selectedTiles,
+    ],
   );
 
   return (

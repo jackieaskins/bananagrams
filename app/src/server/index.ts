@@ -17,6 +17,7 @@ app.get("/server/stats", (_, res) =>
 );
 
 const server = ViteExpress.listen(app, PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server has started on port ${PORT}`);
 });
 

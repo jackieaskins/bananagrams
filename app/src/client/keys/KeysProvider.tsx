@@ -1,6 +1,10 @@
+import { useToast } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { KeysContext, KeysState } from "./KeysContext";
+import { useGame } from "@/client/games/GameContext";
+import { useCurrentPlayer } from "@/client/players/useCurrentPlayer";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
+import useCanPeel from "@/client/utils/useCanPeel";
 
 type KeysProviderProps = {
   children: React.ReactNode;
@@ -9,7 +13,18 @@ type KeysProviderProps = {
 export default function KeysProvider({
   children,
 }: KeysProviderProps): JSX.Element {
-  const { clearSelectedTiles, rotateSelectedTiles } = useSelectedTiles();
+  const toast = useToast();
+  const { handlePeel } = useGame();
+  const canPeel = useCanPeel();
+  const { hand } = useCurrentPlayer();
+  const {
+    clearSelectedTiles,
+    rotateSelectedTiles,
+    selectTiles,
+    deselectTiles,
+    selectedTiles,
+  } = useSelectedTiles();
+
   const [keys, setKeys] = useState<KeysState>({
     altDown: false,
     ctrlDown: false,
@@ -31,6 +46,34 @@ export default function KeysProvider({
 
   const handleKeyup = useCallback(
     ({ key, shiftKey }: KeyboardEvent) => {
+      if (key.match(/^[a-z]$/)) {
+        if (selectedTiles?.boardLocation) {
+          toast({
+            description: "Can't add hand tiles to board selection",
+            status: "error",
+          });
+          return;
+        }
+
+        const selectedTileIds = new Set(
+          selectedTiles?.tiles.map(({ tile: { id } }) => id),
+        );
+        const tile = hand.find(
+          ({ letter, id }) =>
+            letter.toLowerCase() === key && !selectedTileIds.has(id),
+        );
+        if (!tile) {
+          toast({
+            description: `There aren't any ${key.toUpperCase()} tiles remaining in your hand`,
+            status: "error",
+          });
+          return;
+        }
+
+        selectTiles([{ tile, boardLocation: null }], true);
+        return;
+      }
+
       switch (key) {
         case "Escape":
           clearSelectedTiles();
@@ -38,9 +81,33 @@ export default function KeysProvider({
         case " ":
           rotateSelectedTiles(shiftKey ? -1 : 1);
           break;
+        case "Enter": {
+          if (canPeel) {
+            handlePeel();
+          }
+          break;
+        }
+        case "Backspace": {
+          if (selectedTiles && !selectedTiles.boardLocation) {
+            deselectTiles([
+              selectedTiles.tiles[selectedTiles.tiles.length - 1].tile.id,
+            ]);
+          }
+          break;
+        }
       }
     },
-    [clearSelectedTiles, rotateSelectedTiles],
+    [
+      canPeel,
+      clearSelectedTiles,
+      deselectTiles,
+      hand,
+      handlePeel,
+      rotateSelectedTiles,
+      selectTiles,
+      selectedTiles,
+      toast,
+    ],
   );
 
   useEffect(() => {

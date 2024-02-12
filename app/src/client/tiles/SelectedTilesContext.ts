@@ -20,6 +20,7 @@ type SelectedTilesState = {
   clearSelectedTiles: () => void;
   selectTiles: (tiles: SelectedTile[], expand: boolean) => void;
   rotateSelectedTiles: (diff: -1 | 1) => void;
+  deselectTiles: (tileIds: string[]) => void;
 };
 
 export const SelectedTilesContext = createContext<SelectedTilesState>(

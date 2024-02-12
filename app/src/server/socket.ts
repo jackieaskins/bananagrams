@@ -25,6 +25,7 @@ export function configureSocket(
   io.on("connection", (socket) => {
     const { id: userId } = socket;
 
+    // eslint-disable-next-line no-console
     console.log(`New connection: ${userId}`);
 
     let gameController: GameController | undefined;
@@ -131,6 +132,7 @@ export function configureSocket(
     socket.on("disconnect", () => {
       gameController?.leaveGame();
       gameController = undefined;
+      // eslint-disable-next-line no-console
       console.log(`${userId} disconnected`);
     });
   });
