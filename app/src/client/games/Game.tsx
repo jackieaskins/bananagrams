@@ -1,7 +1,7 @@
 import { Box, Flex, IconButton, useDisclosure } from "@chakra-ui/react";
 import Konva from "konva";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { FaBars } from "react-icons/fa6";
+import { FaUsers } from "react-icons/fa6";
 import GameDrawer from "./GameDrawer";
 import GameFooter from "./GameFooter";
 import GameSidebar from "./GameSidebar";
@@ -113,8 +113,8 @@ export default function Game(): JSX.Element {
             top={4}
             right={4}
             isRound
-            aria-label="Expand game sidebar"
-            icon={<FaBars />}
+            aria-label="Show players in game sidebr"
+            icon={<FaUsers />}
             onClick={onSidebarOpen}
           />
         )}
