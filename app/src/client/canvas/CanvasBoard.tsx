@@ -1,12 +1,14 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback } from "react";
 import { Group, Rect } from "react-konva";
+import CanvasActiveBoardSquare from "./CanvasActiveBoardSquare";
 import CanvasBoardDragOverlay from "./CanvasBoardDragOverlay";
 import CanvasBoardTile from "./CanvasBoardTile";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasGrid from "./CanvasGrid";
 import CanvasOffScreenIndicators from "./CanvasOffScreenIndicators";
 import { Attrs, CanvasName } from "./constants";
+import { useActiveBoardSquare } from "@/client/boards/ActiveBoardSquareContext";
 import { parseBoardKey } from "@/client/boards/key";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
@@ -28,16 +30,27 @@ export default function CanvasBoard({
   const { offset, size, playable, tileSize } = useCanvasContext();
   const { clearSelectedTiles, selectedTiles } = useSelectedTiles();
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
-  const { shiftDown } = useKeys();
+  const { ctrlDown, shiftDown } = useKeys();
+  const { setActiveBoardSquare } = useActiveBoardSquare();
 
   const handlePointerClick = useCallback(
     (e: KonvaEventObject<PointerEvent>) => {
-      if (!playable || !selectedTiles) return;
+      if (!playable) return;
 
       const toLocation = {
         x: Math.floor((e.evt.x - offset.x) / tileSize),
         y: Math.floor((e.evt.y - offset.y) / tileSize),
       };
+
+      if (!selectedTiles && ctrlDown) {
+        setActiveBoardSquare({
+          x: toLocation.x * tileSize,
+          y: toLocation.y * tileSize,
+        });
+        return;
+      }
+
+      if (!selectedTiles) return;
 
       const { tiles, boardLocation, rotation } = selectedTiles;
 
@@ -67,11 +80,14 @@ export default function CanvasBoard({
     },
     [
       clearSelectedTiles,
+      ctrlDown,
       handleMoveTilesFromHandToBoard,
       handleMoveTilesOnBoard,
-      offset,
+      offset.x,
+      offset.y,
       playable,
       selectedTiles,
+      setActiveBoardSquare,
       tileSize,
     ],
   );
@@ -108,6 +124,7 @@ export default function CanvasBoard({
         );
       })}
 
+      <CanvasActiveBoardSquare />
       {playable && <CanvasBoardDragOverlay />}
       <CanvasOffScreenIndicators board={board} />
     </Group>

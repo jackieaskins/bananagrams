@@ -10,7 +10,7 @@ import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 export default function useSetCursor(selection: Selection | null): void {
   const { selectedTiles } = useSelectedTiles();
   const { cursorPosition, stageRef } = useCanvasContext();
-  const { shiftDown } = useKeys();
+  const { ctrlDown, shiftDown } = useKeys();
   const canDump = useCanDump();
 
   useEffect(() => {
@@ -18,6 +18,14 @@ export default function useSetCursor(selection: Selection | null): void {
       const intersectionName: CanvasName | undefined = (
         stageRef.current?.getIntersection(cursorPosition)?.attrs as Attrs
       )?.name;
+
+      if (
+        ctrlDown &&
+        (intersectionName === CanvasName.Board ||
+          intersectionName === CanvasName.BoardTile)
+      ) {
+        return "cell";
+      }
 
       if (selection) {
         return "crosshair";
@@ -67,5 +75,13 @@ export default function useSetCursor(selection: Selection | null): void {
     if (container) {
       container.style.cursor = getCursor();
     }
-  }, [canDump, cursorPosition, selectedTiles, selection, shiftDown, stageRef]);
+  }, [
+    canDump,
+    ctrlDown,
+    cursorPosition,
+    selectedTiles,
+    selection,
+    shiftDown,
+    stageRef,
+  ]);
 }

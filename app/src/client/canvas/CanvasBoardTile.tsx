@@ -2,8 +2,10 @@ import { useCallback, useMemo } from "react";
 import { useCanvasContext } from "./CanvasContext";
 import CanvasTile from "./CanvasTile";
 import { CanvasName } from "./constants";
+import { useActiveBoardSquare } from "@/client/boards/ActiveBoardSquareContext";
 import { vectorSum } from "@/client/boards/vectorMath";
 import { useGame } from "@/client/games/GameContext";
+import { useKeys } from "@/client/keys/KeysContext";
 import { useSelectedTiles } from "@/client/tiles/SelectedTilesContext";
 import getRotatedLocation from "@/client/tiles/getRotatedLocation";
 import { useColorHex } from "@/client/utils/useColorHex";
@@ -44,6 +46,8 @@ export default function CanvasBoardTile({
   const { handleMoveTilesOnBoard, handleMoveTilesFromHandToBoard } = useGame();
   const chakraColor = useMemo(() => getColor(wordInfo), [wordInfo]);
   const [color] = useColorHex([chakraColor]);
+  const { setActiveBoardSquare } = useActiveBoardSquare();
+  const { ctrlDown } = useKeys();
 
   const handlePointerClick = useCallback(() => {
     /*
@@ -61,6 +65,10 @@ export default function CanvasBoardTile({
      * - Call moveTilesFromHandToBoard
      * - ~~Select the tile under the cursor with no position~~ Deselect tile
      */
+    if (!selectedTiles && ctrlDown) {
+      setActiveBoardSquare({ x: x * tileSize, y: y * tileSize });
+      return;
+    }
 
     if (!selectedTiles) {
       selectTiles([{ tile, boardLocation: { x, y } }], false);
@@ -91,11 +99,14 @@ export default function CanvasBoardTile({
     clearSelectedTiles();
   }, [
     clearSelectedTiles,
+    ctrlDown,
     handleMoveTilesFromHandToBoard,
     handleMoveTilesOnBoard,
     selectTiles,
     selectedTiles,
+    setActiveBoardSquare,
     tile,
+    tileSize,
     x,
     y,
   ]);

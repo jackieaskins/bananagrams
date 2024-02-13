@@ -5,6 +5,7 @@ import { FaUsers } from "react-icons/fa6";
 import GameDrawer from "./GameDrawer";
 import GameFooter from "./GameFooter";
 import GameSidebar from "./GameSidebar";
+import ActiveBoardSquareProvider from "@/client/boards/ActiveBoardSquareProvider";
 import Canvas from "@/client/canvas/Canvas";
 import { CanvasContext } from "@/client/canvas/CanvasContext";
 import KeysProvider from "@/client/keys/KeysProvider";
@@ -91,14 +92,16 @@ export default function Game(): JSX.Element {
             tileSize: TILE_SIZE,
           }}
         >
-          <SelectedTilesProvider>
-            <KeysProvider>
-              <Canvas
-                setOffset={setOffset}
-                setCursorPosition={setCursorPosition}
-              />
-            </KeysProvider>
-          </SelectedTilesProvider>
+          <ActiveBoardSquareProvider>
+            <SelectedTilesProvider>
+              <KeysProvider>
+                <Canvas
+                  setOffset={setOffset}
+                  setCursorPosition={setCursorPosition}
+                />
+              </KeysProvider>
+            </SelectedTilesProvider>
+          </ActiveBoardSquareProvider>
         </CanvasContext.Provider>
 
         <Box ref={gameBarRef}>
