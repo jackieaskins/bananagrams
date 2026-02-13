@@ -127,13 +127,21 @@ export default function TutorialGameProvider({
           ...otherSquares
         } = board;
 
+        const squares = {
+          ...boardToBoardSquares(otherSquares),
+          [toLocationKey]: fromRemove.tile,
+        };
+
         return {
           ...player,
-          board: validateBoardSquares({
-            ...boardToBoardSquares(otherSquares),
-            [toLocationKey]: fromRemove.tile,
-            [fromLocationKey]: toRemove.tile,
-          }),
+          board: validateBoardSquares(
+            toRemove
+              ? {
+                  ...squares,
+                  [fromLocationKey]: toRemove.tile,
+                }
+              : squares,
+          ),
         };
       });
     },
