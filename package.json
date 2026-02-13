@@ -18,7 +18,7 @@
     "test": "npm run -ws --if-present test"
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "keywords": [],
   "author": "",
