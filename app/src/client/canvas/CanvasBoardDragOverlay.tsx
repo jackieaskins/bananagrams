@@ -28,7 +28,7 @@ export default function CanvasBoardDragOverlay(): JSX.Element[] {
     }
 
     const intersection = stageRef.current?.getIntersection(cursorPosition);
-    const name = (intersection?.attrs as Attrs).name;
+    const name = (intersection?.attrs as Attrs | undefined)?.name;
     if (!intersection || (name && SUPPORTED_OVERLAY_NAMES.includes(name))) {
       const position = {
         x: Math.floor((cursorPosition.x - offset.x) / tileSize),
