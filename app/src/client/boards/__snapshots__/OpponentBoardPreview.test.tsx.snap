@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<OpponentBoardPreview /> does not render if no opponents 1`] = `<DocumentFragment />`;

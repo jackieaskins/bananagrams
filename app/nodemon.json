@@ -1,6 +1,0 @@
-{
-  "exec": "tsx --inspect ./src/server/index.ts",
-  "ext": ".js,.ts",
-  "ignore": ["**/*.test.ts"],
-  "watch": ["./src/server"]
-}
