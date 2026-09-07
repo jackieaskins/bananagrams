@@ -1,5 +1,6 @@
 packages:
   - eslint-config
+  - spacetimedb
 
 catalog:
   "@typescript/native": npm:typescript@^7.0.2

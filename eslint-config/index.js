@@ -21,7 +21,8 @@ export default [
 
   {
     rules: {
-      "no-undef": "off",
+      "@typescript-eslint/no-unused-vars": "off", // Let Typescript handle unused vars instead
+      "no-undef": "off", // Recommended to disable for Typescript projects
     },
   },
 ];
