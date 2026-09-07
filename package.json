@@ -1,0 +1,15 @@
+{
+  "name": "bananagrams",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6"
+  }
+}

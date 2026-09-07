@@ -1,0 +1,22 @@
+{
+  "name": "eslint-config-bananagrams",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "peerDependencies": {
+    "eslint": ">=10.0.0",
+    "typescript": "npm:@typescript/typescript6@>=6.0.0",
+    "typescript-eslint": ">=8.0.0"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-simple-import-sort": "^14.0.0"
+  },
+  "devDependencies": {
+    "prettier": "catalog:"
+  }
+}
