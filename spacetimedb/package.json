@@ -6,6 +6,7 @@
     "build": "spacetime build",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "pre-commit": "lint-staged",
     "publish": "spacetime publish",
     "publish:local": "spacetime publish --server local bananagrams"
   },
@@ -16,7 +17,15 @@
     "@typescript/native": "catalog:",
     "eslint": "catalog:",
     "eslint-config-bananagrams": "workspace:^",
+    "lint-staged": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": "prettier --write"
   }
 }

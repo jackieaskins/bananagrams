@@ -7,5 +7,6 @@ catalog:
   "@typescript/native": npm:typescript@^7.0.2
   eslint: ^10.10.0
   globals: ^17.12.0
+  lint-staged: ^17.5.0
   prettier: ^3.9.6
   typescript: npm:@typescript/typescript6@^6.0.2

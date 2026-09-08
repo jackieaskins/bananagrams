@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "pre-commit": "lint-staged"
   },
   "peerDependencies": {
     "eslint": ">=10.0.0",
@@ -17,6 +18,10 @@
     "typescript-eslint": "^8.69.0"
   },
   "devDependencies": {
+    "lint-staged": "catalog:",
     "prettier": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": "prettier --write"
   }
 }
