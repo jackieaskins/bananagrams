@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "spacetime build",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "publish": "spacetime publish",
     "publish:local": "spacetime publish --server local bananagrams"
@@ -16,7 +17,6 @@
     "eslint": "catalog:",
     "eslint-config-bananagrams": "workspace:^",
     "prettier": "catalog:",
-    "typescript": "catalog:",
-    "typescript-eslint": "catalog:"
+    "typescript": "catalog:"
   }
 }

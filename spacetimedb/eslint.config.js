@@ -1,14 +1,4 @@
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import bananagrams from "eslint-config-bananagrams";
-import ts from "typescript-eslint";
 
-export default defineConfig(bananagrams, {
-  languageOptions: {
-    parserOptions: {
-      projectService: {
-        allowDefaultProject: ["*.js"],
-      },
-      parser: ts.parser,
-    },
-  },
-});
+export default defineConfig([globalIgnores(["dist"]), bananagrams]);
