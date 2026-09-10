@@ -1,4 +1,13 @@
 {
+  "dev": {
+    "run": "pnpm -F client dev"
+  },
   "server": "maincloud",
-  "module-path": "./spacetimedb"
+  "module-path": "./spacetimedb",
+  "generate": [
+    {
+      "language": "typescript",
+      "out-dir": "./client/src/module_bindings"
+    }
+  ]
 }

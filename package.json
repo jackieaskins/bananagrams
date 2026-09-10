@@ -10,10 +10,22 @@
     }
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev": "concurrently --kill-others --handle-input \"spacetime start\" \"spacetime dev\"",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
+    "concurrently": "^10.0.5",
+    "eslint": "catalog:",
     "husky": "^9.1.7",
+    "lint-staged": "^17.5.0",
     "prettier": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html,json,md}": "prettier --write"
   }
 }

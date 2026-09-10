@@ -4,28 +4,19 @@
   "version": "1.0.0",
   "scripts": {
     "build": "spacetime build",
-    "lint": "eslint .",
+    "dev": "spacetime dev --delete-data on-conflict bananagrams",
     "format": "prettier --write .",
-    "pre-commit": "lint-staged",
-    "publish": "spacetime publish",
-    "publish:local": "spacetime publish --server local bananagrams"
+    "lint": "eslint .",
+    "publish": "spacetime publish"
   },
   "dependencies": {
-    "spacetimedb": "~2.10.0"
+    "spacetimedb": "catalog:"
   },
   "devDependencies": {
     "@typescript/native": "catalog:",
     "eslint": "catalog:",
     "eslint-config-bananagrams": "workspace:^",
-    "lint-staged": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": "prettier --write"
   }
 }
