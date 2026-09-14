@@ -11,7 +11,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "dev": "concurrently --kill-others --handle-input \"spacetime start\" \"spacetime dev\"",
+    "dev": "concurrently --kill-others --handle-input \"pnpm -r watch\" \"spacetime start\" \"spacetime dev\"",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -22,8 +22,11 @@
     "prettier": "catalog:"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "!(eslint-config/**/*)*.{js,ts,tsx}": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "(eslint-config/**/*)*.{js,ts}": [
       "prettier --write"
     ],
     "*.{css,html,json,md}": "prettier --write"

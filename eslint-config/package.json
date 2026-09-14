@@ -1,10 +1,14 @@
 {
   "name": "eslint-config-bananagrams",
   "private": true,
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "format": "prettier --write ."
+    "build": "tsc",
+    "format": "prettier --write .",
+    "watch": "tsc --watch"
   },
   "peerDependencies": {
     "eslint": ">=10.0.0",
@@ -17,6 +21,7 @@
     "typescript-eslint": "^8.69.0"
   },
   "devDependencies": {
+    "@typescript/native": "catalog:",
     "prettier": "catalog:"
   }
 }

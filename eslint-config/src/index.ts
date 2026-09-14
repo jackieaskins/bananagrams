@@ -1,11 +1,13 @@
 import js from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import { defineConfig } from "eslint/config";
 import ts from "typescript-eslint";
 
-export default [
+export default defineConfig([
   js.configs.recommended,
   ts.configs.strictTypeChecked,
+  ts.configs.stylisticTypeChecked,
   prettier,
 
   // eslint-plugin-simple-import-sort
@@ -33,9 +35,10 @@ export default [
   {
     rules: {
       "@typescript-eslint/explicit-module-boundary-types": "error",
+      "object-shorthand": ["error", "always"],
 
       "@typescript-eslint/no-unused-vars": "off", // Let Typescript handle unused vars instead
       "no-undef": "off", // Recommended to disable for Typescript projects
     },
   },
-];
+]);
