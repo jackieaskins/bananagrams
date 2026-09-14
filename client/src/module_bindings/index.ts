@@ -40,28 +40,38 @@ import CreateGameReducer from "./create_game_reducer";
 
 // Import all table schema definitions
 import GamesRow from "./games_table";
+import PlayersRow from "./players_table";
 
 /** Type-only namespace exports for generated type groups. */
 
 /** The schema information for all tables in this module. This is defined the same was as the tables would have been defined in the server. */
 const tablesSchema = __schema({
-  games: __table(
-    {
-      name: "games",
-      indexes: [
-        {
-          accessor: "id",
-          name: "games_id_idx_btree",
-          algorithm: "btree",
-          columns: ["id"],
-        },
-      ],
-      constraints: [
-        { name: "games_id_key", constraint: "unique", columns: ["id"] },
-      ],
-    },
-    GamesRow,
-  ),
+  games: __table({
+    name: 'games',
+    indexes: [
+      { accessor: 'id', name: 'games_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'games_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, GamesRow),
+  players: __table({
+    name: 'players',
+    indexes: [
+      { accessor: 'byGameUser', name: 'players_game_id_user_id_idx_btree', algorithm: 'btree', columns: [
+        'gameId',
+        'userId',
+      ] },
+      { accessor: 'id', name: 'players_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'players_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, PlayersRow),
 });
 
 /** The schema information for all reducers in this module. This is defined the same way as the reducers would have been defined in the server, except the body of the reducer is omitted in code generation. */
@@ -70,7 +80,8 @@ const reducersSchema = __reducers(
 );
 
 /** The schema information for all procedures in this module. This is defined the same way as the procedures would have been defined in the server. */
-const proceduresSchema = __procedures();
+const proceduresSchema = __procedures(
+);
 
 /** The remote SpacetimeDB module schema, both runtime and type information. */
 const REMOTE_MODULE = {
@@ -87,13 +98,10 @@ const REMOTE_MODULE = {
 >;
 
 /** The tables available in this remote SpacetimeDB module. Each table reference doubles as a query builder. */
-export const tables: __QueryBuilder<typeof tablesSchema.schemaType> =
-  __makeQueryBuilder(tablesSchema.schemaType);
+export const tables: __QueryBuilder<typeof tablesSchema.schemaType> = __makeQueryBuilder(tablesSchema.schemaType);
 
 /** The reducers available in this remote SpacetimeDB module. */
-export const reducers = __convertToAccessorMap(
-  reducersSchema.reducersType.reducers,
-);
+export const reducers = __convertToAccessorMap(reducersSchema.reducersType.reducers);
 
 /** The procedures available in this remote SpacetimeDB module. */
 export const procedures = __convertToAccessorMap(proceduresSchema.procedures);
@@ -101,22 +109,16 @@ export const procedures = __convertToAccessorMap(proceduresSchema.procedures);
 /** The context type returned in callbacks for all possible events. */
 export type EventContext = __EventContextInterface<typeof REMOTE_MODULE>;
 /** The context type returned in callbacks for reducer events. */
-export type ReducerEventContext = __ReducerEventContextInterface<
-  typeof REMOTE_MODULE
->;
+export type ReducerEventContext = __ReducerEventContextInterface<typeof REMOTE_MODULE>;
 /** The context type returned in callbacks for subscription events. */
-export type SubscriptionEventContext = __SubscriptionEventContextInterface<
-  typeof REMOTE_MODULE
->;
+export type SubscriptionEventContext = __SubscriptionEventContextInterface<typeof REMOTE_MODULE>;
 /** The context type returned in callbacks for error events. */
 export type ErrorContext = __ErrorContextInterface<typeof REMOTE_MODULE>;
 /** The subscription handle type to manage active subscriptions created from a {@link SubscriptionBuilder}. */
 export type SubscriptionHandle = __SubscriptionHandleImpl<typeof REMOTE_MODULE>;
 
 /** Builder class to configure a new subscription to the remote SpacetimeDB instance. */
-export class SubscriptionBuilder extends __SubscriptionBuilderImpl<
-  typeof REMOTE_MODULE
-> {}
+export class SubscriptionBuilder extends __SubscriptionBuilderImpl<typeof REMOTE_MODULE> {}
 
 /** Builder class to configure a new database connection to the remote SpacetimeDB instance. */
 export class DbConnectionBuilder extends __DbConnectionBuilder<DbConnection> {}
@@ -125,11 +127,7 @@ export class DbConnectionBuilder extends __DbConnectionBuilder<DbConnection> {}
 export class DbConnection extends __DbConnectionImpl<typeof REMOTE_MODULE> {
   /** Creates a new {@link DbConnectionBuilder} to configure and connect to the remote SpacetimeDB instance. */
   static builder = (): DbConnectionBuilder => {
-    return new DbConnectionBuilder(
-      REMOTE_MODULE,
-      (config: __DbConnectionConfig<typeof REMOTE_MODULE>) =>
-        new DbConnection(config),
-    );
+    return new DbConnectionBuilder(REMOTE_MODULE, (config: __DbConnectionConfig<typeof REMOTE_MODULE>) => new DbConnection(config));
   };
 
   /** Creates a new {@link SubscriptionBuilder} to configure a subscription to the remote SpacetimeDB instance. */
@@ -137,3 +135,4 @@ export class DbConnection extends __DbConnectionImpl<typeof REMOTE_MODULE> {
     return new SubscriptionBuilder(this);
   };
 }
+

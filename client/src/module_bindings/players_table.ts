@@ -10,17 +10,9 @@ import {
   type Infer as __Infer,
 } from "spacetimedb";
 
-export const Games = __t.object("Games", {
-  id: __t.uuid(),
-  name: __t.string(),
-});
-export type Games = __Infer<typeof Games>;
-
-export const Players = __t.object("Players", {
-  id: __t.u64(),
-  userId: __t.identity(),
-  gameId: __t.uuid(),
+export default __t.row({
+  id: __t.u64().primaryKey(),
+  userId: __t.identity().name("user_id"),
+  gameId: __t.uuid().name("game_id"),
   username: __t.string(),
 });
-export type Players = __Infer<typeof Players>;
-
