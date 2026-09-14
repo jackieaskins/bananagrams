@@ -1,9 +1,9 @@
-import { createGameSchema } from "bananagrams-utils";
+import { createRoomSchema } from "bananagrams-utils";
 import { schema, SenderError, t, table } from "spacetimedb/server";
 
 const spacetimedb = schema({
-  games: table(
-    { name: "games", public: true },
+  rooms: table(
+    { name: "rooms", public: true },
     {
       id: t.uuid().primaryKey(),
       name: t.string(),
@@ -15,16 +15,16 @@ const spacetimedb = schema({
       public: true,
       indexes: [
         {
-          accessor: "byGameUser",
+          accessor: "byRoomUser",
           algorithm: "btree",
-          columns: ["gameId", "userId"],
+          columns: ["roomId", "userId"],
         },
       ],
     },
     {
       id: t.u64().primaryKey().autoInc(),
       userId: t.identity(),
-      gameId: t.uuid(),
+      roomId: t.uuid(),
       username: t.string(),
     },
   ),
@@ -32,10 +32,10 @@ const spacetimedb = schema({
 
 export default spacetimedb;
 
-export const createGame = spacetimedb.reducer(
+export const createRoom = spacetimedb.reducer(
   { name: t.string(), username: t.string() },
   (ctx, { name, username }) => {
-    const result = createGameSchema.safeParse({ name, username });
+    const result = createRoomSchema.safeParse({ name, username });
 
     if (!result.success) {
       throw new SenderError(
@@ -43,13 +43,13 @@ export const createGame = spacetimedb.reducer(
       );
     }
 
-    const gameId = ctx.newUuidV7();
+    const roomId = ctx.newUuidV7();
 
-    ctx.db.games.insert({ id: gameId, name });
+    ctx.db.rooms.insert({ id: roomId, name });
     ctx.db.players.insert({
       id: 0n,
       userId: ctx.sender,
-      gameId,
+      roomId,
       username,
     });
   },

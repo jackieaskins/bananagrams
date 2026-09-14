@@ -34,49 +34,49 @@ import {
 } from "spacetimedb";
 
 // Import all reducer arg schemas
-import CreateGameReducer from "./create_game_reducer";
+import CreateRoomReducer from "./create_room_reducer";
 
 // Import all procedure arg schemas
 
 // Import all table schema definitions
-import GamesRow from "./games_table";
 import PlayersRow from "./players_table";
+import RoomsRow from "./rooms_table";
 
 /** Type-only namespace exports for generated type groups. */
 
 /** The schema information for all tables in this module. This is defined the same was as the tables would have been defined in the server. */
 const tablesSchema = __schema({
-  games: __table({
-    name: 'games',
-    indexes: [
-      { accessor: 'id', name: 'games_id_idx_btree', algorithm: 'btree', columns: [
-        'id',
-      ] },
-    ],
-    constraints: [
-      { name: 'games_id_key', constraint: 'unique', columns: ['id'] },
-    ],
-  }, GamesRow),
   players: __table({
     name: 'players',
     indexes: [
-      { accessor: 'byGameUser', name: 'players_game_id_user_id_idx_btree', algorithm: 'btree', columns: [
-        'gameId',
-        'userId',
-      ] },
       { accessor: 'id', name: 'players_id_idx_btree', algorithm: 'btree', columns: [
         'id',
+      ] },
+      { accessor: 'byRoomUser', name: 'players_room_id_user_id_idx_btree', algorithm: 'btree', columns: [
+        'roomId',
+        'userId',
       ] },
     ],
     constraints: [
       { name: 'players_id_key', constraint: 'unique', columns: ['id'] },
     ],
   }, PlayersRow),
+  rooms: __table({
+    name: 'rooms',
+    indexes: [
+      { accessor: 'id', name: 'rooms_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'rooms_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, RoomsRow),
 });
 
 /** The schema information for all reducers in this module. This is defined the same way as the reducers would have been defined in the server, except the body of the reducer is omitted in code generation. */
 const reducersSchema = __reducers(
-  __reducerSchema("create_game", CreateGameReducer),
+  __reducerSchema("create_room", CreateRoomReducer),
 );
 
 /** The schema information for all procedures in this module. This is defined the same way as the procedures would have been defined in the server. */

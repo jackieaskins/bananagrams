@@ -3,18 +3,18 @@ import { useTable } from "spacetimedb/react";
 import { tables } from "./module_bindings";
 
 export default function App(): React.JSX.Element {
-  const [games] = useTable(tables.games);
+  const [rooms] = useTable(tables.rooms);
 
   return (
     <main>
       <h1>Bananagrams</h1>
 
-      <h2>Games</h2>
-      {games.length === 0 ? (
-        <div>No games</div>
+      <h2>Rooms</h2>
+      {rooms.length === 0 ? (
+        <div>No rooms</div>
       ) : (
         <ul>
-          {games.map(({ id, name }) => (
+          {rooms.map(({ id, name }) => (
             <li key={id.toString()}>{name}</li>
           ))}
         </ul>

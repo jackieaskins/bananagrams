@@ -13,6 +13,6 @@ import {
 export default __t.row({
   id: __t.u64().primaryKey(),
   userId: __t.identity().name("user_id"),
-  gameId: __t.uuid().name("game_id"),
+  roomId: __t.uuid().name("room_id"),
   username: __t.string(),
 });
