@@ -1,4 +1,5 @@
-import { schema, t, table } from "spacetimedb/server";
+import { createGameSchema } from "bananagrams-utils";
+import { schema, SenderError, t, table } from "spacetimedb/server";
 
 const spacetimedb = schema({
   games: table(
@@ -8,29 +9,48 @@ const spacetimedb = schema({
       name: t.string(),
     },
   ),
+  players: table(
+    {
+      name: "players",
+      public: true,
+      indexes: [
+        {
+          accessor: "byGameUser",
+          algorithm: "btree",
+          columns: ["gameId", "userId"],
+        },
+      ],
+    },
+    {
+      id: t.u64().primaryKey().autoInc(),
+      userId: t.identity(),
+      gameId: t.uuid(),
+      username: t.string(),
+    },
+  ),
 });
 
 export default spacetimedb;
 
-export const init = spacetimedb.init((_ctx) => {
-  // Called when the module is initially published
-});
+export const createGame = spacetimedb.reducer(
+  { name: t.string(), username: t.string() },
+  (ctx, { name, username }) => {
+    const result = createGameSchema.safeParse({ name, username });
 
-export const onConnect = spacetimedb.clientConnected((_ctx) => {
-  // Called every time a new client connects
-});
-
-export const onDisconnect = spacetimedb.clientDisconnected((_ctx) => {
-  // Called every time a client disconnects
-});
-
-export const create_game = spacetimedb.reducer(
-  { name: t.string() },
-  (ctx, { name }) => {
-    if (!name.trim()) {
-      throw new Error("Name cannot be empty");
+    if (!result.success) {
+      throw new SenderError(
+        result.error.issues.map(({ message }) => message).join("\n"),
+      );
     }
 
-    ctx.db.games.insert({ id: ctx.newUuidV7(), name });
+    const gameId = ctx.newUuidV7();
+
+    ctx.db.games.insert({ id: gameId, name });
+    ctx.db.players.insert({
+      id: 0n,
+      userId: ctx.sender,
+      gameId,
+      username,
+    });
   },
 );

@@ -10,7 +10,9 @@
     "publish": "spacetime publish"
   },
   "dependencies": {
-    "spacetimedb": "catalog:"
+    "bananagrams-utils": "workspace:",
+    "spacetimedb": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@typescript/native": "catalog:",
@@ -18,5 +20,11 @@
     "eslint-config-bananagrams": "workspace:^",
     "prettier": "catalog:",
     "typescript": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

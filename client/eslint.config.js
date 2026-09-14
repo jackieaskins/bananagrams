@@ -8,7 +8,7 @@ import reactX from "eslint-plugin-react-x";
 import globals from "globals";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "src/module_bindings"]),
   bananagrams,
   {
     files: ["**/*.{ts,tsx}"],

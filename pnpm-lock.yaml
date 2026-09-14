@@ -24,6 +24,9 @@ catalogs:
     typescript:
       specifier: npm:@typescript/typescript6@^6.0.2
       version: 6.0.2
+    zod:
+      specifier: ^4.6.2
+      version: 4.6.4
 
 importers:
 
@@ -145,9 +148,15 @@ importers:
 
   spacetimedb:
     dependencies:
+      bananagrams-utils:
+        specifier: 'workspace:'
+        version: link:../utils
       spacetimedb:
         specifier: 'catalog:'
         version: 2.10.0(react@19.2.8)
+      zod:
+        specifier: 'catalog:'
+        version: 4.6.4
     devDependencies:
       '@typescript/native':
         specifier: 'catalog:'
@@ -158,6 +167,31 @@ importers:
       eslint-config-bananagrams:
         specifier: workspace:^
         version: link:../eslint-config
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
+      typescript:
+        specifier: 'catalog:'
+        version: '@typescript/typescript6@6.0.2'
+
+  utils:
+    dependencies:
+      zod:
+        specifier: '>=4.6.0'
+        version: 4.6.4
+    devDependencies:
+      '@typescript/native':
+        specifier: 'catalog:'
+        version: typescript@7.0.2
+      eslint:
+        specifier: 'catalog:'
+        version: 10.10.0(supports-color@10.2.2)
+      eslint-config-bananagrams:
+        specifier: 'workspace:'
+        version: link:../eslint-config
+      globals:
+        specifier: 'catalog:'
+        version: 17.12.0
       prettier:
         specifier: 'catalog:'
         version: 3.9.6
@@ -1870,6 +1904,9 @@ packages:
 
   zod@4.5.4:
     resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
+
+  zod@4.6.4:
+    resolution: {integrity: sha512-AXSD6hvGdvRjajG/l1cC+d6IrhH+sjmPKtYeQdJIK8MFJl3LyClzS+o/YsVC+zQZPupAaeH5skwwm8YqYH7BqA==}
 
 snapshots:
 
@@ -3698,3 +3735,5 @@ snapshots:
       zod: 4.5.4
 
   zod@4.5.4: {}
+
+  zod@4.6.4: {}
