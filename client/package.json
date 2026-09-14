@@ -34,11 +34,5 @@
     "globals": "catalog:",
     "typescript": "catalog:",
     "vite": "^8.2.2"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }

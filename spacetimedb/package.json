@@ -20,11 +20,5 @@
     "eslint-config-bananagrams": "workspace:^",
     "prettier": "catalog:",
     "typescript": "catalog:"
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }
