@@ -1,16 +1,13 @@
 import { createRoomSchema } from "bananagrams-utils";
 import { useNavigate } from "react-router";
-import { useReducer } from "spacetimedb/react";
 
 import Button from "./Button";
 import Form from "./Form";
 import InputField from "./InputField";
-import { reducers } from "./module_bindings";
 import styles from "./Root.module.css";
 
 export default function Root(): React.JSX.Element {
   const navigate = useNavigate();
-  const createRoom = useReducer(reducers.createRoom);
 
   return (
     <main className={styles.main}>
@@ -19,8 +16,8 @@ export default function Root(): React.JSX.Element {
       <Form
         className={styles.form}
         schema={createRoomSchema}
-        onSubmit={async (formData) => {
-          await createRoom(formData);
+        onSubmit={async () => {
+          // TODO: Create room
 
           // TODO: Navigate to room
           await navigate("/rooms/");

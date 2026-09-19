@@ -1,7 +1,6 @@
 packages:
   - client
   - eslint-config
-  - spacetimedb
   - utils
 
 catalog:
@@ -9,6 +8,5 @@ catalog:
   eslint: ^10.10.0
   globals: ^17.12.0
   prettier: ^3.9.6
-  spacetimedb: ~2.10.0
   typescript: npm:@typescript/typescript6@^6.0.2
   zod: ^4.6.2
