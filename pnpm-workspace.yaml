@@ -1,5 +1,5 @@
 packages:
-  - client
+  - app
   - eslint-config
   - utils
 
