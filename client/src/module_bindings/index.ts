@@ -39,6 +39,7 @@ import CreateRoomReducer from "./create_room_reducer";
 // Import all procedure arg schemas
 
 // Import all table schema definitions
+import MyPlayersRow from "./my_players_table";
 import PlayersRow from "./players_table";
 import RoomsRow from "./rooms_table";
 
@@ -56,6 +57,10 @@ const tablesSchema = __schema({
         'roomId',
         'userId',
       ] },
+      { accessor: 'byUserRoom', name: 'players_user_id_room_id_idx_btree', algorithm: 'btree', columns: [
+        'userId',
+        'roomId',
+      ] },
     ],
     constraints: [
       { name: 'players_id_key', constraint: 'unique', columns: ['id'] },
@@ -72,6 +77,13 @@ const tablesSchema = __schema({
       { name: 'rooms_id_key', constraint: 'unique', columns: ['id'] },
     ],
   }, RoomsRow),
+  myPlayers: __table({
+    name: 'myPlayers',
+    indexes: [
+    ],
+    constraints: [
+    ],
+  }, MyPlayersRow),
 });
 
 /** The schema information for all reducers in this module. This is defined the same way as the reducers would have been defined in the server, except the body of the reducer is omitted in code generation. */

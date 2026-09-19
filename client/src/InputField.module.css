@@ -1,0 +1,10 @@
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  &:has(+ [required]):after {
+    content: "*";
+  }
+}

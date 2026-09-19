@@ -3,10 +3,11 @@ import "./main.css";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router";
 import { SpacetimeDBProvider } from "spacetimedb/react";
 
-import App from "./App.tsx";
 import { DbConnection } from "./module_bindings/index.ts";
+import router from "./router.tsx";
 
 // TODO: Eventually use an environment variable
 const HOST = "ws://localhost:3000";
@@ -22,7 +23,7 @@ if (!root) {
 const connectionBuilder = DbConnection.builder()
   .withUri(HOST)
   .withDatabaseName(DB_NAME)
-  .withToken(localStorage.getItem(TOKEN_KEY) || undefined)
+  .withToken(localStorage.getItem(TOKEN_KEY) ?? undefined)
   .onConnect((_connection, _identity, token) => {
     localStorage.setItem(TOKEN_KEY, token);
   });
@@ -30,7 +31,7 @@ const connectionBuilder = DbConnection.builder()
 createRoot(root).render(
   <StrictMode>
     <SpacetimeDBProvider connectionBuilder={connectionBuilder}>
-      <App />
+      <RouterProvider router={router} />
     </SpacetimeDBProvider>
   </StrictMode>,
 );

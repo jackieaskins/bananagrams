@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bananagrams-utils": "workspace:",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "spacetimedb": "catalog:"
+    "react-router": "^8.3.1",
+    "spacetimedb": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",

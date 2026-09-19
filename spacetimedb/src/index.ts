@@ -1,33 +1,42 @@
 import { createRoomSchema } from "bananagrams-utils";
 import { schema, SenderError, t, table } from "spacetimedb/server";
 
+const rooms = table(
+  { name: "rooms", public: true },
+  {
+    id: t.uuid().primaryKey(),
+    name: t.string(),
+  },
+);
+
+const players = table(
+  {
+    name: "players",
+    public: true,
+    indexes: [
+      {
+        accessor: "byRoomUser",
+        algorithm: "btree",
+        columns: ["roomId", "userId"],
+      },
+      {
+        accessor: "byUserRoom",
+        algorithm: "btree",
+        columns: ["userId", "roomId"],
+      },
+    ],
+  },
+  {
+    id: t.u64().primaryKey().autoInc(),
+    userId: t.identity(),
+    roomId: t.uuid(),
+    username: t.string(),
+  },
+);
+
 const spacetimedb = schema({
-  rooms: table(
-    { name: "rooms", public: true },
-    {
-      id: t.uuid().primaryKey(),
-      name: t.string(),
-    },
-  ),
-  players: table(
-    {
-      name: "players",
-      public: true,
-      indexes: [
-        {
-          accessor: "byRoomUser",
-          algorithm: "btree",
-          columns: ["roomId", "userId"],
-        },
-      ],
-    },
-    {
-      id: t.u64().primaryKey().autoInc(),
-      userId: t.identity(),
-      roomId: t.uuid(),
-      username: t.string(),
-    },
-  ),
+  rooms,
+  players,
 });
 
 export default spacetimedb;
@@ -52,5 +61,13 @@ export const createRoom = spacetimedb.reducer(
       roomId,
       username,
     });
+  },
+);
+
+export const myPlayers = spacetimedb.view(
+  { name: "myPlayers", public: true },
+  t.array(players.rowType),
+  (ctx) => {
+    return Array.from(ctx.db.players.byUserRoom.filter(ctx.sender));
   },
 );
