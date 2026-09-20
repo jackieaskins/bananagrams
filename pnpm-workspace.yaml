@@ -3,6 +3,9 @@ packages:
   - eslint-config
   - utils
 
+allowBuilds:
+  esbuild: true
+
 catalog:
   "@typescript/native": npm:typescript@^7.0.2
   eslint: ^10.10.0

@@ -1,3 +1,4 @@
+import convex from "@convex-dev/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import bananagrams from "eslint-config-bananagrams";
 import jsxA11y from "eslint-plugin-jsx-a11y";
@@ -8,11 +9,12 @@ import reactX from "eslint-plugin-react-x";
 import globals from "globals";
 
 export default defineConfig([
-  globalIgnores(["dist", "src/module_bindings"]),
+  globalIgnores(["convex/_generated", "dist"]),
   bananagrams,
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
+      convex.configs.recommended,
       reactDom.configs.strict,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
@@ -22,6 +24,20 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
+    },
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["*/_generated/server"],
+              importNames: ["query", "mutation", "action"],
+              message: "Use auth.ts for query, mutation, or action",
+            },
+          ],
+        },
+      ],
     },
   },
 ]);
