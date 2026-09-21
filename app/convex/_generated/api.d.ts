@@ -8,11 +8,11 @@
  * @module
  */
 
-import type * as auth from "../auth.js";
-import type * as errors from "../errors.js";
-import type * as functions from "../functions.js";
-import type * as http from "../http.js";
+import type * as lib_errors from "../lib/errors.js";
+import type * as lib_functions from "../lib/functions.js";
+import type * as lib_user from "../lib/user.js";
 import type * as rooms from "../rooms.js";
+import type * as session from "../session.js";
 
 import type {
   ApiFromModules,
@@ -21,11 +21,11 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  auth: typeof auth;
-  errors: typeof errors;
-  functions: typeof functions;
-  http: typeof http;
+  "lib/errors": typeof lib_errors;
+  "lib/functions": typeof lib_functions;
+  "lib/user": typeof lib_user;
   rooms: typeof rooms;
+  session: typeof session;
 }>;
 
 /**

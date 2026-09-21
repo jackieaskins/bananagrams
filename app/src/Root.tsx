@@ -1,21 +1,26 @@
-import { useAuthActions } from "@convex-dev/auth/react";
-import { useConvexAuth } from "convex/react";
-import { useEffect } from "react";
+import { useSessionMutation } from "convex-helpers/react/sessions";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 
+import { api } from "../convex/_generated/api";
+
 export default function Root(): React.JSX.Element {
-  const { isAuthenticated } = useConvexAuth();
-  const { signIn } = useAuthActions();
+  const [sessionExists, setSessionExists] = useState(false);
+  const initializeSession = useSessionMutation(api.session.initialize);
 
   useEffect(() => {
-    void (async () => {
-      if (!isAuthenticated) {
-        await signIn("anonymous");
-      }
-    })();
-  }, [isAuthenticated, signIn]);
+    async function init() {
+      console.log("Initializing...");
+      await initializeSession();
+      setSessionExists(true);
+    }
 
-  if (!isAuthenticated) {
+    if (!sessionExists) {
+      void init();
+    }
+  }, [initializeSession, sessionExists]);
+
+  if (!sessionExists) {
     return <div>Authenticating...</div>;
   }
 

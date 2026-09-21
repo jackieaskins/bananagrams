@@ -1,5 +1,5 @@
 import { createRoomSchema } from "bananagrams-utils";
-import { useMutation } from "convex/react";
+import { useSessionMutation } from "convex-helpers/react/sessions";
 import { useNavigate } from "react-router";
 
 import { api } from "../convex/_generated/api";
@@ -9,7 +9,7 @@ import styles from "./Home.module.css";
 import InputField from "./InputField";
 
 export default function Home(): React.JSX.Element {
-  const createRoom = useMutation(api.rooms.createRoom);
+  const createRoom = useSessionMutation(api.rooms.createRoom);
   const navigate = useNavigate();
 
   return (

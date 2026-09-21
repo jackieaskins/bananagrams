@@ -25,6 +25,9 @@ export default defineConfig([
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
     },
+  },
+  {
+    files: ["convex/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -33,7 +36,12 @@ export default defineConfig([
             {
               group: ["*/_generated/server"],
               importNames: ["query", "mutation", "action"],
-              message: "Use auth.ts for query, mutation, or action",
+              message: "Use functions.ts for query, mutation, or action",
+            },
+            {
+              group: ["convex/values"],
+              importNames: ["ConvexError"],
+              message: "Use ApplicationError instead",
             },
           ],
         },
