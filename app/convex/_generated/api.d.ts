@@ -10,6 +10,7 @@
 
 import type * as lib_errors from "../lib/errors.js";
 import type * as lib_functions from "../lib/functions.js";
+import type * as lib_player from "../lib/player.js";
 import type * as lib_user from "../lib/user.js";
 import type * as rooms from "../rooms.js";
 import type * as session from "../session.js";
@@ -23,6 +24,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   "lib/errors": typeof lib_errors;
   "lib/functions": typeof lib_functions;
+  "lib/player": typeof lib_player;
   "lib/user": typeof lib_user;
   rooms: typeof rooms;
   session: typeof session;

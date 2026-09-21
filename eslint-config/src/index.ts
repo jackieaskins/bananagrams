@@ -35,6 +35,7 @@ export default defineConfig([
   {
     rules: {
       "@typescript-eslint/explicit-module-boundary-types": "error",
+      "no-console": "error",
       "object-shorthand": ["error", "always"],
 
       "@typescript-eslint/no-unused-vars": "off", // Let Typescript handle unused vars instead

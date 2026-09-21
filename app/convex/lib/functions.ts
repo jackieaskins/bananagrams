@@ -25,24 +25,12 @@ import {
   type QueryCtx,
 } from "../_generated/server";
 import { ApplicationError } from "./errors";
+import { getPlayer } from "./player";
 import { getUser } from "./user";
 
 type RoomValidation = "in-room" | "not-in-room" | "none";
 interface SessionExtra {
   roomValidation: RoomValidation;
-}
-
-async function getPlayer(
-  ctx: QueryCtx,
-  roomId: Id<"rooms">,
-  userId: Id<"users">,
-) {
-  return await ctx.db
-    .query("players")
-    .withIndex("by_roomId_userId", (q) =>
-      q.eq("roomId", roomId).eq("userId", userId),
-    )
-    .unique();
 }
 
 async function validateRoomPresence(

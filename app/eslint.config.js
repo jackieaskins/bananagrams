@@ -27,7 +27,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["convex/**/*.{ts,tsx}"],
+    files: ["convex/**/*.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -42,6 +42,23 @@ export default defineConfig([
               group: ["convex/values"],
               importNames: ["ConvexError"],
               message: "Use ApplicationError instead",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["convex*"],
+              importNames: ["useMutation", "useQuery"],
+              message: "Use useSessionQuery or useSessionMutation instead",
             },
           ],
         },

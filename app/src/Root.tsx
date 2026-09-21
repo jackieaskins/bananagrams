@@ -10,7 +10,6 @@ export default function Root(): React.JSX.Element {
 
   useEffect(() => {
     async function init() {
-      console.log("Initializing...");
       await initializeSession();
       setSessionExists(true);
     }
